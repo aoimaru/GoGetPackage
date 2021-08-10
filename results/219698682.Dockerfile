@@ -1,0 +1,52 @@
+[app/sources/219698682.Dockerfile]
+digraph {
+  "sha256:31c0412a8d4e43a0c6672cf0adf167f776b9a3835deb11e404b1792e9e729b5b" [label="local://context" shape="ellipse"];
+  "sha256:55d93663c42145de522a21142d95a501e8f5e0dc67ba235a54cc171dc8ae481a" [label="docker-image://docker.io/library/debian:jessie" shape="ellipse"];
+  "sha256:ad62f1d25f703182ec32730ba5d4cf6ea1a2d57a17346edaae65c40d633c8b35" [label="/bin/sh -c apt-get update  && apt-get install -y openssh-server  && apt-get clean  && rm -rf /var/lib/apt/lists/*" shape="box"];
+  "sha256:17b2ae33efcb7d2d519df524daf4997b9b1ec1e0a238b43272ae01c5a8e25395" [label="/bin/sh -c mkdir /var/run/sshd" shape="box"];
+  "sha256:06185cc4accbdd70e8975713c094abdcc12c8b4742d2e3c97ad328cfe337eb98" [label="copy{src=/ssh_host_rsa_key, dest=/tmp/etc/ssh/ssh_host_rsa_key}" shape="note"];
+  "sha256:abfc4618f33c725add158caaf5ae09f80eaf0ca6428d67e7dc17095949a88d59" [label="/bin/sh -c mv /tmp/etc/ssh/ssh_host_rsa_key /etc/ssh/ssh_host_rsa_key" shape="box"];
+  "sha256:1daa913fa0277b2fdf8de49e22e126364c3ab58a423af0d571d2aff8627374c0" [label="/bin/sh -c chmod 600 /etc/ssh/ssh_host_rsa_key" shape="box"];
+  "sha256:de19bd6af2b8fd60b6b56f77e4bfdbdc183bb6bc6b39d2f46556d8874fc34049" [label="copy{src=/ssh_host_ecdsa_key, dest=/tmp/etc/ssh/ssh_host_ecdsa_key}" shape="note"];
+  "sha256:a0f33e651c962716888e498c099e0e486cd62e679e136cb08121e0743d4d16f0" [label="/bin/sh -c mv /tmp/etc/ssh/ssh_host_ecdsa_key /etc/ssh/ssh_host_ecdsa_key" shape="box"];
+  "sha256:de16dfb78c45d8ad8fc205fc521ae84d464c78aa00f39914d098cbec3a718f90" [label="/bin/sh -c chmod 600 /etc/ssh/ssh_host_ecdsa_key" shape="box"];
+  "sha256:10df6a61d8696174ae5a76aae836481af03d28992278cf70ebd5aa9775bf8297" [label="copy{src=/ssh_host_ed25519_key, dest=/tmp/etc/ssh/ssh_host_ed25519_key}" shape="note"];
+  "sha256:0b8f82b1fe1d39ab43d6dff85de8607c2e1c8919690760fdd33d117583cefaac" [label="/bin/sh -c mv /tmp/etc/ssh/ssh_host_ed25519_key /etc/ssh/ssh_host_ed25519_key" shape="box"];
+  "sha256:d39a5afa378823cdc158fd06c8982d268b14e7e1297c83738036ac65fdbf6f2a" [label="/bin/sh -c chmod 600 /etc/ssh/ssh_host_ed25519_key" shape="box"];
+  "sha256:0f33bc670f16332f409d3a483fb4a295d506c26adc11570010ad697e6be51422" [label="/bin/sh -c adduser --disabled-password --gecos 'Test user for libssh2 integration tests' libssh2" shape="box"];
+  "sha256:2d4cf0266da0740756c08dbde2296ed9eecf1c028bc0f4e832060286b0afcc23" [label="/bin/sh -c echo 'libssh2:my test password' | chpasswd" shape="box"];
+  "sha256:4d3e2f6926e7d8eae06eca6943a9847a9f5c38b502341714fc0c2172ffb64baa" [label="/bin/sh -c sed -i 's/ChallengeResponseAuthentication no/ChallengeResponseAuthentication yes/' /etc/ssh/sshd_config" shape="box"];
+  "sha256:982bbc703cfeb38c8dfd18b397e43e2587ad9a33773dd8dfc0ab99db1b296b3c" [label="/bin/sh -c sed 's@session\\s*required\\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd" shape="box"];
+  "sha256:f80f4dc1daa749a096785740a1452aea5faebaa39298f00c29d9eb22121d29b0" [label="/bin/sh -c mkdir -p /home/libssh2/.ssh" shape="box"];
+  "sha256:f961031b1444d234269aad87c8ed0e9ef3b61ea496c30ff0ea96d77ec6a7f28b" [label="/bin/sh -c mkdir -p /home/libssh2/sandbox" shape="box"];
+  "sha256:6e2441036db71fff51454975a8e2f8a7935237dd74cf46bc35d8b06e6bb79471" [label="copy{src=/authorized_keys, dest=/tmp/libssh2/.ssh/authorized_keys}" shape="note"];
+  "sha256:8010a1eaf4ebd6a9f501e3af13dc9e2cf4e91fdad42626178f948df40df9ac3f" [label="/bin/sh -c cp /tmp/libssh2/.ssh/authorized_keys /home/libssh2/.ssh/authorized_keys" shape="box"];
+  "sha256:b4e1698ba5730f0309129e4c61fce27e12c53068928c3be99e7f10588a6d6b74" [label="/bin/sh -c chmod 600 /home/libssh2/.ssh/authorized_keys" shape="box"];
+  "sha256:6897a2f2a313fa5c7a26b23c23e98798c2e446fd56cdc3dbf12a2cabc2677063" [label="sha256:6897a2f2a313fa5c7a26b23c23e98798c2e446fd56cdc3dbf12a2cabc2677063" shape="plaintext"];
+  "sha256:55d93663c42145de522a21142d95a501e8f5e0dc67ba235a54cc171dc8ae481a" -> "sha256:ad62f1d25f703182ec32730ba5d4cf6ea1a2d57a17346edaae65c40d633c8b35" [label=""];
+  "sha256:ad62f1d25f703182ec32730ba5d4cf6ea1a2d57a17346edaae65c40d633c8b35" -> "sha256:17b2ae33efcb7d2d519df524daf4997b9b1ec1e0a238b43272ae01c5a8e25395" [label=""];
+  "sha256:17b2ae33efcb7d2d519df524daf4997b9b1ec1e0a238b43272ae01c5a8e25395" -> "sha256:06185cc4accbdd70e8975713c094abdcc12c8b4742d2e3c97ad328cfe337eb98" [label=""];
+  "sha256:31c0412a8d4e43a0c6672cf0adf167f776b9a3835deb11e404b1792e9e729b5b" -> "sha256:06185cc4accbdd70e8975713c094abdcc12c8b4742d2e3c97ad328cfe337eb98" [label=""];
+  "sha256:06185cc4accbdd70e8975713c094abdcc12c8b4742d2e3c97ad328cfe337eb98" -> "sha256:abfc4618f33c725add158caaf5ae09f80eaf0ca6428d67e7dc17095949a88d59" [label=""];
+  "sha256:abfc4618f33c725add158caaf5ae09f80eaf0ca6428d67e7dc17095949a88d59" -> "sha256:1daa913fa0277b2fdf8de49e22e126364c3ab58a423af0d571d2aff8627374c0" [label=""];
+  "sha256:1daa913fa0277b2fdf8de49e22e126364c3ab58a423af0d571d2aff8627374c0" -> "sha256:de19bd6af2b8fd60b6b56f77e4bfdbdc183bb6bc6b39d2f46556d8874fc34049" [label=""];
+  "sha256:31c0412a8d4e43a0c6672cf0adf167f776b9a3835deb11e404b1792e9e729b5b" -> "sha256:de19bd6af2b8fd60b6b56f77e4bfdbdc183bb6bc6b39d2f46556d8874fc34049" [label=""];
+  "sha256:de19bd6af2b8fd60b6b56f77e4bfdbdc183bb6bc6b39d2f46556d8874fc34049" -> "sha256:a0f33e651c962716888e498c099e0e486cd62e679e136cb08121e0743d4d16f0" [label=""];
+  "sha256:a0f33e651c962716888e498c099e0e486cd62e679e136cb08121e0743d4d16f0" -> "sha256:de16dfb78c45d8ad8fc205fc521ae84d464c78aa00f39914d098cbec3a718f90" [label=""];
+  "sha256:de16dfb78c45d8ad8fc205fc521ae84d464c78aa00f39914d098cbec3a718f90" -> "sha256:10df6a61d8696174ae5a76aae836481af03d28992278cf70ebd5aa9775bf8297" [label=""];
+  "sha256:31c0412a8d4e43a0c6672cf0adf167f776b9a3835deb11e404b1792e9e729b5b" -> "sha256:10df6a61d8696174ae5a76aae836481af03d28992278cf70ebd5aa9775bf8297" [label=""];
+  "sha256:10df6a61d8696174ae5a76aae836481af03d28992278cf70ebd5aa9775bf8297" -> "sha256:0b8f82b1fe1d39ab43d6dff85de8607c2e1c8919690760fdd33d117583cefaac" [label=""];
+  "sha256:0b8f82b1fe1d39ab43d6dff85de8607c2e1c8919690760fdd33d117583cefaac" -> "sha256:d39a5afa378823cdc158fd06c8982d268b14e7e1297c83738036ac65fdbf6f2a" [label=""];
+  "sha256:d39a5afa378823cdc158fd06c8982d268b14e7e1297c83738036ac65fdbf6f2a" -> "sha256:0f33bc670f16332f409d3a483fb4a295d506c26adc11570010ad697e6be51422" [label=""];
+  "sha256:0f33bc670f16332f409d3a483fb4a295d506c26adc11570010ad697e6be51422" -> "sha256:2d4cf0266da0740756c08dbde2296ed9eecf1c028bc0f4e832060286b0afcc23" [label=""];
+  "sha256:2d4cf0266da0740756c08dbde2296ed9eecf1c028bc0f4e832060286b0afcc23" -> "sha256:4d3e2f6926e7d8eae06eca6943a9847a9f5c38b502341714fc0c2172ffb64baa" [label=""];
+  "sha256:4d3e2f6926e7d8eae06eca6943a9847a9f5c38b502341714fc0c2172ffb64baa" -> "sha256:982bbc703cfeb38c8dfd18b397e43e2587ad9a33773dd8dfc0ab99db1b296b3c" [label=""];
+  "sha256:982bbc703cfeb38c8dfd18b397e43e2587ad9a33773dd8dfc0ab99db1b296b3c" -> "sha256:f80f4dc1daa749a096785740a1452aea5faebaa39298f00c29d9eb22121d29b0" [label=""];
+  "sha256:f80f4dc1daa749a096785740a1452aea5faebaa39298f00c29d9eb22121d29b0" -> "sha256:f961031b1444d234269aad87c8ed0e9ef3b61ea496c30ff0ea96d77ec6a7f28b" [label=""];
+  "sha256:f961031b1444d234269aad87c8ed0e9ef3b61ea496c30ff0ea96d77ec6a7f28b" -> "sha256:6e2441036db71fff51454975a8e2f8a7935237dd74cf46bc35d8b06e6bb79471" [label=""];
+  "sha256:31c0412a8d4e43a0c6672cf0adf167f776b9a3835deb11e404b1792e9e729b5b" -> "sha256:6e2441036db71fff51454975a8e2f8a7935237dd74cf46bc35d8b06e6bb79471" [label=""];
+  "sha256:6e2441036db71fff51454975a8e2f8a7935237dd74cf46bc35d8b06e6bb79471" -> "sha256:8010a1eaf4ebd6a9f501e3af13dc9e2cf4e91fdad42626178f948df40df9ac3f" [label=""];
+  "sha256:8010a1eaf4ebd6a9f501e3af13dc9e2cf4e91fdad42626178f948df40df9ac3f" -> "sha256:b4e1698ba5730f0309129e4c61fce27e12c53068928c3be99e7f10588a6d6b74" [label=""];
+  "sha256:b4e1698ba5730f0309129e4c61fce27e12c53068928c3be99e7f10588a6d6b74" -> "sha256:6897a2f2a313fa5c7a26b23c23e98798c2e446fd56cdc3dbf12a2cabc2677063" [label=""];
+}
+

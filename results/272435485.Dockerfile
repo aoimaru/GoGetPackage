@@ -1,0 +1,24 @@
+[app/sources/272435485.Dockerfile]
+digraph {
+  "sha256:04187b885604d112762d71717a1346cbc4f17e131fc82857a048019e04951455" [label="docker-image://docker.io/library/ubuntu:16.04" shape="ellipse"];
+  "sha256:4e7c17301aed967156c9ac293bc8a108be44d581dc7e29e192982ae6bc09133e" [label="/bin/sh -c ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone" shape="box"];
+  "sha256:7881954db5b0f7b25e3fa0427984b69c3a60adc6bb6837c707c16b07406473d7" [label="/bin/sh -c find /etc/systemd/system          /lib/systemd/system          -path '*.wants/*'          -not -name '*journald*'          -not -name '*systemd-tmpfiles*'          -not -name '*systemd-user-sessions*'          -exec rm \\{} \\;" shape="box"];
+  "sha256:328fa64cbc8abf0bf29a3063437585363c971271e239edeb8893485de75a838b" [label="/bin/sh -c systemctl set-default multi-user.target" shape="box"];
+  "sha256:879471584e07bfad8b18f3377f0bf75a471eb7a18dc124bafba3a9e73933ec33" [label="/bin/sh -c echo \"deb http://ppa.launchpad.net/ondrej/php/ubuntu trusty main\" >> /etc/apt/sources.list && \tapt-key adv --keyserver keyserver.ubuntu.com --recv-key E5267A6C && \tapt update && \tapt install --no-install-recommends -y locales curl ca-certificates         alien libxml2 libxml2-dev libboost-dev build-essential         php5.6 php5.6-cli php5.6-dev php5.6-json php5.6-mcrypt php5.6-curl php5.6-SimpleXML && \tlocale-gen en_US en_US.UTF-8 && dpkg-reconfigure locales" shape="box"];
+  "sha256:e2c44e86cfe27f4829d45fd5a970194bfb2344a5d00fad312636c6e5726a33a3" [label="local://context" shape="ellipse"];
+  "sha256:1a6c941971db78ec893c83bf716bef20f8f103bff6724c673c157cec63cb4b99" [label="copy{src=/dist, dest=/root/}" shape="note"];
+  "sha256:9f63f7e4c63b4d9ff6d1d4d42fabc035cb6d06daf342911f9c0779468af2be5a" [label="copy{src=/conf, dest=/root/}" shape="note"];
+  "sha256:15f9496edfcb976e7513ff9214e210872efbd8ce6e0745b326cb389d2af8eeb1" [label="/bin/sh -c mkdir /www && \tcd /root && \tchmod +x start.sh && \ttar -xf linux-amd64_deb.tgz && \tcd /root/linux-amd64_deb && \t./install.sh && \tdpkg -i lsb-cprocsp-kc2* && \tcd /root && \ttar -xf cades_linux_amd64.tar.gz && \talien -i cprocsp-pki-2.0.0-amd64-cades.rpm && \talien -kci lsb-cprocsp-devel-4.0.0-4.noarch.rpm && \ttar -xf php-5.6.30.tar.bz2 && \tcd /root/php-5.6.30 && \t./configure && \tcd .. && \tcp Makefile.unix /opt/cprocsp/src/phpcades && \tln -s /opt/cprocsp/lib/amd64/libcppcades.so.2 /opt/cprocsp/lib/amd64/libcppcades.so && \tcd /opt/cprocsp/src/phpcades/ && \teval `/opt/cprocsp/src/doxygen/CSP/../setenv.sh --64`; make -f Makefile.unix && \tln -s /opt/cprocsp/src/phpcades/libphpcades.so $(php5.6 -i | grep 'extension_dir => ' | awk '{print $3}')/libcppcades.so && \techo \"extension=libcppcades.so\" > /etc/php/5.6/cli/conf.d/20-libcppcades.ini && \tphp5.6 -i | grep CSP && \t/opt/cprocsp/sbin/amd64/cpconfig -ini \\\\config\\\\apppath -add string libcurl.so /usr/lib/x86_64-linux-gnu/libcurl.so.4" shape="box"];
+  "sha256:c5a0637395558c2ba8f74995119c3f1624e9916221d1e46d79b88ca27f239047" [label="sha256:c5a0637395558c2ba8f74995119c3f1624e9916221d1e46d79b88ca27f239047" shape="plaintext"];
+  "sha256:04187b885604d112762d71717a1346cbc4f17e131fc82857a048019e04951455" -> "sha256:4e7c17301aed967156c9ac293bc8a108be44d581dc7e29e192982ae6bc09133e" [label=""];
+  "sha256:4e7c17301aed967156c9ac293bc8a108be44d581dc7e29e192982ae6bc09133e" -> "sha256:7881954db5b0f7b25e3fa0427984b69c3a60adc6bb6837c707c16b07406473d7" [label=""];
+  "sha256:7881954db5b0f7b25e3fa0427984b69c3a60adc6bb6837c707c16b07406473d7" -> "sha256:328fa64cbc8abf0bf29a3063437585363c971271e239edeb8893485de75a838b" [label=""];
+  "sha256:328fa64cbc8abf0bf29a3063437585363c971271e239edeb8893485de75a838b" -> "sha256:879471584e07bfad8b18f3377f0bf75a471eb7a18dc124bafba3a9e73933ec33" [label=""];
+  "sha256:879471584e07bfad8b18f3377f0bf75a471eb7a18dc124bafba3a9e73933ec33" -> "sha256:1a6c941971db78ec893c83bf716bef20f8f103bff6724c673c157cec63cb4b99" [label=""];
+  "sha256:e2c44e86cfe27f4829d45fd5a970194bfb2344a5d00fad312636c6e5726a33a3" -> "sha256:1a6c941971db78ec893c83bf716bef20f8f103bff6724c673c157cec63cb4b99" [label=""];
+  "sha256:1a6c941971db78ec893c83bf716bef20f8f103bff6724c673c157cec63cb4b99" -> "sha256:9f63f7e4c63b4d9ff6d1d4d42fabc035cb6d06daf342911f9c0779468af2be5a" [label=""];
+  "sha256:e2c44e86cfe27f4829d45fd5a970194bfb2344a5d00fad312636c6e5726a33a3" -> "sha256:9f63f7e4c63b4d9ff6d1d4d42fabc035cb6d06daf342911f9c0779468af2be5a" [label=""];
+  "sha256:9f63f7e4c63b4d9ff6d1d4d42fabc035cb6d06daf342911f9c0779468af2be5a" -> "sha256:15f9496edfcb976e7513ff9214e210872efbd8ce6e0745b326cb389d2af8eeb1" [label=""];
+  "sha256:15f9496edfcb976e7513ff9214e210872efbd8ce6e0745b326cb389d2af8eeb1" -> "sha256:c5a0637395558c2ba8f74995119c3f1624e9916221d1e46d79b88ca27f239047" [label=""];
+}
+

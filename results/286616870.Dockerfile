@@ -1,0 +1,55 @@
+[app/sources/286616870.Dockerfile]
+digraph {
+  "sha256:ea844eb9d162f632d9385a13ed79e97bd46366f726534e1058c35bce1c7625b3" [label="docker-image://docker.io/tensorflow/tensorflow:1.6.0-gpu" shape="ellipse"];
+  "sha256:476b2ccc8e56a635dcada1e363fc8983fca040326db4724f2b11c6c1511b45e5" [label="/bin/sh -c sed -i 's/archive.ubuntu/mirrors.aliyun/g' /etc/apt/sources.list" shape="box"];
+  "sha256:037f32286bfdd4cc74bba742a35de5fb6387e39ea0e82ea4a9160f09276309a8" [label="/bin/sh -c apt-get update" shape="box"];
+  "sha256:3660ab92bfdf34d08a96d4a4ba8322376c3aee87eee211b15d11e05f8f8370aa" [label="/bin/sh -c apt-get -y install tzdata" shape="box"];
+  "sha256:415b9d5a5866f452e72d7a8924bfe375c730d003d395f717514b455d7b7d642f" [label="/bin/sh -c ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone" shape="box"];
+  "sha256:db200367c1be758a28cff347653c3c88ae93885695bdbcb83521546e932b989d" [label="/bin/sh -c apt-get -y install locales" shape="box"];
+  "sha256:c8ea644ff0366661c8dd41a727024c8ae7762405da194cf85ebc8c5abf1721d1" [label="/bin/sh -c locale-gen en_US.UTF-8" shape="box"];
+  "sha256:bf3eeb3cc4b4a7f08cf2fe5149e8da0b9969ea7abddf5ced773f7739d0d1cf87" [label="/bin/sh -c echo \"LANG=\\\"en_US.UTF-8\\\"\" > /etc/default/locale &&     echo \"LANGUAGE=\\\"en_US:en\\\"\" >> /etc/default/locale &&     echo \"LC_ALL=\\\"en_US.UTF-8\\\"\" >> /etc/default/locale" shape="box"];
+  "sha256:bf5357e68103768340f5188758c7dbb3be7be123fad5bf7ccbf52caeb34a50e1" [label="/bin/sh -c mkdir -p /root/.pip" shape="box"];
+  "sha256:bfa3551a6b09ab7517f0428c2fd529c7adfd328db952dc7359a80380987e8de5" [label="/bin/sh -c echo \"[global]\" > /root/.pip/pip.conf &&     echo \"index-url=http://mirrors.aliyun.com/pypi/simple/\" >> /root/.pip/pip.conf &&     echo \"[install]\" >> /root/.pip/pip.conf &&     echo \"trusted-host=mirrors.aliyun.com\" >> /root/.pip/pip.conf" shape="box"];
+  "sha256:33c51ba9c12e49b748a2a95999ef5b1b462dd1417557819f74ebe96da5e84180" [label="/bin/sh -c mkdir -p /root/.jupyter" shape="box"];
+  "sha256:7c427ccf723780cb6ca2f59af30737096e98969d36b877a7d93a00f02adb7bd1" [label="/bin/sh -c echo \"# Jupyter config file\" > /root/.jupyter/jupyter_config.py &&     echo \"c.NotebookApp.ip = '*'\" >> /root/.jupyter/jupyter_config.py &&     echo \"c.NotebookApp.notebook_dir = u'/GPUDemo/object-detection/'\" >> /root/.jupyter/jupyter_config.py &&     echo \"c.NotebookApp.open_browser = False\" >> /root/.jupyter/jupyter_config.py &&     echo \"c.NotebookApp.allow_root = True\">> /root/.jupyter/jupyter_config.py &&     echo \"c.NotebookApp.port = 8888\">> /root/.jupyter/jupyter_config.py &&     echo \"# default password: 12345678\">> /root/.jupyter/jupyter_config.py &&     echo \"c.NotebookApp.password = u'sha1:d501736a80f9:2bf882737f5ded39b8d1803b0c3ca385325fbfa8'\" >>     /root/.jupyter/jupyter_config.py" shape="box"];
+  "sha256:d579bdf0e2e647045c6437a6e55c15b2d6f8af2027d2c8633b9e981db9d151ff" [label="/bin/sh -c apt-get -y install apt-utils python python-dev python-pip     lib32z1 libglib2.0-dev libsm6 libxrender1     libxext6 libice6 libxt6 libfontconfig1 libcups2     protobuf-compiler python-tk git vim     &&     apt-get clean &&     rm -rf /var/lib/apt/lists/*" shape="box"];
+  "sha256:859114f076d55dbef1f1bdb5730f6a0383807ce8115476a2752082d84c18883e" [label="/bin/sh -c pip install --upgrade pip" shape="box"];
+  "sha256:e0bdb86ad560c7d71da0ee363e07bfc384bda6419fd6faba168f5d4277a84ef5" [label="/bin/sh -c pip  --no-cache-dir install opencv-python Cython lxml flask" shape="box"];
+  "sha256:d99aafd283f1e6c11c9b2af6760db68251fc0ba4b427c54036ebaefbb314a606" [label="/bin/sh -c git clone https://github.com/aggresss/GPUDemo.git /GPUDemo" shape="box"];
+  "sha256:06d9e66d7cb126bc82f74dda7533166135cdee7f36a08aac9427f8ee11bc6bac" [label="mkdir{path=/GPUDemo/object-detection}" shape="note"];
+  "sha256:60206b2308d9e01da9b115ab90a2c2aa899c48f0f738b45ab0d85004f1d3d644" [label="/bin/sh -c protoc object_detection/protos/*.proto --python_out=." shape="box"];
+  "sha256:86e4c17d83434b729d9b506846840de11851e0c7510538ccb309502159bead2d" [label="/bin/sh -c git clone https://github.com/cocodataset/cocoapi.git" shape="box"];
+  "sha256:b0577f94596ccfd10e175d6644bfb3dcc48c3e8535fc7085831c791bb93a5d46" [label="mkdir{path=/cocoapi/PythonAPI}" shape="note"];
+  "sha256:dd95bbcab48cd150e7c871ea4a648fc61f0bd1d419f50befcad33c6d9489d06e" [label="/bin/sh -c make" shape="box"];
+  "sha256:18ffc1a8f10d2db4173a937c2c0792ecb7aa3baa92d46b2339db5628aba533a6" [label="/bin/sh -c cp -r pycocotools /GPUDemo/object-detection/" shape="box"];
+  "sha256:68c8af90467efc44e09e1706996de7386fccf7bb10d91fa50a94ac50e684e777" [label="/bin/sh -c echo '#!/bin/sh' > /run.sh &&     echo \"nohup jupyter notebook\" >> /run.sh" shape="box"];
+  "sha256:923972123aa53081414fa6b9b58cc040ad39882249d838f4d9159e2ccb3ef273" [label="/bin/sh -c chmod +x /run.sh" shape="box"];
+  "sha256:69eed8fc11b8385e4b10b859088c95543c54454e70f63b9bcda61315be7a43da" [label="mkdir{path=/GPUDemo/object-detection}" shape="note"];
+  "sha256:f91948f8b668f7d582757d04efde6f9c90f4f61f3dcf2ef70c33870c5fe7f57a" [label="sha256:f91948f8b668f7d582757d04efde6f9c90f4f61f3dcf2ef70c33870c5fe7f57a" shape="plaintext"];
+  "sha256:ea844eb9d162f632d9385a13ed79e97bd46366f726534e1058c35bce1c7625b3" -> "sha256:476b2ccc8e56a635dcada1e363fc8983fca040326db4724f2b11c6c1511b45e5" [label=""];
+  "sha256:476b2ccc8e56a635dcada1e363fc8983fca040326db4724f2b11c6c1511b45e5" -> "sha256:037f32286bfdd4cc74bba742a35de5fb6387e39ea0e82ea4a9160f09276309a8" [label=""];
+  "sha256:037f32286bfdd4cc74bba742a35de5fb6387e39ea0e82ea4a9160f09276309a8" -> "sha256:3660ab92bfdf34d08a96d4a4ba8322376c3aee87eee211b15d11e05f8f8370aa" [label=""];
+  "sha256:3660ab92bfdf34d08a96d4a4ba8322376c3aee87eee211b15d11e05f8f8370aa" -> "sha256:415b9d5a5866f452e72d7a8924bfe375c730d003d395f717514b455d7b7d642f" [label=""];
+  "sha256:415b9d5a5866f452e72d7a8924bfe375c730d003d395f717514b455d7b7d642f" -> "sha256:db200367c1be758a28cff347653c3c88ae93885695bdbcb83521546e932b989d" [label=""];
+  "sha256:db200367c1be758a28cff347653c3c88ae93885695bdbcb83521546e932b989d" -> "sha256:c8ea644ff0366661c8dd41a727024c8ae7762405da194cf85ebc8c5abf1721d1" [label=""];
+  "sha256:c8ea644ff0366661c8dd41a727024c8ae7762405da194cf85ebc8c5abf1721d1" -> "sha256:bf3eeb3cc4b4a7f08cf2fe5149e8da0b9969ea7abddf5ced773f7739d0d1cf87" [label=""];
+  "sha256:bf3eeb3cc4b4a7f08cf2fe5149e8da0b9969ea7abddf5ced773f7739d0d1cf87" -> "sha256:bf5357e68103768340f5188758c7dbb3be7be123fad5bf7ccbf52caeb34a50e1" [label=""];
+  "sha256:bf5357e68103768340f5188758c7dbb3be7be123fad5bf7ccbf52caeb34a50e1" -> "sha256:bfa3551a6b09ab7517f0428c2fd529c7adfd328db952dc7359a80380987e8de5" [label=""];
+  "sha256:bfa3551a6b09ab7517f0428c2fd529c7adfd328db952dc7359a80380987e8de5" -> "sha256:33c51ba9c12e49b748a2a95999ef5b1b462dd1417557819f74ebe96da5e84180" [label=""];
+  "sha256:33c51ba9c12e49b748a2a95999ef5b1b462dd1417557819f74ebe96da5e84180" -> "sha256:7c427ccf723780cb6ca2f59af30737096e98969d36b877a7d93a00f02adb7bd1" [label=""];
+  "sha256:7c427ccf723780cb6ca2f59af30737096e98969d36b877a7d93a00f02adb7bd1" -> "sha256:d579bdf0e2e647045c6437a6e55c15b2d6f8af2027d2c8633b9e981db9d151ff" [label=""];
+  "sha256:d579bdf0e2e647045c6437a6e55c15b2d6f8af2027d2c8633b9e981db9d151ff" -> "sha256:859114f076d55dbef1f1bdb5730f6a0383807ce8115476a2752082d84c18883e" [label=""];
+  "sha256:859114f076d55dbef1f1bdb5730f6a0383807ce8115476a2752082d84c18883e" -> "sha256:e0bdb86ad560c7d71da0ee363e07bfc384bda6419fd6faba168f5d4277a84ef5" [label=""];
+  "sha256:e0bdb86ad560c7d71da0ee363e07bfc384bda6419fd6faba168f5d4277a84ef5" -> "sha256:d99aafd283f1e6c11c9b2af6760db68251fc0ba4b427c54036ebaefbb314a606" [label=""];
+  "sha256:d99aafd283f1e6c11c9b2af6760db68251fc0ba4b427c54036ebaefbb314a606" -> "sha256:06d9e66d7cb126bc82f74dda7533166135cdee7f36a08aac9427f8ee11bc6bac" [label=""];
+  "sha256:06d9e66d7cb126bc82f74dda7533166135cdee7f36a08aac9427f8ee11bc6bac" -> "sha256:60206b2308d9e01da9b115ab90a2c2aa899c48f0f738b45ab0d85004f1d3d644" [label=""];
+  "sha256:60206b2308d9e01da9b115ab90a2c2aa899c48f0f738b45ab0d85004f1d3d644" -> "sha256:86e4c17d83434b729d9b506846840de11851e0c7510538ccb309502159bead2d" [label=""];
+  "sha256:86e4c17d83434b729d9b506846840de11851e0c7510538ccb309502159bead2d" -> "sha256:b0577f94596ccfd10e175d6644bfb3dcc48c3e8535fc7085831c791bb93a5d46" [label=""];
+  "sha256:b0577f94596ccfd10e175d6644bfb3dcc48c3e8535fc7085831c791bb93a5d46" -> "sha256:dd95bbcab48cd150e7c871ea4a648fc61f0bd1d419f50befcad33c6d9489d06e" [label=""];
+  "sha256:dd95bbcab48cd150e7c871ea4a648fc61f0bd1d419f50befcad33c6d9489d06e" -> "sha256:18ffc1a8f10d2db4173a937c2c0792ecb7aa3baa92d46b2339db5628aba533a6" [label=""];
+  "sha256:18ffc1a8f10d2db4173a937c2c0792ecb7aa3baa92d46b2339db5628aba533a6" -> "sha256:68c8af90467efc44e09e1706996de7386fccf7bb10d91fa50a94ac50e684e777" [label=""];
+  "sha256:68c8af90467efc44e09e1706996de7386fccf7bb10d91fa50a94ac50e684e777" -> "sha256:923972123aa53081414fa6b9b58cc040ad39882249d838f4d9159e2ccb3ef273" [label=""];
+  "sha256:923972123aa53081414fa6b9b58cc040ad39882249d838f4d9159e2ccb3ef273" -> "sha256:69eed8fc11b8385e4b10b859088c95543c54454e70f63b9bcda61315be7a43da" [label=""];
+  "sha256:69eed8fc11b8385e4b10b859088c95543c54454e70f63b9bcda61315be7a43da" -> "sha256:f91948f8b668f7d582757d04efde6f9c90f4f61f3dcf2ef70c33870c5fe7f57a" [label=""];
+}
+

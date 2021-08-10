@@ -1,0 +1,56 @@
+[app/sources/318698743.Dockerfile]
+digraph {
+  "sha256:5e99f7e0bdfe8e77f55b5feb7b41f94fb49f2a59ab8f418b939cfe0f3e5da6fb" [label="docker-image://docker.io/bluebrain/rtneuron_builder:latest" shape="ellipse"];
+  "sha256:1662df30e17d9d13305daf7e40eaddd82c902b5c9a6bf52682db920c3174be5b" [label="local://context" shape="ellipse"];
+  "sha256:d8cb321ded847641075a9f486e7b9f4055e2d952216c84ade5c579093b0cfc4d" [label="copy{src=/, dest=/RTNeuron}" shape="note"];
+  "sha256:ceeec187c7c10a2708eacb388358fe9f781f85be0cd62db53b5f47f570dc7ccb" [label="/bin/sh -c cd /RTNeuron && mkdir build && cd build && cmake ../ -DCLONE_SUBPROJECTS=ON -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local && make -j mvd-tool RTNeuron-all RTNeuron-install" shape="box"];
+  "sha256:8cf8bedba2f9963287418eeaa3c540554da008ceed3e8ec12b8e880005c6bad3" [label="/bin/sh -c mkdir -p /root/RT" shape="box"];
+  "sha256:c1357804d700492f2844945007275e62cba3e675bf0477b33a93bca31e3e2a03" [label="/bin/sh -c mkdir -p ./usr/" shape="box"];
+  "sha256:ad29215a5b9097073b03996c7e825415fac25affcb22e5b000b4396ad2926d46" [label="mkdir{path=/root/RT}" shape="note"];
+  "sha256:7e35e614221d66ceadaddc6a22527a7e9a296f4823793e9e4e77b0c4c41757a3" [label="/bin/sh -c /usr/local/bin/python3.7 -m venv --copies usr" shape="box"];
+  "sha256:7d4b3ad87d59e0cefae3431e4b5e7844ad5f00026c6137f0cfeef4de2ea4adce" [label="/bin/sh -c rsync -av --exclude site-packages /usr/local/lib/python3.7/ /root/RT/usr/lib64/python3.7/" shape="box"];
+  "sha256:12263f81e75d9d8f108b12a6bd11cd759dbb6d795f63df63112f3453a4b29d7b" [label="/bin/sh -c source  ./usr/bin/activate && pip install pyopengl numpy PyQt5==5.9.2 ipython" shape="box"];
+  "sha256:854efd0a8a982242448e4e0b3489d5bfa56f79d52086eb2f7301c1adc5e174d5" [label="/bin/sh -c cp -r /usr/local/lib/python3.7/site-packages/rtneuron/ ${PYTHON_SITE_PACKAGES} &&   cp -r /usr/local/lib/python3.7/site-packages/brain/ ${PYTHON_SITE_PACKAGES}" shape="box"];
+  "sha256:7f963feb087a787675747a5659c076f8d4a12ac2b67ba29f3607c93f814a5ebf" [label="/bin/sh -c cp -Pr /usr/local/lib64/lib*so* /usr/local/lib/lib*so* /usr/lib64/libGLEWmx* /usr/lib64/libturbojpeg.so* /usr/lib64/libpng*.so* /usr/lib64/libjpeg*.so* usr/lib" shape="box"];
+  "sha256:9ccf3437dbb95cb9a17a31f3f3da2a7639a61cb963fe46bf5d1c10d21b879308" [label="/bin/sh -c mkdir usr/lib/osgPlugins-3.4.1 && for ext in `echo 3ds bmp ive jpeg lwo obj osg ply png pnm stl tga tiff`; do cp /usr/local/lib64/osgPlugins-3.4.1/osgdb_$ext.so usr/lib/osgPlugins-3.4.1; done" shape="box"];
+  "sha256:048f3d3baa4b463b74e426a78f8540178cec7c190b7e1516d05b313f02c16c7e" [label="/bin/sh -c cp /usr/lib64/libjpeg.so* /usr/lib64/libpng*.so* /usr/lib64/libtiff.so* /usr/lib64/libjbig* usr/lib" shape="box"];
+  "sha256:3535da93b1124a6ea1fd9446fda39fe3d7a91e9b9e9a797ae4cdc8b974066203" [label="/bin/sh -c mkdir -p usr/share/RTNeuron && cp -rf /usr/local/share/RTNeuron/shaders usr/share/RTNeuron" shape="box"];
+  "sha256:d692f0b6236bf8513ceb29c49dc1e372ad5992452b9f63b5f441ad695b4cd440" [label="/bin/sh -c mkdir -p usr/share/osgTransparency && cp -rf /usr/local/share/osgTransparency/shaders usr/share/osgTransparency" shape="box"];
+  "sha256:71d5d1cef47b1cf376ed7e9b58319a878db8a540f854b2c4b6c06d5872731690" [label="/bin/sh -c cp -r /usr/local/bin/rtneuron usr/bin" shape="box"];
+  "sha256:89e64fdc83c513f00dae97f30bedd6c54cbe9a732db98bd781a7ee39af83aa2f" [label="mkdir{path=/root}" shape="note"];
+  "sha256:00f0a87b97521ef9cf9b1a1ef2fae913eb9d05fa5b3e978c67ad744516762575" [label="/bin/sh -c curl -LO https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage && chmod +x ./linuxdeploy-x86_64.AppImage" shape="box"];
+  "sha256:3cfc0cf1f376318dd710b57a885a4b3eb2c4efb56cc88b981656e5cdd466fc5e" [label="/bin/sh -c curl -LO https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage" shape="box"];
+  "sha256:9e1f8e02fc52b07771c65312aec62f235f844acefba222409c09db7b327be4aa" [label="/bin/sh -c chmod +x /root/appimagetool-x86_64.AppImage" shape="box"];
+  "sha256:e2259cb999048ccba66ab07fd7638e4586a2692a1dc7cf63f129f907de1ab984" [label="/bin/sh -c /root/appimagetool-x86_64.AppImage --appimage-extract" shape="box"];
+  "sha256:5426a1e63b44838ee6a31ce6dddb3a6e781ebd2cfa8b55be7a363a3d92f13cdc" [label="mkdir{path=/root/RT}" shape="note"];
+  "sha256:e45c54ab042b5e8f6f8ab59605a6d22457903d70edfeeb128d830a07c761909c" [label="copy{src=/packaging/AppImage/config, dest=/root/RT/}" shape="note"];
+  "sha256:da4ed5765f54c1cb793880da052ea8e986a13a9d18defef3353984576356a724" [label="/bin/sh -c chmod +x /root/RT/AppRun" shape="box"];
+  "sha256:b3217861478e16ca33a366489c37338c206fac47786945e9377b61f29b13cb75" [label="sha256:b3217861478e16ca33a366489c37338c206fac47786945e9377b61f29b13cb75" shape="plaintext"];
+  "sha256:5e99f7e0bdfe8e77f55b5feb7b41f94fb49f2a59ab8f418b939cfe0f3e5da6fb" -> "sha256:d8cb321ded847641075a9f486e7b9f4055e2d952216c84ade5c579093b0cfc4d" [label=""];
+  "sha256:1662df30e17d9d13305daf7e40eaddd82c902b5c9a6bf52682db920c3174be5b" -> "sha256:d8cb321ded847641075a9f486e7b9f4055e2d952216c84ade5c579093b0cfc4d" [label=""];
+  "sha256:d8cb321ded847641075a9f486e7b9f4055e2d952216c84ade5c579093b0cfc4d" -> "sha256:ceeec187c7c10a2708eacb388358fe9f781f85be0cd62db53b5f47f570dc7ccb" [label=""];
+  "sha256:ceeec187c7c10a2708eacb388358fe9f781f85be0cd62db53b5f47f570dc7ccb" -> "sha256:8cf8bedba2f9963287418eeaa3c540554da008ceed3e8ec12b8e880005c6bad3" [label=""];
+  "sha256:8cf8bedba2f9963287418eeaa3c540554da008ceed3e8ec12b8e880005c6bad3" -> "sha256:c1357804d700492f2844945007275e62cba3e675bf0477b33a93bca31e3e2a03" [label=""];
+  "sha256:c1357804d700492f2844945007275e62cba3e675bf0477b33a93bca31e3e2a03" -> "sha256:ad29215a5b9097073b03996c7e825415fac25affcb22e5b000b4396ad2926d46" [label=""];
+  "sha256:ad29215a5b9097073b03996c7e825415fac25affcb22e5b000b4396ad2926d46" -> "sha256:7e35e614221d66ceadaddc6a22527a7e9a296f4823793e9e4e77b0c4c41757a3" [label=""];
+  "sha256:7e35e614221d66ceadaddc6a22527a7e9a296f4823793e9e4e77b0c4c41757a3" -> "sha256:7d4b3ad87d59e0cefae3431e4b5e7844ad5f00026c6137f0cfeef4de2ea4adce" [label=""];
+  "sha256:7d4b3ad87d59e0cefae3431e4b5e7844ad5f00026c6137f0cfeef4de2ea4adce" -> "sha256:12263f81e75d9d8f108b12a6bd11cd759dbb6d795f63df63112f3453a4b29d7b" [label=""];
+  "sha256:12263f81e75d9d8f108b12a6bd11cd759dbb6d795f63df63112f3453a4b29d7b" -> "sha256:854efd0a8a982242448e4e0b3489d5bfa56f79d52086eb2f7301c1adc5e174d5" [label=""];
+  "sha256:854efd0a8a982242448e4e0b3489d5bfa56f79d52086eb2f7301c1adc5e174d5" -> "sha256:7f963feb087a787675747a5659c076f8d4a12ac2b67ba29f3607c93f814a5ebf" [label=""];
+  "sha256:7f963feb087a787675747a5659c076f8d4a12ac2b67ba29f3607c93f814a5ebf" -> "sha256:9ccf3437dbb95cb9a17a31f3f3da2a7639a61cb963fe46bf5d1c10d21b879308" [label=""];
+  "sha256:9ccf3437dbb95cb9a17a31f3f3da2a7639a61cb963fe46bf5d1c10d21b879308" -> "sha256:048f3d3baa4b463b74e426a78f8540178cec7c190b7e1516d05b313f02c16c7e" [label=""];
+  "sha256:048f3d3baa4b463b74e426a78f8540178cec7c190b7e1516d05b313f02c16c7e" -> "sha256:3535da93b1124a6ea1fd9446fda39fe3d7a91e9b9e9a797ae4cdc8b974066203" [label=""];
+  "sha256:3535da93b1124a6ea1fd9446fda39fe3d7a91e9b9e9a797ae4cdc8b974066203" -> "sha256:d692f0b6236bf8513ceb29c49dc1e372ad5992452b9f63b5f441ad695b4cd440" [label=""];
+  "sha256:d692f0b6236bf8513ceb29c49dc1e372ad5992452b9f63b5f441ad695b4cd440" -> "sha256:71d5d1cef47b1cf376ed7e9b58319a878db8a540f854b2c4b6c06d5872731690" [label=""];
+  "sha256:71d5d1cef47b1cf376ed7e9b58319a878db8a540f854b2c4b6c06d5872731690" -> "sha256:89e64fdc83c513f00dae97f30bedd6c54cbe9a732db98bd781a7ee39af83aa2f" [label=""];
+  "sha256:89e64fdc83c513f00dae97f30bedd6c54cbe9a732db98bd781a7ee39af83aa2f" -> "sha256:00f0a87b97521ef9cf9b1a1ef2fae913eb9d05fa5b3e978c67ad744516762575" [label=""];
+  "sha256:00f0a87b97521ef9cf9b1a1ef2fae913eb9d05fa5b3e978c67ad744516762575" -> "sha256:3cfc0cf1f376318dd710b57a885a4b3eb2c4efb56cc88b981656e5cdd466fc5e" [label=""];
+  "sha256:3cfc0cf1f376318dd710b57a885a4b3eb2c4efb56cc88b981656e5cdd466fc5e" -> "sha256:9e1f8e02fc52b07771c65312aec62f235f844acefba222409c09db7b327be4aa" [label=""];
+  "sha256:9e1f8e02fc52b07771c65312aec62f235f844acefba222409c09db7b327be4aa" -> "sha256:e2259cb999048ccba66ab07fd7638e4586a2692a1dc7cf63f129f907de1ab984" [label=""];
+  "sha256:e2259cb999048ccba66ab07fd7638e4586a2692a1dc7cf63f129f907de1ab984" -> "sha256:5426a1e63b44838ee6a31ce6dddb3a6e781ebd2cfa8b55be7a363a3d92f13cdc" [label=""];
+  "sha256:5426a1e63b44838ee6a31ce6dddb3a6e781ebd2cfa8b55be7a363a3d92f13cdc" -> "sha256:e45c54ab042b5e8f6f8ab59605a6d22457903d70edfeeb128d830a07c761909c" [label=""];
+  "sha256:1662df30e17d9d13305daf7e40eaddd82c902b5c9a6bf52682db920c3174be5b" -> "sha256:e45c54ab042b5e8f6f8ab59605a6d22457903d70edfeeb128d830a07c761909c" [label=""];
+  "sha256:e45c54ab042b5e8f6f8ab59605a6d22457903d70edfeeb128d830a07c761909c" -> "sha256:da4ed5765f54c1cb793880da052ea8e986a13a9d18defef3353984576356a724" [label=""];
+  "sha256:da4ed5765f54c1cb793880da052ea8e986a13a9d18defef3353984576356a724" -> "sha256:b3217861478e16ca33a366489c37338c206fac47786945e9377b61f29b13cb75" [label=""];
+}
+

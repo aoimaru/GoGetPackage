@@ -1,0 +1,20 @@
+[app/sources/252776753.Dockerfile]
+digraph {
+  "sha256:5045d46e15358f34ea7fff145af304a1fa3a317561e9c609f4ae17c0bd3359df" [label="docker-image://docker.io/library/node:latest" shape="ellipse"];
+  "sha256:4e1304353d470fcfec3e0920adc91a7b1b657838da71da61b4f6c69af50419b1" [label="local://context" shape="ellipse"];
+  "sha256:e367064c252a9405dc8fc72075c5b23008fa6a2aaa199e29a2160a04e888ba63" [label="copy{src=/package.json, dest=/src/package.json}" shape="note"];
+  "sha256:8d3fb06e880731b353ec84e5f9f47f84db78986a8c03870f2ac70af4dd3b1609" [label="/bin/sh -c cd /src; npm install" shape="box"];
+  "sha256:e7e82cfd12ed80d03cfd40056e02b2f25657185592fb2f3035223a74ea1c229f" [label="copy{src=/, dest=/src}" shape="note"];
+  "sha256:82e34f01ea043c9a827419d2f17b7c241feaf55d51179829bfaa9e0962c3c020" [label="mkdir{path=/src}" shape="note"];
+  "sha256:fd734d8879e61ec284a819902be72d7a994e4369a4a6293f4268871d9150a7d5" [label="/bin/sh -c ./node_modules/.bin/gulp build" shape="box"];
+  "sha256:b2c676ba3352b875b3b10e45dfff44a28e9ff015160d0097a7ec96c4d4cdefb6" [label="sha256:b2c676ba3352b875b3b10e45dfff44a28e9ff015160d0097a7ec96c4d4cdefb6" shape="plaintext"];
+  "sha256:5045d46e15358f34ea7fff145af304a1fa3a317561e9c609f4ae17c0bd3359df" -> "sha256:e367064c252a9405dc8fc72075c5b23008fa6a2aaa199e29a2160a04e888ba63" [label=""];
+  "sha256:4e1304353d470fcfec3e0920adc91a7b1b657838da71da61b4f6c69af50419b1" -> "sha256:e367064c252a9405dc8fc72075c5b23008fa6a2aaa199e29a2160a04e888ba63" [label=""];
+  "sha256:e367064c252a9405dc8fc72075c5b23008fa6a2aaa199e29a2160a04e888ba63" -> "sha256:8d3fb06e880731b353ec84e5f9f47f84db78986a8c03870f2ac70af4dd3b1609" [label=""];
+  "sha256:8d3fb06e880731b353ec84e5f9f47f84db78986a8c03870f2ac70af4dd3b1609" -> "sha256:e7e82cfd12ed80d03cfd40056e02b2f25657185592fb2f3035223a74ea1c229f" [label=""];
+  "sha256:4e1304353d470fcfec3e0920adc91a7b1b657838da71da61b4f6c69af50419b1" -> "sha256:e7e82cfd12ed80d03cfd40056e02b2f25657185592fb2f3035223a74ea1c229f" [label=""];
+  "sha256:e7e82cfd12ed80d03cfd40056e02b2f25657185592fb2f3035223a74ea1c229f" -> "sha256:82e34f01ea043c9a827419d2f17b7c241feaf55d51179829bfaa9e0962c3c020" [label=""];
+  "sha256:82e34f01ea043c9a827419d2f17b7c241feaf55d51179829bfaa9e0962c3c020" -> "sha256:fd734d8879e61ec284a819902be72d7a994e4369a4a6293f4268871d9150a7d5" [label=""];
+  "sha256:fd734d8879e61ec284a819902be72d7a994e4369a4a6293f4268871d9150a7d5" -> "sha256:b2c676ba3352b875b3b10e45dfff44a28e9ff015160d0097a7ec96c4d4cdefb6" [label=""];
+}
+

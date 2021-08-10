@@ -1,0 +1,13 @@
+[app/sources/169781246.Dockerfile]
+digraph {
+  "sha256:8e67a11b8915f6b1e58b36d9c6668712c9b68afd2fa3893d9d92e03e8154f7d4" [label="docker-image://docker.io/library/node:8.16.0-slim" shape="ellipse"];
+  "sha256:92fa830d4ea556ec114b82c3ad7d57827d2fa52ec88cc5a6b8b672de98bfb849" [label="/bin/sh -c if [ \"${DOWNLOAD}\" = \"latest\" ] ; \tthen \t\tRELEASE=\"${SOURCE_BRANCH}\"; \t\techo \"INFO: Building Latest Development from ${SOURCE_BRANCH} branch.\"; \telif [ \"${DOWNLOAD}\" = \"stable\" ]; \tthen \t\tRELEASE=$(curl -s https://api.github.com/repos/\"${GITHUB_ACCOUNT}\"/\"${GITHUB_REPOSITORY}\"/releases/latest | grep 'tag_name' | cut -d\\\" -f4); \t\techo \"INFO: Building Latest Stable Release: ${RELEASE}\"; \telse \t \tRELEASE=\"${DOWNLOAD}\"; \t \techo \"INFO: Building Release: ${RELEASE}\"; \tfi && \tRELEASE_CONCAT=$(echo \"${RELEASE}\" | tr / -); \tapt-get update && \tapt-get install -y  --no-install-recommends unzip && \twget --no-check-certificate -O source.zip https://github.com/\"${GITHUB_ACCOUNT}\"/\"${GITHUB_REPOSITORY}\"/archive/\"${RELEASE}\".zip && \tunzip source.zip && \trm source.zip && \tmv \"${GITHUB_REPOSITORY}-${RELEASE_CONCAT}\" /opt/iota-lwm2m && \tapt-get clean && \tapt-get remove -y unzip && \tapt-get -y autoremove" shape="box"];
+  "sha256:2e8b880655f363f5fa10ff1635e7cf0c80efe336432c878f7f0710afc8393b53" [label="mkdir{path=/opt/iota-lwm2m}" shape="note"];
+  "sha256:57c0fb3fe505f3d8dfb1f592a1c54f2a91f422aa196af506d452440387829129" [label="/bin/sh -c apt-get update && \tapt-get install -y git && \tnpm install pm2@3.2.2 -g && \techo \"INFO: npm install --production...\" && \tnpm install --production && \tapt-get clean && \tapt-get remove -y git && \tapt-get -y autoremove && \tchmod +x docker/entrypoint.sh" shape="box"];
+  "sha256:c70428f52bea65654e7aa3e9c64565650edcbea9e7cae42113a8e66b8c150b0e" [label="sha256:c70428f52bea65654e7aa3e9c64565650edcbea9e7cae42113a8e66b8c150b0e" shape="plaintext"];
+  "sha256:8e67a11b8915f6b1e58b36d9c6668712c9b68afd2fa3893d9d92e03e8154f7d4" -> "sha256:92fa830d4ea556ec114b82c3ad7d57827d2fa52ec88cc5a6b8b672de98bfb849" [label=""];
+  "sha256:92fa830d4ea556ec114b82c3ad7d57827d2fa52ec88cc5a6b8b672de98bfb849" -> "sha256:2e8b880655f363f5fa10ff1635e7cf0c80efe336432c878f7f0710afc8393b53" [label=""];
+  "sha256:2e8b880655f363f5fa10ff1635e7cf0c80efe336432c878f7f0710afc8393b53" -> "sha256:57c0fb3fe505f3d8dfb1f592a1c54f2a91f422aa196af506d452440387829129" [label=""];
+  "sha256:57c0fb3fe505f3d8dfb1f592a1c54f2a91f422aa196af506d452440387829129" -> "sha256:c70428f52bea65654e7aa3e9c64565650edcbea9e7cae42113a8e66b8c150b0e" [label=""];
+}
+

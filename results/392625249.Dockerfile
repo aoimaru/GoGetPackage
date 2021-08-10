@@ -1,0 +1,51 @@
+[app/sources/392625249.Dockerfile]
+digraph {
+  "sha256:3e8b93c90b71b89e1ea776ddc8ddf7d0396d3e66a977f0a3538ec0abfe71d10c" [label="docker-image://docker.io/library/ubuntu:13.10" shape="ellipse"];
+  "sha256:763671a6de1f084d9c8a6d1e5615885eabdd56972e8a77960bb545a21bc1c1a6" [label="/bin/sh -c apt-get update -qq" shape="box"];
+  "sha256:f4307c88a99dfe3fdde63cce9dbaa415d1a1a9d775394b7ee9473873bbedf987" [label="/bin/sh -c apt-get install -qq wget build-essential libgsl0-dev git zip unzip" shape="box"];
+  "sha256:3057eee6872eaae6fce8fea77f795e7961c94cd707b5f8bd6b71af09f3add14e" [label="/bin/sh -c cd /opt;    wget http://repo.continuum.io/miniconda/Miniconda-3.3.0-Linux-x86_64.sh -O miniconda.sh;    chmod +x miniconda.sh;    ./miniconda.sh -p /opt/miniconda -b;    conda update --yes conda;    conda install --yes python=2.7" shape="box"];
+  "sha256:0c6169ef196bdeae7bd768e5c835265930b516f3f7f2e90007b5c003f5e104ab" [label="/bin/sh -c apt-get install -qq zlib1g-dev" shape="box"];
+  "sha256:1498a24d099560f9162ef80788dcfbe4fbe682096399a01c7b58bbea291203a1" [label="/bin/sh -c cd /opt;    wget www.ebi.ac.uk/~zerbino/velvet/velvet_1.2.10.tgz -O velvet.tgz;    tar xf velvet.tgz;    cd velvet_1.2.10;    sed -i \"s/MAXKMERLENGTH=31/MAXKMERLENGTH=128/\" Makefile ;    make" shape="box"];
+  "sha256:8dca635ca04c9f843fb2fa9bc58be897e69845604c8f82a8d7a5d04ed2ca3fca" [label="/bin/sh -c apt-get install -qq bedtools" shape="box"];
+  "sha256:301973fc489f1d9cf0e84537b0f538be727af2e84a54c7aa3560bc8e3f3ca06b" [label="/bin/sh -c apt-get install -qq libfuse2 openjdk-7-jre-headless" shape="box"];
+  "sha256:ffdda6dc8a602364e7dfbb88f623412aee1a8c8baa5a442fdb731a23685cd27b" [label="/bin/sh -c cd /tmp ; apt-get download fuse" shape="box"];
+  "sha256:1cf7fa373aedf6b0dfcf97b7b8c0c303b3472b8b9a9236642da49b7f14d74437" [label="/bin/sh -c cd /tmp ; dpkg-deb -x fuse_* ." shape="box"];
+  "sha256:4e7b679880503f280ade04f5b62b5e321008519b83a80e0d9c0ec60e5c061e3f" [label="/bin/sh -c cd /tmp ; dpkg-deb -e fuse_*" shape="box"];
+  "sha256:5be08489a7808fc463d7296868a7b3c52d5bf9a375ed6be1d9bb04ba7639f777" [label="/bin/sh -c cd /tmp ; rm fuse_*.deb" shape="box"];
+  "sha256:9872793e3b4c1c7b5777a742b7d683eaab49b5ee060afcacbed53fe2329d501e" [label="/bin/sh -c cd /tmp ; echo -en '#!/bin/bash\\nexit 0\\n' > DEBIAN/postinst" shape="box"];
+  "sha256:6ffc0b598d87dd4b05a95a0e506ead62d73fb1dd28b005454257d7fafc1c080e" [label="/bin/sh -c cd /tmp ; dpkg-deb -b . /fuse.deb" shape="box"];
+  "sha256:195674fa4d77204a5a60563ea704dbd22fec15999e8820f27a8e7a26e1f9004c" [label="/bin/sh -c cd /tmp ; dpkg -i /fuse.deb" shape="box"];
+  "sha256:a593f89157f9cebb209b8942eb69791e6fd642630b6cc15c7acdc5ca7bd01bfa" [label="/bin/sh -c cd /opt;    wget \"http://downloads.sourceforge.net/project/picard/picard-tools/1.118/picard-tools-1.118.zip?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fpicard%2Ffiles%2Fpicard-tools%2F1.118%2F&ts=1396879817&use_mirror=freefr\" -O picard-tools-1.118.zip;    unzip picard-tools-1.118.zip" shape="box"];
+  "sha256:d7048655828cad79dec45aa324065c894a23d9decb694bdbead8e88305fe9403" [label="/bin/sh -c apt-get install -qq samtools" shape="box"];
+  "sha256:29cc322fd20982b85604bd69a1f0a21909264a3c83a9079ed69dafbbc5bcdd40" [label="/bin/sh -c apt-get install -qq bowtie2" shape="box"];
+  "sha256:082e713dd8a14de2a292af32b2d76fba73ada09ed9ed363df4ee2dbd677e92f8" [label="/bin/sh -c apt-get install -qq parallel" shape="box"];
+  "sha256:5afd8675e90e0d8e9a7ea6e074c125f3076caf832bb9cd28c90fc306ff96deff" [label="/bin/sh -c cd /opt;    wget --no-check-certificate https://prodigal.googlecode.com/files/Prodigal-2.60.tar.gz;    tar xf Prodigal-2.60.tar.gz;    cd Prodigal-2.60;    make;    ln -s /opt/Prodigal-2.60/prodigal /bin/prodigal" shape="box"];
+  "sha256:464fac2bc338081e81bc55e6511987aaf51e707565bdec77c845f0ab1379bba6" [label="/bin/sh -c apt-get install -qq r-base" shape="box"];
+  "sha256:c127a6ca79e961b55ea27da5c20d77265252226f6f7165bccfa2d010bee4a5ee" [label="/bin/sh -c cd /opt;    RREPO='\"http://cran.rstudio.com/\"';    printf \"install.packages(\\\"ggplot2\\\", repo=$RREPO)\\ninstall.packages(\\\"reshape\\\",repo=$RREPO)\\ninstall.packages(\\\"gplots\\\",repo=$RREPO)\\ninstall.packages(\\\"ellipse\\\",repo=$RREPO)\\ninstall.packages(\\\"grid\\\",repo=$RREPO)\\ninstall.packages(\\\"getopt\\\",repo=$RREPO)\" > dep.R;    Rscript dep.R" shape="box"];
+  "sha256:e0b260a979e9c0c894fcb626c35ce97cbcbd49c238f7e4a8daae6ddacb254b06" [label="/bin/sh -c cd /opt;    conda update --yes conda;    conda install --yes python=2.7 atlas cython numpy scipy biopython pandas pip scikit-learn pysam;    pip install bcbio-gff;    wget --no-check-certificate https://github.com/BinPro/CONCOCT/archive/{{version}}.tar.gz;    tar xf {{version}}.tar.gz;    cd CONCOCT-{{version}};    python setup.py install" shape="box"];
+  "sha256:5e058558db2d94ce09c6c739b0b71daf7f943d56dfaef498d86660977638c4ca" [label="sha256:5e058558db2d94ce09c6c739b0b71daf7f943d56dfaef498d86660977638c4ca" shape="plaintext"];
+  "sha256:3e8b93c90b71b89e1ea776ddc8ddf7d0396d3e66a977f0a3538ec0abfe71d10c" -> "sha256:763671a6de1f084d9c8a6d1e5615885eabdd56972e8a77960bb545a21bc1c1a6" [label=""];
+  "sha256:763671a6de1f084d9c8a6d1e5615885eabdd56972e8a77960bb545a21bc1c1a6" -> "sha256:f4307c88a99dfe3fdde63cce9dbaa415d1a1a9d775394b7ee9473873bbedf987" [label=""];
+  "sha256:f4307c88a99dfe3fdde63cce9dbaa415d1a1a9d775394b7ee9473873bbedf987" -> "sha256:3057eee6872eaae6fce8fea77f795e7961c94cd707b5f8bd6b71af09f3add14e" [label=""];
+  "sha256:3057eee6872eaae6fce8fea77f795e7961c94cd707b5f8bd6b71af09f3add14e" -> "sha256:0c6169ef196bdeae7bd768e5c835265930b516f3f7f2e90007b5c003f5e104ab" [label=""];
+  "sha256:0c6169ef196bdeae7bd768e5c835265930b516f3f7f2e90007b5c003f5e104ab" -> "sha256:1498a24d099560f9162ef80788dcfbe4fbe682096399a01c7b58bbea291203a1" [label=""];
+  "sha256:1498a24d099560f9162ef80788dcfbe4fbe682096399a01c7b58bbea291203a1" -> "sha256:8dca635ca04c9f843fb2fa9bc58be897e69845604c8f82a8d7a5d04ed2ca3fca" [label=""];
+  "sha256:8dca635ca04c9f843fb2fa9bc58be897e69845604c8f82a8d7a5d04ed2ca3fca" -> "sha256:301973fc489f1d9cf0e84537b0f538be727af2e84a54c7aa3560bc8e3f3ca06b" [label=""];
+  "sha256:301973fc489f1d9cf0e84537b0f538be727af2e84a54c7aa3560bc8e3f3ca06b" -> "sha256:ffdda6dc8a602364e7dfbb88f623412aee1a8c8baa5a442fdb731a23685cd27b" [label=""];
+  "sha256:ffdda6dc8a602364e7dfbb88f623412aee1a8c8baa5a442fdb731a23685cd27b" -> "sha256:1cf7fa373aedf6b0dfcf97b7b8c0c303b3472b8b9a9236642da49b7f14d74437" [label=""];
+  "sha256:1cf7fa373aedf6b0dfcf97b7b8c0c303b3472b8b9a9236642da49b7f14d74437" -> "sha256:4e7b679880503f280ade04f5b62b5e321008519b83a80e0d9c0ec60e5c061e3f" [label=""];
+  "sha256:4e7b679880503f280ade04f5b62b5e321008519b83a80e0d9c0ec60e5c061e3f" -> "sha256:5be08489a7808fc463d7296868a7b3c52d5bf9a375ed6be1d9bb04ba7639f777" [label=""];
+  "sha256:5be08489a7808fc463d7296868a7b3c52d5bf9a375ed6be1d9bb04ba7639f777" -> "sha256:9872793e3b4c1c7b5777a742b7d683eaab49b5ee060afcacbed53fe2329d501e" [label=""];
+  "sha256:9872793e3b4c1c7b5777a742b7d683eaab49b5ee060afcacbed53fe2329d501e" -> "sha256:6ffc0b598d87dd4b05a95a0e506ead62d73fb1dd28b005454257d7fafc1c080e" [label=""];
+  "sha256:6ffc0b598d87dd4b05a95a0e506ead62d73fb1dd28b005454257d7fafc1c080e" -> "sha256:195674fa4d77204a5a60563ea704dbd22fec15999e8820f27a8e7a26e1f9004c" [label=""];
+  "sha256:195674fa4d77204a5a60563ea704dbd22fec15999e8820f27a8e7a26e1f9004c" -> "sha256:a593f89157f9cebb209b8942eb69791e6fd642630b6cc15c7acdc5ca7bd01bfa" [label=""];
+  "sha256:a593f89157f9cebb209b8942eb69791e6fd642630b6cc15c7acdc5ca7bd01bfa" -> "sha256:d7048655828cad79dec45aa324065c894a23d9decb694bdbead8e88305fe9403" [label=""];
+  "sha256:d7048655828cad79dec45aa324065c894a23d9decb694bdbead8e88305fe9403" -> "sha256:29cc322fd20982b85604bd69a1f0a21909264a3c83a9079ed69dafbbc5bcdd40" [label=""];
+  "sha256:29cc322fd20982b85604bd69a1f0a21909264a3c83a9079ed69dafbbc5bcdd40" -> "sha256:082e713dd8a14de2a292af32b2d76fba73ada09ed9ed363df4ee2dbd677e92f8" [label=""];
+  "sha256:082e713dd8a14de2a292af32b2d76fba73ada09ed9ed363df4ee2dbd677e92f8" -> "sha256:5afd8675e90e0d8e9a7ea6e074c125f3076caf832bb9cd28c90fc306ff96deff" [label=""];
+  "sha256:5afd8675e90e0d8e9a7ea6e074c125f3076caf832bb9cd28c90fc306ff96deff" -> "sha256:464fac2bc338081e81bc55e6511987aaf51e707565bdec77c845f0ab1379bba6" [label=""];
+  "sha256:464fac2bc338081e81bc55e6511987aaf51e707565bdec77c845f0ab1379bba6" -> "sha256:c127a6ca79e961b55ea27da5c20d77265252226f6f7165bccfa2d010bee4a5ee" [label=""];
+  "sha256:c127a6ca79e961b55ea27da5c20d77265252226f6f7165bccfa2d010bee4a5ee" -> "sha256:e0b260a979e9c0c894fcb626c35ce97cbcbd49c238f7e4a8daae6ddacb254b06" [label=""];
+  "sha256:e0b260a979e9c0c894fcb626c35ce97cbcbd49c238f7e4a8daae6ddacb254b06" -> "sha256:5e058558db2d94ce09c6c739b0b71daf7f943d56dfaef498d86660977638c4ca" [label=""];
+}
+

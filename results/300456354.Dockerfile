@@ -1,0 +1,7 @@
+[app/sources/300456354.Dockerfile]
+digraph {
+  "sha256:e96532ff4c0853d5ac97e7c87881bc70a2c7ed0ec8d06d735a18c6239e5dc224" [label="docker-image://gcr.io/istio-release/proxyv2:master-20181229-09-15@sha256:60276cc2b0ebd5a4e6da216de594ba593305a235c4420eb22075eb26e757a5f7" shape="ellipse"];
+  "sha256:ed65b7d86c5820b354db21e2404cd76d4d019302fc0f399c1f0dd2194591239b" [label="sha256:ed65b7d86c5820b354db21e2404cd76d4d019302fc0f399c1f0dd2194591239b" shape="plaintext"];
+  "sha256:e96532ff4c0853d5ac97e7c87881bc70a2c7ed0ec8d06d735a18c6239e5dc224" -> "sha256:ed65b7d86c5820b354db21e2404cd76d4d019302fc0f399c1f0dd2194591239b" [label=""];
+}
+

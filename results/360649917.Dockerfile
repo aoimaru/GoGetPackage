@@ -1,0 +1,51 @@
+[app/sources/360649917.Dockerfile]
+digraph {
+  "sha256:c53b858ceb76e9a0dc816bc9a957a5c5f4cc330deb8de2dfa3f77b2a788063c6" [label="docker-image://docker.io/library/python:3.5.6" shape="ellipse"];
+  "sha256:d21fd84bd906ca0cace1970969bec20b598484f881c74f1323a2aab13228629e" [label="/bin/sh -c apt-get update &&     apt-get upgrade -y &&     apt-get install --no-install-recommends -y         curl         gettext         git         ldnsutils         libhiredis-dev         libwww-perl         postgresql-server-dev-9.6         swig3.0         sudo &&     rm -rf /var/lib/apt/lists/*" shape="box"];
+  "sha256:28ae02aa33c534e2a9126017b1f78d88a0bac5d428c6e5716a9b0cc299d294a9" [label="/bin/sh -c useradd -ms /bin/bash -G sudo internetnl && echo \"internetnl ALL=(ALL) NOPASSWD:ALL\" > /etc/sudoers.d/internetnl" shape="box"];
+  "sha256:f495096a37347f12e2af073a3a8bda6c2be05f261cf2b4a1a92a8ee62f2654d1" [label="/bin/sh -c git clone -b timeout https://github.com/ralphdolmans/python-whois.git /tmp/python-whois" shape="box"];
+  "sha256:67312c8e0c33b2c6e077e1df44500a5dd33d4146bae709fca6ac9f1511e50865" [label="mkdir{path=/tmp/python-whois}" shape="note"];
+  "sha256:d7dc53ce4d9ab77a08cc6bb250ff5d57f8bca96e17ae7130b9eec9785117afad" [label="/bin/sh -c python setup.py install" shape="box"];
+  "sha256:7bf75542340051b48257015b2354b91277f09c405050909531e2f74294d57814" [label="/bin/sh -c git clone -b free_bsd https://github.com/gthess/nassl.git /tmp/nassl_freebsd" shape="box"];
+  "sha256:0b2e250a1893210ddd5e25e7e5c39acf629ac627a41dc0ce1e38c212c2a195f5" [label="mkdir{path=/tmp/nassl_freebsd}" shape="note"];
+  "sha256:ba57fae4d3a62bd94de2678f6eecffe4ed9f4f5b2d138d692713cb142ae7bd46" [label="/bin/sh -c mkdir -p bin/openssl-legacy/freebsd64 && mkdir -p bin/openssl-modern/freebsd64" shape="box"];
+  "sha256:9725eda81a23a02c1c2030b08f4e32ef5c3ec86eee4656c4d2f2f3dcc7adedd6" [label="/bin/sh -c curl https://zlib.net/zlib-1.2.11.tar.gz | tar zx &&     git clone -b 1.0.2-chacha https://github.com/PeterMosmans/openssl.git openssl-1.0.2e &&     git clone https://github.com/openssl/openssl.git openssl-master &&     cd openssl-master &&     git checkout 1f5878b8e25a785dde330bf485e6ed5a6ae09a1a &&     cd .. &&     python build_from_scratch.py &&     python setup.py install" shape="box"];
+  "sha256:fa50096957f6dc243d2c11a8100ccf680ee7e414d2796db8d009653b14acdd8a" [label="/bin/sh -c git clone -b internetnl https://github.com/ralphdolmans/unbound.git /tmp/unbound" shape="box"];
+  "sha256:fe427f9b6c6fe6e506a5b1a0eb3cf1c5323d8d6d789a462cf2af8d11f50cba40" [label="mkdir{path=/tmp/unbound}" shape="note"];
+  "sha256:ed1c232ab125490e6a38caae7882a6c60082c4e3f8f479d89e2cc6eb71fa1454" [label="/bin/sh -c patch -p0 -i ./unbound_1.8.0_patch_unsupported_ds.diff &&     ln -s /usr/local/bin/python3.5 /usr/local/bin/python3.5.6 &&     ln -s /usr/bin/swig3.0 /usr/bin/swig &&     ./configure --enable-internetnl --with-pyunbound --with-libevent --with-libhiredis &&     make &&     make install" shape="box"];
+  "sha256:a55bedf89de5eb401442a511aca26f15f8023a26fd902787f2349684a24d4adf" [label="mkdir{path=/usr/local/etc/unbound}" shape="note"];
+  "sha256:5f335e6d23f5120585621a1f93c6f7f4e514e26a77505c04323830a23ce6c7c5" [label="/bin/sh -c useradd unbound &&     cp unbound.conf unbound.conf.org &&     sed -e 's/# auto-trust-anchor-file:/auto-trust-anchor-file:/'         -e 's/# control-enable: no/control-enable: yes/'         unbound.conf.org > unbound.conf &&     unbound-control-setup &&     unbound-anchor || test $? -eq 1 &&     chown -R unbound: ." shape="box"];
+  "sha256:1a0e6adbc8d9375e1ee0b91b000ee9a08e205990a1b4962f0a9119babc976383" [label="mkdir{path=/app}" shape="note"];
+  "sha256:3912338406bce58ed011cbe6767a2c9d8fe10e20a567af4c8e528dae275b1bb9" [label="local://context" shape="ellipse"];
+  "sha256:2ef489a0644edb3fb68fa17dc24315d78ee4e0f93d008667a5abca5311ac82ca" [label="copy{src=/, dest=/app}" shape="note"];
+  "sha256:ef4f5c7c0467c4d11fcb1d3eadec4712efe2582f01555af085186be2cdac9b9f" [label="/bin/sh -c chown -R internetnl: ${APP_PATH}" shape="box"];
+  "sha256:2ab47a63f513ec8d7913fb9233d301d067435280374b76db874a5ca7e8cc4829" [label="/bin/sh -c pip install --trusted-host pypi.python.org -r ./python-pip-requirements.txt" shape="box"];
+  "sha256:58ab82dd9d7090423cb7154919343aa3616bdf74f74e6b7828b02a9cc6499ed3" [label="/bin/sh -c sed -i -e \"s|LDNS_DANE = .*|LDNS_DANE = '/usr/bin/ldns-dane'|g\" ${APP_PATH}/internetnl/settings.py-dist" shape="box"];
+  "sha256:27471d7cd35f55090dff6e7885bdef0e4561a5517702f731ce1fed442ae195fc" [label="/bin/sh -c make translations" shape="box"];
+  "sha256:8f421941c177a8026f59e3e45dba78b44040b786ec51df09038ab36035e8aacd" [label="/bin/sh -c sudo rm -rf ${APP_PATH}/.git /tmp/unbound /tmp/nassl_freebsd /tmp/python-whois" shape="box"];
+  "sha256:508e91aa20edbcc8a24e93465d523987f6d509a91c42ceab470ffc707eb006ca" [label="sha256:508e91aa20edbcc8a24e93465d523987f6d509a91c42ceab470ffc707eb006ca" shape="plaintext"];
+  "sha256:c53b858ceb76e9a0dc816bc9a957a5c5f4cc330deb8de2dfa3f77b2a788063c6" -> "sha256:d21fd84bd906ca0cace1970969bec20b598484f881c74f1323a2aab13228629e" [label=""];
+  "sha256:d21fd84bd906ca0cace1970969bec20b598484f881c74f1323a2aab13228629e" -> "sha256:28ae02aa33c534e2a9126017b1f78d88a0bac5d428c6e5716a9b0cc299d294a9" [label=""];
+  "sha256:28ae02aa33c534e2a9126017b1f78d88a0bac5d428c6e5716a9b0cc299d294a9" -> "sha256:f495096a37347f12e2af073a3a8bda6c2be05f261cf2b4a1a92a8ee62f2654d1" [label=""];
+  "sha256:f495096a37347f12e2af073a3a8bda6c2be05f261cf2b4a1a92a8ee62f2654d1" -> "sha256:67312c8e0c33b2c6e077e1df44500a5dd33d4146bae709fca6ac9f1511e50865" [label=""];
+  "sha256:67312c8e0c33b2c6e077e1df44500a5dd33d4146bae709fca6ac9f1511e50865" -> "sha256:d7dc53ce4d9ab77a08cc6bb250ff5d57f8bca96e17ae7130b9eec9785117afad" [label=""];
+  "sha256:d7dc53ce4d9ab77a08cc6bb250ff5d57f8bca96e17ae7130b9eec9785117afad" -> "sha256:7bf75542340051b48257015b2354b91277f09c405050909531e2f74294d57814" [label=""];
+  "sha256:7bf75542340051b48257015b2354b91277f09c405050909531e2f74294d57814" -> "sha256:0b2e250a1893210ddd5e25e7e5c39acf629ac627a41dc0ce1e38c212c2a195f5" [label=""];
+  "sha256:0b2e250a1893210ddd5e25e7e5c39acf629ac627a41dc0ce1e38c212c2a195f5" -> "sha256:ba57fae4d3a62bd94de2678f6eecffe4ed9f4f5b2d138d692713cb142ae7bd46" [label=""];
+  "sha256:ba57fae4d3a62bd94de2678f6eecffe4ed9f4f5b2d138d692713cb142ae7bd46" -> "sha256:9725eda81a23a02c1c2030b08f4e32ef5c3ec86eee4656c4d2f2f3dcc7adedd6" [label=""];
+  "sha256:9725eda81a23a02c1c2030b08f4e32ef5c3ec86eee4656c4d2f2f3dcc7adedd6" -> "sha256:fa50096957f6dc243d2c11a8100ccf680ee7e414d2796db8d009653b14acdd8a" [label=""];
+  "sha256:fa50096957f6dc243d2c11a8100ccf680ee7e414d2796db8d009653b14acdd8a" -> "sha256:fe427f9b6c6fe6e506a5b1a0eb3cf1c5323d8d6d789a462cf2af8d11f50cba40" [label=""];
+  "sha256:fe427f9b6c6fe6e506a5b1a0eb3cf1c5323d8d6d789a462cf2af8d11f50cba40" -> "sha256:ed1c232ab125490e6a38caae7882a6c60082c4e3f8f479d89e2cc6eb71fa1454" [label=""];
+  "sha256:ed1c232ab125490e6a38caae7882a6c60082c4e3f8f479d89e2cc6eb71fa1454" -> "sha256:a55bedf89de5eb401442a511aca26f15f8023a26fd902787f2349684a24d4adf" [label=""];
+  "sha256:a55bedf89de5eb401442a511aca26f15f8023a26fd902787f2349684a24d4adf" -> "sha256:5f335e6d23f5120585621a1f93c6f7f4e514e26a77505c04323830a23ce6c7c5" [label=""];
+  "sha256:5f335e6d23f5120585621a1f93c6f7f4e514e26a77505c04323830a23ce6c7c5" -> "sha256:1a0e6adbc8d9375e1ee0b91b000ee9a08e205990a1b4962f0a9119babc976383" [label=""];
+  "sha256:1a0e6adbc8d9375e1ee0b91b000ee9a08e205990a1b4962f0a9119babc976383" -> "sha256:2ef489a0644edb3fb68fa17dc24315d78ee4e0f93d008667a5abca5311ac82ca" [label=""];
+  "sha256:3912338406bce58ed011cbe6767a2c9d8fe10e20a567af4c8e528dae275b1bb9" -> "sha256:2ef489a0644edb3fb68fa17dc24315d78ee4e0f93d008667a5abca5311ac82ca" [label=""];
+  "sha256:2ef489a0644edb3fb68fa17dc24315d78ee4e0f93d008667a5abca5311ac82ca" -> "sha256:ef4f5c7c0467c4d11fcb1d3eadec4712efe2582f01555af085186be2cdac9b9f" [label=""];
+  "sha256:ef4f5c7c0467c4d11fcb1d3eadec4712efe2582f01555af085186be2cdac9b9f" -> "sha256:2ab47a63f513ec8d7913fb9233d301d067435280374b76db874a5ca7e8cc4829" [label=""];
+  "sha256:2ab47a63f513ec8d7913fb9233d301d067435280374b76db874a5ca7e8cc4829" -> "sha256:58ab82dd9d7090423cb7154919343aa3616bdf74f74e6b7828b02a9cc6499ed3" [label=""];
+  "sha256:58ab82dd9d7090423cb7154919343aa3616bdf74f74e6b7828b02a9cc6499ed3" -> "sha256:27471d7cd35f55090dff6e7885bdef0e4561a5517702f731ce1fed442ae195fc" [label=""];
+  "sha256:27471d7cd35f55090dff6e7885bdef0e4561a5517702f731ce1fed442ae195fc" -> "sha256:8f421941c177a8026f59e3e45dba78b44040b786ec51df09038ab36035e8aacd" [label=""];
+  "sha256:8f421941c177a8026f59e3e45dba78b44040b786ec51df09038ab36035e8aacd" -> "sha256:508e91aa20edbcc8a24e93465d523987f6d509a91c42ceab470ffc707eb006ca" [label=""];
+}
+

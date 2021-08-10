@@ -1,0 +1,9 @@
+[app/sources/205519399.Dockerfile]
+digraph {
+  "sha256:6b2bd6c2ae4e62f77f2c6fbcd8b5f14b22172e664b52d2b10bf1f8d2349613a9" [label="docker-image://docker.io/phalconphp/bootstrap:ubuntu-18.04" shape="ellipse"];
+  "sha256:bd05b6eb6213af08ee872c107f8ade65158b3b835c55853d5c49c6d51ab729de" [label="/bin/sh -c LC_ALL=en_US.UTF-8 apt-add-repository -y ppa:ondrej/php     && apt clean -y     && apt update -y     && apt upgrade -y     && apt install --no-install-recommends -yq         alien         binutils-dev         ccache         cdbs         cmake         curl         debhelper         devscripts         doxygen         equivs         fakeroot         gdb         gdebi-core         git         gnupg         libpcre3-dev         libreadline-dev         libyaml-dev         php7.0-common         php7.0-dev         php7.0-json         re2c         rpm         sudo         wget         zlib1g-dev     && echo '%adm ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers     && wget -qO - https://packagecloud.io/phalcon/stable/gpgkey | apt-key add -     && apt autoremove -y     && apt clean -y     && rm -rf /tmp/* /var/tmp/*     && find /var/cache/apt/archives /var/lib/apt/lists -not -name lock -type f -delete     && find /var/cache -type f -delete     && find /var/log -type f | while read f; do echo -n '' > ${f}; done" shape="box"];
+  "sha256:b59bf00c3f2d1d8243aff175490826bb5840f07f0429a459638492dca45c4328" [label="sha256:b59bf00c3f2d1d8243aff175490826bb5840f07f0429a459638492dca45c4328" shape="plaintext"];
+  "sha256:6b2bd6c2ae4e62f77f2c6fbcd8b5f14b22172e664b52d2b10bf1f8d2349613a9" -> "sha256:bd05b6eb6213af08ee872c107f8ade65158b3b835c55853d5c49c6d51ab729de" [label=""];
+  "sha256:bd05b6eb6213af08ee872c107f8ade65158b3b835c55853d5c49c6d51ab729de" -> "sha256:b59bf00c3f2d1d8243aff175490826bb5840f07f0429a459638492dca45c4328" [label=""];
+}
+

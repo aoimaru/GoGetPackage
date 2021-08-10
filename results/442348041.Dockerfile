@@ -1,0 +1,56 @@
+[app/sources/442348041.Dockerfile]
+digraph {
+  "sha256:e289a2d58015edeb2812b2a7e5ff9cc34fa4fb132d239893635926d28a5536a2" [label="docker-image://docker.io/flavio/opensuse-12-3:latest" shape="ellipse"];
+  "sha256:65509c4ac5c728f8ef7913a33c2e567274d1dad2836adae95a74a1e02115e8e6" [label="/bin/sh -c zypper addrepo --no-gpgcheck http://download.opensuse.org/repositories/Java:/openjdk6:/Factory/SLE_11_SP2/Java:openjdk6:Factory.repo" shape="box"];
+  "sha256:8b3ff35a428fb864056ca77fda1b0ffae50bb56c4b409036d5c9752d3d34fc64" [label="/bin/sh -c zypper addrepo --no-gpgcheck http://download.tizen.org/tools/latest-release/openSUSE_12.1/ tools" shape="box"];
+  "sha256:3e608fa2bbf00bd4126cd312f7196de1ae99868fad8dad8fc82f651c772c0383" [label="/bin/sh -c zypper refresh" shape="box"];
+  "sha256:9758bcefc12a026c2857a9eba918bec4fc029c520a7e47afe06081a2a10439a7" [label="/bin/sh -c zypper install -y git openssh sudo wget" shape="box"];
+  "sha256:6e55fb700aa26c14b82cb8b259b5b18b7305c131979159363b34b62720bba823" [label="/bin/sh -c zypper install -y java-1_6_0-openjdk-devel" shape="box"];
+  "sha256:77723197c7f14544e168d3826d814fe6b7c79b4ca89f16dec1de40d14e2ffb1a" [label="/bin/sh -c sed 's/UsePAM yes/UsePAM no/' -i /etc/ssh/sshd_config" shape="box"];
+  "sha256:fb5da29325b2fdc631f99448b0750fde8e26c5cd5b859269a9dd51d40aeeff1d" [label="/bin/sh -c sed 's/#PermitRootLogin yes/PermitRootLogin yes/' -i /etc/ssh/sshd_config" shape="box"];
+  "sha256:1d940d42c2a6bd100bdcc0915b7ffd6d615d05fa4822387df6fc2bffd3241a4d" [label="/bin/sh -c sed 's/#PermitEmptyPasswords no/PermitEmptyPasswords no/' -i /etc/ssh/sshd_config" shape="box"];
+  "sha256:818166b130e249b633284ede46aa73e94526a99b7ef9b18fc82699558b305655" [label="/bin/sh -c /etc/init.d/sshd restart" shape="box"];
+  "sha256:16e9b557329e84eb7e4984c564d541bbb34471e7bfc65a2258235f69c1dca67c" [label="/bin/sh -c useradd -md /var/lib/jenkins jenkins" shape="box"];
+  "sha256:0d700f9179d376d808d33d8eb7d932d00b4fcbb9dcd0ac426fb2898d9a045439" [label="/bin/sh -c echo 'root:1111' | chpasswd" shape="box"];
+  "sha256:518283262713db69bb3e8eaed709be9d9b2c90405eb4c8b68b627e88e6e9dfb3" [label="/bin/sh -c echo 'jenkins:1111' | chpasswd" shape="box"];
+  "sha256:48bcdfe932ca45456308346c5079bcc73307f4365773d8ccb083a57ec08ff4e8" [label="/bin/sh -c su - jenkins -c \"mkdir /var/lib/jenkins/.ssh\"" shape="box"];
+  "sha256:f1e7218cdf3ee3a9cd74740c50f1b76719add089b3d331181863c3b99b509ca9" [label="local://context" shape="ellipse"];
+  "sha256:493d674f9ab283f7a180a1e59ed7c70535d314cd05cf385ec17232f002dd1b50" [label="copy{src=/id_rsa, dest=/var/lib/jenkins/.ssh/}" shape="note"];
+  "sha256:8f7d19433524c3f1544b4607cde5eb9f2491656ca9d9f50caf1e8f6742380570" [label="copy{src=/id_rsa.pub, dest=/var/lib/jenkins/.ssh/}" shape="note"];
+  "sha256:f67095f1efca6390a69f41ede28f2d0436ee7777a7ee8c8a1d185e0dcea92bc6" [label="copy{src=/known_hosts, dest=/var/lib/jenkins/.ssh/}" shape="note"];
+  "sha256:c951c37a6354043e4bbd010d3c5bd5c7012d769021d01a38a266d0d2673f1921" [label="copy{src=/authorized_keys, dest=/var/lib/jenkins/.ssh/}" shape="note"];
+  "sha256:a61df84f8119b7941f8d73a2972263f58c383df0e055efdd28c6cd906bf989cf" [label="/bin/sh -c chown jenkins:users -R /var/lib/jenkins/.ssh" shape="box"];
+  "sha256:5cf32b271874bf3a45dcddffa98187eac4d8281f01eb896e32e85c1d7935fced" [label="/bin/sh -c chmod 0700 /var/lib/jenkins/.ssh && chmod 0600 /var/lib/jenkins/.ssh/*" shape="box"];
+  "sha256:9fd28585db1d9384560e45519979db14b1883db83fb7e1dd0bb0d6c9909fb041" [label="/bin/sh -c sed 's/Defaults *requiretty/#Defaults    requiretty/' -i /etc/sudoers" shape="box"];
+  "sha256:6e5ef079f46a252a84072d7d430bd0afc6097bca737c4392fdaf45b616abedee" [label="/bin/sh -c echo \"jenkins ALL=(ALL) NOPASSWD: ALL\" >> /etc/sudoers" shape="box"];
+  "sha256:e28db76c1ff76504ceff23b7d9142093d23c545fb8959d8fcdbe1ac01d3732b6" [label="/bin/sh -c su - jenkins -c \"wget -O /var/lib/jenkins/swarm-client-1.9-jar-with-dependencies.jar http://maven.jenkins-ci.org/content/repositories/releases/org/jenkins-ci/plugins/swarm-client/1.9/swarm-client-1.9-jar-with-dependencies.jar\"" shape="box"];
+  "sha256:73afca946b38ce9734bb2260b8398c2b53648c96b1953925bbf13fc9b1977b04" [label="sha256:73afca946b38ce9734bb2260b8398c2b53648c96b1953925bbf13fc9b1977b04" shape="plaintext"];
+  "sha256:e289a2d58015edeb2812b2a7e5ff9cc34fa4fb132d239893635926d28a5536a2" -> "sha256:65509c4ac5c728f8ef7913a33c2e567274d1dad2836adae95a74a1e02115e8e6" [label=""];
+  "sha256:65509c4ac5c728f8ef7913a33c2e567274d1dad2836adae95a74a1e02115e8e6" -> "sha256:8b3ff35a428fb864056ca77fda1b0ffae50bb56c4b409036d5c9752d3d34fc64" [label=""];
+  "sha256:8b3ff35a428fb864056ca77fda1b0ffae50bb56c4b409036d5c9752d3d34fc64" -> "sha256:3e608fa2bbf00bd4126cd312f7196de1ae99868fad8dad8fc82f651c772c0383" [label=""];
+  "sha256:3e608fa2bbf00bd4126cd312f7196de1ae99868fad8dad8fc82f651c772c0383" -> "sha256:9758bcefc12a026c2857a9eba918bec4fc029c520a7e47afe06081a2a10439a7" [label=""];
+  "sha256:9758bcefc12a026c2857a9eba918bec4fc029c520a7e47afe06081a2a10439a7" -> "sha256:6e55fb700aa26c14b82cb8b259b5b18b7305c131979159363b34b62720bba823" [label=""];
+  "sha256:6e55fb700aa26c14b82cb8b259b5b18b7305c131979159363b34b62720bba823" -> "sha256:77723197c7f14544e168d3826d814fe6b7c79b4ca89f16dec1de40d14e2ffb1a" [label=""];
+  "sha256:77723197c7f14544e168d3826d814fe6b7c79b4ca89f16dec1de40d14e2ffb1a" -> "sha256:fb5da29325b2fdc631f99448b0750fde8e26c5cd5b859269a9dd51d40aeeff1d" [label=""];
+  "sha256:fb5da29325b2fdc631f99448b0750fde8e26c5cd5b859269a9dd51d40aeeff1d" -> "sha256:1d940d42c2a6bd100bdcc0915b7ffd6d615d05fa4822387df6fc2bffd3241a4d" [label=""];
+  "sha256:1d940d42c2a6bd100bdcc0915b7ffd6d615d05fa4822387df6fc2bffd3241a4d" -> "sha256:818166b130e249b633284ede46aa73e94526a99b7ef9b18fc82699558b305655" [label=""];
+  "sha256:818166b130e249b633284ede46aa73e94526a99b7ef9b18fc82699558b305655" -> "sha256:16e9b557329e84eb7e4984c564d541bbb34471e7bfc65a2258235f69c1dca67c" [label=""];
+  "sha256:16e9b557329e84eb7e4984c564d541bbb34471e7bfc65a2258235f69c1dca67c" -> "sha256:0d700f9179d376d808d33d8eb7d932d00b4fcbb9dcd0ac426fb2898d9a045439" [label=""];
+  "sha256:0d700f9179d376d808d33d8eb7d932d00b4fcbb9dcd0ac426fb2898d9a045439" -> "sha256:518283262713db69bb3e8eaed709be9d9b2c90405eb4c8b68b627e88e6e9dfb3" [label=""];
+  "sha256:518283262713db69bb3e8eaed709be9d9b2c90405eb4c8b68b627e88e6e9dfb3" -> "sha256:48bcdfe932ca45456308346c5079bcc73307f4365773d8ccb083a57ec08ff4e8" [label=""];
+  "sha256:48bcdfe932ca45456308346c5079bcc73307f4365773d8ccb083a57ec08ff4e8" -> "sha256:493d674f9ab283f7a180a1e59ed7c70535d314cd05cf385ec17232f002dd1b50" [label=""];
+  "sha256:f1e7218cdf3ee3a9cd74740c50f1b76719add089b3d331181863c3b99b509ca9" -> "sha256:493d674f9ab283f7a180a1e59ed7c70535d314cd05cf385ec17232f002dd1b50" [label=""];
+  "sha256:493d674f9ab283f7a180a1e59ed7c70535d314cd05cf385ec17232f002dd1b50" -> "sha256:8f7d19433524c3f1544b4607cde5eb9f2491656ca9d9f50caf1e8f6742380570" [label=""];
+  "sha256:f1e7218cdf3ee3a9cd74740c50f1b76719add089b3d331181863c3b99b509ca9" -> "sha256:8f7d19433524c3f1544b4607cde5eb9f2491656ca9d9f50caf1e8f6742380570" [label=""];
+  "sha256:8f7d19433524c3f1544b4607cde5eb9f2491656ca9d9f50caf1e8f6742380570" -> "sha256:f67095f1efca6390a69f41ede28f2d0436ee7777a7ee8c8a1d185e0dcea92bc6" [label=""];
+  "sha256:f1e7218cdf3ee3a9cd74740c50f1b76719add089b3d331181863c3b99b509ca9" -> "sha256:f67095f1efca6390a69f41ede28f2d0436ee7777a7ee8c8a1d185e0dcea92bc6" [label=""];
+  "sha256:f67095f1efca6390a69f41ede28f2d0436ee7777a7ee8c8a1d185e0dcea92bc6" -> "sha256:c951c37a6354043e4bbd010d3c5bd5c7012d769021d01a38a266d0d2673f1921" [label=""];
+  "sha256:f1e7218cdf3ee3a9cd74740c50f1b76719add089b3d331181863c3b99b509ca9" -> "sha256:c951c37a6354043e4bbd010d3c5bd5c7012d769021d01a38a266d0d2673f1921" [label=""];
+  "sha256:c951c37a6354043e4bbd010d3c5bd5c7012d769021d01a38a266d0d2673f1921" -> "sha256:a61df84f8119b7941f8d73a2972263f58c383df0e055efdd28c6cd906bf989cf" [label=""];
+  "sha256:a61df84f8119b7941f8d73a2972263f58c383df0e055efdd28c6cd906bf989cf" -> "sha256:5cf32b271874bf3a45dcddffa98187eac4d8281f01eb896e32e85c1d7935fced" [label=""];
+  "sha256:5cf32b271874bf3a45dcddffa98187eac4d8281f01eb896e32e85c1d7935fced" -> "sha256:9fd28585db1d9384560e45519979db14b1883db83fb7e1dd0bb0d6c9909fb041" [label=""];
+  "sha256:9fd28585db1d9384560e45519979db14b1883db83fb7e1dd0bb0d6c9909fb041" -> "sha256:6e5ef079f46a252a84072d7d430bd0afc6097bca737c4392fdaf45b616abedee" [label=""];
+  "sha256:6e5ef079f46a252a84072d7d430bd0afc6097bca737c4392fdaf45b616abedee" -> "sha256:e28db76c1ff76504ceff23b7d9142093d23c545fb8959d8fcdbe1ac01d3732b6" [label=""];
+  "sha256:e28db76c1ff76504ceff23b7d9142093d23c545fb8959d8fcdbe1ac01d3732b6" -> "sha256:73afca946b38ce9734bb2260b8398c2b53648c96b1953925bbf13fc9b1977b04" [label=""];
+}
+

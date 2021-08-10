@@ -1,0 +1,11 @@
+[app/sources/287456876.Dockerfile]
+digraph {
+  "sha256:bbc2678baafaaa88e2c312b7150f1c3c8069a714892e4d2780eeed768637fbe7" [label="docker-image://docker.io/library/amazonlinux:latest" shape="ellipse"];
+  "sha256:f1e5043d173a7d9d901b5b4cb081e71b9225a8421b6d68ad1f6c64add241035e" [label="local://context" shape="ellipse"];
+  "sha256:4c6708f254833f76b6471c2a87474a0378cdda0139fb7b3d364b63b3ef25a379" [label="copy{src=/xray, dest=/usr/bin/xray}" shape="note"];
+  "sha256:de08a46650c49e40dd18e97e242714961899526d443153ff0916d4d55c95bb0a" [label="sha256:de08a46650c49e40dd18e97e242714961899526d443153ff0916d4d55c95bb0a" shape="plaintext"];
+  "sha256:bbc2678baafaaa88e2c312b7150f1c3c8069a714892e4d2780eeed768637fbe7" -> "sha256:4c6708f254833f76b6471c2a87474a0378cdda0139fb7b3d364b63b3ef25a379" [label=""];
+  "sha256:f1e5043d173a7d9d901b5b4cb081e71b9225a8421b6d68ad1f6c64add241035e" -> "sha256:4c6708f254833f76b6471c2a87474a0378cdda0139fb7b3d364b63b3ef25a379" [label=""];
+  "sha256:4c6708f254833f76b6471c2a87474a0378cdda0139fb7b3d364b63b3ef25a379" -> "sha256:de08a46650c49e40dd18e97e242714961899526d443153ff0916d4d55c95bb0a" [label=""];
+}
+

@@ -1,0 +1,26 @@
+[app/sources/337651840.Dockerfile]
+digraph {
+  "sha256:e3ab66a1d3d43688407a39aba208fa6bbf3deaebb779daabbe8816d441ec24b0" [label="docker-image://docker.io/library/python:3.6-slim-jessie" shape="ellipse"];
+  "sha256:3be6fbd7af1b1034f864659ac5450766772682d352df9caa54a6c0d0f8903a1e" [label="/bin/sh -c set -ex     && buildDeps='         python3-dev         libkrb5-dev         libsasl2-dev         libssl-dev         libffi-dev         build-essential         libblas-dev         liblapack-dev         libpq-dev         git     '     && apt-get update -yqq     && apt-get install -yqq --no-install-recommends         $buildDeps         python3-pip         python3-requests         apt-utils         curl         netcat         locales     && sed -i 's/^# en_US.UTF-8 UTF-8$/en_US.UTF-8 UTF-8/g' /etc/locale.gen     && locale-gen     && update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8     && useradd -ms /bin/bash -d ${AIRFLOW_HOME} airflow     && python -m pip install -U pip setuptools wheel     && pip install Cython     && pip install pytz     && pip install pyOpenSSL     && pip install ndg-httpsclient     && pip install pyasn1     && pip install apache-airflow[crypto,celery,postgres,hive,jdbc]==$AIRFLOW_VERSION     && pip install celery[redis]==3.1.17     && pip install paramiko     && apt-get purge --auto-remove -yqq $buildDeps     && apt-get clean     && rm -rf         /var/lib/apt/lists/*         /tmp/*         /var/tmp/*         /usr/share/man         /usr/share/doc         /usr/share/doc-base" shape="box"];
+  "sha256:330e459c8c8dd4e609469b09623ee1eeb5844f181ed588261562eff2bf63035d" [label="/bin/sh -c echo \"deb  http://deb.debian.org/debian  jessie main\" >> /etc/apt/sources.list     && echo \"deb-src  http://deb.debian.org/debian  jessie main\" >> /etc/apt/sources.list     && apt-get update -y     && apt-get install        apt-transport-https        ca-certificates        curl        gnupg2        software-properties-common -y     && curl -fsSL https://download.docker.com/linux/$(. /etc/os-release; echo \"$ID\")/gpg | apt-key add -     && add-apt-repository        \"deb [arch=amd64] https://download.docker.com/linux/$(. /etc/os-release; echo \"$ID\")        $(lsb_release -cs)        stable\"     && apt-get update     && apt-get install docker-ce=$DOCKER_VERSION -y" shape="box"];
+  "sha256:8eaf2ed1fbbec4badfa811e7900e19d275eba2863eff27f635c3e7a5e7a5c529" [label="/bin/sh -c mkdir -p ${AIRFLOW_LOGS_CONF_DIR}" shape="box"];
+  "sha256:89edb1dd021573430eeaa267df37a1ec7acefc5be6953282e8e11116314bafbd" [label="/bin/sh -c pip install docker-py" shape="box"];
+  "sha256:53594c8c279299b94a82e622613c01266d2b6bd0eb0f1a99c11237ea2107ad17" [label="local://context" shape="ellipse"];
+  "sha256:46d433af1a137c7e8ac60c1e4ccb74ce6ba55d276dd64de3dff3bb499f81bd33" [label="copy{src=/script/entrypoint.sh, dest=/entrypoint.sh}" shape="note"];
+  "sha256:58bed1a1433e0aca41dfc06fbbbe16bab6a86e850b0e2cdc1bf8e97f6059ea09" [label="/bin/sh -c chmod +x /entrypoint.sh" shape="box"];
+  "sha256:808327e75d498c3599f2cf09d06c52d853526cc530c2a257043e07466d710182" [label="copy{src=/config/airflow.cfg, dest=/usr/local/airflow/airflow.cfg}" shape="note"];
+  "sha256:02bb56c19a8fdb8d40c6657e04aa0a353da4b051dcd55a542b5d5c2591c3ad4f" [label="mkdir{path=/usr/local/airflow}" shape="note"];
+  "sha256:d1e5b66835abadc09c555a7ebbc7222f8d143662551d8951f38e2cc9b088dab2" [label="sha256:d1e5b66835abadc09c555a7ebbc7222f8d143662551d8951f38e2cc9b088dab2" shape="plaintext"];
+  "sha256:e3ab66a1d3d43688407a39aba208fa6bbf3deaebb779daabbe8816d441ec24b0" -> "sha256:3be6fbd7af1b1034f864659ac5450766772682d352df9caa54a6c0d0f8903a1e" [label=""];
+  "sha256:3be6fbd7af1b1034f864659ac5450766772682d352df9caa54a6c0d0f8903a1e" -> "sha256:330e459c8c8dd4e609469b09623ee1eeb5844f181ed588261562eff2bf63035d" [label=""];
+  "sha256:330e459c8c8dd4e609469b09623ee1eeb5844f181ed588261562eff2bf63035d" -> "sha256:8eaf2ed1fbbec4badfa811e7900e19d275eba2863eff27f635c3e7a5e7a5c529" [label=""];
+  "sha256:8eaf2ed1fbbec4badfa811e7900e19d275eba2863eff27f635c3e7a5e7a5c529" -> "sha256:89edb1dd021573430eeaa267df37a1ec7acefc5be6953282e8e11116314bafbd" [label=""];
+  "sha256:89edb1dd021573430eeaa267df37a1ec7acefc5be6953282e8e11116314bafbd" -> "sha256:46d433af1a137c7e8ac60c1e4ccb74ce6ba55d276dd64de3dff3bb499f81bd33" [label=""];
+  "sha256:53594c8c279299b94a82e622613c01266d2b6bd0eb0f1a99c11237ea2107ad17" -> "sha256:46d433af1a137c7e8ac60c1e4ccb74ce6ba55d276dd64de3dff3bb499f81bd33" [label=""];
+  "sha256:46d433af1a137c7e8ac60c1e4ccb74ce6ba55d276dd64de3dff3bb499f81bd33" -> "sha256:58bed1a1433e0aca41dfc06fbbbe16bab6a86e850b0e2cdc1bf8e97f6059ea09" [label=""];
+  "sha256:58bed1a1433e0aca41dfc06fbbbe16bab6a86e850b0e2cdc1bf8e97f6059ea09" -> "sha256:808327e75d498c3599f2cf09d06c52d853526cc530c2a257043e07466d710182" [label=""];
+  "sha256:53594c8c279299b94a82e622613c01266d2b6bd0eb0f1a99c11237ea2107ad17" -> "sha256:808327e75d498c3599f2cf09d06c52d853526cc530c2a257043e07466d710182" [label=""];
+  "sha256:808327e75d498c3599f2cf09d06c52d853526cc530c2a257043e07466d710182" -> "sha256:02bb56c19a8fdb8d40c6657e04aa0a353da4b051dcd55a542b5d5c2591c3ad4f" [label=""];
+  "sha256:02bb56c19a8fdb8d40c6657e04aa0a353da4b051dcd55a542b5d5c2591c3ad4f" -> "sha256:d1e5b66835abadc09c555a7ebbc7222f8d143662551d8951f38e2cc9b088dab2" [label=""];
+}
+

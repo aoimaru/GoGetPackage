@@ -1,0 +1,7 @@
+[app/sources/251804598.Dockerfile]
+digraph {
+  "sha256:0db82d7703e90f8935f4b119e70bde792be03c91206304c25cec2fe9151ac9a7" [label="docker-image://gcr.io/google_containers/k8s-dns-kube-dns-amd64:1.14.1@sha256:33914315e600dfb756e550828307dfa2b21fb6db24fe3fe495e33d1022f9245d" shape="ellipse"];
+  "sha256:e56609e5d2f23f70eacf6d5d3465298c07da01823895799110b03fa52b380dc0" [label="sha256:e56609e5d2f23f70eacf6d5d3465298c07da01823895799110b03fa52b380dc0" shape="plaintext"];
+  "sha256:0db82d7703e90f8935f4b119e70bde792be03c91206304c25cec2fe9151ac9a7" -> "sha256:e56609e5d2f23f70eacf6d5d3465298c07da01823895799110b03fa52b380dc0" [label=""];
+}
+

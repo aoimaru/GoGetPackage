@@ -1,0 +1,16 @@
+[app/sources/356460925.Dockerfile]
+digraph {
+  "sha256:225f2b516be78b1b3b78645370593a19ca02798300409b6152a9fd2a2fca5245" [label="docker-image://docker.io/grafana/grafana:5.0.4" shape="ellipse"];
+  "sha256:10353f91c098feb9d4837941b5e55a65dbac4f40c7e5c1078c7fbef132a7bad7" [label="local://context" shape="ellipse"];
+  "sha256:d5fc3b4f3036e048c3fab6b705c2b2f363769dc49634a23611c15bc56d4d89d0" [label="copy{src=/init.sh, dest=/init.sh}" shape="note"];
+  "sha256:c0833400d35918074784595b8ab752f7fac2be57cec6110a32ef7f90e5c4c5d0" [label="copy{src=/dashboards, dest=/dashboards}" shape="note"];
+  "sha256:0774bda050da40af780ed185b4b25e308af25e40ac1201fd4af70a337148da29" [label="/bin/sh -c chmod +x /init.sh" shape="box"];
+  "sha256:d8814704c8f17f612d2e51596d4bc607fcd793645e6b2969769b4f251fcf50a8" [label="sha256:d8814704c8f17f612d2e51596d4bc607fcd793645e6b2969769b4f251fcf50a8" shape="plaintext"];
+  "sha256:225f2b516be78b1b3b78645370593a19ca02798300409b6152a9fd2a2fca5245" -> "sha256:d5fc3b4f3036e048c3fab6b705c2b2f363769dc49634a23611c15bc56d4d89d0" [label=""];
+  "sha256:10353f91c098feb9d4837941b5e55a65dbac4f40c7e5c1078c7fbef132a7bad7" -> "sha256:d5fc3b4f3036e048c3fab6b705c2b2f363769dc49634a23611c15bc56d4d89d0" [label=""];
+  "sha256:d5fc3b4f3036e048c3fab6b705c2b2f363769dc49634a23611c15bc56d4d89d0" -> "sha256:c0833400d35918074784595b8ab752f7fac2be57cec6110a32ef7f90e5c4c5d0" [label=""];
+  "sha256:10353f91c098feb9d4837941b5e55a65dbac4f40c7e5c1078c7fbef132a7bad7" -> "sha256:c0833400d35918074784595b8ab752f7fac2be57cec6110a32ef7f90e5c4c5d0" [label=""];
+  "sha256:c0833400d35918074784595b8ab752f7fac2be57cec6110a32ef7f90e5c4c5d0" -> "sha256:0774bda050da40af780ed185b4b25e308af25e40ac1201fd4af70a337148da29" [label=""];
+  "sha256:0774bda050da40af780ed185b4b25e308af25e40ac1201fd4af70a337148da29" -> "sha256:d8814704c8f17f612d2e51596d4bc607fcd793645e6b2969769b4f251fcf50a8" [label=""];
+}
+

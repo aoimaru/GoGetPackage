@@ -1,0 +1,52 @@
+[app/sources/321806666.Dockerfile]
+digraph {
+  "sha256:14dd403f25ae9e519bd44f27dc17af7ce80f5a4f9f48ca88108364e67ec5d360" [label="docker-image://docker.io/library/ubuntu:xenial" shape="ellipse"];
+  "sha256:ff3d642c531c3c73f8b4a8508422ebc8ebbca9a471959fc71d85d2468283a4c8" [label="/bin/sh -c apt-get update" shape="box"];
+  "sha256:2d791c31bc2dafa3dd87c57551a6647e5d127b973b0e094eb6585cc14b8e044e" [label="/bin/sh -c apt-get install -y locales" shape="box"];
+  "sha256:dacd7a6dc0ca05b5657f77c934255a2ff6cebffae4eca597b0bcaa7eb10b5327" [label="/bin/sh -c locale-gen en_US.UTF-8" shape="box"];
+  "sha256:6b125d2d91c28cc8186ed96be5de329b87063be626005064f1b1ae1a9f4aada3" [label="/bin/sh -c apt-get install -y socat" shape="box"];
+  "sha256:9b1a244e0df769a6d31606f6551380b9d753084632f923c87a00d5a661764e0d" [label="/bin/sh -c apt-get install -y vim-common" shape="box"];
+  "sha256:2b0bea71d69bd65a080db2a376b0d54f14c893a936c319b99425d58d98a38be1" [label="/bin/sh -c apt-get install -y less" shape="box"];
+  "sha256:cdbda48b4b16c15216cecadbb3f2a04d09e0ebb3d2cce76cf0b6877240387481" [label="/bin/sh -c apt-get install -y gdb-multiarch" shape="box"];
+  "sha256:46e026d6cd29136c26a537a606bce3d5dcaa6f443c9da1253dda2b91407bb3a3" [label="/bin/sh -c apt-get install -y git" shape="box"];
+  "sha256:cd00440682ec6c7410e0a745ccd9a7092af02553948adab420b73b3f010e7aea" [label="/bin/sh -c apt-get install -y sudo" shape="box"];
+  "sha256:9dca7fe69e2955fcf73459b58d8ecc97e3377b36279ad4bd491876709a2e46e2" [label="/bin/sh -c git clone https://github.com/pwndbg/pwndbg.git" shape="box"];
+  "sha256:d78d5733a93a604598737474918c55e4e50a47f6fcf237c6dcf2cb0a96e9bf57" [label="/bin/sh -c cd pwndbg && bash setup.sh" shape="box"];
+  "sha256:9a50de9edd24f21d00cda0f1485bf85fa3a119cdd8de575008986a8c48f32275" [label="/bin/sh -c git clone https://github.com/Gallopsled/pwntools.git" shape="box"];
+  "sha256:a3ff07f6c3874d96829afd7ec75e05e4bcab0b3cd9b1efade16abcdb41c58427" [label="/bin/sh -c cd pwntools && pip install -Ue ." shape="box"];
+  "sha256:89f0fdb91349a2a7a03e733d9b24cc405fa3768a11dde7d0a9d765a1001d0cb6" [label="/bin/sh -c apt-get install -y tmux" shape="box"];
+  "sha256:57159ea60ef74ea915e724cd8c7f80d42eb4e70d3be9b89f1017d117c69a9569" [label="/bin/sh -c mkdir                /challenge" shape="box"];
+  "sha256:ed09338225ebe513ad9b8ed36da1f3e1c17f2c53c2c1728b1f822db3909adce2" [label="mkdir{path=/challenge}" shape="note"];
+  "sha256:8ab7250c86927c5dd6b11f189e94bfc01283d3ccd1f6edd6d9c5fbebb7b6712b" [label="local://context" shape="ellipse"];
+  "sha256:460db4da0bfc61e629250309dea8e1e692a326b44bd37fdb919af3ca9377dd2c" [label="copy{src=/qemu-arm, dest=/challenge/}" shape="note"];
+  "sha256:3acca3cb9dae55e45880acb83f61bbb9d3aea7e9a8e6145160d1648b419fe044" [label="copy{src=/superman, dest=/challenge/}" shape="note"];
+  "sha256:2f01a76ea643c587b0bcea2d22777d4436e9103a4c74e09786db645b7b2a40e1" [label="copy{src=/close, dest=/challenge/}" shape="note"];
+  "sha256:b60ee633533a51e34a513b58871914d377ea2e76b620df3f292988e98581b398" [label="copy{src=/hello_world.payload, dest=/challenge/}" shape="note"];
+  "sha256:b2993641027d8d385c4b4d1266aa698bbdaad8ef91a9950fbacba5b2bdc4ab71" [label="sha256:b2993641027d8d385c4b4d1266aa698bbdaad8ef91a9950fbacba5b2bdc4ab71" shape="plaintext"];
+  "sha256:14dd403f25ae9e519bd44f27dc17af7ce80f5a4f9f48ca88108364e67ec5d360" -> "sha256:ff3d642c531c3c73f8b4a8508422ebc8ebbca9a471959fc71d85d2468283a4c8" [label=""];
+  "sha256:ff3d642c531c3c73f8b4a8508422ebc8ebbca9a471959fc71d85d2468283a4c8" -> "sha256:2d791c31bc2dafa3dd87c57551a6647e5d127b973b0e094eb6585cc14b8e044e" [label=""];
+  "sha256:2d791c31bc2dafa3dd87c57551a6647e5d127b973b0e094eb6585cc14b8e044e" -> "sha256:dacd7a6dc0ca05b5657f77c934255a2ff6cebffae4eca597b0bcaa7eb10b5327" [label=""];
+  "sha256:dacd7a6dc0ca05b5657f77c934255a2ff6cebffae4eca597b0bcaa7eb10b5327" -> "sha256:6b125d2d91c28cc8186ed96be5de329b87063be626005064f1b1ae1a9f4aada3" [label=""];
+  "sha256:6b125d2d91c28cc8186ed96be5de329b87063be626005064f1b1ae1a9f4aada3" -> "sha256:9b1a244e0df769a6d31606f6551380b9d753084632f923c87a00d5a661764e0d" [label=""];
+  "sha256:9b1a244e0df769a6d31606f6551380b9d753084632f923c87a00d5a661764e0d" -> "sha256:2b0bea71d69bd65a080db2a376b0d54f14c893a936c319b99425d58d98a38be1" [label=""];
+  "sha256:2b0bea71d69bd65a080db2a376b0d54f14c893a936c319b99425d58d98a38be1" -> "sha256:cdbda48b4b16c15216cecadbb3f2a04d09e0ebb3d2cce76cf0b6877240387481" [label=""];
+  "sha256:cdbda48b4b16c15216cecadbb3f2a04d09e0ebb3d2cce76cf0b6877240387481" -> "sha256:46e026d6cd29136c26a537a606bce3d5dcaa6f443c9da1253dda2b91407bb3a3" [label=""];
+  "sha256:46e026d6cd29136c26a537a606bce3d5dcaa6f443c9da1253dda2b91407bb3a3" -> "sha256:cd00440682ec6c7410e0a745ccd9a7092af02553948adab420b73b3f010e7aea" [label=""];
+  "sha256:cd00440682ec6c7410e0a745ccd9a7092af02553948adab420b73b3f010e7aea" -> "sha256:9dca7fe69e2955fcf73459b58d8ecc97e3377b36279ad4bd491876709a2e46e2" [label=""];
+  "sha256:9dca7fe69e2955fcf73459b58d8ecc97e3377b36279ad4bd491876709a2e46e2" -> "sha256:d78d5733a93a604598737474918c55e4e50a47f6fcf237c6dcf2cb0a96e9bf57" [label=""];
+  "sha256:d78d5733a93a604598737474918c55e4e50a47f6fcf237c6dcf2cb0a96e9bf57" -> "sha256:9a50de9edd24f21d00cda0f1485bf85fa3a119cdd8de575008986a8c48f32275" [label=""];
+  "sha256:9a50de9edd24f21d00cda0f1485bf85fa3a119cdd8de575008986a8c48f32275" -> "sha256:a3ff07f6c3874d96829afd7ec75e05e4bcab0b3cd9b1efade16abcdb41c58427" [label=""];
+  "sha256:a3ff07f6c3874d96829afd7ec75e05e4bcab0b3cd9b1efade16abcdb41c58427" -> "sha256:89f0fdb91349a2a7a03e733d9b24cc405fa3768a11dde7d0a9d765a1001d0cb6" [label=""];
+  "sha256:89f0fdb91349a2a7a03e733d9b24cc405fa3768a11dde7d0a9d765a1001d0cb6" -> "sha256:57159ea60ef74ea915e724cd8c7f80d42eb4e70d3be9b89f1017d117c69a9569" [label=""];
+  "sha256:57159ea60ef74ea915e724cd8c7f80d42eb4e70d3be9b89f1017d117c69a9569" -> "sha256:ed09338225ebe513ad9b8ed36da1f3e1c17f2c53c2c1728b1f822db3909adce2" [label=""];
+  "sha256:ed09338225ebe513ad9b8ed36da1f3e1c17f2c53c2c1728b1f822db3909adce2" -> "sha256:460db4da0bfc61e629250309dea8e1e692a326b44bd37fdb919af3ca9377dd2c" [label=""];
+  "sha256:8ab7250c86927c5dd6b11f189e94bfc01283d3ccd1f6edd6d9c5fbebb7b6712b" -> "sha256:460db4da0bfc61e629250309dea8e1e692a326b44bd37fdb919af3ca9377dd2c" [label=""];
+  "sha256:460db4da0bfc61e629250309dea8e1e692a326b44bd37fdb919af3ca9377dd2c" -> "sha256:3acca3cb9dae55e45880acb83f61bbb9d3aea7e9a8e6145160d1648b419fe044" [label=""];
+  "sha256:8ab7250c86927c5dd6b11f189e94bfc01283d3ccd1f6edd6d9c5fbebb7b6712b" -> "sha256:3acca3cb9dae55e45880acb83f61bbb9d3aea7e9a8e6145160d1648b419fe044" [label=""];
+  "sha256:3acca3cb9dae55e45880acb83f61bbb9d3aea7e9a8e6145160d1648b419fe044" -> "sha256:2f01a76ea643c587b0bcea2d22777d4436e9103a4c74e09786db645b7b2a40e1" [label=""];
+  "sha256:8ab7250c86927c5dd6b11f189e94bfc01283d3ccd1f6edd6d9c5fbebb7b6712b" -> "sha256:2f01a76ea643c587b0bcea2d22777d4436e9103a4c74e09786db645b7b2a40e1" [label=""];
+  "sha256:2f01a76ea643c587b0bcea2d22777d4436e9103a4c74e09786db645b7b2a40e1" -> "sha256:b60ee633533a51e34a513b58871914d377ea2e76b620df3f292988e98581b398" [label=""];
+  "sha256:8ab7250c86927c5dd6b11f189e94bfc01283d3ccd1f6edd6d9c5fbebb7b6712b" -> "sha256:b60ee633533a51e34a513b58871914d377ea2e76b620df3f292988e98581b398" [label=""];
+  "sha256:b60ee633533a51e34a513b58871914d377ea2e76b620df3f292988e98581b398" -> "sha256:b2993641027d8d385c4b4d1266aa698bbdaad8ef91a9950fbacba5b2bdc4ab71" [label=""];
+}
+

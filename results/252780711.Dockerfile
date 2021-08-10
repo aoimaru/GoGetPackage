@@ -1,0 +1,9 @@
+[app/sources/252780711.Dockerfile]
+digraph {
+  "sha256:43cf871b9064e1b501f2806c8cae950d3273e7593f2976dfcd30fbfce84f2357" [label="docker-image://docker.io/sideeffffect/haskell-stackage@sha256:0b6ac1240fe0344aa69a904fcf007c469623f2a71b0d2d1cb3c1d62693626244" shape="ellipse"];
+  "sha256:406b4238de36a357d3e33c5c6993ef73fd8ce009800ed181be0092879e5db8e4" [label="/bin/sh -c apt-get install -y git vim zsh" shape="box"];
+  "sha256:390770d3756ac3bba291bf4939bb367f84b6721fd8345ec3b9e13494994134a1" [label="sha256:390770d3756ac3bba291bf4939bb367f84b6721fd8345ec3b9e13494994134a1" shape="plaintext"];
+  "sha256:43cf871b9064e1b501f2806c8cae950d3273e7593f2976dfcd30fbfce84f2357" -> "sha256:406b4238de36a357d3e33c5c6993ef73fd8ce009800ed181be0092879e5db8e4" [label=""];
+  "sha256:406b4238de36a357d3e33c5c6993ef73fd8ce009800ed181be0092879e5db8e4" -> "sha256:390770d3756ac3bba291bf4939bb367f84b6721fd8345ec3b9e13494994134a1" [label=""];
+}
+

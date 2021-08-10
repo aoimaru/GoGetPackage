@@ -1,0 +1,53 @@
+[app/sources/157735526.Dockerfile]
+digraph {
+  "sha256:3a242e7d3b35a6ed7a9456303910cabd827c383baed80de27f828ce93bf4591c" [label="local://context" shape="ellipse"];
+  "sha256:c5ee0b70b33870ffcd6621ae44048013bcd86db1d13406b7a0bd62607e7be60e" [label="docker-image://quay.io/geomesa/base:__TAG__" shape="ellipse"];
+  "sha256:e1f0f918eba612eedc07db7a078091600105c7bd6d8b73eb001ef226e11d6120" [label="/bin/sh -c set -x   && mkdir -p /opt/tomcat/webapps/geoserver   && curl -sS  https://archive.apache.org/dist/tomcat/tomcat-8/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz   | tar -zx -C /opt/tomcat --strip-components=1" shape="box"];
+  "sha256:e161648779d7709f79f18827896762f4fb60735eebb1e4bf548ec740b80fb61b" [label="/bin/sh -c set -x   && curl -sS -L -o /tmp/geoserver-war.zip     https://downloads.sourceforge.net/project/geoserver/GeoServer/${GEOSERVER_VERSION}/geoserver-${GEOSERVER_VERSION}-war.zip   && unzip /tmp/geoserver-war.zip geoserver.war -d /tmp   && unzip /tmp/geoserver.war -d /opt/tomcat/webapps/geoserver   && rm -rf /tmp/geoserver-war.zip /tmp/geoserver.war /opt/tomcat/webapps/geoserver/META-INF" shape="box"];
+  "sha256:ac120c004e360356cc33846f6ebe5588527fff4dfcf9d440170f42872474df88" [label="/bin/sh -c set -x   && curl -sS -L -o /tmp/geoserver-wps.zip     https://downloads.sourceforge.net/project/geoserver/GeoServer/${GEOSERVER_VERSION}/extensions/geoserver-${GEOSERVER_VERSION}-wps-plugin.zip   && unzip -j /tmp/geoserver-wps.zip -d /opt/tomcat/webapps/geoserver/WEB-INF/lib/   && rm -rf /tmp/geoserver-wps.zip" shape="box"];
+  "sha256:eccdc23ae33ff032265281cdcd61b6bcb08837a6e55df3e7dcb5aef332534337" [label="docker-image://docker.io/library/centos:7" shape="ellipse"];
+  "sha256:f264d161b572c773bc96d63a625a6ec3cf0f7214172def83862d42d261dedc74" [label="copy{src=/tarballs/geomesa-accumulo-dist_2.11--bin.tar.gz, dest=/accumulo-dist.tar.gz}" shape="note"];
+  "sha256:e226f53e9beee7db96807405f468d798f636c06fb3f2050a3709500b2976ad9a" [label="/bin/sh -c tar -zxf accumulo-dist.tar.gz" shape="box"];
+  "sha256:e49cd44f04fd9684212868dbf2d7a7cc8239d8f63fcba2ee5eca9f81e7fa2302" [label="copy{src=/geomesa-accumulo*, dest=/opt/geomesa/}" shape="note"];
+  "sha256:798f4573b618a387e1edceb6c3b0ab8c40a4d9d6ea04c14b0cdfbccb6edc0c2a" [label="/bin/sh -c set -x     && cd /opt/tomcat/webapps/geoserver/WEB-INF/lib/     && tar zxvf /opt/geomesa/dist/gs-plugins/geomesa-accumulo-gs-plugin_2.11-${GEOMESA_VERSION}-install.tar.gz" shape="box"];
+  "sha256:5a5325bbfdba389293ab7d94a0d9fa7a44116dce59ca4d2732e9e36a87a75278" [label="/bin/sh -c set -x     && cd /opt/tomcat/webapps/geoserver/WEB-INF/lib/     && tar zxvf /opt/geomesa/dist/gs-plugins/geomesa-blobstore-gs-plugin_2.11-${GEOMESA_VERSION}-install.tar.gz" shape="box"];
+  "sha256:c3d84f78343d4a4efd3aa60f68e176ea8d7d671a0713b53e35e7dc1869777c51" [label="/bin/sh -c set -x     && cd /opt/tomcat/webapps/geoserver/WEB-INF/lib/     && tar zxvf /opt/geomesa/dist/gs-plugins/geomesa-stream-gs-plugin_2.11-${GEOMESA_VERSION}-install.tar.gz" shape="box"];
+  "sha256:ab44eb5ec29201111d26ddb0c99e14bb6421ca2381e5d0c02ba035beda2c4e1e" [label="/bin/sh -c set -x     && cd /opt/tomcat/webapps/geoserver/WEB-INF/lib/     && tar zxvf /opt/geomesa/dist/gs-plugins/geomesa-geojson-gs-plugin_2.11-${GEOMESA_VERSION}-install.tar.gz" shape="box"];
+  "sha256:77387c4ae503dd09e17e8d6adb8654e0ea0739a3adfa3266c9168b73c333b808" [label="/bin/sh -c set -x     && cd /opt/tomcat/webapps/geoserver/WEB-INF/lib/     && cp /opt/geomesa/dist/gs-plugins/geomesa-process-wps_2.11-${GEOMESA_VERSION}.jar ." shape="box"];
+  "sha256:9f9a3ea38c7d01de28ff8bb51f98a869ead7001f2e313e20ef22b1bd8a552bb7" [label="/bin/sh -c set -x     && /opt/geomesa/bin/install-hadoop-accumulo.sh /opt/tomcat/webapps/geoserver/WEB-INF/lib -a ${ACCUMULO_VERSION} -h ${HADOOP_VERSION} -t ${THRIFT_VERSION}" shape="box"];
+  "sha256:07d70f19af034cb2972f10c2394ce56cd7053e0ad90e4b19777f161d350fb148" [label="copy{src=/tarballs/geomesa-kafka-dist_2.11--bin.tar.gz, dest=/kafka-dist.tar.gz}" shape="note"];
+  "sha256:e18e64846fb6b377ae44df294d9ff0baf11e3b208fba0a491ab7ac831d84d402" [label="/bin/sh -c tar -zxf kafka-dist.tar.gz" shape="box"];
+  "sha256:3d9e7b474da0ee8e48b038e8cae6299bf5d0ff786c210d9b37ea2315b5715191" [label="copy{src=/geomesa-kafka*, dest=/opt/geomesa-kafka/}" shape="note"];
+  "sha256:ace6fa29a38c5b062ac0afbfb6f0e3df4d1eb6deb2a53742b21105bf37b36306" [label="/bin/sh -c set -x   && cd /opt/tomcat/webapps/geoserver/WEB-INF/lib/   && tar zxvf /opt/geomesa-kafka/dist/gs-plugins/geomesa-kafka-gs-plugin_2.11-${GEOMESA_VERSION}-install.tar.gz   && rm /opt/tomcat/webapps/geoserver/WEB-INF/lib/zookeeper*.jar   && /opt/geomesa-kafka/bin/install-kafka.sh /opt/tomcat/webapps/geoserver/WEB-INF/lib" shape="box"];
+  "sha256:ac8c0b8e9773fa95ce91740b1bf7479ad9bf786557480d931b56a74555fff546" [label="copy{src=/opt/tomcat, dest=/opt/tomcat/}" shape="note"];
+  "sha256:15c6af753e2f66c8f0a362271de9241f4525011762bab3b8fa0b7a66ec096732" [label="/bin/sh -c set -x   && groupadd tomcat   && useradd -M -s /bin/nologin -g tomcat -d /opt/tomcat tomcat   && chown root /opt/tomcat/webapps/geoserver/WEB-INF/lib/*   && chgrp root /opt/tomcat/webapps/geoserver/WEB-INF/lib/*" shape="box"];
+  "sha256:974f7934af1cc5f4c51cbc5259775d867ca794af0e5bc38ba9e1d95d366ae1cb" [label="copy{src=/server.xml, dest=/opt/tomcat/conf/server.xml}" shape="note"];
+  "sha256:0ca3a1402eea04a0402bfd7450e9b6f1a8df904cc3b2200fd634a41221f9211b" [label="sha256:0ca3a1402eea04a0402bfd7450e9b6f1a8df904cc3b2200fd634a41221f9211b" shape="plaintext"];
+  "sha256:c5ee0b70b33870ffcd6621ae44048013bcd86db1d13406b7a0bd62607e7be60e" -> "sha256:e1f0f918eba612eedc07db7a078091600105c7bd6d8b73eb001ef226e11d6120" [label=""];
+  "sha256:e1f0f918eba612eedc07db7a078091600105c7bd6d8b73eb001ef226e11d6120" -> "sha256:e161648779d7709f79f18827896762f4fb60735eebb1e4bf548ec740b80fb61b" [label=""];
+  "sha256:e161648779d7709f79f18827896762f4fb60735eebb1e4bf548ec740b80fb61b" -> "sha256:ac120c004e360356cc33846f6ebe5588527fff4dfcf9d440170f42872474df88" [label=""];
+  "sha256:eccdc23ae33ff032265281cdcd61b6bcb08837a6e55df3e7dcb5aef332534337" -> "sha256:f264d161b572c773bc96d63a625a6ec3cf0f7214172def83862d42d261dedc74" [label=""];
+  "sha256:3a242e7d3b35a6ed7a9456303910cabd827c383baed80de27f828ce93bf4591c" -> "sha256:f264d161b572c773bc96d63a625a6ec3cf0f7214172def83862d42d261dedc74" [label=""];
+  "sha256:f264d161b572c773bc96d63a625a6ec3cf0f7214172def83862d42d261dedc74" -> "sha256:e226f53e9beee7db96807405f468d798f636c06fb3f2050a3709500b2976ad9a" [label=""];
+  "sha256:ac120c004e360356cc33846f6ebe5588527fff4dfcf9d440170f42872474df88" -> "sha256:e49cd44f04fd9684212868dbf2d7a7cc8239d8f63fcba2ee5eca9f81e7fa2302" [label=""];
+  "sha256:e226f53e9beee7db96807405f468d798f636c06fb3f2050a3709500b2976ad9a" -> "sha256:e49cd44f04fd9684212868dbf2d7a7cc8239d8f63fcba2ee5eca9f81e7fa2302" [label=""];
+  "sha256:e49cd44f04fd9684212868dbf2d7a7cc8239d8f63fcba2ee5eca9f81e7fa2302" -> "sha256:798f4573b618a387e1edceb6c3b0ab8c40a4d9d6ea04c14b0cdfbccb6edc0c2a" [label=""];
+  "sha256:798f4573b618a387e1edceb6c3b0ab8c40a4d9d6ea04c14b0cdfbccb6edc0c2a" -> "sha256:5a5325bbfdba389293ab7d94a0d9fa7a44116dce59ca4d2732e9e36a87a75278" [label=""];
+  "sha256:5a5325bbfdba389293ab7d94a0d9fa7a44116dce59ca4d2732e9e36a87a75278" -> "sha256:c3d84f78343d4a4efd3aa60f68e176ea8d7d671a0713b53e35e7dc1869777c51" [label=""];
+  "sha256:c3d84f78343d4a4efd3aa60f68e176ea8d7d671a0713b53e35e7dc1869777c51" -> "sha256:ab44eb5ec29201111d26ddb0c99e14bb6421ca2381e5d0c02ba035beda2c4e1e" [label=""];
+  "sha256:ab44eb5ec29201111d26ddb0c99e14bb6421ca2381e5d0c02ba035beda2c4e1e" -> "sha256:77387c4ae503dd09e17e8d6adb8654e0ea0739a3adfa3266c9168b73c333b808" [label=""];
+  "sha256:77387c4ae503dd09e17e8d6adb8654e0ea0739a3adfa3266c9168b73c333b808" -> "sha256:9f9a3ea38c7d01de28ff8bb51f98a869ead7001f2e313e20ef22b1bd8a552bb7" [label=""];
+  "sha256:eccdc23ae33ff032265281cdcd61b6bcb08837a6e55df3e7dcb5aef332534337" -> "sha256:07d70f19af034cb2972f10c2394ce56cd7053e0ad90e4b19777f161d350fb148" [label=""];
+  "sha256:3a242e7d3b35a6ed7a9456303910cabd827c383baed80de27f828ce93bf4591c" -> "sha256:07d70f19af034cb2972f10c2394ce56cd7053e0ad90e4b19777f161d350fb148" [label=""];
+  "sha256:07d70f19af034cb2972f10c2394ce56cd7053e0ad90e4b19777f161d350fb148" -> "sha256:e18e64846fb6b377ae44df294d9ff0baf11e3b208fba0a491ab7ac831d84d402" [label=""];
+  "sha256:9f9a3ea38c7d01de28ff8bb51f98a869ead7001f2e313e20ef22b1bd8a552bb7" -> "sha256:3d9e7b474da0ee8e48b038e8cae6299bf5d0ff786c210d9b37ea2315b5715191" [label=""];
+  "sha256:e18e64846fb6b377ae44df294d9ff0baf11e3b208fba0a491ab7ac831d84d402" -> "sha256:3d9e7b474da0ee8e48b038e8cae6299bf5d0ff786c210d9b37ea2315b5715191" [label=""];
+  "sha256:3d9e7b474da0ee8e48b038e8cae6299bf5d0ff786c210d9b37ea2315b5715191" -> "sha256:ace6fa29a38c5b062ac0afbfb6f0e3df4d1eb6deb2a53742b21105bf37b36306" [label=""];
+  "sha256:c5ee0b70b33870ffcd6621ae44048013bcd86db1d13406b7a0bd62607e7be60e" -> "sha256:ac8c0b8e9773fa95ce91740b1bf7479ad9bf786557480d931b56a74555fff546" [label=""];
+  "sha256:ace6fa29a38c5b062ac0afbfb6f0e3df4d1eb6deb2a53742b21105bf37b36306" -> "sha256:ac8c0b8e9773fa95ce91740b1bf7479ad9bf786557480d931b56a74555fff546" [label=""];
+  "sha256:ac8c0b8e9773fa95ce91740b1bf7479ad9bf786557480d931b56a74555fff546" -> "sha256:15c6af753e2f66c8f0a362271de9241f4525011762bab3b8fa0b7a66ec096732" [label=""];
+  "sha256:15c6af753e2f66c8f0a362271de9241f4525011762bab3b8fa0b7a66ec096732" -> "sha256:974f7934af1cc5f4c51cbc5259775d867ca794af0e5bc38ba9e1d95d366ae1cb" [label=""];
+  "sha256:3a242e7d3b35a6ed7a9456303910cabd827c383baed80de27f828ce93bf4591c" -> "sha256:974f7934af1cc5f4c51cbc5259775d867ca794af0e5bc38ba9e1d95d366ae1cb" [label=""];
+  "sha256:974f7934af1cc5f4c51cbc5259775d867ca794af0e5bc38ba9e1d95d366ae1cb" -> "sha256:0ca3a1402eea04a0402bfd7450e9b6f1a8df904cc3b2200fd634a41221f9211b" [label=""];
+}
+

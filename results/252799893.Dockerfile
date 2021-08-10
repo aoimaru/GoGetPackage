@@ -1,0 +1,19 @@
+[app/sources/252799893.Dockerfile]
+digraph {
+  "sha256:d2d876ed183c6ae2f9d33d971214f33b29ed05cfb16248017dad10b380b7853c" [label="docker-image://docker.io/library/nginx:1.11-alpine" shape="ellipse"];
+  "sha256:a22692d157630e88814538e4bbebf9ac1c01d9921170913648b9e83b1eec6b41" [label="local://context" shape="ellipse"];
+  "sha256:8b575615bcd396b52729d816c96d92542466853f6f34fb7cdd8d8396172483b5" [label="copy{src=/ng2-admin, dest=/var/www}" shape="note"];
+  "sha256:03f795e8ccf2864b1723e9dad129876978a3a7245f2637667ac8d4b35a5f1efa" [label="copy{src=/ng2-admin/dist, dest=/var/www}" shape="note"];
+  "sha256:890cea723efa8458f1341ea1954deb0b70aa8401005b9b5a9c522800649d843b" [label="copy{src=/docker/nginx/conf.d/*, dest=/etc/nginx/conf.d/}" shape="note"];
+  "sha256:2374ab8bb2eec3e1fb78ac744706e4987c05e781da51eb1deeb5ad38c6e32d8c" [label="/bin/sh -c chmod 755 /var/www/run-prod.sh" shape="box"];
+  "sha256:5f61cba6bedbc832c1a535001e2e337cc8358a33e5b27ed28adc75ceda7345b3" [label="sha256:5f61cba6bedbc832c1a535001e2e337cc8358a33e5b27ed28adc75ceda7345b3" shape="plaintext"];
+  "sha256:d2d876ed183c6ae2f9d33d971214f33b29ed05cfb16248017dad10b380b7853c" -> "sha256:8b575615bcd396b52729d816c96d92542466853f6f34fb7cdd8d8396172483b5" [label=""];
+  "sha256:a22692d157630e88814538e4bbebf9ac1c01d9921170913648b9e83b1eec6b41" -> "sha256:8b575615bcd396b52729d816c96d92542466853f6f34fb7cdd8d8396172483b5" [label=""];
+  "sha256:8b575615bcd396b52729d816c96d92542466853f6f34fb7cdd8d8396172483b5" -> "sha256:03f795e8ccf2864b1723e9dad129876978a3a7245f2637667ac8d4b35a5f1efa" [label=""];
+  "sha256:a22692d157630e88814538e4bbebf9ac1c01d9921170913648b9e83b1eec6b41" -> "sha256:03f795e8ccf2864b1723e9dad129876978a3a7245f2637667ac8d4b35a5f1efa" [label=""];
+  "sha256:03f795e8ccf2864b1723e9dad129876978a3a7245f2637667ac8d4b35a5f1efa" -> "sha256:890cea723efa8458f1341ea1954deb0b70aa8401005b9b5a9c522800649d843b" [label=""];
+  "sha256:a22692d157630e88814538e4bbebf9ac1c01d9921170913648b9e83b1eec6b41" -> "sha256:890cea723efa8458f1341ea1954deb0b70aa8401005b9b5a9c522800649d843b" [label=""];
+  "sha256:890cea723efa8458f1341ea1954deb0b70aa8401005b9b5a9c522800649d843b" -> "sha256:2374ab8bb2eec3e1fb78ac744706e4987c05e781da51eb1deeb5ad38c6e32d8c" [label=""];
+  "sha256:2374ab8bb2eec3e1fb78ac744706e4987c05e781da51eb1deeb5ad38c6e32d8c" -> "sha256:5f61cba6bedbc832c1a535001e2e337cc8358a33e5b27ed28adc75ceda7345b3" [label=""];
+}
+

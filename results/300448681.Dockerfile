@@ -1,0 +1,7 @@
+[app/sources/300448681.Dockerfile]
+digraph {
+  "sha256:fbef4606928cc3eb080c9831c30187e80905e81525f23666341806483d50414d" [label="docker-image://gcr.io/istio-release/citadel:collab-gcp-identity-20181017-09-15@sha256:a3e6ec3f249df9f1fa19c5a97f9088f6ec934c47361df8a88a308a9868d232bd" shape="ellipse"];
+  "sha256:d8684bdb4a4d23e59d9457775ba6555d0fecd7a928bd09b7b78f27c9f733643c" [label="sha256:d8684bdb4a4d23e59d9457775ba6555d0fecd7a928bd09b7b78f27c9f733643c" shape="plaintext"];
+  "sha256:fbef4606928cc3eb080c9831c30187e80905e81525f23666341806483d50414d" -> "sha256:d8684bdb4a4d23e59d9457775ba6555d0fecd7a928bd09b7b78f27c9f733643c" [label=""];
+}
+

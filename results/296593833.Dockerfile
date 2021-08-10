@@ -1,0 +1,23 @@
+[app/sources/296593833.Dockerfile]
+digraph {
+  "sha256:5e691c7ba4998fa4b60d1218bbc4ed9845bfa527d7d91b0c48922bbea45ce425" [label="docker-image://docker.io/library/ubuntu:18.04" shape="ellipse"];
+  "sha256:a25a08772633f003bb56284f5a5991f97e1959809c77c4b5e1a4458248b343fe" [label="/bin/sh -c apt-get -qq -y update     && apt-get -q -y install build-essential locales ca-certificates         python3-pip python3-dev python3-pil         libxslt1-dev libpq-dev libldap2-dev libsasl2-dev         zlib1g-dev libicu-dev libxml2-dev         unrar p7zip-full          libmediainfo-dev         imagemagick-common imagemagick mdbtools djvulibre-bin         libtiff5-dev libjpeg-dev libfreetype6-dev libwebp-dev         libtiff-tools ghostscript librsvg2-bin         libtesseract-dev tesseract-ocr-eng libleptonica-dev         poppler-utils poppler-data pst-utils         libreoffice     && apt-get -qq -y autoremove     && apt-get clean     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*" shape="box"];
+  "sha256:f90c9ec555cddef0bf1aa26ccca141d7d3d281de40550b71da7911e886c2f032" [label="/bin/sh -c sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen &&     sed -i -e 's/# en_GB.ISO-8859-15 ISO-8859-15/en_GB.ISO-8859-15 ISO-8859-15/' /etc/locale.gen &&     locale-gen" shape="box"];
+  "sha256:bfb935dacd0082179d3dbf6184d4aa721734be096bd3a4531f3756d3ec0e777f" [label="/bin/sh -c pip3 install --no-cache-dir -q -U pip setuptools six wheel" shape="box"];
+  "sha256:d0158fbeaeae68a2217c87cfe8086cb12fadbfb2cc5c66b83aee04c2178c0904" [label="/bin/sh -c pip3 install --no-cache-dir -q -U banal>=0.3.4                    normality>=0.5.11                    pantomime>=0.3.2                    requests[security]>=2.18.4                    cryptography>=2.5                    xlrd>=1.1.0                    pyicu>=2.0.3                    openpyxl>=2.5.3                    odfpy>=1.3.5                    cchardet>=2.1.1                    lxml>=4.2.1                    pillow>=5.1.0                    olefile>=0.44                    tesserocr>=2.2.2                    grpcio>=1.17.0                    python-magic>=0.4.12                    pypdf2>=1.26.0                    rarfile>=3.0                    regex==2018.8.29                    flanker>=0.9.0                    ply==3.10                    imapclient>=1.0.2                    dbf>=0.96.8                    pdflib>=0.1.5                    pymediainfo>=2.3.0                    nose" shape="box"];
+  "sha256:5e76ac5d8536efccd711dd8c3424e45dca0e06f430b63f0e452693f875c4a49b" [label="local://context" shape="ellipse"];
+  "sha256:5edba00ba3642acc79deb13b5d4c318e840a3cecc1ed496bdfe1dc26e5752f14" [label="copy{src=/, dest=/ingestors}" shape="note"];
+  "sha256:9799348c6c9f6461682b68bbb0590a206416473dfcda42af8db57d2dfb6564a3" [label="mkdir{path=/ingestors}" shape="note"];
+  "sha256:2c8ae1b1015ee3f6f3b002e071e247e0546fddc1323577abf301e2ce7675ef6d" [label="/bin/sh -c pip3 install -e /ingestors[dev]" shape="box"];
+  "sha256:661f34018f5264959dec5377fa10100fb7eaa8b68768ce3ba68c5e2fc4010ace" [label="sha256:661f34018f5264959dec5377fa10100fb7eaa8b68768ce3ba68c5e2fc4010ace" shape="plaintext"];
+  "sha256:5e691c7ba4998fa4b60d1218bbc4ed9845bfa527d7d91b0c48922bbea45ce425" -> "sha256:a25a08772633f003bb56284f5a5991f97e1959809c77c4b5e1a4458248b343fe" [label=""];
+  "sha256:a25a08772633f003bb56284f5a5991f97e1959809c77c4b5e1a4458248b343fe" -> "sha256:f90c9ec555cddef0bf1aa26ccca141d7d3d281de40550b71da7911e886c2f032" [label=""];
+  "sha256:f90c9ec555cddef0bf1aa26ccca141d7d3d281de40550b71da7911e886c2f032" -> "sha256:bfb935dacd0082179d3dbf6184d4aa721734be096bd3a4531f3756d3ec0e777f" [label=""];
+  "sha256:bfb935dacd0082179d3dbf6184d4aa721734be096bd3a4531f3756d3ec0e777f" -> "sha256:d0158fbeaeae68a2217c87cfe8086cb12fadbfb2cc5c66b83aee04c2178c0904" [label=""];
+  "sha256:d0158fbeaeae68a2217c87cfe8086cb12fadbfb2cc5c66b83aee04c2178c0904" -> "sha256:5edba00ba3642acc79deb13b5d4c318e840a3cecc1ed496bdfe1dc26e5752f14" [label=""];
+  "sha256:5e76ac5d8536efccd711dd8c3424e45dca0e06f430b63f0e452693f875c4a49b" -> "sha256:5edba00ba3642acc79deb13b5d4c318e840a3cecc1ed496bdfe1dc26e5752f14" [label=""];
+  "sha256:5edba00ba3642acc79deb13b5d4c318e840a3cecc1ed496bdfe1dc26e5752f14" -> "sha256:9799348c6c9f6461682b68bbb0590a206416473dfcda42af8db57d2dfb6564a3" [label=""];
+  "sha256:9799348c6c9f6461682b68bbb0590a206416473dfcda42af8db57d2dfb6564a3" -> "sha256:2c8ae1b1015ee3f6f3b002e071e247e0546fddc1323577abf301e2ce7675ef6d" [label=""];
+  "sha256:2c8ae1b1015ee3f6f3b002e071e247e0546fddc1323577abf301e2ce7675ef6d" -> "sha256:661f34018f5264959dec5377fa10100fb7eaa8b68768ce3ba68c5e2fc4010ace" [label=""];
+}
+

@@ -1,0 +1,9 @@
+[app/sources/289672721.Dockerfile]
+digraph {
+  "sha256:4ceabb14ffc191e5e6977329452157c3d086f0804fc76d95440dd167c916ba3a" [label="local://context" shape="ellipse"];
+  "sha256:c586d4322d9074e91b249a5601cc037b68806dbd2bebe907ba77a4d718fb3053" [label="copy{src=/mounttest, dest=/}" shape="note"];
+  "sha256:0325b6d6f3e902e44a6e168ce589a3f0f43845c79d1d1e9338b91257dbfc4ba6" [label="sha256:0325b6d6f3e902e44a6e168ce589a3f0f43845c79d1d1e9338b91257dbfc4ba6" shape="plaintext"];
+  "sha256:4ceabb14ffc191e5e6977329452157c3d086f0804fc76d95440dd167c916ba3a" -> "sha256:c586d4322d9074e91b249a5601cc037b68806dbd2bebe907ba77a4d718fb3053" [label=""];
+  "sha256:c586d4322d9074e91b249a5601cc037b68806dbd2bebe907ba77a4d718fb3053" -> "sha256:0325b6d6f3e902e44a6e168ce589a3f0f43845c79d1d1e9338b91257dbfc4ba6" [label=""];
+}
+

@@ -1,0 +1,51 @@
+[app/sources/268037847.Dockerfile]
+digraph {
+  "sha256:e04ad0b393d8db3de2dc0e9a2b0a83c9e58a7908ac46c2e50f51f88b47b4241b" [label="docker-image://docker.io/library/node:9-slim" shape="ellipse"];
+  "sha256:26d45cee483999d7a64449881c679fffec4963fcb21bc69d2af014cac3b7d0a0" [label="/bin/sh -c apt-get update     && apt-get install -y --no-install-recommends git grep     && rm -rf /var/lib/apt/lists/*" shape="box"];
+  "sha256:1f1894b985a9cff18881ec2b90be877f28649d33377b6f5462ae9a5b1c897d36" [label="/bin/sh -c mkdir -p /gs/client" shape="box"];
+  "sha256:85b709cdfaadecd4e22a195cfe08257ae541788a78e98a6ac636abc22b42eedc" [label="docker-image://docker.io/library/node:9" shape="ellipse"];
+  "sha256:00cc5287472e322cab63faea8691f7a64fe1ffca5293c51f057e9d014c7f6efd" [label="/bin/sh -c apt-get update     && apt-get install -y --no-install-recommends python     && rm -rf /var/lib/apt/lists/*" shape="box"];
+  "sha256:e20b6fdefedb9cb6d5f48499d4b4187f012965b1457fc12bc70bb61f9fdb2cdb" [label="/bin/sh -c mkdir -p /gs/server /gs/client" shape="box"];
+  "sha256:fcf55ae60527cc8c1ff29292c35b386efbea288e1d8d9855b8273c8211cfc3bc" [label="mkdir{path=/gs}" shape="note"];
+  "sha256:ce0fee608a0e904eb5490fb1c6d48be1cde26fdf620a3e7c9e571295fe8d4b11" [label="local://context" shape="ellipse"];
+  "sha256:858998f37fd2bd9f297367621169b8f3bae990d3b42febf52f32778a052ca03d" [label="copy{src=/server/package.json, dest=/gs/server/},copy{src=/server/yarn.lock, dest=/gs/server/}" shape="note"];
+  "sha256:9f8f797fa6398852ca7b444df9d7d029c0783de592c5614d5bb8feebad870f2e" [label="/bin/sh -c cd server && yarn" shape="box"];
+  "sha256:d15ec082e581ffc54ffcd4fe7cb0283ef6f7ccdd26668873c1e98650b78b6a58" [label="copy{src=/client/package.json, dest=/gs/client/},copy{src=/client/yarn.lock, dest=/gs/client/}" shape="note"];
+  "sha256:a4c6584ff2464e43c3029d0b86dcf223027f953eb37e74623c046063ed154fe3" [label="/bin/sh -c cd client && yarn install --production=false" shape="box"];
+  "sha256:ca715c88f3fc51ac36ca5519fe63fe828b0e442af473de328de698fec7c51c71" [label="copy{src=/client/src, dest=/gs/client/src}" shape="note"];
+  "sha256:eed864e47a51b08d34c25afe396bf4e3eb1407d75daf9c518fca7900c6106f2d" [label="copy{src=/client/.babelrc, dest=/gs/client/},copy{src=/client/webpack.config.js, dest=/gs/client/}" shape="note"];
+  "sha256:b38f2d4f62242d3561d62d3d8be9b32771bff2bc43accc38b4b1516c1c341153" [label="/bin/sh -c cd client && yarn run build" shape="box"];
+  "sha256:8650c34b93ca9f119ec24499841d2e56633c6f54887ccc357928130973f39cb2" [label="copy{src=/gs/client/dist, dest=/gs/client/dist}" shape="note"];
+  "sha256:be8bda52e8862fde52ef6c45a899f223be4d8ec0bab96a9ca43d2e6846b13692" [label="copy{src=/client/index.html, dest=/gs/client/}" shape="note"];
+  "sha256:b82412316ccf2f94dceaad4569089d66719e982551129fa780a18fcf5959e2d3" [label="copy{src=/gs/server, dest=/gs/server}" shape="note"];
+  "sha256:7db96ef838929a79f0eea41a4fe774fc90aee91cd07e8356a8dbecaf0822efd5" [label="copy{src=/server/src, dest=/gs/server/src}" shape="note"];
+  "sha256:fb9111b9630ba115e69b8d6230418f73825562bfa601b9f2da59c518b19c4a89" [label="mkdir{path=/gs/server}" shape="note"];
+  "sha256:34a0b35a6efaa50fed15d6ede048b0bfbdd493a30d86a64bf9b2bf34fe1d2efd" [label="sha256:34a0b35a6efaa50fed15d6ede048b0bfbdd493a30d86a64bf9b2bf34fe1d2efd" shape="plaintext"];
+  "sha256:e04ad0b393d8db3de2dc0e9a2b0a83c9e58a7908ac46c2e50f51f88b47b4241b" -> "sha256:26d45cee483999d7a64449881c679fffec4963fcb21bc69d2af014cac3b7d0a0" [label=""];
+  "sha256:26d45cee483999d7a64449881c679fffec4963fcb21bc69d2af014cac3b7d0a0" -> "sha256:1f1894b985a9cff18881ec2b90be877f28649d33377b6f5462ae9a5b1c897d36" [label=""];
+  "sha256:85b709cdfaadecd4e22a195cfe08257ae541788a78e98a6ac636abc22b42eedc" -> "sha256:00cc5287472e322cab63faea8691f7a64fe1ffca5293c51f057e9d014c7f6efd" [label=""];
+  "sha256:00cc5287472e322cab63faea8691f7a64fe1ffca5293c51f057e9d014c7f6efd" -> "sha256:e20b6fdefedb9cb6d5f48499d4b4187f012965b1457fc12bc70bb61f9fdb2cdb" [label=""];
+  "sha256:e20b6fdefedb9cb6d5f48499d4b4187f012965b1457fc12bc70bb61f9fdb2cdb" -> "sha256:fcf55ae60527cc8c1ff29292c35b386efbea288e1d8d9855b8273c8211cfc3bc" [label=""];
+  "sha256:fcf55ae60527cc8c1ff29292c35b386efbea288e1d8d9855b8273c8211cfc3bc" -> "sha256:858998f37fd2bd9f297367621169b8f3bae990d3b42febf52f32778a052ca03d" [label=""];
+  "sha256:ce0fee608a0e904eb5490fb1c6d48be1cde26fdf620a3e7c9e571295fe8d4b11" -> "sha256:858998f37fd2bd9f297367621169b8f3bae990d3b42febf52f32778a052ca03d" [label=""];
+  "sha256:858998f37fd2bd9f297367621169b8f3bae990d3b42febf52f32778a052ca03d" -> "sha256:9f8f797fa6398852ca7b444df9d7d029c0783de592c5614d5bb8feebad870f2e" [label=""];
+  "sha256:9f8f797fa6398852ca7b444df9d7d029c0783de592c5614d5bb8feebad870f2e" -> "sha256:d15ec082e581ffc54ffcd4fe7cb0283ef6f7ccdd26668873c1e98650b78b6a58" [label=""];
+  "sha256:ce0fee608a0e904eb5490fb1c6d48be1cde26fdf620a3e7c9e571295fe8d4b11" -> "sha256:d15ec082e581ffc54ffcd4fe7cb0283ef6f7ccdd26668873c1e98650b78b6a58" [label=""];
+  "sha256:d15ec082e581ffc54ffcd4fe7cb0283ef6f7ccdd26668873c1e98650b78b6a58" -> "sha256:a4c6584ff2464e43c3029d0b86dcf223027f953eb37e74623c046063ed154fe3" [label=""];
+  "sha256:a4c6584ff2464e43c3029d0b86dcf223027f953eb37e74623c046063ed154fe3" -> "sha256:ca715c88f3fc51ac36ca5519fe63fe828b0e442af473de328de698fec7c51c71" [label=""];
+  "sha256:ce0fee608a0e904eb5490fb1c6d48be1cde26fdf620a3e7c9e571295fe8d4b11" -> "sha256:ca715c88f3fc51ac36ca5519fe63fe828b0e442af473de328de698fec7c51c71" [label=""];
+  "sha256:ca715c88f3fc51ac36ca5519fe63fe828b0e442af473de328de698fec7c51c71" -> "sha256:eed864e47a51b08d34c25afe396bf4e3eb1407d75daf9c518fca7900c6106f2d" [label=""];
+  "sha256:ce0fee608a0e904eb5490fb1c6d48be1cde26fdf620a3e7c9e571295fe8d4b11" -> "sha256:eed864e47a51b08d34c25afe396bf4e3eb1407d75daf9c518fca7900c6106f2d" [label=""];
+  "sha256:eed864e47a51b08d34c25afe396bf4e3eb1407d75daf9c518fca7900c6106f2d" -> "sha256:b38f2d4f62242d3561d62d3d8be9b32771bff2bc43accc38b4b1516c1c341153" [label=""];
+  "sha256:1f1894b985a9cff18881ec2b90be877f28649d33377b6f5462ae9a5b1c897d36" -> "sha256:8650c34b93ca9f119ec24499841d2e56633c6f54887ccc357928130973f39cb2" [label=""];
+  "sha256:b38f2d4f62242d3561d62d3d8be9b32771bff2bc43accc38b4b1516c1c341153" -> "sha256:8650c34b93ca9f119ec24499841d2e56633c6f54887ccc357928130973f39cb2" [label=""];
+  "sha256:8650c34b93ca9f119ec24499841d2e56633c6f54887ccc357928130973f39cb2" -> "sha256:be8bda52e8862fde52ef6c45a899f223be4d8ec0bab96a9ca43d2e6846b13692" [label=""];
+  "sha256:ce0fee608a0e904eb5490fb1c6d48be1cde26fdf620a3e7c9e571295fe8d4b11" -> "sha256:be8bda52e8862fde52ef6c45a899f223be4d8ec0bab96a9ca43d2e6846b13692" [label=""];
+  "sha256:be8bda52e8862fde52ef6c45a899f223be4d8ec0bab96a9ca43d2e6846b13692" -> "sha256:b82412316ccf2f94dceaad4569089d66719e982551129fa780a18fcf5959e2d3" [label=""];
+  "sha256:b38f2d4f62242d3561d62d3d8be9b32771bff2bc43accc38b4b1516c1c341153" -> "sha256:b82412316ccf2f94dceaad4569089d66719e982551129fa780a18fcf5959e2d3" [label=""];
+  "sha256:b82412316ccf2f94dceaad4569089d66719e982551129fa780a18fcf5959e2d3" -> "sha256:7db96ef838929a79f0eea41a4fe774fc90aee91cd07e8356a8dbecaf0822efd5" [label=""];
+  "sha256:ce0fee608a0e904eb5490fb1c6d48be1cde26fdf620a3e7c9e571295fe8d4b11" -> "sha256:7db96ef838929a79f0eea41a4fe774fc90aee91cd07e8356a8dbecaf0822efd5" [label=""];
+  "sha256:7db96ef838929a79f0eea41a4fe774fc90aee91cd07e8356a8dbecaf0822efd5" -> "sha256:fb9111b9630ba115e69b8d6230418f73825562bfa601b9f2da59c518b19c4a89" [label=""];
+  "sha256:fb9111b9630ba115e69b8d6230418f73825562bfa601b9f2da59c518b19c4a89" -> "sha256:34a0b35a6efaa50fed15d6ede048b0bfbdd493a30d86a64bf9b2bf34fe1d2efd" [label=""];
+}
+

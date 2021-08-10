@@ -1,0 +1,55 @@
+[app/sources/346943653.Dockerfile]
+digraph {
+  "sha256:379407e2570ca70ff4956590ed18f1b5381837aa31bb276142ea61352ac95933" [label="docker-image://docker.io/dockercore/golang-cross:latest" shape="ellipse"];
+  "sha256:72373415d42fb00e0cabc53d7963e2630bb2f5a979488a32e48d83e54492070a" [label="/bin/sh -c dpkg --add-architecture i386" shape="box"];
+  "sha256:6cb8772178db17824b5994423f173e971767f8ac851e2fe9a43bf1e2e02b7cce" [label="/bin/sh -c sed -i \"s/main/main contrib non-free/\" /etc/apt/sources.list" shape="box"];
+  "sha256:b3bd8ad1ab79afe65bdf572e5f205fe1b74258d996abd7a43f5307c1da1cdecf" [label="/bin/sh -c apt-get update && apt-get install -yq wine curl unrar unzip" shape="box"];
+  "sha256:7df79c38df8ba9231eb16d310698d706e5449bffb65176dbc6d5bd2dcb8ef9c1" [label="/bin/sh -c mkdir /innosetup &&     cd /innosetup &&     curl -fsSL -o innounp045.rar \"https://downloads.sourceforge.net/project/innounp/innounp/innounp%200.45/innounp045.rar?r=&ts=1439566551&use_mirror=skylineservers\" &&     unrar e innounp045.rar" shape="box"];
+  "sha256:cd6def9e9aac7e5fc04d6a372666bec5f7d1af0ab48c9e05b520515c918c19a1" [label="/bin/sh -c cd /innosetup &&     curl -fsSL -o is-unicode.exe http://files.jrsoftware.org/is/5/isetup-5.5.8-unicode.exe &&     wine \"./innounp.exe\" -e \"is-unicode.exe\"" shape="box"];
+  "sha256:a21ae145feb71e10791747ce4045c8c27d23097b5d2e69a867bfb41afca2d5e9" [label="/bin/sh -c mkdir -p /go/src/github.com/docker/" shape="box"];
+  "sha256:c5c9e6bf6700fec49a79e34a415d2352a86bc43eb06a1938cb975f5b717a0e62" [label="/bin/sh -c git clone https://github.com/docker/docker-ce.git /docker-ce &&     cd /docker-ce &&     git checkout \"v${DOCKER_VERSION}\" &&     cp -R components/cli /go/src/github.com/docker/" shape="box"];
+  "sha256:6f03d553f57796ec20d919bb3d0e32885caab19a2b3a7fd0022f6a207c03c8ad" [label="mkdir{path=/go/src/github.com/docker/cli}" shape="note"];
+  "sha256:cbc8f9bea3699213883d03167ac19025711bd7388549a0ce29c44c0558d0c5b1" [label="/bin/sh -c VERSION=$DOCKER_VERSION GITCOMMIT=$(cd /docker-ce && git rev-parse --short HEAD) ./scripts/build/windows" shape="box"];
+  "sha256:8b8b5a2bfc3533222d769ecb389f93235a743ef93d014e7bf602faa94469b533" [label="/bin/sh -c mkdir /bundle" shape="box"];
+  "sha256:8bb2711ce302b612256ef4d09c603f2caff5b47e3525984f43c4012f5cc9e701" [label="mkdir{path=/bundle}" shape="note"];
+  "sha256:2d23c0a71754cfd1c549c86fe152266b1e3033b6bb3af2ce2418ac426cf4903d" [label="/bin/sh -c cp /go/src/github.com/docker/cli/build/docker-windows-amd64 docker.exe" shape="box"];
+  "sha256:d98e1f65e95d5bef61206cd46eaa85f2bf5858f905fa272984a9d38ac214fb07" [label="/bin/sh -c curl -fsSL -o docker-machine.exe \"https://github.com/docker/machine/releases/download/v$DOCKER_MACHINE_VERSION/docker-machine-Windows-x86_64.exe\"" shape="box"];
+  "sha256:d9047019d499105ca146b272d98bfee16e6b5102b2dc86891f91d522cc133d62" [label="/bin/sh -c curl -fsSL -o docker-compose.exe \"https://github.com/docker/compose/releases/download/$DOCKER_COMPOSE_VERSION/docker-compose-Windows-x86_64.exe\"" shape="box"];
+  "sha256:a49c1b9c2fb55b754059bfa0a0e385f67631d6d346362eb810e5573fa1c16a49" [label="/bin/sh -c curl -fsSL -o boot2docker.iso https://github.com/boot2docker/boot2docker/releases/download/v$DOCKER_VERSION/boot2docker.iso" shape="box"];
+  "sha256:7cd6ff68aac1ae4b1996bd5ecf6aeb0796e94e5396907e311e908318b06e8e52" [label="/bin/sh -c curl -fsSL -o kitematic.zip \"https://github.com/kitematic/kitematic/releases/download/v$KITEMATIC_VERSION/Kitematic-$KITEMATIC_VERSION-Windows.zip\" &&     mkdir kitematic &&     cd kitematic &&     unzip ../kitematic.zip &&     rm ../kitematic.zip" shape="box"];
+  "sha256:2655665e10a69d84d5da4b9c4cdc2dc268dde51555df0c569b9cba6c8403e2a5" [label="/bin/sh -c curl -fsSL -o Git.exe \"https://github.com/git-for-windows/git/releases/download/v$GIT_VERSION.windows.1/Git-$GIT_VERSION-64-bit.exe\"" shape="box"];
+  "sha256:0238eb08b86de770efebb8f17df0f66102532cede7c9f07f43ab81046cc10ae8" [label="/bin/sh -c curl -fsSL -o virtualbox.exe \"http://download.virtualbox.org/virtualbox/$VBOX_VERSION/VirtualBox-$VBOX_VERSION-$VBOX_REV-Win.exe\" \t&& echo \"$(curl -fsSL 'https://virtualbox.org/download/hashes/'\"$VBOX_VERSION\"'/SHA256SUMS' | awk '$2 ~ /-Win.exe$/ { print $1 }') *virtualbox.exe\" | sha256sum -c -" shape="box"];
+  "sha256:78b5d13433dfb8a347281d1f49c5fe1d5d6bf67513028079c1f3571d05e85376" [label="/bin/sh -c wine virtualbox.exe -extract -silent -path . && \t  rm virtualbox.exe && \t  rm *x86.msi && \t  mv *_amd64.msi VirtualBox_amd64.msi" shape="box"];
+  "sha256:9ca81496bdb0062ef2dcb94a3d419d907176ff9d96117ce0404a18a6264447a1" [label="local://context" shape="ellipse"];
+  "sha256:aee46c59e7034c53c2cd0368515f0da220ca5ef2aed1cb853610ae1933739e6a" [label="copy{src=/windows, dest=/installer}" shape="note"];
+  "sha256:11a6b33c56e2935d2473461d4b2f08624a2afb894c88e9c4e325fd78429a62e3" [label="mkdir{path=/installer}" shape="note"];
+  "sha256:9e34218472f8abbb9742d5ac696fd07076c94e0c787df6dd5b8ef644b67e00a9" [label="/bin/sh -c rm -rf /tmp/.wine-0/" shape="box"];
+  "sha256:339f85899690031a848f35b4da373b344678216e88b1bd9d660042709de7b84a" [label="/bin/sh -c wine ../innosetup/ISCC.exe Toolbox.iss /DMyAppVersion=$INSTALLER_VERSION /DMixpanelToken=$MIXPANEL_TOKEN" shape="box"];
+  "sha256:6f5506772029547e8ac95395bc3ec49d9f1c08255a895a58853539d6127979ed" [label="sha256:6f5506772029547e8ac95395bc3ec49d9f1c08255a895a58853539d6127979ed" shape="plaintext"];
+  "sha256:379407e2570ca70ff4956590ed18f1b5381837aa31bb276142ea61352ac95933" -> "sha256:72373415d42fb00e0cabc53d7963e2630bb2f5a979488a32e48d83e54492070a" [label=""];
+  "sha256:72373415d42fb00e0cabc53d7963e2630bb2f5a979488a32e48d83e54492070a" -> "sha256:6cb8772178db17824b5994423f173e971767f8ac851e2fe9a43bf1e2e02b7cce" [label=""];
+  "sha256:6cb8772178db17824b5994423f173e971767f8ac851e2fe9a43bf1e2e02b7cce" -> "sha256:b3bd8ad1ab79afe65bdf572e5f205fe1b74258d996abd7a43f5307c1da1cdecf" [label=""];
+  "sha256:b3bd8ad1ab79afe65bdf572e5f205fe1b74258d996abd7a43f5307c1da1cdecf" -> "sha256:7df79c38df8ba9231eb16d310698d706e5449bffb65176dbc6d5bd2dcb8ef9c1" [label=""];
+  "sha256:7df79c38df8ba9231eb16d310698d706e5449bffb65176dbc6d5bd2dcb8ef9c1" -> "sha256:cd6def9e9aac7e5fc04d6a372666bec5f7d1af0ab48c9e05b520515c918c19a1" [label=""];
+  "sha256:cd6def9e9aac7e5fc04d6a372666bec5f7d1af0ab48c9e05b520515c918c19a1" -> "sha256:a21ae145feb71e10791747ce4045c8c27d23097b5d2e69a867bfb41afca2d5e9" [label=""];
+  "sha256:a21ae145feb71e10791747ce4045c8c27d23097b5d2e69a867bfb41afca2d5e9" -> "sha256:c5c9e6bf6700fec49a79e34a415d2352a86bc43eb06a1938cb975f5b717a0e62" [label=""];
+  "sha256:c5c9e6bf6700fec49a79e34a415d2352a86bc43eb06a1938cb975f5b717a0e62" -> "sha256:6f03d553f57796ec20d919bb3d0e32885caab19a2b3a7fd0022f6a207c03c8ad" [label=""];
+  "sha256:6f03d553f57796ec20d919bb3d0e32885caab19a2b3a7fd0022f6a207c03c8ad" -> "sha256:cbc8f9bea3699213883d03167ac19025711bd7388549a0ce29c44c0558d0c5b1" [label=""];
+  "sha256:cbc8f9bea3699213883d03167ac19025711bd7388549a0ce29c44c0558d0c5b1" -> "sha256:8b8b5a2bfc3533222d769ecb389f93235a743ef93d014e7bf602faa94469b533" [label=""];
+  "sha256:8b8b5a2bfc3533222d769ecb389f93235a743ef93d014e7bf602faa94469b533" -> "sha256:8bb2711ce302b612256ef4d09c603f2caff5b47e3525984f43c4012f5cc9e701" [label=""];
+  "sha256:8bb2711ce302b612256ef4d09c603f2caff5b47e3525984f43c4012f5cc9e701" -> "sha256:2d23c0a71754cfd1c549c86fe152266b1e3033b6bb3af2ce2418ac426cf4903d" [label=""];
+  "sha256:2d23c0a71754cfd1c549c86fe152266b1e3033b6bb3af2ce2418ac426cf4903d" -> "sha256:d98e1f65e95d5bef61206cd46eaa85f2bf5858f905fa272984a9d38ac214fb07" [label=""];
+  "sha256:d98e1f65e95d5bef61206cd46eaa85f2bf5858f905fa272984a9d38ac214fb07" -> "sha256:d9047019d499105ca146b272d98bfee16e6b5102b2dc86891f91d522cc133d62" [label=""];
+  "sha256:d9047019d499105ca146b272d98bfee16e6b5102b2dc86891f91d522cc133d62" -> "sha256:a49c1b9c2fb55b754059bfa0a0e385f67631d6d346362eb810e5573fa1c16a49" [label=""];
+  "sha256:a49c1b9c2fb55b754059bfa0a0e385f67631d6d346362eb810e5573fa1c16a49" -> "sha256:7cd6ff68aac1ae4b1996bd5ecf6aeb0796e94e5396907e311e908318b06e8e52" [label=""];
+  "sha256:7cd6ff68aac1ae4b1996bd5ecf6aeb0796e94e5396907e311e908318b06e8e52" -> "sha256:2655665e10a69d84d5da4b9c4cdc2dc268dde51555df0c569b9cba6c8403e2a5" [label=""];
+  "sha256:2655665e10a69d84d5da4b9c4cdc2dc268dde51555df0c569b9cba6c8403e2a5" -> "sha256:0238eb08b86de770efebb8f17df0f66102532cede7c9f07f43ab81046cc10ae8" [label=""];
+  "sha256:0238eb08b86de770efebb8f17df0f66102532cede7c9f07f43ab81046cc10ae8" -> "sha256:78b5d13433dfb8a347281d1f49c5fe1d5d6bf67513028079c1f3571d05e85376" [label=""];
+  "sha256:78b5d13433dfb8a347281d1f49c5fe1d5d6bf67513028079c1f3571d05e85376" -> "sha256:aee46c59e7034c53c2cd0368515f0da220ca5ef2aed1cb853610ae1933739e6a" [label=""];
+  "sha256:9ca81496bdb0062ef2dcb94a3d419d907176ff9d96117ce0404a18a6264447a1" -> "sha256:aee46c59e7034c53c2cd0368515f0da220ca5ef2aed1cb853610ae1933739e6a" [label=""];
+  "sha256:aee46c59e7034c53c2cd0368515f0da220ca5ef2aed1cb853610ae1933739e6a" -> "sha256:11a6b33c56e2935d2473461d4b2f08624a2afb894c88e9c4e325fd78429a62e3" [label=""];
+  "sha256:11a6b33c56e2935d2473461d4b2f08624a2afb894c88e9c4e325fd78429a62e3" -> "sha256:9e34218472f8abbb9742d5ac696fd07076c94e0c787df6dd5b8ef644b67e00a9" [label=""];
+  "sha256:9e34218472f8abbb9742d5ac696fd07076c94e0c787df6dd5b8ef644b67e00a9" -> "sha256:339f85899690031a848f35b4da373b344678216e88b1bd9d660042709de7b84a" [label=""];
+  "sha256:339f85899690031a848f35b4da373b344678216e88b1bd9d660042709de7b84a" -> "sha256:6f5506772029547e8ac95395bc3ec49d9f1c08255a895a58853539d6127979ed" [label=""];
+}
+

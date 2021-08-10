@@ -1,0 +1,54 @@
+[app/sources/229974425.Dockerfile]
+digraph {
+  "sha256:bea45dc4d75c408b4b9d5bed33edb8917e5f860b91e45782dac1c79118a7286e" [label="docker-image://docker.io/keensoft/alfresco-docker-template:4.2.c" shape="ellipse"];
+  "sha256:a2ef0134ee5116e252103647e92cda31ce23a95ecd1dbece30a1cdca49fc62db" [label="/bin/sh -c set -x \t&& yum update -y \t&& yum clean all" shape="box"];
+  "sha256:5d1ad692a50bc42935fe7c542b1864f155c7229aa52c15e3fe1d2d058fb3b657" [label="/bin/sh -c set -x \t&& yum install -y ImageMagick ghostscript \t&& yum clean all" shape="box"];
+  "sha256:76c172f8d300a4695f99facc4cec97edd764a7a71ebf6672e2aa44b1bb534095" [label="mkdir{path=/usr/local/alfresco}" shape="note"];
+  "sha256:2d840d3270e834f4ff877ad60fdf3f511231e655bca8b7caf00b19ced9e25055" [label="/bin/sh -c set -x         && ln -s /usr/local/tomcat /usr/local/alfresco/tomcat \t&& mkdir -p tomcat/conf/Catalina/localhost         && mv $DIST/web-server/shared tomcat/         && mv $DIST/web-server/lib/*.jar tomcat/lib/         && mv $DIST/web-server/webapps/alfresco.war tomcat/webapps/         && mv $DIST/web-server/webapps/share.war tomcat/webapps/         && mv $DIST/bin .         && mv $DIST/licenses .         && mv $DIST/README.txt .         && rm -rf $CATALINA_HOME/webapps/docs         && rm -rf $CATALINA_HOME/webapps/examples         && mkdir $CATALINA_HOME/shared/lib $ALF_HOME/amps_share         && rm -rf $DIST" shape="box"];
+  "sha256:165066f6ca1c066a6de40cc8988993e44dbd7e9dad28d8031724c90748ee2906" [label="local://context" shape="ellipse"];
+  "sha256:c4f6be969cc801ced0043f0e29d79642aff4cd319e5f63275e0ac5bc0bfa9c8c" [label="copy{src=/assets/tomcat/catalina.properties, dest=/usr/local/alfresco/tomcat/conf/catalina.properties}" shape="note"];
+  "sha256:e9081d2a8530ca0b8b0850ff445e301f1f814a3046838da721efad027637736c" [label="copy{src=/assets/tomcat/setenv.sh, dest=/usr/local/alfresco/tomcat/bin/setenv.sh}" shape="note"];
+  "sha256:b6c53032d948615176730b8d56a71584c95468eb40dc534e547dc1487f267b4e" [label="copy{src=/assets/tomcat/server.xml, dest=/usr/local/alfresco/tomcat/conf/server.xml}" shape="note"];
+  "sha256:9436a82cbed087fd844d1d04d9edfed996f1c322bd7941d361b14766ecbaaebc" [label="copy{src=/assets/tomcat/tomcat-users.xml, dest=/usr/local/alfresco/tomcat/conf/tomcat-users.xml}" shape="note"];
+  "sha256:3170887808a31eb3bab56516513b7ff92a7a48b5e3dddc28eefda55d98d22435" [label="copy{src=/assets/alfresco/alfresco-global.properties, dest=/usr/local/alfresco/tomcat/shared/classes/alfresco-global.properties}" shape="note"];
+  "sha256:214fa2928a3e998c837dde86c1cd4e76a61a621aa64adf1cc2645213493d02d9" [label="/bin/sh -c set -x         && mv $SOLR/alf_data .         && mkdir alf_data/solr         && mv $SOLR/docs alf_data/solr         && mv $SOLR/workspace-SpacesStore alf_data/solr         && mv $SOLR/archive-SpacesStore alf_data/solr         && mv $SOLR/templates alf_data/solr         && mv $SOLR/lib alf_data/solr         && mv $SOLR/solr.xml alf_data/solr         && mv $SOLR/*.war* alf_data/solr         && rm -rf $SOLR" shape="box"];
+  "sha256:2c3ce5c849f1e7e4f622d0d1b5a735d64a410ed4accd3917b83b53681266bfee" [label="copy{src=/assets/solr/solr-tomcat-context.xml, dest=/usr/local/alfresco/tomcat/conf/Catalina/localhost/solr.xml}" shape="note"];
+  "sha256:37f726b4d8c9af06d5feac00eab93baf825187e4ab70fac7d21c9344426394cd" [label="copy{src=/assets/solr/workspace-solrcore.properties, dest=/usr/local/alfresco/alf_data/solr/workspace-SpacesStore/conf/solrcore.properties}" shape="note"];
+  "sha256:f237f9b0cc5ef29f7a1d69c12cb3867198402f82dab80e449be02b3e7227efd4" [label="copy{src=/assets/solr/archive-solrcore.properties, dest=/usr/local/alfresco/alf_data/solr/archive-SpacesStore/conf/solrcore.properties}" shape="note"];
+  "sha256:f75e18549f2616a2011b78f67b38751c77bb4a05427cf0f34d0d235e192ad410" [label="copy{src=/assets/amps, dest=/usr/local/alfresco/amps}" shape="note"];
+  "sha256:3487ec2cc42bbbdf9919f4860e2e548e7e32e2f7958305a4cdb1367a5ecf8ec9" [label="copy{src=/assets/amps_share, dest=/usr/local/alfresco/amps_share}" shape="note"];
+  "sha256:d77f9682f021a3d99bd30e3cef055c050e4b3748bfa865bf4b4333900702aa60" [label="/bin/sh -c bash ./bin/apply_amps.sh -force -nobackup" shape="box"];
+  "sha256:049c1be59ab7aa47345bd3a86471083bf22e7559a63d09d205dfb0fc75473817" [label="/bin/sh -c useradd -ms /bin/bash alfresco" shape="box"];
+  "sha256:a0c890dc7dc0b6b137f3d0224727a9ec5e9f305e2ab312b65a690968111789e3" [label="/bin/sh -c set -x && chown -RL alfresco:alfresco $ALF_HOME" shape="box"];
+  "sha256:8556b81a9a47fc5906e89aa6ce9c80d48b3b6215b3c83938814c717495bd1c5a" [label="sha256:8556b81a9a47fc5906e89aa6ce9c80d48b3b6215b3c83938814c717495bd1c5a" shape="plaintext"];
+  "sha256:bea45dc4d75c408b4b9d5bed33edb8917e5f860b91e45782dac1c79118a7286e" -> "sha256:a2ef0134ee5116e252103647e92cda31ce23a95ecd1dbece30a1cdca49fc62db" [label=""];
+  "sha256:a2ef0134ee5116e252103647e92cda31ce23a95ecd1dbece30a1cdca49fc62db" -> "sha256:5d1ad692a50bc42935fe7c542b1864f155c7229aa52c15e3fe1d2d058fb3b657" [label=""];
+  "sha256:5d1ad692a50bc42935fe7c542b1864f155c7229aa52c15e3fe1d2d058fb3b657" -> "sha256:76c172f8d300a4695f99facc4cec97edd764a7a71ebf6672e2aa44b1bb534095" [label=""];
+  "sha256:76c172f8d300a4695f99facc4cec97edd764a7a71ebf6672e2aa44b1bb534095" -> "sha256:2d840d3270e834f4ff877ad60fdf3f511231e655bca8b7caf00b19ced9e25055" [label=""];
+  "sha256:2d840d3270e834f4ff877ad60fdf3f511231e655bca8b7caf00b19ced9e25055" -> "sha256:c4f6be969cc801ced0043f0e29d79642aff4cd319e5f63275e0ac5bc0bfa9c8c" [label=""];
+  "sha256:165066f6ca1c066a6de40cc8988993e44dbd7e9dad28d8031724c90748ee2906" -> "sha256:c4f6be969cc801ced0043f0e29d79642aff4cd319e5f63275e0ac5bc0bfa9c8c" [label=""];
+  "sha256:c4f6be969cc801ced0043f0e29d79642aff4cd319e5f63275e0ac5bc0bfa9c8c" -> "sha256:e9081d2a8530ca0b8b0850ff445e301f1f814a3046838da721efad027637736c" [label=""];
+  "sha256:165066f6ca1c066a6de40cc8988993e44dbd7e9dad28d8031724c90748ee2906" -> "sha256:e9081d2a8530ca0b8b0850ff445e301f1f814a3046838da721efad027637736c" [label=""];
+  "sha256:e9081d2a8530ca0b8b0850ff445e301f1f814a3046838da721efad027637736c" -> "sha256:b6c53032d948615176730b8d56a71584c95468eb40dc534e547dc1487f267b4e" [label=""];
+  "sha256:165066f6ca1c066a6de40cc8988993e44dbd7e9dad28d8031724c90748ee2906" -> "sha256:b6c53032d948615176730b8d56a71584c95468eb40dc534e547dc1487f267b4e" [label=""];
+  "sha256:b6c53032d948615176730b8d56a71584c95468eb40dc534e547dc1487f267b4e" -> "sha256:9436a82cbed087fd844d1d04d9edfed996f1c322bd7941d361b14766ecbaaebc" [label=""];
+  "sha256:165066f6ca1c066a6de40cc8988993e44dbd7e9dad28d8031724c90748ee2906" -> "sha256:9436a82cbed087fd844d1d04d9edfed996f1c322bd7941d361b14766ecbaaebc" [label=""];
+  "sha256:9436a82cbed087fd844d1d04d9edfed996f1c322bd7941d361b14766ecbaaebc" -> "sha256:3170887808a31eb3bab56516513b7ff92a7a48b5e3dddc28eefda55d98d22435" [label=""];
+  "sha256:165066f6ca1c066a6de40cc8988993e44dbd7e9dad28d8031724c90748ee2906" -> "sha256:3170887808a31eb3bab56516513b7ff92a7a48b5e3dddc28eefda55d98d22435" [label=""];
+  "sha256:3170887808a31eb3bab56516513b7ff92a7a48b5e3dddc28eefda55d98d22435" -> "sha256:214fa2928a3e998c837dde86c1cd4e76a61a621aa64adf1cc2645213493d02d9" [label=""];
+  "sha256:214fa2928a3e998c837dde86c1cd4e76a61a621aa64adf1cc2645213493d02d9" -> "sha256:2c3ce5c849f1e7e4f622d0d1b5a735d64a410ed4accd3917b83b53681266bfee" [label=""];
+  "sha256:165066f6ca1c066a6de40cc8988993e44dbd7e9dad28d8031724c90748ee2906" -> "sha256:2c3ce5c849f1e7e4f622d0d1b5a735d64a410ed4accd3917b83b53681266bfee" [label=""];
+  "sha256:2c3ce5c849f1e7e4f622d0d1b5a735d64a410ed4accd3917b83b53681266bfee" -> "sha256:37f726b4d8c9af06d5feac00eab93baf825187e4ab70fac7d21c9344426394cd" [label=""];
+  "sha256:165066f6ca1c066a6de40cc8988993e44dbd7e9dad28d8031724c90748ee2906" -> "sha256:37f726b4d8c9af06d5feac00eab93baf825187e4ab70fac7d21c9344426394cd" [label=""];
+  "sha256:37f726b4d8c9af06d5feac00eab93baf825187e4ab70fac7d21c9344426394cd" -> "sha256:f237f9b0cc5ef29f7a1d69c12cb3867198402f82dab80e449be02b3e7227efd4" [label=""];
+  "sha256:165066f6ca1c066a6de40cc8988993e44dbd7e9dad28d8031724c90748ee2906" -> "sha256:f237f9b0cc5ef29f7a1d69c12cb3867198402f82dab80e449be02b3e7227efd4" [label=""];
+  "sha256:f237f9b0cc5ef29f7a1d69c12cb3867198402f82dab80e449be02b3e7227efd4" -> "sha256:f75e18549f2616a2011b78f67b38751c77bb4a05427cf0f34d0d235e192ad410" [label=""];
+  "sha256:165066f6ca1c066a6de40cc8988993e44dbd7e9dad28d8031724c90748ee2906" -> "sha256:f75e18549f2616a2011b78f67b38751c77bb4a05427cf0f34d0d235e192ad410" [label=""];
+  "sha256:f75e18549f2616a2011b78f67b38751c77bb4a05427cf0f34d0d235e192ad410" -> "sha256:3487ec2cc42bbbdf9919f4860e2e548e7e32e2f7958305a4cdb1367a5ecf8ec9" [label=""];
+  "sha256:165066f6ca1c066a6de40cc8988993e44dbd7e9dad28d8031724c90748ee2906" -> "sha256:3487ec2cc42bbbdf9919f4860e2e548e7e32e2f7958305a4cdb1367a5ecf8ec9" [label=""];
+  "sha256:3487ec2cc42bbbdf9919f4860e2e548e7e32e2f7958305a4cdb1367a5ecf8ec9" -> "sha256:d77f9682f021a3d99bd30e3cef055c050e4b3748bfa865bf4b4333900702aa60" [label=""];
+  "sha256:d77f9682f021a3d99bd30e3cef055c050e4b3748bfa865bf4b4333900702aa60" -> "sha256:049c1be59ab7aa47345bd3a86471083bf22e7559a63d09d205dfb0fc75473817" [label=""];
+  "sha256:049c1be59ab7aa47345bd3a86471083bf22e7559a63d09d205dfb0fc75473817" -> "sha256:a0c890dc7dc0b6b137f3d0224727a9ec5e9f305e2ab312b65a690968111789e3" [label=""];
+  "sha256:a0c890dc7dc0b6b137f3d0224727a9ec5e9f305e2ab312b65a690968111789e3" -> "sha256:8556b81a9a47fc5906e89aa6ce9c80d48b3b6215b3c83938814c717495bd1c5a" [label=""];
+}
+

@@ -1,0 +1,54 @@
+[app/sources/466261503.Dockerfile]
+digraph {
+  "sha256:14dd403f25ae9e519bd44f27dc17af7ce80f5a4f9f48ca88108364e67ec5d360" [label="docker-image://docker.io/library/ubuntu:xenial" shape="ellipse"];
+  "sha256:b79c43d7f58cb39ee6583cd8890dcf711e8cdb16c9374ccc69828d287d41eba2" [label="/bin/sh -c apt-get update &&     apt-get install -y software-properties-common &&     add-apt-repository ppa:deadsnakes/ppa &&     apt-get update &&     apt-get install -y python3.6 python3.6-dev python3-pip &&     apt-get install -y curl &&     curl https://deb.nodesource.com/setup_8.x | bash - &&     apt-get install -y nodejs" shape="box"];
+  "sha256:27298c09c57a183c79209635d6d3761bee69b49a419132dffbc9bd700a34602e" [label="mkdir{path=/app}" shape="note"];
+  "sha256:270d6cd6523a34748eaf77d50765ad7b8c677787f071b64efd108e47d7420c2e" [label="local://context" shape="ellipse"];
+  "sha256:ba803ac3a870f08c22e7124a4820b4abec9818ed6ac3319a48bcbb8504f3a3c9" [label="copy{src=/requirements.txt, dest=/app/}" shape="note"];
+  "sha256:cea90a5666be9eecc2eddc26c5ae3399e9a42600d28e17baffbcfa9b04c8d996" [label="/bin/sh -c rm -f /usr/bin/python && ln -s /usr/bin/python3.6 /usr/bin/python" shape="box"];
+  "sha256:69a354a6f819a75132648c970db6d4ffa83eea9539f8ff32f48653574b0e54fb" [label="/bin/sh -c rm -f /usr/bin/python3 && ln -s /usr/bin/python3.6 /usr/bin/python3" shape="box"];
+  "sha256:60785f975e77b00824c3d18cc56597959ceeffe168b2d9846a19b982d210f9e6" [label="/bin/sh -c pip3 install -r requirements.txt" shape="box"];
+  "sha256:4ad9e3050bfb2696962b13afe0ac7e9e37569a51213c4cad2f453742893b3532" [label="copy{src=/backend, dest=/app/backend}" shape="note"];
+  "sha256:53eaa38a75bb2af7ecf0322d2e25d730737d35e92c21b9b5c181b5676b920bdd" [label="copy{src=/docker, dest=/app/docker}" shape="note"];
+  "sha256:b5ce1e91302743107af01b7e50bca9a0855a6fb8277f02d7856fdd2b7b873b26" [label="mkdir{path=/app/backend/server}" shape="note"];
+  "sha256:59383d96eb9ce45ab4a71ad3911baf803b4cb244a0320e2c761391134254e7f0" [label="/bin/sh -c ./manage.py collectstatic --noinput" shape="box"];
+  "sha256:c7ec47de75cb41578d42b2c7a458048263138d3304813908be8ffd777127592c" [label="mkdir{path=/app/client}" shape="note"];
+  "sha256:8fa90b5c445281fb129236b22988e822ff19fd3eec8fdb1ac207f74a776e2f1c" [label="copy{src=/client, dest=/app/client}" shape="note"];
+  "sha256:528ec8ff0bf4b6cc41c599df37f1a3cda7c41cccae1109d54506719fe57789c6" [label="/bin/sh -c ls -al /app/client/build" shape="box"];
+  "sha256:d981ca5800463cff695ade19d63ea18583d882852c8b323ce02a659d3dee0cb2" [label="/bin/sh -c npm install && npm run build && rm -rf node_modules" shape="box"];
+  "sha256:abc2dfe19c487b7f5efcd1f6fe596eb343b220e3eec0e2e73d385a34b626ad25" [label="mkdir{path=/app/backend/server/static/client}" shape="note"];
+  "sha256:de1893e0cd27ef02db64b99f41e4b41703c92ecfc7190db40939fe516a94dcb1" [label="/bin/sh -c cp -r /app/client/build/. /app/backend/server/static/client/" shape="box"];
+  "sha256:c07c403896c06bfdb8bc98f3f0d8c459950c775a6a5620cb16b7e6c886645b31" [label="/bin/sh -c cat /app/client/build/index.html" shape="box"];
+  "sha256:b55b6a22095ce19cf784f8db2254a446d2fb3b867f1c9e5f93b1cc61f0a397a1" [label="/bin/sh -c cat /app/backend/server/static/client/index.html" shape="box"];
+  "sha256:f72bbac98466ffdf35ca527936c246c46f3cc5554d45901daef06bf38aedd776" [label="/bin/sh -c ls -al /app/client/build/static/js" shape="box"];
+  "sha256:8a0c3f8904e93899a3787450fdc8512551a8a04a9c4fc81986503858da9fe962" [label="/bin/sh -c ls -al /app/backend/server/static/client/static/js" shape="box"];
+  "sha256:2755ec763f49cd68b0c5499bfa05e93b909400472904d8dac958d4c97e59f09a" [label="mkdir{path=/app}" shape="note"];
+  "sha256:d722abd52213f330b48981c2fe14dee87602239fa6e894732b0a1ef648ded883" [label="sha256:d722abd52213f330b48981c2fe14dee87602239fa6e894732b0a1ef648ded883" shape="plaintext"];
+  "sha256:14dd403f25ae9e519bd44f27dc17af7ce80f5a4f9f48ca88108364e67ec5d360" -> "sha256:b79c43d7f58cb39ee6583cd8890dcf711e8cdb16c9374ccc69828d287d41eba2" [label=""];
+  "sha256:b79c43d7f58cb39ee6583cd8890dcf711e8cdb16c9374ccc69828d287d41eba2" -> "sha256:27298c09c57a183c79209635d6d3761bee69b49a419132dffbc9bd700a34602e" [label=""];
+  "sha256:27298c09c57a183c79209635d6d3761bee69b49a419132dffbc9bd700a34602e" -> "sha256:ba803ac3a870f08c22e7124a4820b4abec9818ed6ac3319a48bcbb8504f3a3c9" [label=""];
+  "sha256:270d6cd6523a34748eaf77d50765ad7b8c677787f071b64efd108e47d7420c2e" -> "sha256:ba803ac3a870f08c22e7124a4820b4abec9818ed6ac3319a48bcbb8504f3a3c9" [label=""];
+  "sha256:ba803ac3a870f08c22e7124a4820b4abec9818ed6ac3319a48bcbb8504f3a3c9" -> "sha256:cea90a5666be9eecc2eddc26c5ae3399e9a42600d28e17baffbcfa9b04c8d996" [label=""];
+  "sha256:cea90a5666be9eecc2eddc26c5ae3399e9a42600d28e17baffbcfa9b04c8d996" -> "sha256:69a354a6f819a75132648c970db6d4ffa83eea9539f8ff32f48653574b0e54fb" [label=""];
+  "sha256:69a354a6f819a75132648c970db6d4ffa83eea9539f8ff32f48653574b0e54fb" -> "sha256:60785f975e77b00824c3d18cc56597959ceeffe168b2d9846a19b982d210f9e6" [label=""];
+  "sha256:60785f975e77b00824c3d18cc56597959ceeffe168b2d9846a19b982d210f9e6" -> "sha256:4ad9e3050bfb2696962b13afe0ac7e9e37569a51213c4cad2f453742893b3532" [label=""];
+  "sha256:270d6cd6523a34748eaf77d50765ad7b8c677787f071b64efd108e47d7420c2e" -> "sha256:4ad9e3050bfb2696962b13afe0ac7e9e37569a51213c4cad2f453742893b3532" [label=""];
+  "sha256:4ad9e3050bfb2696962b13afe0ac7e9e37569a51213c4cad2f453742893b3532" -> "sha256:53eaa38a75bb2af7ecf0322d2e25d730737d35e92c21b9b5c181b5676b920bdd" [label=""];
+  "sha256:270d6cd6523a34748eaf77d50765ad7b8c677787f071b64efd108e47d7420c2e" -> "sha256:53eaa38a75bb2af7ecf0322d2e25d730737d35e92c21b9b5c181b5676b920bdd" [label=""];
+  "sha256:53eaa38a75bb2af7ecf0322d2e25d730737d35e92c21b9b5c181b5676b920bdd" -> "sha256:b5ce1e91302743107af01b7e50bca9a0855a6fb8277f02d7856fdd2b7b873b26" [label=""];
+  "sha256:b5ce1e91302743107af01b7e50bca9a0855a6fb8277f02d7856fdd2b7b873b26" -> "sha256:59383d96eb9ce45ab4a71ad3911baf803b4cb244a0320e2c761391134254e7f0" [label=""];
+  "sha256:59383d96eb9ce45ab4a71ad3911baf803b4cb244a0320e2c761391134254e7f0" -> "sha256:c7ec47de75cb41578d42b2c7a458048263138d3304813908be8ffd777127592c" [label=""];
+  "sha256:c7ec47de75cb41578d42b2c7a458048263138d3304813908be8ffd777127592c" -> "sha256:8fa90b5c445281fb129236b22988e822ff19fd3eec8fdb1ac207f74a776e2f1c" [label=""];
+  "sha256:270d6cd6523a34748eaf77d50765ad7b8c677787f071b64efd108e47d7420c2e" -> "sha256:8fa90b5c445281fb129236b22988e822ff19fd3eec8fdb1ac207f74a776e2f1c" [label=""];
+  "sha256:8fa90b5c445281fb129236b22988e822ff19fd3eec8fdb1ac207f74a776e2f1c" -> "sha256:528ec8ff0bf4b6cc41c599df37f1a3cda7c41cccae1109d54506719fe57789c6" [label=""];
+  "sha256:528ec8ff0bf4b6cc41c599df37f1a3cda7c41cccae1109d54506719fe57789c6" -> "sha256:d981ca5800463cff695ade19d63ea18583d882852c8b323ce02a659d3dee0cb2" [label=""];
+  "sha256:d981ca5800463cff695ade19d63ea18583d882852c8b323ce02a659d3dee0cb2" -> "sha256:abc2dfe19c487b7f5efcd1f6fe596eb343b220e3eec0e2e73d385a34b626ad25" [label=""];
+  "sha256:abc2dfe19c487b7f5efcd1f6fe596eb343b220e3eec0e2e73d385a34b626ad25" -> "sha256:de1893e0cd27ef02db64b99f41e4b41703c92ecfc7190db40939fe516a94dcb1" [label=""];
+  "sha256:de1893e0cd27ef02db64b99f41e4b41703c92ecfc7190db40939fe516a94dcb1" -> "sha256:c07c403896c06bfdb8bc98f3f0d8c459950c775a6a5620cb16b7e6c886645b31" [label=""];
+  "sha256:c07c403896c06bfdb8bc98f3f0d8c459950c775a6a5620cb16b7e6c886645b31" -> "sha256:b55b6a22095ce19cf784f8db2254a446d2fb3b867f1c9e5f93b1cc61f0a397a1" [label=""];
+  "sha256:b55b6a22095ce19cf784f8db2254a446d2fb3b867f1c9e5f93b1cc61f0a397a1" -> "sha256:f72bbac98466ffdf35ca527936c246c46f3cc5554d45901daef06bf38aedd776" [label=""];
+  "sha256:f72bbac98466ffdf35ca527936c246c46f3cc5554d45901daef06bf38aedd776" -> "sha256:8a0c3f8904e93899a3787450fdc8512551a8a04a9c4fc81986503858da9fe962" [label=""];
+  "sha256:8a0c3f8904e93899a3787450fdc8512551a8a04a9c4fc81986503858da9fe962" -> "sha256:2755ec763f49cd68b0c5499bfa05e93b909400472904d8dac958d4c97e59f09a" [label=""];
+  "sha256:2755ec763f49cd68b0c5499bfa05e93b909400472904d8dac958d4c97e59f09a" -> "sha256:d722abd52213f330b48981c2fe14dee87602239fa6e894732b0a1ef648ded883" [label=""];
+}
+

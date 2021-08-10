@@ -1,0 +1,36 @@
+[app/sources/328980429.Dockerfile]
+digraph {
+  "sha256:f86fa8aa6fd964a94217c5c33f6306d4d9e48e2885119b2bc338852146c3d676" [label="docker-image://docker.io/library/alpine:3.9@sha256:414e0518bb9228d35e4cd5165567fb91d26c6a214e9c95899e1e056fcd349011" shape="ellipse"];
+  "sha256:0df6564a5eb7e4efae2099dfaf1938425c15b0c82b00c32f2be3983f358aaf47" [label="/bin/sh -c apk upgrade --no-cache &&    apk add --no-cache         curl         gcc         git         libc-dev         xz &&    if [ \"${GHC_BUILD_TYPE}\" = \"gmp\" ]; then         echo \"Installing 'libgmp'\" &&        apk add --no-cache gmp-dev;     fi" shape="box"];
+  "sha256:dbbf7c392ca74015b2992ea9aba2de2710cd7ecacba7fb93e20cc6727ab5734a" [label="/bin/sh -c echo \"Downloading and installing ghcup\" &&    cd /tmp &&    wget -P /tmp/ \"https://gitlab.haskell.org/haskell/ghcup/raw/${GHCUP_VERSION}/ghcup\" &&    if ! echo -n \"${GHCUP_SHA256}\" | sha256sum -c -; then         echo \"ghcup-${GHCUP_VERSION} checksum failed\" >&2 &&        exit 1 ;    fi ;    mv /tmp/ghcup /usr/bin/ghcup &&    chmod +x /usr/bin/ghcup" shape="box"];
+  "sha256:770d9f50debf9d29758eb3408e862be17b391d4bfb090ee5d2a04901fe851239" [label="/bin/sh -c echo \"Install OS packages necessary to build GHC\" &&    apk add --no-cache         autoconf         automake         binutils-gold         build-base         coreutils         cpio         ghc         linux-headers         libffi-dev         llvm5         musl-dev         ncurses-dev         perl         python3         py3-sphinx         zlib-dev" shape="box"];
+  "sha256:8ccbb3a09ef688f196318db3d7fe6c963ed9dd8f4083d1e23703b3b9e31ec875" [label="local://context" shape="ellipse"];
+  "sha256:9f31b7561d3278298c214ccc9943fd4a570f27b9abb34c3d689f060abbe89567" [label="copy{src=/docker/build-gmp.mk, dest=/tmp/build-gmp.mk}" shape="note"];
+  "sha256:5bec25f77a537bf2dd2a8e56fbaac05b598f6fd07106b226deab1fc750664e1d" [label="copy{src=/docker/build-simple.mk, dest=/tmp/build-simple.mk}" shape="note"];
+  "sha256:406fab0ee0ceda56d2ed082a12c42e2a106926ab0710f8b5a0ebb9ad78f3e719" [label="/bin/sh -c if [ \"${GHC_BUILD_TYPE}\" = \"gmp\" ]; then         echo \"Using 'integer-gmp' build config\" &&        apk add --no-cache gmp-dev &&        mv /tmp/build-gmp.mk /tmp/build.mk && rm /tmp/build-simple.mk;     elif [ \"${GHC_BUILD_TYPE}\" = \"simple\" ]; then         echo \"Using 'integer-simple' build config\" &&        mv /tmp/build-simple.mk /tmp/build.mk && rm tmp/build-gmp.mk;     else         echo \"Invalid argument \\[ GHC_BUILD_TYPE=${GHC_BUILD_TYPE} \\]\" && exit 1; fi" shape="box"];
+  "sha256:36a14a5ed776227afe76bf70818406d0307428b19652899be5a9f64908fa3f25" [label="/bin/sh -c echo \"Compiling and installing GHC\" &&    LD=ld.gold     SPHINXBUILD=/usr/bin/sphinx-build-3       ghcup -v compile -j $(nproc) -c /tmp/build.mk ${GHC_VERSION} ghc-8.4.3 &&    rm /tmp/build.mk &&    echo \"Uninstalling GHC bootstrapping compiler\" &&    apk del ghc &&    ghcup set ${GHC_VERSION}" shape="box"];
+  "sha256:29814c11cfdeea679d95777b469cde199898443ae172510fb5db1e0753f89ec8" [label="copy{src=/.ghcup, dest=/.ghcup}" shape="note"];
+  "sha256:9e19dc6757823098a87600f308ac15373ac84ab22d6ba80a93c35bd571d3b489" [label="/bin/sh -c echo \"Downloading and installing stack\" &&    cd /tmp &&    wget -P /tmp/ \"https://github.com/commercialhaskell/stack/releases/download/v${STACK_VERSION}/stack-${STACK_VERSION}-linux-x86_64-static.tar.gz\" &&    if ! echo -n \"${STACK_SHA256}\" | sha256sum -c -; then         echo \"stack-${STACK_VERSION} checksum failed\" >&2 &&        exit 1 ;    fi ;    tar -xvzf /tmp/stack-${STACK_VERSION}-linux-x86_64-static.tar.gz &&    cp -L /tmp/stack-${STACK_VERSION}-linux-x86_64-static/stack /usr/bin/stack &&    rm /tmp/stack-${STACK_VERSION}-linux-x86_64-static.tar.gz &&    rm -rf /tmp/stack-${STACK_VERSION}-linux-x86_64-static" shape="box"];
+  "sha256:28eca61b302bbf75ba8c829f4b3b0897f5c883e2f33476d337cdab21a3b3d578" [label="copy{src=/usr/bin/stack, dest=/usr/bin/stack}" shape="note"];
+  "sha256:72c91ed324248b6c3bbb1b9bcdc7ddb5826b2f248efe906874b3b9652ccbcca0" [label="/bin/sh -c apk add --no-cache bash shadow" shape="box"];
+  "sha256:589f45ebd9f9cb3db788da80f2b3d2e2b66802f02155974833917bef8d1c7d5d" [label="/bin/sh -c ghcup set ${GHC_VERSION} &&    stack config set system-ghc --global true" shape="box"];
+  "sha256:6cefa6d04e858a2706cf35ed05f260a31aa0915603d0e5e2c2a7042a81fe98fa" [label="sha256:6cefa6d04e858a2706cf35ed05f260a31aa0915603d0e5e2c2a7042a81fe98fa" shape="plaintext"];
+  "sha256:f86fa8aa6fd964a94217c5c33f6306d4d9e48e2885119b2bc338852146c3d676" -> "sha256:0df6564a5eb7e4efae2099dfaf1938425c15b0c82b00c32f2be3983f358aaf47" [label=""];
+  "sha256:0df6564a5eb7e4efae2099dfaf1938425c15b0c82b00c32f2be3983f358aaf47" -> "sha256:dbbf7c392ca74015b2992ea9aba2de2710cd7ecacba7fb93e20cc6727ab5734a" [label=""];
+  "sha256:dbbf7c392ca74015b2992ea9aba2de2710cd7ecacba7fb93e20cc6727ab5734a" -> "sha256:770d9f50debf9d29758eb3408e862be17b391d4bfb090ee5d2a04901fe851239" [label=""];
+  "sha256:770d9f50debf9d29758eb3408e862be17b391d4bfb090ee5d2a04901fe851239" -> "sha256:9f31b7561d3278298c214ccc9943fd4a570f27b9abb34c3d689f060abbe89567" [label=""];
+  "sha256:8ccbb3a09ef688f196318db3d7fe6c963ed9dd8f4083d1e23703b3b9e31ec875" -> "sha256:9f31b7561d3278298c214ccc9943fd4a570f27b9abb34c3d689f060abbe89567" [label=""];
+  "sha256:9f31b7561d3278298c214ccc9943fd4a570f27b9abb34c3d689f060abbe89567" -> "sha256:5bec25f77a537bf2dd2a8e56fbaac05b598f6fd07106b226deab1fc750664e1d" [label=""];
+  "sha256:8ccbb3a09ef688f196318db3d7fe6c963ed9dd8f4083d1e23703b3b9e31ec875" -> "sha256:5bec25f77a537bf2dd2a8e56fbaac05b598f6fd07106b226deab1fc750664e1d" [label=""];
+  "sha256:5bec25f77a537bf2dd2a8e56fbaac05b598f6fd07106b226deab1fc750664e1d" -> "sha256:406fab0ee0ceda56d2ed082a12c42e2a106926ab0710f8b5a0ebb9ad78f3e719" [label=""];
+  "sha256:406fab0ee0ceda56d2ed082a12c42e2a106926ab0710f8b5a0ebb9ad78f3e719" -> "sha256:36a14a5ed776227afe76bf70818406d0307428b19652899be5a9f64908fa3f25" [label=""];
+  "sha256:dbbf7c392ca74015b2992ea9aba2de2710cd7ecacba7fb93e20cc6727ab5734a" -> "sha256:29814c11cfdeea679d95777b469cde199898443ae172510fb5db1e0753f89ec8" [label=""];
+  "sha256:36a14a5ed776227afe76bf70818406d0307428b19652899be5a9f64908fa3f25" -> "sha256:29814c11cfdeea679d95777b469cde199898443ae172510fb5db1e0753f89ec8" [label=""];
+  "sha256:dbbf7c392ca74015b2992ea9aba2de2710cd7ecacba7fb93e20cc6727ab5734a" -> "sha256:9e19dc6757823098a87600f308ac15373ac84ab22d6ba80a93c35bd571d3b489" [label=""];
+  "sha256:29814c11cfdeea679d95777b469cde199898443ae172510fb5db1e0753f89ec8" -> "sha256:28eca61b302bbf75ba8c829f4b3b0897f5c883e2f33476d337cdab21a3b3d578" [label=""];
+  "sha256:9e19dc6757823098a87600f308ac15373ac84ab22d6ba80a93c35bd571d3b489" -> "sha256:28eca61b302bbf75ba8c829f4b3b0897f5c883e2f33476d337cdab21a3b3d578" [label=""];
+  "sha256:28eca61b302bbf75ba8c829f4b3b0897f5c883e2f33476d337cdab21a3b3d578" -> "sha256:72c91ed324248b6c3bbb1b9bcdc7ddb5826b2f248efe906874b3b9652ccbcca0" [label=""];
+  "sha256:72c91ed324248b6c3bbb1b9bcdc7ddb5826b2f248efe906874b3b9652ccbcca0" -> "sha256:589f45ebd9f9cb3db788da80f2b3d2e2b66802f02155974833917bef8d1c7d5d" [label=""];
+  "sha256:589f45ebd9f9cb3db788da80f2b3d2e2b66802f02155974833917bef8d1c7d5d" -> "sha256:6cefa6d04e858a2706cf35ed05f260a31aa0915603d0e5e2c2a7042a81fe98fa" [label=""];
+}
+

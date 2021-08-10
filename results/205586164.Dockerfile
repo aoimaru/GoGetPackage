@@ -1,0 +1,20 @@
+[app/sources/205586164.Dockerfile]
+digraph {
+  "sha256:630fc16d18f8e178fe504e469b3a53c135401f77c3dc9f09ff0feaf9a5d935ff" [label="docker-image://docker.io/library/alpine:3.6" shape="ellipse"];
+  "sha256:5f31e6d96a232274a995934fabb03e5efba3d1fd2561054a9095a2f5eb6075fd" [label="mkdir{path=/mastodon}" shape="note"];
+  "sha256:5e3d08b433182b20a3640d37ef39dd008f7b8bef5dfc91e3402c419b47a4cc66" [label="local://context" shape="ellipse"];
+  "sha256:4e66e77e559c5e85a43fb475dd4779dca26ba654a75725bfa112205536251e62" [label="copy{src=/targaryen, dest=/tmp/targaryen}" shape="note"];
+  "sha256:7ff641ffc6b637a3715303043d197206a7c534c199d465cc60ceec3addad32b3" [label="/bin/sh -c apk -U upgrade  && apk add     ca-certificates     ffmpeg     file     git     icu-libs     imagemagick     libidn     libpq     libressl     nodejs-current-npm     nodejs-current     protobuf     ruby     ruby-bigdecimal     ruby-io-console     ruby-irb     ruby-json     s6     su-exec  && apk add -t build-dependencies     build-base     icu-dev     libffi-dev     libidn-dev     libtool     postgresql-dev     protobuf-dev     python     ruby-dev     ruby-rdoc     tar     yarn  && update-ca-certificates  && wget http://ftp.gnu.org/pub/gnu/libiconv/libiconv-${LIBICONV_VERSION}.tar.gz -O /tmp/libiconv-${LIBICONV_VERSION}.tar.gz  && mkdir /tmp/src && tar xzf /tmp/libiconv-${LIBICONV_VERSION}.tar.gz -C /tmp/src  && cd /tmp/src/libiconv-${LIBICONV_VERSION}  && ./configure --prefix=/usr/local  && make -j$(getconf _NPROCESSORS_ONLN) && make install && libtool --finish /usr/local/lib  && cd /mastodon  && wget -qO- https://github.com/${REPOSITORY}/archive/${VERSION}.tar.gz | tar xz --strip 1  && cp -R /tmp/targaryen/* . && chmod +x targaryen.sh && ./targaryen.sh  && gem install bundler  && bundle install -j$(getconf _NPROCESSORS_ONLN) --deployment --clean --no-cache --without test development  && yarn --ignore-optional --pure-lockfile  && SECRET_KEY_BASE=$(rake secret) SMTP_FROM_ADDRESS= rake assets:precompile  && mv public/assets /tmp/assets && mv public/packs /tmp/packs  && npm -g cache clean --force && yarn cache clean  && apk del build-dependencies  && rm -rf /var/cache/apk/* /tmp/src" shape="box"];
+  "sha256:d0c12502c0d081e7c1b71ba28d1c037cd748d8b8a153c11c29608e15bc83d919" [label="copy{src=/rootfs, dest=/}" shape="note"];
+  "sha256:35cdb41722cf0463725c8ff193362a3addd41a1aac3ac1c6381411b606d4f507" [label="/bin/sh -c chmod +x /usr/local/bin/* /etc/s6.d/*/* /etc/s6.d/.s6-svscan/*" shape="box"];
+  "sha256:bd07d1007ba4714dea4619089f0b84620c8dbc9523d349a777ff4cd901715a8c" [label="sha256:bd07d1007ba4714dea4619089f0b84620c8dbc9523d349a777ff4cd901715a8c" shape="plaintext"];
+  "sha256:630fc16d18f8e178fe504e469b3a53c135401f77c3dc9f09ff0feaf9a5d935ff" -> "sha256:5f31e6d96a232274a995934fabb03e5efba3d1fd2561054a9095a2f5eb6075fd" [label=""];
+  "sha256:5f31e6d96a232274a995934fabb03e5efba3d1fd2561054a9095a2f5eb6075fd" -> "sha256:4e66e77e559c5e85a43fb475dd4779dca26ba654a75725bfa112205536251e62" [label=""];
+  "sha256:5e3d08b433182b20a3640d37ef39dd008f7b8bef5dfc91e3402c419b47a4cc66" -> "sha256:4e66e77e559c5e85a43fb475dd4779dca26ba654a75725bfa112205536251e62" [label=""];
+  "sha256:4e66e77e559c5e85a43fb475dd4779dca26ba654a75725bfa112205536251e62" -> "sha256:7ff641ffc6b637a3715303043d197206a7c534c199d465cc60ceec3addad32b3" [label=""];
+  "sha256:7ff641ffc6b637a3715303043d197206a7c534c199d465cc60ceec3addad32b3" -> "sha256:d0c12502c0d081e7c1b71ba28d1c037cd748d8b8a153c11c29608e15bc83d919" [label=""];
+  "sha256:5e3d08b433182b20a3640d37ef39dd008f7b8bef5dfc91e3402c419b47a4cc66" -> "sha256:d0c12502c0d081e7c1b71ba28d1c037cd748d8b8a153c11c29608e15bc83d919" [label=""];
+  "sha256:d0c12502c0d081e7c1b71ba28d1c037cd748d8b8a153c11c29608e15bc83d919" -> "sha256:35cdb41722cf0463725c8ff193362a3addd41a1aac3ac1c6381411b606d4f507" [label=""];
+  "sha256:35cdb41722cf0463725c8ff193362a3addd41a1aac3ac1c6381411b606d4f507" -> "sha256:bd07d1007ba4714dea4619089f0b84620c8dbc9523d349a777ff4cd901715a8c" [label=""];
+}
+

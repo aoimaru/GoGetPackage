@@ -1,0 +1,13 @@
+[app/sources/336404525.Dockerfile]
+digraph {
+  "sha256:3c7734136e7d3fa2235deedb2e6def98c8e2ea2879df4c978da3381e8647a88f" [label="docker-image://docker.io/nicolasvasilache/tc-1604:latest" shape="ellipse"];
+  "sha256:f340399f1b0230bdc83e4f9f6a3bc2ef41e022577045fba62d20532e20fd704c" [label="/bin/sh -c export LLVM_SOURCES=/tmp/llvm_sources-4.0;       mkdir -p ${LLVM_SOURCES} &&            cd ${LLVM_SOURCES}/ &&           svn co --quiet http://llvm.org/svn/llvm-project/llvm/tags/RELEASE_400/final/ llvm &&        cd ${LLVM_SOURCES}/llvm/tools &&           svn co --quiet http://llvm.org/svn/llvm-project/cfe/tags/RELEASE_400/final/ clang &&          cd ${LLVM_SOURCES}/llvm/projects &&           svn co --quiet http://llvm.org/svn/llvm-project/libcxx/tags/RELEASE_400/final/ libcxx &&          cd ${LLVM_SOURCES}/llvm/projects &&           svn co --quiet http://llvm.org/svn/llvm-project/libcxxabi/tags/RELEASE_400/final/ libcxxabi" shape="box"];
+  "sha256:640610f016c53c1c46e41aece75d10b18d496c33ce0db748d8f9a7a0fe9dfbcd" [label="/bin/sh -c export CORES=8;     export CLANG_PREFIX=/clang+llvm-4.0;     export CMAKE_VERSION=cmake;     export LLVM_SOURCES=/tmp/llvm_sources-4.0;       mkdir -p ${LLVM_SOURCES}/llvm_build &&            cd ${LLVM_SOURCES}/llvm_build &&          ${CMAKE_VERSION} -DCMAKE_INSTALL_PREFIX=${CLANG_PREFIX} -DLLVM_ENABLE_CXX1Y=ON -DLLVM_ENABLE_TERMINFO=OFF -DLLVM_TARGETS_TO_BUILD=all -DLLVM_ENABLE_ASSERTIONS=ON -DCMAKE_BUILD_TYPE=Release -DLLVM_BUILD_LLVM_DYLIB=ON  -DLLVM_ENABLE_RTTI=ON ../llvm/ &&          make -j $CORES -s &&          make install -j $CORES -s&&          echo SUCCESS || echo FAILURE" shape="box"];
+  "sha256:b200bab0160f515134908d1d32546b2782c7aa3c0319419feed8f2a79c8ed73d" [label="/bin/sh -c rm -Rf ${LLVM_SOURCES}" shape="box"];
+  "sha256:58e92acc4f732ac4492944f769ce58b6334a4dab8e09197dc679f143f6eeeca3" [label="sha256:58e92acc4f732ac4492944f769ce58b6334a4dab8e09197dc679f143f6eeeca3" shape="plaintext"];
+  "sha256:3c7734136e7d3fa2235deedb2e6def98c8e2ea2879df4c978da3381e8647a88f" -> "sha256:f340399f1b0230bdc83e4f9f6a3bc2ef41e022577045fba62d20532e20fd704c" [label=""];
+  "sha256:f340399f1b0230bdc83e4f9f6a3bc2ef41e022577045fba62d20532e20fd704c" -> "sha256:640610f016c53c1c46e41aece75d10b18d496c33ce0db748d8f9a7a0fe9dfbcd" [label=""];
+  "sha256:640610f016c53c1c46e41aece75d10b18d496c33ce0db748d8f9a7a0fe9dfbcd" -> "sha256:b200bab0160f515134908d1d32546b2782c7aa3c0319419feed8f2a79c8ed73d" [label=""];
+  "sha256:b200bab0160f515134908d1d32546b2782c7aa3c0319419feed8f2a79c8ed73d" -> "sha256:58e92acc4f732ac4492944f769ce58b6334a4dab8e09197dc679f143f6eeeca3" [label=""];
+}
+

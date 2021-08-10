@@ -1,0 +1,7 @@
+[app/sources/228804369.Dockerfile]
+digraph {
+  "sha256:8b4f1a99142982a031a74312d6f7b295efc0cc7bde7998286554ac13fec092fd" [label="docker-image://docker.io/library/postgres:9.2" shape="ellipse"];
+  "sha256:883b99c0f8aea520c9bf47d811833d712702fa343595de8278788c8389400b68" [label="sha256:883b99c0f8aea520c9bf47d811833d712702fa343595de8278788c8389400b68" shape="plaintext"];
+  "sha256:8b4f1a99142982a031a74312d6f7b295efc0cc7bde7998286554ac13fec092fd" -> "sha256:883b99c0f8aea520c9bf47d811833d712702fa343595de8278788c8389400b68" [label=""];
+}
+

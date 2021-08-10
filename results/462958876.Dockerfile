@@ -1,0 +1,52 @@
+[app/sources/462958876.Dockerfile]
+digraph {
+  "sha256:9adecc4c98f54bedea88b2996833dc29a4a7ce3ac82f46951d720376bbf12176" [label="local://context" shape="ellipse"];
+  "sha256:01a83545db9de106ad3b3346901e98c9809b89ee68d214f667c68c537fb9cd88" [label="docker-image://docker.io/library/ubuntu:rolling" shape="ellipse"];
+  "sha256:9f02a1f0576276b22c4d665c104d9c576cfa6c9689b8fd77d7a73df753bdd554" [label="/bin/sh -c apt-get update && apt-get install -y tcl tk python3.6 python3.6-tk wget python-opencv python3-distutils" shape="box"];
+  "sha256:7527b1726c6141f936020cd63fa8c22071b4a50a02e96124265d75d8282f0541" [label="/bin/sh -c wget https://bootstrap.pypa.io/get-pip.py" shape="box"];
+  "sha256:a81a7f27b59a21bf170a2086b7f95e049a03c243c72f7e0e3d81177bf673d1f1" [label="/bin/sh -c python3.6 get-pip.py" shape="box"];
+  "sha256:9d2ea0fe1d2f3b5afff320cbf66e567679cafef5a1e33e5ce9670937c57fdf53" [label="/bin/sh -c rm /usr/bin/python" shape="box"];
+  "sha256:c2e5336762c1c03ae4ed05b529b51243afec6f1b46b16126728d75d5356f54d5" [label="/bin/sh -c ln -s /usr/bin/python3.6 /usr/bin/python" shape="box"];
+  "sha256:b902448f063e42be0810fa54583690d9d1a7677e9470a297464a0edaf2c13a1c" [label="/bin/sh -c find . -type d -name __pycache__ -exec rm -r {} \\+" shape="box"];
+  "sha256:4cb1c2e8aacb0c8ef19a53d8958b25cc52de545deb767a81f827563a85429496" [label="copy{src=/interface/requirements, dest=/requirements/interface}" shape="note"];
+  "sha256:2a99afb8517985d0bfb85fb9786dc286e53c561aec118899b9eb5167538d0229" [label="/bin/sh -c pip install -U pip" shape="box"];
+  "sha256:0473eb78c335f5be390b18c4a9e4ccb3ab3e038c63da02e9eb66e114ac65fb4a" [label="/bin/sh -c pip install -r /requirements/interface/local.txt" shape="box"];
+  "sha256:1ff07db8bfa4119795dda4449f026e2f41ff1607b9a7e14db641e1d0d0e1e0e2" [label="copy{src=/prediction/.pylidcrc, dest=/root/.pylidcrc}" shape="note"];
+  "sha256:b9fb05edb1d6087fa5872f020053389e97e4262a3512af45aca5265ee74efd5e" [label="copy{src=/prediction/requirements/torch.txt, dest=/requirements/prediction/torch.txt}" shape="note"];
+  "sha256:a68db10a9b02d4308d69ffa4f8ddb99e3572fcf5e86160fbf4cf61595c46ffd7" [label="/bin/sh -c pip install -r /requirements/prediction/torch.txt" shape="box"];
+  "sha256:f81ac0c9b324ff1a19a21eb2b4efa66470f7646706644d378a0e46f77964f897" [label="copy{src=/prediction/requirements/local.txt, dest=/requirements/prediction/local.txt}" shape="note"];
+  "sha256:2784780263bb6314cacf7e6220bba74ea76b98b1bd41eeafc7318fd3d829a339" [label="/bin/sh -c pip install -r /requirements/prediction/local.txt" shape="box"];
+  "sha256:3c0f7b157e3e89751ab02e568be68dd340d027887dbdc7adf604e27bcd7d9eb7" [label="copy{src=/prediction/requirements/base.txt, dest=/requirements/prediction/base.txt}" shape="note"];
+  "sha256:cf2d04c89c7b8405f6396a0a5967e645279262021de9b0fa5d42b1ceab07a675" [label="/bin/sh -c pip install -r /requirements/prediction/base.txt" shape="box"];
+  "sha256:d329e9a859cc13a07e2887170cac5d26ccab849856e6c570409f2d4fab14b248" [label="copy{src=/docs/requirements.txt, dest=/requirements/requirements.txt}" shape="note"];
+  "sha256:8425590b03b0b1f0933de8dc1648e109761f31cb2253ebf16edde319ddcabe19" [label="/bin/sh -c pip install -r /requirements/requirements.txt" shape="box"];
+  "sha256:2673a6ee6fd2bbeb373aa1c462b25fe9103de357bfae41e35e668308225b00de" [label="mkdir{path=/app}" shape="note"];
+  "sha256:527b7e37f5f8615b8b9c9392e97c8267e0a85139b28b804cde38180ed1756601" [label="sha256:527b7e37f5f8615b8b9c9392e97c8267e0a85139b28b804cde38180ed1756601" shape="plaintext"];
+  "sha256:01a83545db9de106ad3b3346901e98c9809b89ee68d214f667c68c537fb9cd88" -> "sha256:9f02a1f0576276b22c4d665c104d9c576cfa6c9689b8fd77d7a73df753bdd554" [label=""];
+  "sha256:9f02a1f0576276b22c4d665c104d9c576cfa6c9689b8fd77d7a73df753bdd554" -> "sha256:7527b1726c6141f936020cd63fa8c22071b4a50a02e96124265d75d8282f0541" [label=""];
+  "sha256:7527b1726c6141f936020cd63fa8c22071b4a50a02e96124265d75d8282f0541" -> "sha256:a81a7f27b59a21bf170a2086b7f95e049a03c243c72f7e0e3d81177bf673d1f1" [label=""];
+  "sha256:a81a7f27b59a21bf170a2086b7f95e049a03c243c72f7e0e3d81177bf673d1f1" -> "sha256:9d2ea0fe1d2f3b5afff320cbf66e567679cafef5a1e33e5ce9670937c57fdf53" [label=""];
+  "sha256:9d2ea0fe1d2f3b5afff320cbf66e567679cafef5a1e33e5ce9670937c57fdf53" -> "sha256:c2e5336762c1c03ae4ed05b529b51243afec6f1b46b16126728d75d5356f54d5" [label=""];
+  "sha256:c2e5336762c1c03ae4ed05b529b51243afec6f1b46b16126728d75d5356f54d5" -> "sha256:b902448f063e42be0810fa54583690d9d1a7677e9470a297464a0edaf2c13a1c" [label=""];
+  "sha256:b902448f063e42be0810fa54583690d9d1a7677e9470a297464a0edaf2c13a1c" -> "sha256:4cb1c2e8aacb0c8ef19a53d8958b25cc52de545deb767a81f827563a85429496" [label=""];
+  "sha256:9adecc4c98f54bedea88b2996833dc29a4a7ce3ac82f46951d720376bbf12176" -> "sha256:4cb1c2e8aacb0c8ef19a53d8958b25cc52de545deb767a81f827563a85429496" [label=""];
+  "sha256:4cb1c2e8aacb0c8ef19a53d8958b25cc52de545deb767a81f827563a85429496" -> "sha256:2a99afb8517985d0bfb85fb9786dc286e53c561aec118899b9eb5167538d0229" [label=""];
+  "sha256:2a99afb8517985d0bfb85fb9786dc286e53c561aec118899b9eb5167538d0229" -> "sha256:0473eb78c335f5be390b18c4a9e4ccb3ab3e038c63da02e9eb66e114ac65fb4a" [label=""];
+  "sha256:0473eb78c335f5be390b18c4a9e4ccb3ab3e038c63da02e9eb66e114ac65fb4a" -> "sha256:1ff07db8bfa4119795dda4449f026e2f41ff1607b9a7e14db641e1d0d0e1e0e2" [label=""];
+  "sha256:9adecc4c98f54bedea88b2996833dc29a4a7ce3ac82f46951d720376bbf12176" -> "sha256:1ff07db8bfa4119795dda4449f026e2f41ff1607b9a7e14db641e1d0d0e1e0e2" [label=""];
+  "sha256:1ff07db8bfa4119795dda4449f026e2f41ff1607b9a7e14db641e1d0d0e1e0e2" -> "sha256:b9fb05edb1d6087fa5872f020053389e97e4262a3512af45aca5265ee74efd5e" [label=""];
+  "sha256:9adecc4c98f54bedea88b2996833dc29a4a7ce3ac82f46951d720376bbf12176" -> "sha256:b9fb05edb1d6087fa5872f020053389e97e4262a3512af45aca5265ee74efd5e" [label=""];
+  "sha256:b9fb05edb1d6087fa5872f020053389e97e4262a3512af45aca5265ee74efd5e" -> "sha256:a68db10a9b02d4308d69ffa4f8ddb99e3572fcf5e86160fbf4cf61595c46ffd7" [label=""];
+  "sha256:a68db10a9b02d4308d69ffa4f8ddb99e3572fcf5e86160fbf4cf61595c46ffd7" -> "sha256:f81ac0c9b324ff1a19a21eb2b4efa66470f7646706644d378a0e46f77964f897" [label=""];
+  "sha256:9adecc4c98f54bedea88b2996833dc29a4a7ce3ac82f46951d720376bbf12176" -> "sha256:f81ac0c9b324ff1a19a21eb2b4efa66470f7646706644d378a0e46f77964f897" [label=""];
+  "sha256:f81ac0c9b324ff1a19a21eb2b4efa66470f7646706644d378a0e46f77964f897" -> "sha256:2784780263bb6314cacf7e6220bba74ea76b98b1bd41eeafc7318fd3d829a339" [label=""];
+  "sha256:2784780263bb6314cacf7e6220bba74ea76b98b1bd41eeafc7318fd3d829a339" -> "sha256:3c0f7b157e3e89751ab02e568be68dd340d027887dbdc7adf604e27bcd7d9eb7" [label=""];
+  "sha256:9adecc4c98f54bedea88b2996833dc29a4a7ce3ac82f46951d720376bbf12176" -> "sha256:3c0f7b157e3e89751ab02e568be68dd340d027887dbdc7adf604e27bcd7d9eb7" [label=""];
+  "sha256:3c0f7b157e3e89751ab02e568be68dd340d027887dbdc7adf604e27bcd7d9eb7" -> "sha256:cf2d04c89c7b8405f6396a0a5967e645279262021de9b0fa5d42b1ceab07a675" [label=""];
+  "sha256:cf2d04c89c7b8405f6396a0a5967e645279262021de9b0fa5d42b1ceab07a675" -> "sha256:d329e9a859cc13a07e2887170cac5d26ccab849856e6c570409f2d4fab14b248" [label=""];
+  "sha256:9adecc4c98f54bedea88b2996833dc29a4a7ce3ac82f46951d720376bbf12176" -> "sha256:d329e9a859cc13a07e2887170cac5d26ccab849856e6c570409f2d4fab14b248" [label=""];
+  "sha256:d329e9a859cc13a07e2887170cac5d26ccab849856e6c570409f2d4fab14b248" -> "sha256:8425590b03b0b1f0933de8dc1648e109761f31cb2253ebf16edde319ddcabe19" [label=""];
+  "sha256:8425590b03b0b1f0933de8dc1648e109761f31cb2253ebf16edde319ddcabe19" -> "sha256:2673a6ee6fd2bbeb373aa1c462b25fe9103de357bfae41e35e668308225b00de" [label=""];
+  "sha256:2673a6ee6fd2bbeb373aa1c462b25fe9103de357bfae41e35e668308225b00de" -> "sha256:527b7e37f5f8615b8b9c9392e97c8267e0a85139b28b804cde38180ed1756601" [label=""];
+}
+

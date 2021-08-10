@@ -1,0 +1,13 @@
+[app/sources/173586393.Dockerfile]
+digraph {
+  "sha256:34d72aaec7ffe2dbe9119fa3f71192eb76bad7b3ad077a193d5b7633c0b9fe41" [label="local://context" shape="ellipse"];
+  "sha256:8bd0cf470e7c45de50c2497941e1361904b6a53670796fb87e087a90d964f48f" [label="docker-image://docker.io/library/alpine:3.10" shape="ellipse"];
+  "sha256:2827ed680c5ed221cbe64a08396c3ee3580dc1730e41e0070d81471ce67a9648" [label="/bin/sh -c set -x \t\t&& apk add --no-cache --virtual .build-deps \t\tca-certificates \t\tgcc \t\tlibc-dev \t\tlinux-headers \t\tlua5.3-dev \t\tmake \t\topenssl \t\topenssl-dev \t\tpcre2-dev \t\treadline-dev \t\ttar \t\tzlib-dev \t\t&& wget -O haproxy.tar.gz \"$HAPROXY_URL\" \t&& echo \"$HAPROXY_SHA256 *haproxy.tar.gz\" | sha256sum -c \t&& mkdir -p /usr/src/haproxy \t&& tar -xzf haproxy.tar.gz -C /usr/src/haproxy --strip-components=1 \t&& rm haproxy.tar.gz \t\t&& makeOpts=' \t\tTARGET=linux-glibc \t\tUSE_LUA=1 LUA_INC=/usr/include/lua5.3 LUA_LIB=/usr/lib/lua5.3 \t\tUSE_GETADDRINFO=1 \t\tUSE_OPENSSL=1 \t\tUSE_PCRE2=1 USE_PCRE2_JIT=1 \t\tUSE_ZLIB=1 \t' \t&& make -C /usr/src/haproxy -j \"$(getconf _NPROCESSORS_ONLN)\" all $makeOpts \t&& make -C /usr/src/haproxy install-bin $makeOpts \t\t&& mkdir -p /usr/local/etc/haproxy \t&& cp -R /usr/src/haproxy/examples/errorfiles /usr/local/etc/haproxy/errors \t&& rm -rf /usr/src/haproxy \t\t&& runDeps=\"$( \t\tscanelf --needed --nobanner --format '%n#p' --recursive /usr/local \t\t\t| tr ',' '\\n' \t\t\t| sort -u \t\t\t| awk 'system(\"[ -e /usr/local/lib/\" $1 \" ]\") == 0 { next } { print \"so:\" $1 }' \t)\" \t&& apk add --virtual .haproxy-rundeps $runDeps \t&& apk del .build-deps" shape="box"];
+  "sha256:e27dee2d7f45cfccea08c8119f8e65a9c08a6ac9debb4a8450e8803fc9e625c9" [label="copy{src=/docker-entrypoint.sh, dest=/}" shape="note"];
+  "sha256:c6f1a00273e7d4082abc11ef26e4ebfca110a2080821507b99047d284adcfd77" [label="sha256:c6f1a00273e7d4082abc11ef26e4ebfca110a2080821507b99047d284adcfd77" shape="plaintext"];
+  "sha256:8bd0cf470e7c45de50c2497941e1361904b6a53670796fb87e087a90d964f48f" -> "sha256:2827ed680c5ed221cbe64a08396c3ee3580dc1730e41e0070d81471ce67a9648" [label=""];
+  "sha256:2827ed680c5ed221cbe64a08396c3ee3580dc1730e41e0070d81471ce67a9648" -> "sha256:e27dee2d7f45cfccea08c8119f8e65a9c08a6ac9debb4a8450e8803fc9e625c9" [label=""];
+  "sha256:34d72aaec7ffe2dbe9119fa3f71192eb76bad7b3ad077a193d5b7633c0b9fe41" -> "sha256:e27dee2d7f45cfccea08c8119f8e65a9c08a6ac9debb4a8450e8803fc9e625c9" [label=""];
+  "sha256:e27dee2d7f45cfccea08c8119f8e65a9c08a6ac9debb4a8450e8803fc9e625c9" -> "sha256:c6f1a00273e7d4082abc11ef26e4ebfca110a2080821507b99047d284adcfd77" [label=""];
+}
+

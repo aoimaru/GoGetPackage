@@ -1,0 +1,50 @@
+[app/sources/207190431.Dockerfile]
+digraph {
+  "sha256:282b73bf4922b73467919d5924c840460511bb2c5340206b2940b1c1d9d02cd6" [label="local://context" shape="ellipse"];
+  "sha256:04187b885604d112762d71717a1346cbc4f17e131fc82857a048019e04951455" [label="docker-image://docker.io/library/ubuntu:16.04" shape="ellipse"];
+  "sha256:2ca509aa76e8d321a06a1c6ef73c5de1d596119253d9ccf45be054b5f83d4e9a" [label="http://stedolan.github.io/jq/download/linux64/jq" shape="ellipse"];
+  "sha256:498116e7810e716ff8b80815b47c353faefd273ac1f85dd29c437489874c0218" [label="copy{src=/jq, dest=/usr/bin/}" shape="note"];
+  "sha256:6a02876a119e4567b52d2f366119969a53488140192c19547df453e7fd07060f" [label="/bin/sh -c chmod +x /usr/bin/jq" shape="box"];
+  "sha256:32ff23a306b466740e84d02d78368e9873911a2ddb88e287acb9db6ea5cc9280" [label="/bin/sh -c apt-get update && apt-get install -y     curl     tcpdump     vim-tiny     openssl     libssl-dev     rsyslog     wget     haproxy     software-properties-common &&     rm -rf /var/lib/apt/lists" shape="box"];
+  "sha256:95d8cfc0ca927c001c13437f56c496b220e30c632909f20106d88431f4376b1e" [label="/bin/sh -c mkdir -p /etc/haproxy/" shape="box"];
+  "sha256:d07194c13e45a1a08da9cb50303eaa289f30cfd75ac61dc191429e75488a6f80" [label="copy{src=/lb-controller, dest=/usr/bin/}" shape="note"];
+  "sha256:01290b0600ff31bab8cec8db4f31ce165c9859dc9f771f90bfde2b4fc6eb41eb" [label="copy{src=/scripts/*, dest=/usr/bin/}" shape="note"];
+  "sha256:7695353f87a042d4b1567723bb92af415c1137d49689e1ef4b684d09c482667b" [label="copy{src=/config/*, dest=/etc/haproxy/}" shape="note"];
+  "sha256:2074facdf5b828669b9a14554e1be812883436efe8039a2bbefd9c809ab32ded" [label="/bin/sh -c mkdir /var/log/haproxy" shape="box"];
+  "sha256:35680cb6548e8448452f207bbcf1f2287d9fd3f79a7c1a01ed02afdd29e2bb66" [label="/bin/sh -c touch /var/log/haproxy/traffic /var/log/haproxy/events /var/log/haproxy/errors" shape="box"];
+  "sha256:8966a8a664dd8856d7f5adc4893cd961b7fceb696d6c06e5d380275b702eb7bd" [label="/bin/sh -c cat /etc/haproxy/logrotate.cfg >> /etc/logrotate.d/haproxy" shape="box"];
+  "sha256:4050c13aae75c00b238753d7d116b6388e70ef6004b0eebe7f3e1b6070a52630" [label="https://github.com/krallin/tini/releases/download/v0.10.0/tini" shape="ellipse"];
+  "sha256:47cf279b8333cbd459d632b642b8042bb59ab4cf3adda218b2b9c43088f653c2" [label="copy{src=/tini, dest=/tini}" shape="note"];
+  "sha256:f8037bfb5cb3c02f91975fd359aecd61142c0ba676ba99b367497c74f15e50f1" [label="/bin/sh -c chmod +x /tini" shape="box"];
+  "sha256:4e5ff5f29b8ec0099c291eee5a917af3dc92a84167301d8148a5b188bb088507" [label="/bin/sh -c wget -O /usr/bin/update-rancher-ssl https://raw.githubusercontent.com/rancher/rancher/${SSL_SCRIPT_COMMIT}/server/bin/update-rancher-ssl &&     chmod +x /usr/bin/update-rancher-ssl" shape="box"];
+  "sha256:0185a6a17bc0f4ea4b1e2a4ed6b4f9332607558f95ab3f85e149f940203b41a0" [label="copy{src=/lb-controller.sh, dest=/usr/bin/}" shape="note"];
+  "sha256:764b53a48347fc426bfc8e13d1a68b43cb80c64b8eb337077d871623d7538c52" [label="/bin/sh -c ln -sf /proc/1/fd/1 /var/log/haproxy/events" shape="box"];
+  "sha256:17d7c67bd1f5207d75e1c66952be70253a58b13f37858a40f913fe8b5246362b" [label="/bin/sh -c ln -sf /proc/1/fd/1 /var/log/haproxy/traffic" shape="box"];
+  "sha256:c5bcfdb282855011870ddbd3bb5c59a3cbe1bcd92aa0851fb778eb30d6966740" [label="/bin/sh -c ln -sf /proc/1/fd/2 /var/log/haproxy/errors" shape="box"];
+  "sha256:743fb2852316a17bf07799289713eccdf3049a2c9256bff484110fc446c99737" [label="sha256:743fb2852316a17bf07799289713eccdf3049a2c9256bff484110fc446c99737" shape="plaintext"];
+  "sha256:04187b885604d112762d71717a1346cbc4f17e131fc82857a048019e04951455" -> "sha256:498116e7810e716ff8b80815b47c353faefd273ac1f85dd29c437489874c0218" [label=""];
+  "sha256:2ca509aa76e8d321a06a1c6ef73c5de1d596119253d9ccf45be054b5f83d4e9a" -> "sha256:498116e7810e716ff8b80815b47c353faefd273ac1f85dd29c437489874c0218" [label=""];
+  "sha256:498116e7810e716ff8b80815b47c353faefd273ac1f85dd29c437489874c0218" -> "sha256:6a02876a119e4567b52d2f366119969a53488140192c19547df453e7fd07060f" [label=""];
+  "sha256:6a02876a119e4567b52d2f366119969a53488140192c19547df453e7fd07060f" -> "sha256:32ff23a306b466740e84d02d78368e9873911a2ddb88e287acb9db6ea5cc9280" [label=""];
+  "sha256:32ff23a306b466740e84d02d78368e9873911a2ddb88e287acb9db6ea5cc9280" -> "sha256:95d8cfc0ca927c001c13437f56c496b220e30c632909f20106d88431f4376b1e" [label=""];
+  "sha256:95d8cfc0ca927c001c13437f56c496b220e30c632909f20106d88431f4376b1e" -> "sha256:d07194c13e45a1a08da9cb50303eaa289f30cfd75ac61dc191429e75488a6f80" [label=""];
+  "sha256:282b73bf4922b73467919d5924c840460511bb2c5340206b2940b1c1d9d02cd6" -> "sha256:d07194c13e45a1a08da9cb50303eaa289f30cfd75ac61dc191429e75488a6f80" [label=""];
+  "sha256:d07194c13e45a1a08da9cb50303eaa289f30cfd75ac61dc191429e75488a6f80" -> "sha256:01290b0600ff31bab8cec8db4f31ce165c9859dc9f771f90bfde2b4fc6eb41eb" [label=""];
+  "sha256:282b73bf4922b73467919d5924c840460511bb2c5340206b2940b1c1d9d02cd6" -> "sha256:01290b0600ff31bab8cec8db4f31ce165c9859dc9f771f90bfde2b4fc6eb41eb" [label=""];
+  "sha256:01290b0600ff31bab8cec8db4f31ce165c9859dc9f771f90bfde2b4fc6eb41eb" -> "sha256:7695353f87a042d4b1567723bb92af415c1137d49689e1ef4b684d09c482667b" [label=""];
+  "sha256:282b73bf4922b73467919d5924c840460511bb2c5340206b2940b1c1d9d02cd6" -> "sha256:7695353f87a042d4b1567723bb92af415c1137d49689e1ef4b684d09c482667b" [label=""];
+  "sha256:7695353f87a042d4b1567723bb92af415c1137d49689e1ef4b684d09c482667b" -> "sha256:2074facdf5b828669b9a14554e1be812883436efe8039a2bbefd9c809ab32ded" [label=""];
+  "sha256:2074facdf5b828669b9a14554e1be812883436efe8039a2bbefd9c809ab32ded" -> "sha256:35680cb6548e8448452f207bbcf1f2287d9fd3f79a7c1a01ed02afdd29e2bb66" [label=""];
+  "sha256:35680cb6548e8448452f207bbcf1f2287d9fd3f79a7c1a01ed02afdd29e2bb66" -> "sha256:8966a8a664dd8856d7f5adc4893cd961b7fceb696d6c06e5d380275b702eb7bd" [label=""];
+  "sha256:8966a8a664dd8856d7f5adc4893cd961b7fceb696d6c06e5d380275b702eb7bd" -> "sha256:47cf279b8333cbd459d632b642b8042bb59ab4cf3adda218b2b9c43088f653c2" [label=""];
+  "sha256:4050c13aae75c00b238753d7d116b6388e70ef6004b0eebe7f3e1b6070a52630" -> "sha256:47cf279b8333cbd459d632b642b8042bb59ab4cf3adda218b2b9c43088f653c2" [label=""];
+  "sha256:47cf279b8333cbd459d632b642b8042bb59ab4cf3adda218b2b9c43088f653c2" -> "sha256:f8037bfb5cb3c02f91975fd359aecd61142c0ba676ba99b367497c74f15e50f1" [label=""];
+  "sha256:f8037bfb5cb3c02f91975fd359aecd61142c0ba676ba99b367497c74f15e50f1" -> "sha256:4e5ff5f29b8ec0099c291eee5a917af3dc92a84167301d8148a5b188bb088507" [label=""];
+  "sha256:4e5ff5f29b8ec0099c291eee5a917af3dc92a84167301d8148a5b188bb088507" -> "sha256:0185a6a17bc0f4ea4b1e2a4ed6b4f9332607558f95ab3f85e149f940203b41a0" [label=""];
+  "sha256:282b73bf4922b73467919d5924c840460511bb2c5340206b2940b1c1d9d02cd6" -> "sha256:0185a6a17bc0f4ea4b1e2a4ed6b4f9332607558f95ab3f85e149f940203b41a0" [label=""];
+  "sha256:0185a6a17bc0f4ea4b1e2a4ed6b4f9332607558f95ab3f85e149f940203b41a0" -> "sha256:764b53a48347fc426bfc8e13d1a68b43cb80c64b8eb337077d871623d7538c52" [label=""];
+  "sha256:764b53a48347fc426bfc8e13d1a68b43cb80c64b8eb337077d871623d7538c52" -> "sha256:17d7c67bd1f5207d75e1c66952be70253a58b13f37858a40f913fe8b5246362b" [label=""];
+  "sha256:17d7c67bd1f5207d75e1c66952be70253a58b13f37858a40f913fe8b5246362b" -> "sha256:c5bcfdb282855011870ddbd3bb5c59a3cbe1bcd92aa0851fb778eb30d6966740" [label=""];
+  "sha256:c5bcfdb282855011870ddbd3bb5c59a3cbe1bcd92aa0851fb778eb30d6966740" -> "sha256:743fb2852316a17bf07799289713eccdf3049a2c9256bff484110fc446c99737" [label=""];
+}
+

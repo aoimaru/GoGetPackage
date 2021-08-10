@@ -1,0 +1,13 @@
+[app/sources/224605288.Dockerfile]
+digraph {
+  "sha256:5e691c7ba4998fa4b60d1218bbc4ed9845bfa527d7d91b0c48922bbea45ce425" [label="docker-image://docker.io/library/ubuntu:18.04" shape="ellipse"];
+  "sha256:be522ff2fbf66bb8552b53ab027120730f4bbbf4c7463aed4d572bc0371bf7c0" [label="/bin/sh -c export DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true && apt-get -q update &&     apt-get -q install -y     make     libc6-dev     clang-3.9     curl     libedit-dev     libpython2.7     libicu-dev     libssl-dev     libxml2     tzdata     git     libcurl4-openssl-dev     pkg-config     && update-alternatives --quiet --install /usr/bin/clang clang /usr/bin/clang-3.9 100     && update-alternatives --quiet --install /usr/bin/clang++ clang++ /usr/bin/clang++-3.9 100     && rm -r /var/lib/apt/lists/*" shape="box"];
+  "sha256:c3c474533e58e9102df6a67e1fda7778c44774d2181a663dcb390353c38f5d0b" [label="/bin/sh -c SWIFT_URL=https://swift.org/builds/$SWIFT_BRANCH/$(echo \"$SWIFT_PLATFORM\" | tr -d .)/$SWIFT_VERSION/$SWIFT_VERSION-$SWIFT_PLATFORM.tar.gz     && curl -fSsL $SWIFT_URL -o swift.tar.gz     && curl -fSsL $SWIFT_URL.sig -o swift.tar.gz.sig     && export GNUPGHOME=\"$(mktemp -d)\"     && set -e;         for key in           8513444E2DA36B7C1659AF4D7638F1FB2B2B08C4           A3BAFD3556A59079C06894BD63BC1CFE91D306C6           5E4DF843FB065D7F7E24FBA2EF5430F071E1B235         ; do           gpg --quiet --keyserver ha.pool.sks-keyservers.net --recv-keys \"$key\";         done     && gpg --batch --verify --quiet swift.tar.gz.sig swift.tar.gz     && tar -xzf swift.tar.gz --directory / --strip-components=1     && rm -r \"$GNUPGHOME\" swift.tar.gz.sig swift.tar.gz     && chmod -R o+r /usr/lib/swift" shape="box"];
+  "sha256:532545763fcf2f0baaca6aedfb6f4eea5494439f4a6d39fd1f366c12a283d8b7" [label="/bin/sh -c swift --version" shape="box"];
+  "sha256:40f8d67f574b0263169204a50348832045fa6b9e80907c7c2e328cce5d799ce3" [label="sha256:40f8d67f574b0263169204a50348832045fa6b9e80907c7c2e328cce5d799ce3" shape="plaintext"];
+  "sha256:5e691c7ba4998fa4b60d1218bbc4ed9845bfa527d7d91b0c48922bbea45ce425" -> "sha256:be522ff2fbf66bb8552b53ab027120730f4bbbf4c7463aed4d572bc0371bf7c0" [label=""];
+  "sha256:be522ff2fbf66bb8552b53ab027120730f4bbbf4c7463aed4d572bc0371bf7c0" -> "sha256:c3c474533e58e9102df6a67e1fda7778c44774d2181a663dcb390353c38f5d0b" [label=""];
+  "sha256:c3c474533e58e9102df6a67e1fda7778c44774d2181a663dcb390353c38f5d0b" -> "sha256:532545763fcf2f0baaca6aedfb6f4eea5494439f4a6d39fd1f366c12a283d8b7" [label=""];
+  "sha256:532545763fcf2f0baaca6aedfb6f4eea5494439f4a6d39fd1f366c12a283d8b7" -> "sha256:40f8d67f574b0263169204a50348832045fa6b9e80907c7c2e328cce5d799ce3" [label=""];
+}
+

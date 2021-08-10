@@ -1,0 +1,56 @@
+[app/sources/477835756.Dockerfile]
+digraph {
+  "sha256:04187b885604d112762d71717a1346cbc4f17e131fc82857a048019e04951455" [label="docker-image://docker.io/library/ubuntu:16.04" shape="ellipse"];
+  "sha256:b069d550401a452a05edcad4167ac8d3cc204d08447b0d18bc0fa8f2903f1030" [label="/bin/sh -c apt-get update -y && apt-get upgrade -y" shape="box"];
+  "sha256:393b7ce36f25a74ae15f85a53efe92827ba72b83abd42ac7c9780c3908056916" [label="/bin/sh -c apt-get install -y gcc g++ make curl" shape="box"];
+  "sha256:e632f564e94cf6c9165f9bd059fe6757024a5d953f35a4a7462767daee28309c" [label="/bin/sh -c apt-get install -y libgeos-dev" shape="box"];
+  "sha256:58f6ff86dfdcaa5b1a3b1e9348d4910c6fc24cf6df16c34a75dfce349edbbdd5" [label="/bin/sh -c curl -O http://download.osgeo.org/gdal/2.1.3/gdal-2.1.3.tar.gz" shape="box"];
+  "sha256:eb5f8cbe4328f7740e40c2742842259578dd0f490a014b5b91bf641adb25bb7c" [label="/bin/sh -c tar -xzf gdal-2.1.3.tar.gz" shape="box"];
+  "sha256:77483ac9b13a97ae0e27f78cb47d3958e07dedc382d7bc3c6325e07a2194d59e" [label="mkdir{path=/gdal-2.1.3}" shape="note"];
+  "sha256:ba7c73f20f902e6528c47987020b73371f73251bafeaca89f60fb3ccc0de1e2f" [label="/bin/sh -c ./configure" shape="box"];
+  "sha256:ff4b0013a417204bb953fd8963844edd1cb50eaff887b36cd9b3990deb62f7a6" [label="/bin/sh -c make -j$(nproc)" shape="box"];
+  "sha256:873bca1a23983254e6ebb3dafac0ea32fb110479834d1984df2c5faad2c79fb7" [label="/bin/sh -c make install" shape="box"];
+  "sha256:b67cf7d7bf48d4f3794a20eea81bed1561e7088c60c36e079c09c458b9843dd6" [label="/bin/sh -c ldconfig" shape="box"];
+  "sha256:2396f1aa384747ff5de4799bd8ced3a78895e930994f1f24ce69edf3b97befc2" [label="/bin/sh -c apt-get install -y git                        ssh                        libffi-dev                        libssl-dev                        libproj-dev                        python-pip                        python-cffi                        python-lxml                        python-pil                        python-numpy                        python-scipy                        python-pandas                        python-matplotlib                        python-seaborn                        python-concurrent.futures                        cython                        python-scikits-learn                        python-scikits.statsmodels                        python-skimage-lib" shape="box"];
+  "sha256:5c1b3a171f7abfb8ea2ec756a2e9e993e92c4234d18b4691f7c25a0df1263837" [label="/bin/sh -c pip install -U pip" shape="box"];
+  "sha256:48ab01bc61cfa65d19a4c300e000b2d882d05b780a2517bfcf4dca99b12eccc2" [label="/bin/sh -c pip2.7 install -U jupyter notebook                    mapnik                    pyproj                    ipywidgets                    scikit-image                    pyOpenSSL" shape="box"];
+  "sha256:5d9bb556ba395cf43ca1b3f06b9e1a685333e0770e6e4173dd1ce43f6b1c0ccd" [label="/bin/sh -c jupyter nbextension enable --py widgetsnbextension --sys-prefix" shape="box"];
+  "sha256:773743785bf37340ea1e2385a66557c687ce53324ddde55ae74c805e69e53693" [label="/bin/sh -c jupyter-notebook --generate-config --allow-root" shape="box"];
+  "sha256:6dab1ddc0c42cc68013ba8481d9d5aa77a8dad92bae1ca19e12d063e7e2b0fe6" [label="/bin/sh -c sed -i \"s/#c.NotebookApp.token = '<generated>'/c.NotebookApp.token = ''/\" /root/.jupyter/jupyter_notebook_config.py" shape="box"];
+  "sha256:496d93fb2b43c8cadcc331eddf4058e0aa46c1fa5cf8cd2f86475b2bafade89d" [label="/bin/sh -c curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.1/install.sh | bash     && . /root/.bashrc && nvm install v6.10.1 && ln -s /root/.nvm/versions/node/v6.10.1/bin/npm /usr/bin/npm" shape="box"];
+  "sha256:55fb64448dca40c9ca1aeeb9d090ec2c90940485c793619bdb1d3f2ac213ace2" [label="/bin/sh -c pip2.7 install https://github.com/OpenGeoscience/KTile/archive/master.zip" shape="box"];
+  "sha256:331603b3dc556891aed619d68faef271ef253b422e4e79577b151dd6baadd085" [label="local://context" shape="ellipse"];
+  "sha256:2e521e291cbe7159433239fc0769d5270079cd62fcf5362f9b6b7789d57d1505" [label="copy{src=/, dest=/opt/geonotebook}" shape="note"];
+  "sha256:91b3d94d142f0b1d483a8db69ac1970af880317aa077324c201560e945c575fa" [label="copy{src=/devops/docker/jupyter.sh, dest=/jupyter.sh}" shape="note"];
+  "sha256:aaede4d582121f2b92f8fcb8d1d37ff54c2fc65e7dfd6aa8d508d01e0db822d2" [label="mkdir{path=/opt/geonotebook}" shape="note"];
+  "sha256:7ba8c217f049d7b1677e70c4553195a9db1b946e1cd6e64ab77766a539cb97d5" [label="/bin/sh -c .  /root/.bashrc && pip2.7 install -U -r prerequirements.txt &&     pip2.7 install -U -r requirements.txt . &&     jupyter serverextension enable --py geonotebook --sys-prefix &&     jupyter nbextension enable --py geonotebook --sys-prefix" shape="box"];
+  "sha256:9cf3733f0a0b1a8daf5069200a3cc31525ece8d96bb09f09a3efcbf41b30399b" [label="mkdir{path=/notebooks}" shape="note"];
+  "sha256:de2b97baec88f017177d28bc159c8edde1d244a4a02d99fb9c0ccebc52c1b887" [label="sha256:de2b97baec88f017177d28bc159c8edde1d244a4a02d99fb9c0ccebc52c1b887" shape="plaintext"];
+  "sha256:04187b885604d112762d71717a1346cbc4f17e131fc82857a048019e04951455" -> "sha256:b069d550401a452a05edcad4167ac8d3cc204d08447b0d18bc0fa8f2903f1030" [label=""];
+  "sha256:b069d550401a452a05edcad4167ac8d3cc204d08447b0d18bc0fa8f2903f1030" -> "sha256:393b7ce36f25a74ae15f85a53efe92827ba72b83abd42ac7c9780c3908056916" [label=""];
+  "sha256:393b7ce36f25a74ae15f85a53efe92827ba72b83abd42ac7c9780c3908056916" -> "sha256:e632f564e94cf6c9165f9bd059fe6757024a5d953f35a4a7462767daee28309c" [label=""];
+  "sha256:e632f564e94cf6c9165f9bd059fe6757024a5d953f35a4a7462767daee28309c" -> "sha256:58f6ff86dfdcaa5b1a3b1e9348d4910c6fc24cf6df16c34a75dfce349edbbdd5" [label=""];
+  "sha256:58f6ff86dfdcaa5b1a3b1e9348d4910c6fc24cf6df16c34a75dfce349edbbdd5" -> "sha256:eb5f8cbe4328f7740e40c2742842259578dd0f490a014b5b91bf641adb25bb7c" [label=""];
+  "sha256:eb5f8cbe4328f7740e40c2742842259578dd0f490a014b5b91bf641adb25bb7c" -> "sha256:77483ac9b13a97ae0e27f78cb47d3958e07dedc382d7bc3c6325e07a2194d59e" [label=""];
+  "sha256:77483ac9b13a97ae0e27f78cb47d3958e07dedc382d7bc3c6325e07a2194d59e" -> "sha256:ba7c73f20f902e6528c47987020b73371f73251bafeaca89f60fb3ccc0de1e2f" [label=""];
+  "sha256:ba7c73f20f902e6528c47987020b73371f73251bafeaca89f60fb3ccc0de1e2f" -> "sha256:ff4b0013a417204bb953fd8963844edd1cb50eaff887b36cd9b3990deb62f7a6" [label=""];
+  "sha256:ff4b0013a417204bb953fd8963844edd1cb50eaff887b36cd9b3990deb62f7a6" -> "sha256:873bca1a23983254e6ebb3dafac0ea32fb110479834d1984df2c5faad2c79fb7" [label=""];
+  "sha256:873bca1a23983254e6ebb3dafac0ea32fb110479834d1984df2c5faad2c79fb7" -> "sha256:b67cf7d7bf48d4f3794a20eea81bed1561e7088c60c36e079c09c458b9843dd6" [label=""];
+  "sha256:b67cf7d7bf48d4f3794a20eea81bed1561e7088c60c36e079c09c458b9843dd6" -> "sha256:2396f1aa384747ff5de4799bd8ced3a78895e930994f1f24ce69edf3b97befc2" [label=""];
+  "sha256:2396f1aa384747ff5de4799bd8ced3a78895e930994f1f24ce69edf3b97befc2" -> "sha256:5c1b3a171f7abfb8ea2ec756a2e9e993e92c4234d18b4691f7c25a0df1263837" [label=""];
+  "sha256:5c1b3a171f7abfb8ea2ec756a2e9e993e92c4234d18b4691f7c25a0df1263837" -> "sha256:48ab01bc61cfa65d19a4c300e000b2d882d05b780a2517bfcf4dca99b12eccc2" [label=""];
+  "sha256:48ab01bc61cfa65d19a4c300e000b2d882d05b780a2517bfcf4dca99b12eccc2" -> "sha256:5d9bb556ba395cf43ca1b3f06b9e1a685333e0770e6e4173dd1ce43f6b1c0ccd" [label=""];
+  "sha256:5d9bb556ba395cf43ca1b3f06b9e1a685333e0770e6e4173dd1ce43f6b1c0ccd" -> "sha256:773743785bf37340ea1e2385a66557c687ce53324ddde55ae74c805e69e53693" [label=""];
+  "sha256:773743785bf37340ea1e2385a66557c687ce53324ddde55ae74c805e69e53693" -> "sha256:6dab1ddc0c42cc68013ba8481d9d5aa77a8dad92bae1ca19e12d063e7e2b0fe6" [label=""];
+  "sha256:6dab1ddc0c42cc68013ba8481d9d5aa77a8dad92bae1ca19e12d063e7e2b0fe6" -> "sha256:496d93fb2b43c8cadcc331eddf4058e0aa46c1fa5cf8cd2f86475b2bafade89d" [label=""];
+  "sha256:496d93fb2b43c8cadcc331eddf4058e0aa46c1fa5cf8cd2f86475b2bafade89d" -> "sha256:55fb64448dca40c9ca1aeeb9d090ec2c90940485c793619bdb1d3f2ac213ace2" [label=""];
+  "sha256:55fb64448dca40c9ca1aeeb9d090ec2c90940485c793619bdb1d3f2ac213ace2" -> "sha256:2e521e291cbe7159433239fc0769d5270079cd62fcf5362f9b6b7789d57d1505" [label=""];
+  "sha256:331603b3dc556891aed619d68faef271ef253b422e4e79577b151dd6baadd085" -> "sha256:2e521e291cbe7159433239fc0769d5270079cd62fcf5362f9b6b7789d57d1505" [label=""];
+  "sha256:2e521e291cbe7159433239fc0769d5270079cd62fcf5362f9b6b7789d57d1505" -> "sha256:91b3d94d142f0b1d483a8db69ac1970af880317aa077324c201560e945c575fa" [label=""];
+  "sha256:331603b3dc556891aed619d68faef271ef253b422e4e79577b151dd6baadd085" -> "sha256:91b3d94d142f0b1d483a8db69ac1970af880317aa077324c201560e945c575fa" [label=""];
+  "sha256:91b3d94d142f0b1d483a8db69ac1970af880317aa077324c201560e945c575fa" -> "sha256:aaede4d582121f2b92f8fcb8d1d37ff54c2fc65e7dfd6aa8d508d01e0db822d2" [label=""];
+  "sha256:aaede4d582121f2b92f8fcb8d1d37ff54c2fc65e7dfd6aa8d508d01e0db822d2" -> "sha256:7ba8c217f049d7b1677e70c4553195a9db1b946e1cd6e64ab77766a539cb97d5" [label=""];
+  "sha256:7ba8c217f049d7b1677e70c4553195a9db1b946e1cd6e64ab77766a539cb97d5" -> "sha256:9cf3733f0a0b1a8daf5069200a3cc31525ece8d96bb09f09a3efcbf41b30399b" [label=""];
+  "sha256:9cf3733f0a0b1a8daf5069200a3cc31525ece8d96bb09f09a3efcbf41b30399b" -> "sha256:de2b97baec88f017177d28bc159c8edde1d244a4a02d99fb9c0ccebc52c1b887" [label=""];
+}
+

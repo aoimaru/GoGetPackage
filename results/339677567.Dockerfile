@@ -1,0 +1,13 @@
+[app/sources/339677567.Dockerfile]
+digraph {
+  "sha256:95ebc7aa89060a0bb064bbb970f2f510902bc639411306b2b0183c35e2dbd348" [label="docker-image://docker.io/microsoft/dotnet:2.1-sdk" shape="ellipse"];
+  "sha256:229a234de1a54bd0cce610335715f305f52f4393417068ae5f6082624b7fbb3c" [label="mkdir{path=/app}" shape="note"];
+  "sha256:fca7054b35513af477ca59ea91ae63dff33c196cabea882e2b74b94fd0bacee6" [label="local://context" shape="ellipse"];
+  "sha256:f914d223361184212e575f7561d33de3568f0a92e464fb4d6a265081609f4532" [label="copy{src=/, dest=/app}" shape="note"];
+  "sha256:3ee73b5923c47dbdfb077fbb02009b6e091f2fafa685baa1ce3dd62a0b9a8648" [label="sha256:3ee73b5923c47dbdfb077fbb02009b6e091f2fafa685baa1ce3dd62a0b9a8648" shape="plaintext"];
+  "sha256:95ebc7aa89060a0bb064bbb970f2f510902bc639411306b2b0183c35e2dbd348" -> "sha256:229a234de1a54bd0cce610335715f305f52f4393417068ae5f6082624b7fbb3c" [label=""];
+  "sha256:229a234de1a54bd0cce610335715f305f52f4393417068ae5f6082624b7fbb3c" -> "sha256:f914d223361184212e575f7561d33de3568f0a92e464fb4d6a265081609f4532" [label=""];
+  "sha256:fca7054b35513af477ca59ea91ae63dff33c196cabea882e2b74b94fd0bacee6" -> "sha256:f914d223361184212e575f7561d33de3568f0a92e464fb4d6a265081609f4532" [label=""];
+  "sha256:f914d223361184212e575f7561d33de3568f0a92e464fb4d6a265081609f4532" -> "sha256:3ee73b5923c47dbdfb077fbb02009b6e091f2fafa685baa1ce3dd62a0b9a8648" [label=""];
+}
+

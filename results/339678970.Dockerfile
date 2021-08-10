@@ -1,0 +1,50 @@
+[app/sources/339678970.Dockerfile]
+digraph {
+  "sha256:5ad244a9caf9c5dc2c25d77d7fe844d9e87b46ea775d0cdb74fdf2705d23b700" [label="docker-image://docker.io/ufoym/deepo:cpu" shape="ellipse"];
+  "sha256:39ba02981708219171d359a863c4ab8b1bc45ceb92f4aa0bc1482989b787abec" [label="/bin/sh -c pip3 install --upgrade pip" shape="box"];
+  "sha256:8c07122acbd50eda4d2986e5862b4c7c55c06ddbb7619b08a724058160a4840e" [label="/bin/sh -c pip3 install jupyter" shape="box"];
+  "sha256:9b484a2029eeeafe1c5d6b7bf5ade93d4c153b3ab1e48d80184292c1de77105f" [label="/bin/sh -c jupyter notebook --generate-config" shape="box"];
+  "sha256:e584c33195d4e7d8d0bd15a2f6c564d31f00bb41452975dfbe9f1e6309598c19" [label="local://context" shape="ellipse"];
+  "sha256:3fbe4580785ebafca0e49764cd9999acb5cf2d2be57d87e13ec6f35e6983eeff" [label="copy{src=/jupyter_notebook_config.py, dest=/root/.jupyter}" shape="note"];
+  "sha256:6f19d329044a4ba576344b7419366b4bb8b762e5639093efe64a911bc1608aaa" [label="/bin/sh -c pip3 install Flask==0.12.2 requests==2.18.4 lxml bs4" shape="box"];
+  "sha256:0554005dca04c0314c33b8307933312b5cea757c3182d8108850371718277170" [label="/bin/sh -c pip3 install scrapy" shape="box"];
+  "sha256:3835c2ad69ed4da0bdc084c6fd58f538b4992c2386168406d3fe0630bb2207af" [label="/bin/sh -c apt update &&     apt install -y openssh-server &&    apt install -y net-tools &&    apt install -y ffmpeg" shape="box"];
+  "sha256:627600b8f8651571627e96bcd4b43195eb876e1e31cb3f1c2da94865bd727e6e" [label="/bin/sh -c echo 'root:test' | chpasswd" shape="box"];
+  "sha256:165c8b7c636f41f4368872b1b488de1b59e318dd697998bf831bca03140e8dc0" [label="/bin/sh -c sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config" shape="box"];
+  "sha256:412d00d8caa18234214b1f68cb801e86e595ee856aa92a4854d0ef099eef6513" [label="/bin/sh -c sed 's@session\\s*required\\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd" shape="box"];
+  "sha256:a95693d1dda21a388a5b3bcd4282b6883a2952cca9f414b3e54ebfe8e5cb9f5e" [label="/bin/sh -c echo \"export VISIBLE=now\" >> /etc/profile" shape="box"];
+  "sha256:5c50a41c372d82f86e5a07a0e4753fe2945e86ee71d6c88555fa0c781111f46b" [label="copy{src=/run.sh, dest=/}" shape="note"];
+  "sha256:3b53a1bf79a99d2bcf9eb78c8de0a28473822c1445392ffecbcf3624be5f8b6a" [label="/bin/sh -c mkdir /var/run/sshd" shape="box"];
+  "sha256:dbed4c108ba94547c306355702609c47a8c91e89add971be462fd30a4e086662" [label="/bin/sh -c mkdir -p /home/src" shape="box"];
+  "sha256:5663256298fb03a567b353483075d6f9dd863f8b8149b0c5e9a15468c4cacd34" [label="/bin/sh -c apt install -y tzdata" shape="box"];
+  "sha256:14a53dc38c34bf76b813ada6b60b343f18b052a5f1dcf2d31d6eed7032f07e05" [label="/bin/sh -c cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime" shape="box"];
+  "sha256:a85cecc3a425069318556b35891ac8ef6644a7c31befa8085763d1ecebd49fca" [label="/bin/sh -c pip3 install flask_socketio msgpack_numpy socketIO_client jupytext librosa" shape="box"];
+  "sha256:ee2d99791cc23898c0c7d020da8cd781276e31add8f32d251d359b885d4272ca" [label="/bin/sh -c pip3 install jupyter_contrib_nbextensions" shape="box"];
+  "sha256:8dacee789ef773bbf344936ed3e06e5ab87096badb8f5d271d2a738b7ca9b510" [label="/bin/sh -c pip3 install ipython prompt_toolkit" shape="box"];
+  "sha256:e7c72c149d256d112aa4a039ca554105e358a8988526e5b74cc0661d1b30ba1e" [label="/bin/sh -c jupyter contrib nbextension install --user --skip-running-check" shape="box"];
+  "sha256:93453cd6b97c62ea7e07cbb36f50f608454e1ba1d6a82302f398eb323cc37f49" [label="sha256:93453cd6b97c62ea7e07cbb36f50f608454e1ba1d6a82302f398eb323cc37f49" shape="plaintext"];
+  "sha256:5ad244a9caf9c5dc2c25d77d7fe844d9e87b46ea775d0cdb74fdf2705d23b700" -> "sha256:39ba02981708219171d359a863c4ab8b1bc45ceb92f4aa0bc1482989b787abec" [label=""];
+  "sha256:39ba02981708219171d359a863c4ab8b1bc45ceb92f4aa0bc1482989b787abec" -> "sha256:8c07122acbd50eda4d2986e5862b4c7c55c06ddbb7619b08a724058160a4840e" [label=""];
+  "sha256:8c07122acbd50eda4d2986e5862b4c7c55c06ddbb7619b08a724058160a4840e" -> "sha256:9b484a2029eeeafe1c5d6b7bf5ade93d4c153b3ab1e48d80184292c1de77105f" [label=""];
+  "sha256:9b484a2029eeeafe1c5d6b7bf5ade93d4c153b3ab1e48d80184292c1de77105f" -> "sha256:3fbe4580785ebafca0e49764cd9999acb5cf2d2be57d87e13ec6f35e6983eeff" [label=""];
+  "sha256:e584c33195d4e7d8d0bd15a2f6c564d31f00bb41452975dfbe9f1e6309598c19" -> "sha256:3fbe4580785ebafca0e49764cd9999acb5cf2d2be57d87e13ec6f35e6983eeff" [label=""];
+  "sha256:3fbe4580785ebafca0e49764cd9999acb5cf2d2be57d87e13ec6f35e6983eeff" -> "sha256:6f19d329044a4ba576344b7419366b4bb8b762e5639093efe64a911bc1608aaa" [label=""];
+  "sha256:6f19d329044a4ba576344b7419366b4bb8b762e5639093efe64a911bc1608aaa" -> "sha256:0554005dca04c0314c33b8307933312b5cea757c3182d8108850371718277170" [label=""];
+  "sha256:0554005dca04c0314c33b8307933312b5cea757c3182d8108850371718277170" -> "sha256:3835c2ad69ed4da0bdc084c6fd58f538b4992c2386168406d3fe0630bb2207af" [label=""];
+  "sha256:3835c2ad69ed4da0bdc084c6fd58f538b4992c2386168406d3fe0630bb2207af" -> "sha256:627600b8f8651571627e96bcd4b43195eb876e1e31cb3f1c2da94865bd727e6e" [label=""];
+  "sha256:627600b8f8651571627e96bcd4b43195eb876e1e31cb3f1c2da94865bd727e6e" -> "sha256:165c8b7c636f41f4368872b1b488de1b59e318dd697998bf831bca03140e8dc0" [label=""];
+  "sha256:165c8b7c636f41f4368872b1b488de1b59e318dd697998bf831bca03140e8dc0" -> "sha256:412d00d8caa18234214b1f68cb801e86e595ee856aa92a4854d0ef099eef6513" [label=""];
+  "sha256:412d00d8caa18234214b1f68cb801e86e595ee856aa92a4854d0ef099eef6513" -> "sha256:a95693d1dda21a388a5b3bcd4282b6883a2952cca9f414b3e54ebfe8e5cb9f5e" [label=""];
+  "sha256:a95693d1dda21a388a5b3bcd4282b6883a2952cca9f414b3e54ebfe8e5cb9f5e" -> "sha256:5c50a41c372d82f86e5a07a0e4753fe2945e86ee71d6c88555fa0c781111f46b" [label=""];
+  "sha256:e584c33195d4e7d8d0bd15a2f6c564d31f00bb41452975dfbe9f1e6309598c19" -> "sha256:5c50a41c372d82f86e5a07a0e4753fe2945e86ee71d6c88555fa0c781111f46b" [label=""];
+  "sha256:5c50a41c372d82f86e5a07a0e4753fe2945e86ee71d6c88555fa0c781111f46b" -> "sha256:3b53a1bf79a99d2bcf9eb78c8de0a28473822c1445392ffecbcf3624be5f8b6a" [label=""];
+  "sha256:3b53a1bf79a99d2bcf9eb78c8de0a28473822c1445392ffecbcf3624be5f8b6a" -> "sha256:dbed4c108ba94547c306355702609c47a8c91e89add971be462fd30a4e086662" [label=""];
+  "sha256:dbed4c108ba94547c306355702609c47a8c91e89add971be462fd30a4e086662" -> "sha256:5663256298fb03a567b353483075d6f9dd863f8b8149b0c5e9a15468c4cacd34" [label=""];
+  "sha256:5663256298fb03a567b353483075d6f9dd863f8b8149b0c5e9a15468c4cacd34" -> "sha256:14a53dc38c34bf76b813ada6b60b343f18b052a5f1dcf2d31d6eed7032f07e05" [label=""];
+  "sha256:14a53dc38c34bf76b813ada6b60b343f18b052a5f1dcf2d31d6eed7032f07e05" -> "sha256:a85cecc3a425069318556b35891ac8ef6644a7c31befa8085763d1ecebd49fca" [label=""];
+  "sha256:a85cecc3a425069318556b35891ac8ef6644a7c31befa8085763d1ecebd49fca" -> "sha256:ee2d99791cc23898c0c7d020da8cd781276e31add8f32d251d359b885d4272ca" [label=""];
+  "sha256:ee2d99791cc23898c0c7d020da8cd781276e31add8f32d251d359b885d4272ca" -> "sha256:8dacee789ef773bbf344936ed3e06e5ab87096badb8f5d271d2a738b7ca9b510" [label=""];
+  "sha256:8dacee789ef773bbf344936ed3e06e5ab87096badb8f5d271d2a738b7ca9b510" -> "sha256:e7c72c149d256d112aa4a039ca554105e358a8988526e5b74cc0661d1b30ba1e" [label=""];
+  "sha256:e7c72c149d256d112aa4a039ca554105e358a8988526e5b74cc0661d1b30ba1e" -> "sha256:93453cd6b97c62ea7e07cbb36f50f608454e1ba1d6a82302f398eb323cc37f49" [label=""];
+}
+

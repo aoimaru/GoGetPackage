@@ -1,0 +1,13 @@
+[app/sources/345365354.Dockerfile]
+digraph {
+  "sha256:27315f8651f80d251ad220f4fbbb6bb16f359a28dcf5f887605329a58d79dc75" [label="docker-image://docker.io/balenalib/ccon-01-debian:stretch-build" shape="ellipse"];
+  "sha256:04f61c736718f3d544086841f00a6660843c5fc7641a7cd48327df4adf1d5bbb" [label="/bin/sh -c apt-get update     && apt-get install -y --no-install-recommends         ca-certificates         curl                 libc6         libgcc1         libgssapi-krb5-2         libicu57         libssl1.1         libstdc++6         zlib1g     && rm -rf /var/lib/apt/lists/*" shape="box"];
+  "sha256:c243bf5748cb6b2c61381bac0c4e544c1a7b7e1dfca78c1f6f0a218b1af1a76c" [label="/bin/sh -c curl -SL --output dotnet.tar.gz \"https://dotnetcli.blob.core.windows.net/dotnet/Runtime/$DOTNET_VERSION/dotnet-runtime-$DOTNET_VERSION-linux-arm.tar.gz\"     && dotnet_sha512='8B43F09C7832911EAED67BA6BFF4987226E06146B310A6762A63E1586CFB9FD0D466E7AE9B04E25D8D0C0E058B26C295BB4D31EA2A8FAAED8C519758ED089BDD'     && echo \"$dotnet_sha512 dotnet.tar.gz\" | sha512sum -c -     && mkdir -p /usr/share/dotnet     && tar -zxf dotnet.tar.gz -C /usr/share/dotnet     && rm dotnet.tar.gz     && ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet" shape="box"];
+  "sha256:123dce272482f2c7c542bfdfdcd3cf3fb4c3a77e11698ea855b272371408015e" [label="/bin/sh -c curl -SL --output aspnetcore.tar.gz \"https://dotnetcli.blob.core.windows.net/dotnet/aspnetcore/Runtime/$ASPNETCORE_VERSION/aspnetcore-runtime-$ASPNETCORE_VERSION-linux-arm.tar.gz\"     && aspnetcore_sha512='8B43F09C7832911EAED67BA6BFF4987226E06146B310A6762A63E1586CFB9FD0D466E7AE9B04E25D8D0C0E058B26C295BB4D31EA2A8FAAED8C519758ED089BDD'     && echo \"$aspnetcore_sha512  aspnetcore.tar.gz\" | sha512sum -c -     && mkdir -p /usr/share/dotnet     && tar -zxf aspnetcore.tar.gz -C /usr/share/dotnet ./shared/Microsoft.AspNetCore.App     && rm aspnetcore.tar.gz" shape="box"];
+  "sha256:2e528b84d441c0a2073ca71c31de3d044297a6f0c9f52ab6740eb0ff06a0bd52" [label="sha256:2e528b84d441c0a2073ca71c31de3d044297a6f0c9f52ab6740eb0ff06a0bd52" shape="plaintext"];
+  "sha256:27315f8651f80d251ad220f4fbbb6bb16f359a28dcf5f887605329a58d79dc75" -> "sha256:04f61c736718f3d544086841f00a6660843c5fc7641a7cd48327df4adf1d5bbb" [label=""];
+  "sha256:04f61c736718f3d544086841f00a6660843c5fc7641a7cd48327df4adf1d5bbb" -> "sha256:c243bf5748cb6b2c61381bac0c4e544c1a7b7e1dfca78c1f6f0a218b1af1a76c" [label=""];
+  "sha256:c243bf5748cb6b2c61381bac0c4e544c1a7b7e1dfca78c1f6f0a218b1af1a76c" -> "sha256:123dce272482f2c7c542bfdfdcd3cf3fb4c3a77e11698ea855b272371408015e" [label=""];
+  "sha256:123dce272482f2c7c542bfdfdcd3cf3fb4c3a77e11698ea855b272371408015e" -> "sha256:2e528b84d441c0a2073ca71c31de3d044297a6f0c9f52ab6740eb0ff06a0bd52" [label=""];
+}
+

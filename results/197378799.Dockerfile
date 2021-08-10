@@ -1,0 +1,11 @@
+[app/sources/197378799.Dockerfile]
+digraph {
+  "sha256:7b75fbc0e7820f98b5afec3a68ad048d54735862dc87b728939521dd7810a50c" [label="docker-image://docker.io/library/php:7.2-apache-stretch" shape="ellipse"];
+  "sha256:00e36287bd7e0f1bc52935bc700c47eba74e79bc7869e5baa977d501a67ea166" [label="/bin/sh -c apt-get update &&     apt-get install -y --no-install-recommends         wget         libxml2-dev libfreetype6-dev         libjpeg62-turbo-dev         libmcrypt-dev         libpng-dev         zlib1g-dev         graphicsmagick &&     docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ &&     docker-php-ext-install -j$(nproc) mysqli soap gd zip opcache intl &&     echo 'always_populate_raw_post_data = -1\\nmax_execution_time = 240\\nmax_input_vars = 1500\\nupload_max_filesize = 32M\\npost_max_size = 32M' > /usr/local/etc/php/conf.d/typo3.ini &&     a2enmod rewrite &&     apt-get clean &&     apt-get -y purge         libxml2-dev libfreetype6-dev         libjpeg62-turbo-dev         libmcrypt-dev         libpng-dev         zlib1g-dev &&     rm -rf /var/lib/apt/lists/* /usr/src/*" shape="box"];
+  "sha256:5c03db24963318469ed100ecfb0edb675aba0abff4aac4373eeeee01fb7af7a1" [label="/bin/sh -c cd /var/www/html &&     wget -O - https://get.typo3.org/9.3 | tar -xzf - &&     ln -s typo3_src-* typo3_src &&     ln -s typo3_src/index.php &&     ln -s typo3_src/typo3 &&     ln -s typo3_src/_.htaccess .htaccess &&     mkdir typo3temp &&     mkdir typo3conf &&     mkdir fileadmin &&     mkdir uploads &&     touch FIRST_INSTALL &&     chown -R www-data. ." shape="box"];
+  "sha256:e8f44e24f7aa18b0a7d3b9708cdd73d70e02e55385c03fd25a918593904c8ca3" [label="sha256:e8f44e24f7aa18b0a7d3b9708cdd73d70e02e55385c03fd25a918593904c8ca3" shape="plaintext"];
+  "sha256:7b75fbc0e7820f98b5afec3a68ad048d54735862dc87b728939521dd7810a50c" -> "sha256:00e36287bd7e0f1bc52935bc700c47eba74e79bc7869e5baa977d501a67ea166" [label=""];
+  "sha256:00e36287bd7e0f1bc52935bc700c47eba74e79bc7869e5baa977d501a67ea166" -> "sha256:5c03db24963318469ed100ecfb0edb675aba0abff4aac4373eeeee01fb7af7a1" [label=""];
+  "sha256:5c03db24963318469ed100ecfb0edb675aba0abff4aac4373eeeee01fb7af7a1" -> "sha256:e8f44e24f7aa18b0a7d3b9708cdd73d70e02e55385c03fd25a918593904c8ca3" [label=""];
+}
+

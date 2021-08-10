@@ -1,0 +1,13 @@
+[app/sources/324568697.Dockerfile]
+digraph {
+  "sha256:e06ab6774129f9f9450cb9ee6037135c49cd494afa89ac6838b48d13a5aed9a7" [label="docker-image://docker.io/jboss/base@sha256:39bcf23f34ca58db0769121674d2a82aa4ea2ae9c956e280cb0ba1ef64c68b51" shape="ellipse"];
+  "sha256:3a2f722452e9e808661eb276620a50628ae645ffbfc37fab1a9c63923e055f60" [label="/bin/sh -c yum -y --setopt=tsflags=nodocs install centos-release-scl-rh   && yum -y --setopt=tsflags=nodocs install rh-php71 rh-php71-php-mysqlnd rh-php71-php-gd rh-php71-php-mbstring   && yum clean all   && rm -rf /var/cache/yum   && curl -s -f -L -o /tmp/installer.php https://getcomposer.org/installer   && scl enable rh-php71 \"php /tmp/installer.php --no-ansi --install-dir=/usr/bin --filename=composer\"   && scl enable rh-php71 \"composer --ansi --version --no-interaction\"   && rm -rf /tmp/installer.php" shape="box"];
+  "sha256:26a178879f3c84786820d3c17e754bfa6e09301096d833fcfc337da255910250" [label="/bin/sh -c curl -L -O https://raw.githubusercontent.com/apache/incubator-openwhisk-runtime-php/$OPENWHISK_RUNTIME_PHP_VERSION/core/php7.1Action/composer.json   && curl -L -O https://raw.githubusercontent.com/apache/incubator-openwhisk-runtime-php/$OPENWHISK_RUNTIME_PHP_VERSION/core/php7.1Action/router.php   && curl -L -O https://raw.githubusercontent.com/apache/incubator-openwhisk-runtime-php/$OPENWHISK_RUNTIME_PHP_VERSION/core/php7.1Action/runner.php   && sed -i \"s|/usr/local/bin/php|/opt/rh/rh-php71/root/usr/bin/php|\" router.php   && scl enable rh-php71 \"composer install --no-plugins --no-scripts --prefer-dist --no-dev -o\"   && rm composer.lock   && mkdir src" shape="box"];
+  "sha256:9aebdb2cf97e432354b57bdab8387e03b7f1503ccd38afae67c7e5800bdbe381" [label="/bin/sh -c chgrp -R 0 /opt/jboss   && chmod -R g+rwX /opt/jboss" shape="box"];
+  "sha256:915a4d60ccc625a2b2a65a6ff17a2dd71b58aea09966f4bc6bc22319fe3c80fd" [label="sha256:915a4d60ccc625a2b2a65a6ff17a2dd71b58aea09966f4bc6bc22319fe3c80fd" shape="plaintext"];
+  "sha256:e06ab6774129f9f9450cb9ee6037135c49cd494afa89ac6838b48d13a5aed9a7" -> "sha256:3a2f722452e9e808661eb276620a50628ae645ffbfc37fab1a9c63923e055f60" [label=""];
+  "sha256:3a2f722452e9e808661eb276620a50628ae645ffbfc37fab1a9c63923e055f60" -> "sha256:26a178879f3c84786820d3c17e754bfa6e09301096d833fcfc337da255910250" [label=""];
+  "sha256:26a178879f3c84786820d3c17e754bfa6e09301096d833fcfc337da255910250" -> "sha256:9aebdb2cf97e432354b57bdab8387e03b7f1503ccd38afae67c7e5800bdbe381" [label=""];
+  "sha256:9aebdb2cf97e432354b57bdab8387e03b7f1503ccd38afae67c7e5800bdbe381" -> "sha256:915a4d60ccc625a2b2a65a6ff17a2dd71b58aea09966f4bc6bc22319fe3c80fd" [label=""];
+}
+

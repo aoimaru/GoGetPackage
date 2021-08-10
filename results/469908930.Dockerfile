@@ -1,0 +1,11 @@
+[app/sources/469908930.Dockerfile]
+digraph {
+  "sha256:9f114c89e21f2d63801ad8cd20dca56bd271d610d15ecfccbffb02f316785af1" [label="docker-image://docker.io/library/java:8-alpine" shape="ellipse"];
+  "sha256:6d6817fa00490658082666ee932c91c3422d56149dbacc2138ed404853e363e7" [label="local://context" shape="ellipse"];
+  "sha256:4f9fc184b1f17e11e468669487d87b9d83cc00100e72667a294236938b5ba089" [label="copy{src=/target/*.jar, dest=/app.jar}" shape="note"];
+  "sha256:e1b9908f7bf51e4ca3fe688c7402d318c5a5e88ef1c21d0e334e5d8501f1fa16" [label="sha256:e1b9908f7bf51e4ca3fe688c7402d318c5a5e88ef1c21d0e334e5d8501f1fa16" shape="plaintext"];
+  "sha256:9f114c89e21f2d63801ad8cd20dca56bd271d610d15ecfccbffb02f316785af1" -> "sha256:4f9fc184b1f17e11e468669487d87b9d83cc00100e72667a294236938b5ba089" [label=""];
+  "sha256:6d6817fa00490658082666ee932c91c3422d56149dbacc2138ed404853e363e7" -> "sha256:4f9fc184b1f17e11e468669487d87b9d83cc00100e72667a294236938b5ba089" [label=""];
+  "sha256:4f9fc184b1f17e11e468669487d87b9d83cc00100e72667a294236938b5ba089" -> "sha256:e1b9908f7bf51e4ca3fe688c7402d318c5a5e88ef1c21d0e334e5d8501f1fa16" [label=""];
+}
+

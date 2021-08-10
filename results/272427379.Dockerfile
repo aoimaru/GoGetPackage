@@ -1,0 +1,15 @@
+[app/sources/272427379.Dockerfile]
+digraph {
+  "sha256:b22a89f9e1761330aded5c407b7240787840c068819241d874abb36bf71a0936" [label="local://context" shape="ellipse"];
+  "sha256:ffe27f6671bec511d877f7d04491578c6298219c52275ed5d98ea81205baf954" [label="docker-image://docker.io/library/golang:1.11.2" shape="ellipse"];
+  "sha256:cc024f07e3549bf220c2eaf20077f098443eb9485d2ce93b480af8d9f464fa91" [label="mkdir{path=/go/src/app}" shape="note"];
+  "sha256:9aca66ed1faae43f3530589d84f26494472d8399c239a27a9d226703662813e2" [label="copy{src=/, dest=/go/src/app/}" shape="note"];
+  "sha256:7cd88bd459a0df7379424139d500ead5de7acba4f617dd69c5faad7bf3c00468" [label="/bin/sh -c go install ./..." shape="box"];
+  "sha256:468554f1569e999c94fa7ab2db3cdb0886f680a6defe2c21b65adbc172288fa0" [label="sha256:468554f1569e999c94fa7ab2db3cdb0886f680a6defe2c21b65adbc172288fa0" shape="plaintext"];
+  "sha256:ffe27f6671bec511d877f7d04491578c6298219c52275ed5d98ea81205baf954" -> "sha256:cc024f07e3549bf220c2eaf20077f098443eb9485d2ce93b480af8d9f464fa91" [label=""];
+  "sha256:cc024f07e3549bf220c2eaf20077f098443eb9485d2ce93b480af8d9f464fa91" -> "sha256:9aca66ed1faae43f3530589d84f26494472d8399c239a27a9d226703662813e2" [label=""];
+  "sha256:b22a89f9e1761330aded5c407b7240787840c068819241d874abb36bf71a0936" -> "sha256:9aca66ed1faae43f3530589d84f26494472d8399c239a27a9d226703662813e2" [label=""];
+  "sha256:9aca66ed1faae43f3530589d84f26494472d8399c239a27a9d226703662813e2" -> "sha256:7cd88bd459a0df7379424139d500ead5de7acba4f617dd69c5faad7bf3c00468" [label=""];
+  "sha256:7cd88bd459a0df7379424139d500ead5de7acba4f617dd69c5faad7bf3c00468" -> "sha256:468554f1569e999c94fa7ab2db3cdb0886f680a6defe2c21b65adbc172288fa0" [label=""];
+}
+

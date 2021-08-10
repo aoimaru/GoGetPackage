@@ -1,0 +1,51 @@
+[app/sources/165411170.Dockerfile]
+digraph {
+  "sha256:70b2ab92b41b2b138ef1a6f96195c288f641a7f910d42f0ef62e1af5e8dfa8e1" [label="local://context" shape="ellipse"];
+  "sha256:a9ab970ef4810de5fde05a4caa66b977b639ff067a8b0241cb81432a2f533c04" [label="docker-image://docker.io/library/ubuntu:14.04" shape="ellipse"];
+  "sha256:eee7c7cdc493af2458d131368fed5a5f3274bb8de5fc52db1b17a5f98d353350" [label="/bin/sh -c locale-gen en_US.UTF-8" shape="box"];
+  "sha256:c39b0eb2d665ecf7c8fa12a71e85a3123a5836724e33d2f959362ba21ec21368" [label="/bin/sh -c apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10     && echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen'         | tee /etc/apt/sources.list.d/mongodb.list     && apt-get -y update     && apt-get -y install mongodb-org     && mkdir -p /data/db" shape="box"];
+  "sha256:9b26fdd807df08be91e5c65a09bcba3118a0a357e7c4bbf79a2c15d368dde8d0" [label="/bin/sh -c apt-get -y install curl" shape="box"];
+  "sha256:23d1f6d5ea06342e471607b81156d9abf82f614dac063559833ff2f073c3cf3e" [label="/bin/sh -c curl -sL https://deb.nodesource.com/setup | sudo bash -" shape="box"];
+  "sha256:979b8218fbfde2b7824da17da82b85e110ef21a1172804dad078cbdaa04155fe" [label="/bin/sh -c apt-get -y update" shape="box"];
+  "sha256:1e1dcd109b19298db764d0d65c54624813e488c90304975f67b40417408d156a" [label="/bin/sh -c apt-get -y install redis-server supervisor nginx python-dev python-pip                git ruby python-software-properties python g++ make nodejs                build-essential ruby-dev" shape="box"];
+  "sha256:09282fe7d1ec3d3279474cf3117cb6a63b40c1ea06399ebba57b50613c2da3f6" [label="/bin/sh -c gem install compass" shape="box"];
+  "sha256:2fb1bd066905e39c12ba8fa1d7e79f8d890ea611f454a129b162e1e04cb25a20" [label="/bin/sh -c npm install -g brunch" shape="box"];
+  "sha256:9883e525190ebbc3e73a44344b3039ec63eda155a535c4b27c2fe1cfea2767b5" [label="/bin/sh -c mkdir /home/cloudtunes" shape="box"];
+  "sha256:270bd04729cd34f720cdbc6bbf76ffd3069ca0aef00773dbedf5859a1e97d27b" [label="mkdir{path=/home/cloudtunes}" shape="note"];
+  "sha256:4683d45c58a59584f8e1d0fe441f60eca020dc1b68ac1a992ce24d9d977354df" [label="copy{src=/cloudtunes-server/requirements.txt, dest=/tmp/requirements.txt}" shape="note"];
+  "sha256:08a7bf276d2a6c9d8feae920619c0179ddb44e4c388c2cf1696eaf8767225141" [label="/bin/sh -c pip install -r /tmp/requirements.txt" shape="box"];
+  "sha256:c724f400406ba5e10fcf893287fa709814fc0ffbbfafcfb81922757e5b1588c7" [label="copy{src=/cloudtunes-server, dest=/home/cloudtunes/cloudtunes-server}" shape="note"];
+  "sha256:c57a20bd3a5eb049d49f2405d6a89b7dfa3600218e578519d1013a0f7953e322" [label="/bin/sh -c pip install -e ./cloudtunes-server" shape="box"];
+  "sha256:a0ef52a5730ad469e8b11c4b4201abdb709434a1ad087066f7464ea7ac242331" [label="copy{src=/cloudtunes-server/production/supervisor.ini, dest=/etc/supervisor/conf.d/cloudtunes.conf}" shape="note"];
+  "sha256:fe167936df29a7ff2351dfe1ed7a3505a7c833ad66a3901f1c9fe487e0768117" [label="copy{src=/cloudtunes-webapp, dest=/home/cloudtunes/cloudtunes-webapp}" shape="note"];
+  "sha256:eb956fde26c00a259b90ff58488ebfb9b91b59ece8282d9a08942263290716f5" [label="/bin/sh -c cd cloudtunes-webapp     && npm install     && brunch b --env config-dist.coffee" shape="box"];
+  "sha256:bc263ee9eaf3fcc4384b1a9acba2734abef2fec0177fcb63bb8e04ef2afb9565" [label="/bin/sh -c groupadd -r cloudtunes -g 433     && useradd -u 431 -r -g cloudtunes -d /home/cloudtunes                -s /usr/sbin/nologin -c \"Docker image user\" cloudtunes     && chown -R cloudtunes:cloudtunes /home/cloudtunes" shape="box"];
+  "sha256:566a200551840a3d3ecf7758002457d82f26fb2332d9da401d914a5f562e2971" [label="copy{src=/cloudtunes-server/cloudtunes/settings/local.py, dest=/home/cloudtunes/cloudtunes-server/cloudtunes/settings/local.py}" shape="note"];
+  "sha256:60e450edda9b195738ba4716c1a0961031d5a9c7f1b4468d581d49e0c4a72fb2" [label="sha256:60e450edda9b195738ba4716c1a0961031d5a9c7f1b4468d581d49e0c4a72fb2" shape="plaintext"];
+  "sha256:a9ab970ef4810de5fde05a4caa66b977b639ff067a8b0241cb81432a2f533c04" -> "sha256:eee7c7cdc493af2458d131368fed5a5f3274bb8de5fc52db1b17a5f98d353350" [label=""];
+  "sha256:eee7c7cdc493af2458d131368fed5a5f3274bb8de5fc52db1b17a5f98d353350" -> "sha256:c39b0eb2d665ecf7c8fa12a71e85a3123a5836724e33d2f959362ba21ec21368" [label=""];
+  "sha256:c39b0eb2d665ecf7c8fa12a71e85a3123a5836724e33d2f959362ba21ec21368" -> "sha256:9b26fdd807df08be91e5c65a09bcba3118a0a357e7c4bbf79a2c15d368dde8d0" [label=""];
+  "sha256:9b26fdd807df08be91e5c65a09bcba3118a0a357e7c4bbf79a2c15d368dde8d0" -> "sha256:23d1f6d5ea06342e471607b81156d9abf82f614dac063559833ff2f073c3cf3e" [label=""];
+  "sha256:23d1f6d5ea06342e471607b81156d9abf82f614dac063559833ff2f073c3cf3e" -> "sha256:979b8218fbfde2b7824da17da82b85e110ef21a1172804dad078cbdaa04155fe" [label=""];
+  "sha256:979b8218fbfde2b7824da17da82b85e110ef21a1172804dad078cbdaa04155fe" -> "sha256:1e1dcd109b19298db764d0d65c54624813e488c90304975f67b40417408d156a" [label=""];
+  "sha256:1e1dcd109b19298db764d0d65c54624813e488c90304975f67b40417408d156a" -> "sha256:09282fe7d1ec3d3279474cf3117cb6a63b40c1ea06399ebba57b50613c2da3f6" [label=""];
+  "sha256:09282fe7d1ec3d3279474cf3117cb6a63b40c1ea06399ebba57b50613c2da3f6" -> "sha256:2fb1bd066905e39c12ba8fa1d7e79f8d890ea611f454a129b162e1e04cb25a20" [label=""];
+  "sha256:2fb1bd066905e39c12ba8fa1d7e79f8d890ea611f454a129b162e1e04cb25a20" -> "sha256:9883e525190ebbc3e73a44344b3039ec63eda155a535c4b27c2fe1cfea2767b5" [label=""];
+  "sha256:9883e525190ebbc3e73a44344b3039ec63eda155a535c4b27c2fe1cfea2767b5" -> "sha256:270bd04729cd34f720cdbc6bbf76ffd3069ca0aef00773dbedf5859a1e97d27b" [label=""];
+  "sha256:270bd04729cd34f720cdbc6bbf76ffd3069ca0aef00773dbedf5859a1e97d27b" -> "sha256:4683d45c58a59584f8e1d0fe441f60eca020dc1b68ac1a992ce24d9d977354df" [label=""];
+  "sha256:70b2ab92b41b2b138ef1a6f96195c288f641a7f910d42f0ef62e1af5e8dfa8e1" -> "sha256:4683d45c58a59584f8e1d0fe441f60eca020dc1b68ac1a992ce24d9d977354df" [label=""];
+  "sha256:4683d45c58a59584f8e1d0fe441f60eca020dc1b68ac1a992ce24d9d977354df" -> "sha256:08a7bf276d2a6c9d8feae920619c0179ddb44e4c388c2cf1696eaf8767225141" [label=""];
+  "sha256:08a7bf276d2a6c9d8feae920619c0179ddb44e4c388c2cf1696eaf8767225141" -> "sha256:c724f400406ba5e10fcf893287fa709814fc0ffbbfafcfb81922757e5b1588c7" [label=""];
+  "sha256:70b2ab92b41b2b138ef1a6f96195c288f641a7f910d42f0ef62e1af5e8dfa8e1" -> "sha256:c724f400406ba5e10fcf893287fa709814fc0ffbbfafcfb81922757e5b1588c7" [label=""];
+  "sha256:c724f400406ba5e10fcf893287fa709814fc0ffbbfafcfb81922757e5b1588c7" -> "sha256:c57a20bd3a5eb049d49f2405d6a89b7dfa3600218e578519d1013a0f7953e322" [label=""];
+  "sha256:c57a20bd3a5eb049d49f2405d6a89b7dfa3600218e578519d1013a0f7953e322" -> "sha256:a0ef52a5730ad469e8b11c4b4201abdb709434a1ad087066f7464ea7ac242331" [label=""];
+  "sha256:70b2ab92b41b2b138ef1a6f96195c288f641a7f910d42f0ef62e1af5e8dfa8e1" -> "sha256:a0ef52a5730ad469e8b11c4b4201abdb709434a1ad087066f7464ea7ac242331" [label=""];
+  "sha256:a0ef52a5730ad469e8b11c4b4201abdb709434a1ad087066f7464ea7ac242331" -> "sha256:fe167936df29a7ff2351dfe1ed7a3505a7c833ad66a3901f1c9fe487e0768117" [label=""];
+  "sha256:70b2ab92b41b2b138ef1a6f96195c288f641a7f910d42f0ef62e1af5e8dfa8e1" -> "sha256:fe167936df29a7ff2351dfe1ed7a3505a7c833ad66a3901f1c9fe487e0768117" [label=""];
+  "sha256:fe167936df29a7ff2351dfe1ed7a3505a7c833ad66a3901f1c9fe487e0768117" -> "sha256:eb956fde26c00a259b90ff58488ebfb9b91b59ece8282d9a08942263290716f5" [label=""];
+  "sha256:eb956fde26c00a259b90ff58488ebfb9b91b59ece8282d9a08942263290716f5" -> "sha256:bc263ee9eaf3fcc4384b1a9acba2734abef2fec0177fcb63bb8e04ef2afb9565" [label=""];
+  "sha256:bc263ee9eaf3fcc4384b1a9acba2734abef2fec0177fcb63bb8e04ef2afb9565" -> "sha256:566a200551840a3d3ecf7758002457d82f26fb2332d9da401d914a5f562e2971" [label=""];
+  "sha256:70b2ab92b41b2b138ef1a6f96195c288f641a7f910d42f0ef62e1af5e8dfa8e1" -> "sha256:566a200551840a3d3ecf7758002457d82f26fb2332d9da401d914a5f562e2971" [label=""];
+  "sha256:566a200551840a3d3ecf7758002457d82f26fb2332d9da401d914a5f562e2971" -> "sha256:60e450edda9b195738ba4716c1a0961031d5a9c7f1b4468d581d49e0c4a72fb2" [label=""];
+}
+

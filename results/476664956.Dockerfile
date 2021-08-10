@@ -1,0 +1,52 @@
+[app/sources/476664956.Dockerfile]
+digraph {
+  "sha256:79bd9940f00bcdfc3dab397413e2e12cc943bc08bdea6613f19c88a4ab585c2c" [label="docker-image://docker.io/anoopnair/hadoop_base_debian:latest" shape="ellipse"];
+  "sha256:72e836c2ceb77a6ba35f322aa36277aaf5efb4ba6c313553d8b1a458590cec71" [label="/bin/sh -c mkdir -p /usr/java/default   && ln -s /usr/lib/jvm/java-7-openjdk-amd64/bin /usr/java/default" shape="box"];
+  "sha256:5623c38bd1ba54038e60da00ba7454ffaace8579b261d02e76e95fba394d3cb3" [label="/bin/sh -c rm -f /etc/ssh/ssh_host_dsa_key /etc/ssh/ssh_host_rsa_key /root/.ssh/id_rsa   && ssh-keygen -q -N \"\" -t dsa -f /etc/ssh/ssh_host_dsa_key   && ssh-keygen -q -N \"\" -t rsa -f /etc/ssh/ssh_host_rsa_key   && ssh-keygen -q -N \"\" -t rsa -f /root/.ssh/id_rsa   && cp /root/.ssh/id_rsa.pub /root/.ssh/authorized_keys" shape="box"];
+  "sha256:1c170fc926b7d1ed806dc3f328de7dd99da3f78dd30e33487b1e35b1fd209386" [label="/bin/sh -c wget -O - http://mirror.reverse.net/pub/apache/hadoop/common/hadoop-$HADOOP_VERSION/hadoop-$HADOOP_VERSION.tar.gz | tar -xzf - -C /usr/local/   && cd /usr/local   && ln -s ./hadoop-$HADOOP_VERSION hadoop" shape="box"];
+  "sha256:84a89a7a34c74ac1f55d4c826fff387392e2f886e5ce99de5707aed605893d7f" [label="/bin/sh -c sed -i '/^export JAVA_HOME/ s:.*:export JAVA_HOME=/usr/java/default\\nexport HADOOP_PREFIX=/usr/local/hadoop\\nexport HADOOP_HOME=/usr/local/hadoop\\n:' $HADOOP_PREFIX/etc/hadoop/hadoop-env.sh  && sed -i '/^export HADOOP_CONF_DIR/ s:.*:export HADOOP_CONF_DIR=/usr/local/hadoop/etc/hadoop/:' $HADOOP_PREFIX/etc/hadoop/hadoop-env.sh  && mkdir $HADOOP_PREFIX/input  && cp $HADOOP_PREFIX/etc/hadoop/*.xml $HADOOP_PREFIX/input" shape="box"];
+  "sha256:a33822e3cf2e77a5ac2e317bc805d69aa79dce41603a8b5d2df5cda7e74bd057" [label="local://context" shape="ellipse"];
+  "sha256:fbdc8da9e15d92ac2f6a8fc41774fb5948c1fc86647b48172b199cdb4d86a1fa" [label="copy{src=/core-site.xml.template, dest=/usr/local/hadoop/etc/hadoop/core-site.xml.template}" shape="note"];
+  "sha256:fe0a27574cf331befaf6ea616e4111d7fa312473402cde856ac19b18a228300e" [label="/bin/sh -c sed s/HOSTNAME/localhost/ /usr/local/hadoop/etc/hadoop/core-site.xml.template > /usr/local/hadoop/etc/hadoop/core-site.xml" shape="box"];
+  "sha256:903c9a56716f324dd80c7756139f32d4126e8bcddae5d86382cf66e483fb195a" [label="copy{src=/hdfs-site.xml, dest=/usr/local/hadoop/etc/hadoop/hdfs-site.xml}" shape="note"];
+  "sha256:3d5e91c6de4d646217bb503cf4d17286f3ec611677f38328d11ebca2642f0bd1" [label="copy{src=/mapred-site.xml, dest=/usr/local/hadoop/etc/hadoop/mapred-site.xml}" shape="note"];
+  "sha256:14a78cf22e9022a85b6962f7a21cae7c9f1420ee28c337bf599709b03f983234" [label="copy{src=/yarn-site.xml, dest=/usr/local/hadoop/etc/hadoop/yarn-site.xml}" shape="note"];
+  "sha256:3a7a2e0010b2c9a10c26c938961e564862a7f14acf89fa42decc514a7a58c3e9" [label="/bin/sh -c $HADOOP_PREFIX/bin/hdfs namenode -format" shape="box"];
+  "sha256:9bec799d4551cf144b4de008629c62d13097b7c81ce412ac121823a21cf29adb" [label="/bin/sh -c rm  /usr/local/hadoop/lib/native/*    && curl -Ls http://dl.bintray.com/sequenceiq/sequenceiq-bin/hadoop-native-64-2.7.0.tar|tar -x -C /usr/local/hadoop/lib/native/" shape="box"];
+  "sha256:85027416d67dd7fcb27da64b1bf4f51ab871bb537a9a9c86c62cf244093466c9" [label="copy{src=/ssh_config, dest=/root/.ssh/config}" shape="note"];
+  "sha256:cd34af18c91e61917c3c284c210ddead16add0fb049292c7f9930fdcaa432211" [label="/bin/sh -c chmod 600 /root/.ssh/config   && chown root:root /root/.ssh/config" shape="box"];
+  "sha256:768f838e207c6822a48f1fb5f0ee8194f0ab529f9da7423f18da1b4ee5b7b72c" [label="copy{src=/bootstrap.sh, dest=/etc/bootstrap.sh}" shape="note"];
+  "sha256:ca17d9866791b1ab2f2d0d47e64542860e4e8b35932d0a530f646247ddeb7bf9" [label="/bin/sh -c chown root:root /etc/bootstrap.sh   && chmod 700 /etc/bootstrap.sh" shape="box"];
+  "sha256:fc81950ed0a76b1138b78356d579067da79a521ee923c198fe2daaca4706ec84" [label="/bin/sh -c ls -la /usr/local/hadoop/etc/hadoop/*-env.sh  && chmod +x /usr/local/hadoop/etc/hadoop/*-env.sh  && ls -la /usr/local/hadoop/etc/hadoop/*-env.sh" shape="box"];
+  "sha256:728e7adc935aaf3085071baa0db6aab447e66965dcea5ddef9428514f2379aa9" [label="/bin/sh -c sed  -i \"/^[^#]*UsePAM/ s/.*/#&/\"  /etc/ssh/sshd_config  && echo \"UsePAM no\" >> /etc/ssh/sshd_config  && echo \"Port 2122\" >> /etc/ssh/sshd_config" shape="box"];
+  "sha256:99e8d79d2c4300df5befb31ab04fd7b48797f008cf7e32d1bc8a68947586d507" [label="/bin/sh -c service ssh start && $HADOOP_PREFIX/etc/hadoop/hadoop-env.sh && $HADOOP_PREFIX/sbin/start-dfs.sh && $HADOOP_PREFIX/bin/hdfs dfs -mkdir -p /user/root" shape="box"];
+  "sha256:eeb2e096c80e8e56d2c5d749cf98dcfad5c0a5995e609555ea4f96a308013553" [label="/bin/sh -c service ssh start && $HADOOP_PREFIX/etc/hadoop/hadoop-env.sh && $HADOOP_PREFIX/sbin/start-dfs.sh && $HADOOP_PREFIX/bin/hdfs dfs -put $HADOOP_PREFIX/etc/hadoop/ input" shape="box"];
+  "sha256:a58d51c6ca6d51e8ca27f48d5a4af2d08af6ccd4808bac9bd93009eb8dd0ea3a" [label="sha256:a58d51c6ca6d51e8ca27f48d5a4af2d08af6ccd4808bac9bd93009eb8dd0ea3a" shape="plaintext"];
+  "sha256:79bd9940f00bcdfc3dab397413e2e12cc943bc08bdea6613f19c88a4ab585c2c" -> "sha256:72e836c2ceb77a6ba35f322aa36277aaf5efb4ba6c313553d8b1a458590cec71" [label=""];
+  "sha256:72e836c2ceb77a6ba35f322aa36277aaf5efb4ba6c313553d8b1a458590cec71" -> "sha256:5623c38bd1ba54038e60da00ba7454ffaace8579b261d02e76e95fba394d3cb3" [label=""];
+  "sha256:5623c38bd1ba54038e60da00ba7454ffaace8579b261d02e76e95fba394d3cb3" -> "sha256:1c170fc926b7d1ed806dc3f328de7dd99da3f78dd30e33487b1e35b1fd209386" [label=""];
+  "sha256:1c170fc926b7d1ed806dc3f328de7dd99da3f78dd30e33487b1e35b1fd209386" -> "sha256:84a89a7a34c74ac1f55d4c826fff387392e2f886e5ce99de5707aed605893d7f" [label=""];
+  "sha256:84a89a7a34c74ac1f55d4c826fff387392e2f886e5ce99de5707aed605893d7f" -> "sha256:fbdc8da9e15d92ac2f6a8fc41774fb5948c1fc86647b48172b199cdb4d86a1fa" [label=""];
+  "sha256:a33822e3cf2e77a5ac2e317bc805d69aa79dce41603a8b5d2df5cda7e74bd057" -> "sha256:fbdc8da9e15d92ac2f6a8fc41774fb5948c1fc86647b48172b199cdb4d86a1fa" [label=""];
+  "sha256:fbdc8da9e15d92ac2f6a8fc41774fb5948c1fc86647b48172b199cdb4d86a1fa" -> "sha256:fe0a27574cf331befaf6ea616e4111d7fa312473402cde856ac19b18a228300e" [label=""];
+  "sha256:fe0a27574cf331befaf6ea616e4111d7fa312473402cde856ac19b18a228300e" -> "sha256:903c9a56716f324dd80c7756139f32d4126e8bcddae5d86382cf66e483fb195a" [label=""];
+  "sha256:a33822e3cf2e77a5ac2e317bc805d69aa79dce41603a8b5d2df5cda7e74bd057" -> "sha256:903c9a56716f324dd80c7756139f32d4126e8bcddae5d86382cf66e483fb195a" [label=""];
+  "sha256:903c9a56716f324dd80c7756139f32d4126e8bcddae5d86382cf66e483fb195a" -> "sha256:3d5e91c6de4d646217bb503cf4d17286f3ec611677f38328d11ebca2642f0bd1" [label=""];
+  "sha256:a33822e3cf2e77a5ac2e317bc805d69aa79dce41603a8b5d2df5cda7e74bd057" -> "sha256:3d5e91c6de4d646217bb503cf4d17286f3ec611677f38328d11ebca2642f0bd1" [label=""];
+  "sha256:3d5e91c6de4d646217bb503cf4d17286f3ec611677f38328d11ebca2642f0bd1" -> "sha256:14a78cf22e9022a85b6962f7a21cae7c9f1420ee28c337bf599709b03f983234" [label=""];
+  "sha256:a33822e3cf2e77a5ac2e317bc805d69aa79dce41603a8b5d2df5cda7e74bd057" -> "sha256:14a78cf22e9022a85b6962f7a21cae7c9f1420ee28c337bf599709b03f983234" [label=""];
+  "sha256:14a78cf22e9022a85b6962f7a21cae7c9f1420ee28c337bf599709b03f983234" -> "sha256:3a7a2e0010b2c9a10c26c938961e564862a7f14acf89fa42decc514a7a58c3e9" [label=""];
+  "sha256:3a7a2e0010b2c9a10c26c938961e564862a7f14acf89fa42decc514a7a58c3e9" -> "sha256:9bec799d4551cf144b4de008629c62d13097b7c81ce412ac121823a21cf29adb" [label=""];
+  "sha256:9bec799d4551cf144b4de008629c62d13097b7c81ce412ac121823a21cf29adb" -> "sha256:85027416d67dd7fcb27da64b1bf4f51ab871bb537a9a9c86c62cf244093466c9" [label=""];
+  "sha256:a33822e3cf2e77a5ac2e317bc805d69aa79dce41603a8b5d2df5cda7e74bd057" -> "sha256:85027416d67dd7fcb27da64b1bf4f51ab871bb537a9a9c86c62cf244093466c9" [label=""];
+  "sha256:85027416d67dd7fcb27da64b1bf4f51ab871bb537a9a9c86c62cf244093466c9" -> "sha256:cd34af18c91e61917c3c284c210ddead16add0fb049292c7f9930fdcaa432211" [label=""];
+  "sha256:cd34af18c91e61917c3c284c210ddead16add0fb049292c7f9930fdcaa432211" -> "sha256:768f838e207c6822a48f1fb5f0ee8194f0ab529f9da7423f18da1b4ee5b7b72c" [label=""];
+  "sha256:a33822e3cf2e77a5ac2e317bc805d69aa79dce41603a8b5d2df5cda7e74bd057" -> "sha256:768f838e207c6822a48f1fb5f0ee8194f0ab529f9da7423f18da1b4ee5b7b72c" [label=""];
+  "sha256:768f838e207c6822a48f1fb5f0ee8194f0ab529f9da7423f18da1b4ee5b7b72c" -> "sha256:ca17d9866791b1ab2f2d0d47e64542860e4e8b35932d0a530f646247ddeb7bf9" [label=""];
+  "sha256:ca17d9866791b1ab2f2d0d47e64542860e4e8b35932d0a530f646247ddeb7bf9" -> "sha256:fc81950ed0a76b1138b78356d579067da79a521ee923c198fe2daaca4706ec84" [label=""];
+  "sha256:fc81950ed0a76b1138b78356d579067da79a521ee923c198fe2daaca4706ec84" -> "sha256:728e7adc935aaf3085071baa0db6aab447e66965dcea5ddef9428514f2379aa9" [label=""];
+  "sha256:728e7adc935aaf3085071baa0db6aab447e66965dcea5ddef9428514f2379aa9" -> "sha256:99e8d79d2c4300df5befb31ab04fd7b48797f008cf7e32d1bc8a68947586d507" [label=""];
+  "sha256:99e8d79d2c4300df5befb31ab04fd7b48797f008cf7e32d1bc8a68947586d507" -> "sha256:eeb2e096c80e8e56d2c5d749cf98dcfad5c0a5995e609555ea4f96a308013553" [label=""];
+  "sha256:eeb2e096c80e8e56d2c5d749cf98dcfad5c0a5995e609555ea4f96a308013553" -> "sha256:a58d51c6ca6d51e8ca27f48d5a4af2d08af6ccd4808bac9bd93009eb8dd0ea3a" [label=""];
+}
+

@@ -1,0 +1,50 @@
+[app/sources/205968105.Dockerfile]
+digraph {
+  "sha256:f48a93e8e558ce141a412d913716159008fdbd05158d305d7e93afa7269c0d9d" [label="local://context" shape="ellipse"];
+  "sha256:7890d5bb2b61cc5ed06e68d54113959343572d98a139becdedf19241d44d80ef" [label="docker-image://docker.io/ipython/scipystack:latest" shape="ellipse"];
+  "sha256:491d0fec0fc5853044da05bf1d2c2db695eb7947423b8233054c52b92dfd4c00" [label="copy{src=/, dest=/notebook}" shape="note"];
+  "sha256:0d55299310592fe6f428b565b85394f6698dc418df87a9af73e1d1469519066e" [label="mkdir{path=/notebook}" shape="note"];
+  "sha256:e4c8e2cecf22cc9369182e679fc5dc2c1e5937ad93d524568eab25071ca93e12" [label="/bin/sh -c pip2 install -r requirements.txt" shape="box"];
+  "sha256:5294aa90fc78133005dc06d1679470ddd2c20beea96a60fda46da6335f211a89" [label="/bin/sh -c apt-get update -qq && apt-get install -y \twget \tunzip \tdefault-jre \tr-base \tr-base-dev && rm -rf /var/lib/apt/lists/*" shape="box"];
+  "sha256:cac0f642e97601a54706dde0f2d3bc68ae7fd273b33584b4ba05fe7e0dbf7418" [label="/bin/sh -c R -e 'source(\"http://bioconductor.org/biocLite.R\"); biocLite(\"edgeR\");'" shape="box"];
+  "sha256:57618e665882d15b87373a7715535289dc5b41942f1514f75c461782c740ccf9" [label="/bin/sh -c wget http://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/2.6.2/sratoolkit.2.6.2-ubuntu64.tar.gz" shape="box"];
+  "sha256:6ecd6140bd0bf49ecfc66e55c043eef0ca9e60cc702ff78da5fc5234e6b0e2ca" [label="/bin/sh -c tar zxvf sratoolkit.2.6.2-ubuntu64.tar.gz" shape="box"];
+  "sha256:69ead94f5483187ffb506d2af0a101b8160714edf17677c182d0c8ee69b67383" [label="/bin/sh -c ln -s /notebook/sratoolkit.2.6.2-ubuntu64/bin/* /usr/local/bin/" shape="box"];
+  "sha256:3f5e019216da49b8a3fb272acbb2ed5879a2673b899cadfc6d04dc0df9b65d46" [label="/bin/sh -c wget http://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v0.11.5.zip" shape="box"];
+  "sha256:4fb118ada043529d19d4ed8a5a15b8fc22c5f6642736f96546ea77e7a301367c" [label="/bin/sh -c unzip fastqc_v0.11.5.zip" shape="box"];
+  "sha256:d42af508ba2ee6fdd837a8ef696c1fdf2cdfeeb5f156c4c4b47df2f605700cc5" [label="/bin/sh -c chmod 755 FastQC/fastqc && ln -s /notebook/FastQC/fastqc /usr/local/bin/" shape="box"];
+  "sha256:a639614129be67e45f5f47b1d8b44a5577b265f1df1eb1af7ae3e65b2d0ec9f0" [label="/bin/sh -c wget https://github.com/alexdobin/STAR/archive/STAR_2.4.1c.tar.gz" shape="box"];
+  "sha256:8e1614205c6a571a42204149f9298b2431d535761c138901491e200649fca47c" [label="/bin/sh -c tar zxvf STAR_2.4.1c.tar.gz" shape="box"];
+  "sha256:6a32fc20ee62a5c576168f93ada49aa04defb9e90ee304b37b2db33bd5a46e23" [label="/bin/sh -c cd STAR-STAR_2.4.1c/source && make STAR" shape="box"];
+  "sha256:a4c3118086fc52a397f3b49361886c092ec951dfb8f288ed26813779e0a72cb0" [label="/bin/sh -c ln -s /notebook/STAR-STAR_2.4.1c/bin/Linux_x86_64/STAR /usr/local/bin/" shape="box"];
+  "sha256:5a95aad9a261e254f5aab78517c93fae54e07363db407ab306b5e7e6b449b0ff" [label="/bin/sh -c wget -O subread-1.4.6-p2-Linux-x86_64.tar.gz --no-check-certificate https://sourceforge.net/projects/subread/files/subread-1.4.6-p2/subread-1.4.6-p2-Linux-x86_64.tar.gz" shape="box"];
+  "sha256:d39c633f9a866a618ad9740d8c98c852be71c01ad375f7c7c61cbfc0e0c44fe2" [label="/bin/sh -c tar zxvf subread-1.4.6-p2-Linux-x86_64.tar.gz" shape="box"];
+  "sha256:7d4db1b9b56ee568e3a45b06786554c07836d049a20a88c6ac88e5f703d231d7" [label="/bin/sh -c ln -s /notebook/subread-1.4.6-p2-Linux-x86_64/bin/* /usr/local/bin/" shape="box"];
+  "sha256:fff2dfbfc62fdfe8c0035fd91314dad3142e9015042591b4fe1092a9ddd9db31" [label="/bin/sh -c rm *.gz && rm *.zip" shape="box"];
+  "sha256:7d19b85915afbe035b4b1054d56a3ef019e99f89868c24ccd6dd2e4f1e33bf8e" [label="copy{src=/notebook.sh, dest=/}" shape="note"];
+  "sha256:7892b6912ac4c1967bfb13682b1e98e1b9145c27a0ef69629e0cd08e2294ff93" [label="sha256:7892b6912ac4c1967bfb13682b1e98e1b9145c27a0ef69629e0cd08e2294ff93" shape="plaintext"];
+  "sha256:7890d5bb2b61cc5ed06e68d54113959343572d98a139becdedf19241d44d80ef" -> "sha256:491d0fec0fc5853044da05bf1d2c2db695eb7947423b8233054c52b92dfd4c00" [label=""];
+  "sha256:f48a93e8e558ce141a412d913716159008fdbd05158d305d7e93afa7269c0d9d" -> "sha256:491d0fec0fc5853044da05bf1d2c2db695eb7947423b8233054c52b92dfd4c00" [label=""];
+  "sha256:491d0fec0fc5853044da05bf1d2c2db695eb7947423b8233054c52b92dfd4c00" -> "sha256:0d55299310592fe6f428b565b85394f6698dc418df87a9af73e1d1469519066e" [label=""];
+  "sha256:0d55299310592fe6f428b565b85394f6698dc418df87a9af73e1d1469519066e" -> "sha256:e4c8e2cecf22cc9369182e679fc5dc2c1e5937ad93d524568eab25071ca93e12" [label=""];
+  "sha256:e4c8e2cecf22cc9369182e679fc5dc2c1e5937ad93d524568eab25071ca93e12" -> "sha256:5294aa90fc78133005dc06d1679470ddd2c20beea96a60fda46da6335f211a89" [label=""];
+  "sha256:5294aa90fc78133005dc06d1679470ddd2c20beea96a60fda46da6335f211a89" -> "sha256:cac0f642e97601a54706dde0f2d3bc68ae7fd273b33584b4ba05fe7e0dbf7418" [label=""];
+  "sha256:cac0f642e97601a54706dde0f2d3bc68ae7fd273b33584b4ba05fe7e0dbf7418" -> "sha256:57618e665882d15b87373a7715535289dc5b41942f1514f75c461782c740ccf9" [label=""];
+  "sha256:57618e665882d15b87373a7715535289dc5b41942f1514f75c461782c740ccf9" -> "sha256:6ecd6140bd0bf49ecfc66e55c043eef0ca9e60cc702ff78da5fc5234e6b0e2ca" [label=""];
+  "sha256:6ecd6140bd0bf49ecfc66e55c043eef0ca9e60cc702ff78da5fc5234e6b0e2ca" -> "sha256:69ead94f5483187ffb506d2af0a101b8160714edf17677c182d0c8ee69b67383" [label=""];
+  "sha256:69ead94f5483187ffb506d2af0a101b8160714edf17677c182d0c8ee69b67383" -> "sha256:3f5e019216da49b8a3fb272acbb2ed5879a2673b899cadfc6d04dc0df9b65d46" [label=""];
+  "sha256:3f5e019216da49b8a3fb272acbb2ed5879a2673b899cadfc6d04dc0df9b65d46" -> "sha256:4fb118ada043529d19d4ed8a5a15b8fc22c5f6642736f96546ea77e7a301367c" [label=""];
+  "sha256:4fb118ada043529d19d4ed8a5a15b8fc22c5f6642736f96546ea77e7a301367c" -> "sha256:d42af508ba2ee6fdd837a8ef696c1fdf2cdfeeb5f156c4c4b47df2f605700cc5" [label=""];
+  "sha256:d42af508ba2ee6fdd837a8ef696c1fdf2cdfeeb5f156c4c4b47df2f605700cc5" -> "sha256:a639614129be67e45f5f47b1d8b44a5577b265f1df1eb1af7ae3e65b2d0ec9f0" [label=""];
+  "sha256:a639614129be67e45f5f47b1d8b44a5577b265f1df1eb1af7ae3e65b2d0ec9f0" -> "sha256:8e1614205c6a571a42204149f9298b2431d535761c138901491e200649fca47c" [label=""];
+  "sha256:8e1614205c6a571a42204149f9298b2431d535761c138901491e200649fca47c" -> "sha256:6a32fc20ee62a5c576168f93ada49aa04defb9e90ee304b37b2db33bd5a46e23" [label=""];
+  "sha256:6a32fc20ee62a5c576168f93ada49aa04defb9e90ee304b37b2db33bd5a46e23" -> "sha256:a4c3118086fc52a397f3b49361886c092ec951dfb8f288ed26813779e0a72cb0" [label=""];
+  "sha256:a4c3118086fc52a397f3b49361886c092ec951dfb8f288ed26813779e0a72cb0" -> "sha256:5a95aad9a261e254f5aab78517c93fae54e07363db407ab306b5e7e6b449b0ff" [label=""];
+  "sha256:5a95aad9a261e254f5aab78517c93fae54e07363db407ab306b5e7e6b449b0ff" -> "sha256:d39c633f9a866a618ad9740d8c98c852be71c01ad375f7c7c61cbfc0e0c44fe2" [label=""];
+  "sha256:d39c633f9a866a618ad9740d8c98c852be71c01ad375f7c7c61cbfc0e0c44fe2" -> "sha256:7d4db1b9b56ee568e3a45b06786554c07836d049a20a88c6ac88e5f703d231d7" [label=""];
+  "sha256:7d4db1b9b56ee568e3a45b06786554c07836d049a20a88c6ac88e5f703d231d7" -> "sha256:fff2dfbfc62fdfe8c0035fd91314dad3142e9015042591b4fe1092a9ddd9db31" [label=""];
+  "sha256:fff2dfbfc62fdfe8c0035fd91314dad3142e9015042591b4fe1092a9ddd9db31" -> "sha256:7d19b85915afbe035b4b1054d56a3ef019e99f89868c24ccd6dd2e4f1e33bf8e" [label=""];
+  "sha256:f48a93e8e558ce141a412d913716159008fdbd05158d305d7e93afa7269c0d9d" -> "sha256:7d19b85915afbe035b4b1054d56a3ef019e99f89868c24ccd6dd2e4f1e33bf8e" [label=""];
+  "sha256:7d19b85915afbe035b4b1054d56a3ef019e99f89868c24ccd6dd2e4f1e33bf8e" -> "sha256:7892b6912ac4c1967bfb13682b1e98e1b9145c27a0ef69629e0cd08e2294ff93" [label=""];
+}
+

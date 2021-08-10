@@ -1,0 +1,7 @@
+[app/sources/300448456.Dockerfile]
+digraph {
+  "sha256:94735184dba5195e0f2622ae296715ad649b44dd87c1fe98e48761aba9b427cc" [label="docker-image://gcr.io/google_containers/kube-scheduler-amd64:v1.8.10@sha256:0cb8eca498a2e99e2bf8aef6aa2167f66a17c9afb4812785a0b0659bc0cb5435" shape="ellipse"];
+  "sha256:27943f9156223308b05e8f2ad74417fef19a3ae5183b7aeb683846277e4e2a36" [label="sha256:27943f9156223308b05e8f2ad74417fef19a3ae5183b7aeb683846277e4e2a36" shape="plaintext"];
+  "sha256:94735184dba5195e0f2622ae296715ad649b44dd87c1fe98e48761aba9b427cc" -> "sha256:27943f9156223308b05e8f2ad74417fef19a3ae5183b7aeb683846277e4e2a36" [label=""];
+}
+

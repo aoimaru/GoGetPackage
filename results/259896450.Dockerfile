@@ -1,0 +1,19 @@
+[app/sources/259896450.Dockerfile]
+digraph {
+  "sha256:0a5f349eacf4edfd2fc1577c637ef52a2ed3280d9d5c0ab7f2e4c4052e7d6c9f" [label="docker-image://docker.io/library/ubuntu:latest" shape="ellipse"];
+  "sha256:665e99f5a38536c5707044b1fe84139e260bf3ba984c32ddfeb7b55f267e85d3" [label="/bin/sh -c echo 'APT::Get::Assume-Yes \"true\";' >> /etc/apt/apt.conf     && apt-get update && apt-get install     bash     build-essential     dbus-x11     fontconfig     git     gzip     language-pack-en-base     libgl1-mesa-glx     make     sudo     tar     unzip     && git clone https://github.com/ncopa/su-exec.git /tmp/su-exec     && cd /tmp/su-exec     && make     && chmod 770 su-exec     && mv ./su-exec /usr/local/sbin/     && apt-get purge build-essential     && apt-get autoremove     && rm -rf /tmp/* /var/lib/apt/lists/* /root/.cache/*" shape="box"];
+  "sha256:f76cd134dc30b65ae1b438eafcd2e2e71980e4e840e4fdb5332674666ad24548" [label="local://context" shape="ellipse"];
+  "sha256:f861778acab4302ae4a914dc8e9d8f584d5fbbdc1a36d70c42707d076d2d9dd9" [label="copy{src=/asEnvUser, dest=/usr/local/sbin/}" shape="note"];
+  "sha256:67909e1d3165b2d7abf1298c949e41be62c919d01ad93994a440a9f427c95566" [label="/bin/sh -c chown root /usr/local/sbin/asEnvUser     && chmod 700  /usr/local/sbin/asEnvUser" shape="box"];
+  "sha256:c547d9edc587624a97b8ec92236d901a54613c405ae272495c6ceba28374842d" [label="/bin/sh -c apt-get update && apt-get install     build-essential     curl     && curl https://sh.rustup.rs -sSf | sh -s -- -y     && /root/.cargo/bin/rustup install nightly     && git clone https://github.com/Wilfred/remacs.git /tmp/remacs-bd     && cd /tmp/remacs-bd     && export PATH=$PATH:/root/.cargo/bin     && rustup override set nightly     && apt-get install     autoconf     libgif7     gnutls-bin     libgtk-3-0     libjpeg8     libncurses5     libtiff5     libxml2     libxpm4     libgif-dev     libgnutls-dev     libgtk-3-dev     libjpeg-dev     libncurses5-dev     libtiff5-dev     libxml2-dev     libxpm-dev     texinfo     && ./autogen.sh     && ./configure     && make     && rustup self uninstall     && apt-get purge     autoconf     build-essential     curl     libgif-dev     libgnutls-dev     libgtk-3-dev     libjpeg-dev     libncurses5-dev     libtiff-dev     libxml2-dev     libxpm-dev     && rm -rf /tmp/* /root/.cargo /var/lib/apt/lists/* /root/.cache/*" shape="box"];
+  "sha256:fd41f30820c45bfd92b086e0deb447c32da582b4c90cea93ea52c8950d7c5d9f" [label="mkdir{path=/mnt/workspace}" shape="note"];
+  "sha256:a902d0872b28303b1fe64094f21e6bac03ff1fbe4fe4cf31e5dd6c519b2bcc05" [label="sha256:a902d0872b28303b1fe64094f21e6bac03ff1fbe4fe4cf31e5dd6c519b2bcc05" shape="plaintext"];
+  "sha256:0a5f349eacf4edfd2fc1577c637ef52a2ed3280d9d5c0ab7f2e4c4052e7d6c9f" -> "sha256:665e99f5a38536c5707044b1fe84139e260bf3ba984c32ddfeb7b55f267e85d3" [label=""];
+  "sha256:665e99f5a38536c5707044b1fe84139e260bf3ba984c32ddfeb7b55f267e85d3" -> "sha256:f861778acab4302ae4a914dc8e9d8f584d5fbbdc1a36d70c42707d076d2d9dd9" [label=""];
+  "sha256:f76cd134dc30b65ae1b438eafcd2e2e71980e4e840e4fdb5332674666ad24548" -> "sha256:f861778acab4302ae4a914dc8e9d8f584d5fbbdc1a36d70c42707d076d2d9dd9" [label=""];
+  "sha256:f861778acab4302ae4a914dc8e9d8f584d5fbbdc1a36d70c42707d076d2d9dd9" -> "sha256:67909e1d3165b2d7abf1298c949e41be62c919d01ad93994a440a9f427c95566" [label=""];
+  "sha256:67909e1d3165b2d7abf1298c949e41be62c919d01ad93994a440a9f427c95566" -> "sha256:c547d9edc587624a97b8ec92236d901a54613c405ae272495c6ceba28374842d" [label=""];
+  "sha256:c547d9edc587624a97b8ec92236d901a54613c405ae272495c6ceba28374842d" -> "sha256:fd41f30820c45bfd92b086e0deb447c32da582b4c90cea93ea52c8950d7c5d9f" [label=""];
+  "sha256:fd41f30820c45bfd92b086e0deb447c32da582b4c90cea93ea52c8950d7c5d9f" -> "sha256:a902d0872b28303b1fe64094f21e6bac03ff1fbe4fe4cf31e5dd6c519b2bcc05" [label=""];
+}
+

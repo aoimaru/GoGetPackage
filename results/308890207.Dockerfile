@@ -1,0 +1,55 @@
+[app/sources/308890207.Dockerfile]
+digraph {
+  "sha256:2a40567efb77fcdc2471db4c623d81d7eeb7b3900fb06bded9a92f2a02374dbc" [label="docker-image://docker.io/library/alpine:3.9" shape="ellipse"];
+  "sha256:bcbfdf9697c1afe9425a30ad0329d49429e7b4cd84bd254b6dc97b7622a991a8" [label="/bin/sh -c apk --no-cache update &&     apk --no-cache upgrade &&     apk --no-cache add bash openssl erlang-crypto nodejs yaml-dev" shape="box"];
+  "sha256:d8e33b7901e8927476b13dc451c73cd204e374f89ed36ff95b38b1ae299d7b2d" [label="mkdir{path=/opt/accent}" shape="note"];
+  "sha256:a84966441c75e683a701c4e112d76e26b3f3f15d2979d7e1a29789a2e260cd82" [label="local://context" shape="ellipse"];
+  "sha256:f9f5be69d343389880f019e377ea0da1dc1a928ebda3c2014171217dc5ba7395" [label="docker-image://docker.io/library/elixir:1.8.1-alpine" shape="ellipse"];
+  "sha256:9f0580b8f17ebcfd3e983fdc782cd8d958b185694e740b350d4fd733a2a64bed" [label="mkdir{path=/build}" shape="note"];
+  "sha256:62d7f1922a5ce8daff84d11bf29182ff3700c55e1efd1ee1eefefff707b9f8b8" [label="/bin/sh -c apk update &&     apk upgrade --no-cache &&     apk add --no-cache make g++ git openssl-dev nodejs-npm python yaml-dev" shape="box"];
+  "sha256:7b39de1c8a5de43a9391bfa605e2b14903e858e88e4dd8a0eb8f609a1096174f" [label="/bin/sh -c mix local.rebar --force &&     mix local.hex --force" shape="box"];
+  "sha256:b2d7d3ae8f5337b25144a739e0e10fbf537237d282f9b67f5b2e8338abcbe774" [label="copy{src=/mix.*, dest=/build/}" shape="note"];
+  "sha256:59a02fef6c4b1e173e54db95f2c3f857fb96f3f979aff85de17ac243d077c6eb" [label="/bin/sh -c mix deps.get --only ${MIX_ENV}" shape="box"];
+  "sha256:4d240500820f1ca81cb735b6ef01249ac17a2089d2dd65d1f26d8eee94c6c010" [label="/bin/sh -c mix deps.compile" shape="box"];
+  "sha256:25c89bf2e845582c97bb82ce65f400b6ad9bb76f12472c906833390428701645" [label="copy{src=/, dest=/build/}" shape="note"];
+  "sha256:c2779270cde26389672e4e4c0f0f266056b2aad50aa3ce0e0a6d65cfe0adddd3" [label="/bin/sh -c mix compile" shape="box"];
+  "sha256:11e8117d2f69d4b7781ebd30a5bd3c5d84a486f4ab5a572a41eba0bc5e0e04af" [label="/bin/sh -c mix phx.digest" shape="box"];
+  "sha256:4a50335059500751cae063e121ba8b91cfa0822302b200aab755556f5eac33da" [label="/bin/sh -c mkdir -p /opt/build &&     mix release --verbose &&     cp _build/${MIX_ENV}/rel/${APP_NAME}/releases/${APP_VERSION}/${APP_NAME}.tar.gz /opt/build" shape="box"];
+  "sha256:b99fbbf1437cc30dc1af0731a18eada380ca780bc6df67681bd16f4d6be763fd" [label="/bin/sh -c cd /opt/build &&     tar -xzf ${APP_NAME}.tar.gz &&     rm ${APP_NAME}.tar.gz" shape="box"];
+  "sha256:4b7466d599f918ce1f9fb28c5a9284fa42b86306fdd77fef957aa87079caea35" [label="copy{src=/webapp, dest=/opt/build/webapp}" shape="note"];
+  "sha256:d4e1d9e419b2167437878ca113c27f47e284208912c071c47e3bf4485a4d7a77" [label="copy{src=/jipt, dest=/opt/build/jipt}" shape="note"];
+  "sha256:eabe994dd1fbb9b895f6b1e94950d3b208f4d469c262953f9c3bebac08f6acbc" [label="/bin/sh -c cd /opt/build &&     npm ci --prefix webapp --no-audit --no-color &&     npm ci --prefix jipt --no-audit --no-color" shape="box"];
+  "sha256:ba86c897002793bd049cc24ea24c03fe042798a7dc131f64e7eaf30f62ab4493" [label="copy{src=/opt/build, dest=/opt/accent/}" shape="note"];
+  "sha256:afb4cb0fcde133f47c9942b979126ad934bb843e3f1447fad55ce62d000b3f67" [label="copy{src=/priv/scripts/docker-entrypoint.sh, dest=/usr/local/bin}" shape="note"];
+  "sha256:cea51b00a83b8e5b1d433de500d21a3479281d67898c595b1bf8422a93ea1066" [label="/bin/sh -c chmod a+x /usr/local/bin/docker-entrypoint.sh" shape="box"];
+  "sha256:67a733b2a0520f67ab30546b545e3b2409b5855acac24d5f3744b9bae6a198d2" [label="/bin/sh -c adduser -D accent && chown -R accent: /opt/accent" shape="box"];
+  "sha256:2bfa29e82323e4c39eafd89c6cb6ebd2a9c15569708f84b5f13eff5fd8facfe3" [label="sha256:2bfa29e82323e4c39eafd89c6cb6ebd2a9c15569708f84b5f13eff5fd8facfe3" shape="plaintext"];
+  "sha256:2a40567efb77fcdc2471db4c623d81d7eeb7b3900fb06bded9a92f2a02374dbc" -> "sha256:bcbfdf9697c1afe9425a30ad0329d49429e7b4cd84bd254b6dc97b7622a991a8" [label=""];
+  "sha256:bcbfdf9697c1afe9425a30ad0329d49429e7b4cd84bd254b6dc97b7622a991a8" -> "sha256:d8e33b7901e8927476b13dc451c73cd204e374f89ed36ff95b38b1ae299d7b2d" [label=""];
+  "sha256:f9f5be69d343389880f019e377ea0da1dc1a928ebda3c2014171217dc5ba7395" -> "sha256:9f0580b8f17ebcfd3e983fdc782cd8d958b185694e740b350d4fd733a2a64bed" [label=""];
+  "sha256:9f0580b8f17ebcfd3e983fdc782cd8d958b185694e740b350d4fd733a2a64bed" -> "sha256:62d7f1922a5ce8daff84d11bf29182ff3700c55e1efd1ee1eefefff707b9f8b8" [label=""];
+  "sha256:62d7f1922a5ce8daff84d11bf29182ff3700c55e1efd1ee1eefefff707b9f8b8" -> "sha256:7b39de1c8a5de43a9391bfa605e2b14903e858e88e4dd8a0eb8f609a1096174f" [label=""];
+  "sha256:7b39de1c8a5de43a9391bfa605e2b14903e858e88e4dd8a0eb8f609a1096174f" -> "sha256:b2d7d3ae8f5337b25144a739e0e10fbf537237d282f9b67f5b2e8338abcbe774" [label=""];
+  "sha256:a84966441c75e683a701c4e112d76e26b3f3f15d2979d7e1a29789a2e260cd82" -> "sha256:b2d7d3ae8f5337b25144a739e0e10fbf537237d282f9b67f5b2e8338abcbe774" [label=""];
+  "sha256:b2d7d3ae8f5337b25144a739e0e10fbf537237d282f9b67f5b2e8338abcbe774" -> "sha256:59a02fef6c4b1e173e54db95f2c3f857fb96f3f979aff85de17ac243d077c6eb" [label=""];
+  "sha256:59a02fef6c4b1e173e54db95f2c3f857fb96f3f979aff85de17ac243d077c6eb" -> "sha256:4d240500820f1ca81cb735b6ef01249ac17a2089d2dd65d1f26d8eee94c6c010" [label=""];
+  "sha256:4d240500820f1ca81cb735b6ef01249ac17a2089d2dd65d1f26d8eee94c6c010" -> "sha256:25c89bf2e845582c97bb82ce65f400b6ad9bb76f12472c906833390428701645" [label=""];
+  "sha256:a84966441c75e683a701c4e112d76e26b3f3f15d2979d7e1a29789a2e260cd82" -> "sha256:25c89bf2e845582c97bb82ce65f400b6ad9bb76f12472c906833390428701645" [label=""];
+  "sha256:25c89bf2e845582c97bb82ce65f400b6ad9bb76f12472c906833390428701645" -> "sha256:c2779270cde26389672e4e4c0f0f266056b2aad50aa3ce0e0a6d65cfe0adddd3" [label=""];
+  "sha256:c2779270cde26389672e4e4c0f0f266056b2aad50aa3ce0e0a6d65cfe0adddd3" -> "sha256:11e8117d2f69d4b7781ebd30a5bd3c5d84a486f4ab5a572a41eba0bc5e0e04af" [label=""];
+  "sha256:11e8117d2f69d4b7781ebd30a5bd3c5d84a486f4ab5a572a41eba0bc5e0e04af" -> "sha256:4a50335059500751cae063e121ba8b91cfa0822302b200aab755556f5eac33da" [label=""];
+  "sha256:4a50335059500751cae063e121ba8b91cfa0822302b200aab755556f5eac33da" -> "sha256:b99fbbf1437cc30dc1af0731a18eada380ca780bc6df67681bd16f4d6be763fd" [label=""];
+  "sha256:b99fbbf1437cc30dc1af0731a18eada380ca780bc6df67681bd16f4d6be763fd" -> "sha256:4b7466d599f918ce1f9fb28c5a9284fa42b86306fdd77fef957aa87079caea35" [label=""];
+  "sha256:a84966441c75e683a701c4e112d76e26b3f3f15d2979d7e1a29789a2e260cd82" -> "sha256:4b7466d599f918ce1f9fb28c5a9284fa42b86306fdd77fef957aa87079caea35" [label=""];
+  "sha256:4b7466d599f918ce1f9fb28c5a9284fa42b86306fdd77fef957aa87079caea35" -> "sha256:d4e1d9e419b2167437878ca113c27f47e284208912c071c47e3bf4485a4d7a77" [label=""];
+  "sha256:a84966441c75e683a701c4e112d76e26b3f3f15d2979d7e1a29789a2e260cd82" -> "sha256:d4e1d9e419b2167437878ca113c27f47e284208912c071c47e3bf4485a4d7a77" [label=""];
+  "sha256:d4e1d9e419b2167437878ca113c27f47e284208912c071c47e3bf4485a4d7a77" -> "sha256:eabe994dd1fbb9b895f6b1e94950d3b208f4d469c262953f9c3bebac08f6acbc" [label=""];
+  "sha256:d8e33b7901e8927476b13dc451c73cd204e374f89ed36ff95b38b1ae299d7b2d" -> "sha256:ba86c897002793bd049cc24ea24c03fe042798a7dc131f64e7eaf30f62ab4493" [label=""];
+  "sha256:eabe994dd1fbb9b895f6b1e94950d3b208f4d469c262953f9c3bebac08f6acbc" -> "sha256:ba86c897002793bd049cc24ea24c03fe042798a7dc131f64e7eaf30f62ab4493" [label=""];
+  "sha256:ba86c897002793bd049cc24ea24c03fe042798a7dc131f64e7eaf30f62ab4493" -> "sha256:afb4cb0fcde133f47c9942b979126ad934bb843e3f1447fad55ce62d000b3f67" [label=""];
+  "sha256:a84966441c75e683a701c4e112d76e26b3f3f15d2979d7e1a29789a2e260cd82" -> "sha256:afb4cb0fcde133f47c9942b979126ad934bb843e3f1447fad55ce62d000b3f67" [label=""];
+  "sha256:afb4cb0fcde133f47c9942b979126ad934bb843e3f1447fad55ce62d000b3f67" -> "sha256:cea51b00a83b8e5b1d433de500d21a3479281d67898c595b1bf8422a93ea1066" [label=""];
+  "sha256:cea51b00a83b8e5b1d433de500d21a3479281d67898c595b1bf8422a93ea1066" -> "sha256:67a733b2a0520f67ab30546b545e3b2409b5855acac24d5f3744b9bae6a198d2" [label=""];
+  "sha256:67a733b2a0520f67ab30546b545e3b2409b5855acac24d5f3744b9bae6a198d2" -> "sha256:2bfa29e82323e4c39eafd89c6cb6ebd2a9c15569708f84b5f13eff5fd8facfe3" [label=""];
+}
+

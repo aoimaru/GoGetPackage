@@ -1,0 +1,53 @@
+[app/sources/344619540.Dockerfile]
+digraph {
+  "sha256:5dd46e1179637dced870a7d19f5df32bac91839840db2712b5d085d68301f0fc" [label="docker-image://docker.io/openshifttools/oso-centos7-ops-base:latest" shape="ellipse"];
+  "sha256:34b6f0dfa0850571baa18a55db08243e4c000e7275d1c32ddbd8a5aa8fe22939" [label="/bin/sh -c test \"$OO_PAUSE_ON_BUILD\" = \"true\" && while sleep 10; do true; done || :" shape="box"];
+  "sha256:3f9525a11439db54bf98f29f8186d35672b759af714853a163015953542155a7" [label="/bin/sh -c yum-install-check.sh -y pcp pcp-conf pcp-collector xz && yum clean all" shape="box"];
+  "sha256:21413fe8b325e806a1d3b6504919203fa925a1676fda4da6218ea766621791ef" [label="/bin/sh -c sed -i -e 's/PCP_USER=.*$/PCP_USER=root/' -e 's/PCP_GROUP=.*$/PCP_GROUP=root/' /etc/pcp.conf" shape="box"];
+  "sha256:6e1b2ff8b5ec9c4bb973a21a111b0759e9004cb0ab21bc8f34a35b23591625a4" [label="/bin/sh -c . /etc/pcp.conf && echo \"-A\" >> $PCP_PMCDOPTIONS_PATH" shape="box"];
+  "sha256:0d34125e65bfd7f0c4b17247e7420babb2625cfcab5bf97e5a982bc59b4b471b" [label="local://context" shape="ellipse"];
+  "sha256:95e9dfa39852bb83ca6399b2bd733f75c6f5799d3e8bb7cfd6c041375335b3a9" [label="copy{src=/check-pmcd-status.sh, dest=/usr/local/bin/check-pmcd-status.sh}" shape="note"];
+  "sha256:f0de13731919989727233deb63e1f3f6c94c671e93c59ba3dc0e08481bb43017" [label="copy{src=/google-cloud-sdk.repo, dest=/etc/yum.repos.d/}" shape="note"];
+  "sha256:aa4834fc0bd3e5a735df4e4a85e9f5af95853e0dc244cce804ef5ad63b0eb795" [label="/bin/sh -c cd /etc/yum.repos.d && curl -O https://copr.fedorainfracloud.org/coprs/g/Hawkular/python-hawkular-client/repo/epel-7/group_Hawkular-python-hawkular-client-epel-7.repo" shape="box"];
+  "sha256:91ebc5629ca82abd962903815f7006c59d7ee8567ec380b993cf0f681298e388" [label="/bin/sh -c yum clean metadata &&     yum-install-check.sh -y python2-pip pcp pcp-conf pcp-testsuite         python-requests pyOpenSSL         python-openshift-tools         python-openshift-tools-monitoring-pcp         python-openshift-tools-monitoring-docker         python-openshift-tools-monitoring-zagg         python-openshift-tools-monitoring-openshift         python-openshift-tools-ansible         python-openshift-tools-web         openshift-tools-scripts-cloud-aws         openshift-tools-scripts-cloud-gcp         openshift-tools-scripts-monitoring-pcp         openshift-tools-scripts-monitoring-docker         openshift-tools-scripts-monitoring-aws         openshift-tools-scripts-monitoring-gcp         openshift-tools-scripts-monitoring-openshift         openshift-tools-scripts-monitoring-autoheal         pcp-manager pcp-webapi python-pcp         python-httplib2         python2-pyasn1 python2-pyasn1-modules python2-rsa         python-configobj         python2-psutil         pylint         tito         python-devel         libyaml-devel         oso-simplesamlphp         python2-ruamel-yaml         rpm-sign         createrepo         python2-boto3         python-lxml         rkhunter         python-hawkular-client         python-docker &&     yum clean all" shape="box"];
+  "sha256:8317f7cc2c353972851e87167dcd6ffafb4c7ef956bb2bfa9840d2c591c76323" [label="copy{src=/urllib3-connectionpool-patch, dest=/root/}" shape="note"];
+  "sha256:82b4afcf21827e92f71af22b2bfe466ab54190210f747c2436758fd14ddc8611" [label="/bin/sh -c yum-install-check.sh -y patch && yum clean all && cd /usr/lib/python2.7/site-packages/ && patch -p1 < /root/urllib3-connectionpool-patch" shape="box"];
+  "sha256:015d3356b0a49c8e17fcca0c1da06448e601bea7d60aed3c0a165c6b8cd56a65" [label="/bin/sh -c mkdir -p /host              /var/local/hostpkg/etc/rhsm/ca              /var/local/hostpkg/etc/rpm              /var/local/hostpkg/etc/pki/entitlement              /var/local/hostpkg/etc/pki/rpm-gpg              /var/local/hostpkg/var/local              /var/local/hostpkg/var/cache/yum              /var/local/hostpkg/var/lib/yum &&     ln -s /var/local/hostpkg /var/local/hostpkg/var/local/hostpkg" shape="box"];
+  "sha256:b6ecb51163a999af4ab4de2f5541a8af09a5b284d034fa17776aaa2556e07038" [label="/bin/sh -c mkdir -p /var/local/rkhunter_chroot              /var/local/rkhunter_tmp              /var/local/rkhunter_tmp/rkhunter              /var/local/rkhunter_tmp/rkhunter/bin              /var/local/rkhunter_tmp/rkhunter/db              /var/local/rkhunter_tmp/rkhunter/etc              /var/local/rkhunter_tmp/rkhunter/scripts &&     sed -i 's/\\/var\\/log\\/rkhunter\\/rkhunter.log/\\/var\\/local\\/rkhunter_tmp\\/rkhunter\\/rkhunter.log/' /etc/logrotate.d/rkhunter &&     sed -r -e 's%^(SCRIPTDIR)=.*%\\1=/tmp/rkhunter/scripts%; s%^(LOGFILE)=.*%\\1=/tmp/rkhunter/rkhunter.log%' /etc/rkhunter.conf > /var/local/rkhunter_tmp/rkhunter/etc/rkhunter.conf" shape="box"];
+  "sha256:f4eb2a8b8da8288e8cd223e537388b285928dc3a0c16a0c1823025c328c85794" [label="copy{src=/root, dest=/root}" shape="note"];
+  "sha256:a34a18e68f1d2632e4bb377e6e3c85acb89032f412ca145ae9f26d600ca50b04" [label="/bin/sh -c cat bash_aliases >> /root/.bashrc" shape="box"];
+  "sha256:777276323a3af9f44de15c0a79c91f46aa408823980d04ed5335bea32d6515c0" [label="copy{src=/vendor/prometheus_client, dest=/usr/lib/python2.7/site-packages/prometheus_client/}" shape="note"];
+  "sha256:8ee2e4ee9aea684dfc48cecb8632536a8899f174076dfaa47b9c13669084c73b" [label="/bin/sh -c touch /var/log/ops-runner.log && chmod 664 /var/log/ops-runner.log" shape="box"];
+  "sha256:aab071784837f901395ff3e74fddd9613f5422f83b69d9df62a7e15c385bb203" [label="/bin/sh -c mkdir -p /root/.aws &&     touch /root/.aws/credentials &&     chmod g+rw /root/.aws/credentials" shape="box"];
+  "sha256:36595b1e64986909e97e83fad7c6b0610c0c42f3a7f245fe341423b6dbcb32c7" [label="copy{src=/container-build-env-fingerprint.output, dest=/etc/oso-container-build-env-fingerprint}" shape="note"];
+  "sha256:29101f25c4bf2330bdfc7c065446b694dd910608020bf8b06ca574d02fd28f61" [label="copy{src=/start.sh, dest=/usr/local/bin/}" shape="note"];
+  "sha256:b6fd60118517a8c20613c2e7cf336e79643cf51809b880bc1e4099c7b268cb2e" [label="sha256:b6fd60118517a8c20613c2e7cf336e79643cf51809b880bc1e4099c7b268cb2e" shape="plaintext"];
+  "sha256:5dd46e1179637dced870a7d19f5df32bac91839840db2712b5d085d68301f0fc" -> "sha256:34b6f0dfa0850571baa18a55db08243e4c000e7275d1c32ddbd8a5aa8fe22939" [label=""];
+  "sha256:34b6f0dfa0850571baa18a55db08243e4c000e7275d1c32ddbd8a5aa8fe22939" -> "sha256:3f9525a11439db54bf98f29f8186d35672b759af714853a163015953542155a7" [label=""];
+  "sha256:3f9525a11439db54bf98f29f8186d35672b759af714853a163015953542155a7" -> "sha256:21413fe8b325e806a1d3b6504919203fa925a1676fda4da6218ea766621791ef" [label=""];
+  "sha256:21413fe8b325e806a1d3b6504919203fa925a1676fda4da6218ea766621791ef" -> "sha256:6e1b2ff8b5ec9c4bb973a21a111b0759e9004cb0ab21bc8f34a35b23591625a4" [label=""];
+  "sha256:6e1b2ff8b5ec9c4bb973a21a111b0759e9004cb0ab21bc8f34a35b23591625a4" -> "sha256:95e9dfa39852bb83ca6399b2bd733f75c6f5799d3e8bb7cfd6c041375335b3a9" [label=""];
+  "sha256:0d34125e65bfd7f0c4b17247e7420babb2625cfcab5bf97e5a982bc59b4b471b" -> "sha256:95e9dfa39852bb83ca6399b2bd733f75c6f5799d3e8bb7cfd6c041375335b3a9" [label=""];
+  "sha256:95e9dfa39852bb83ca6399b2bd733f75c6f5799d3e8bb7cfd6c041375335b3a9" -> "sha256:f0de13731919989727233deb63e1f3f6c94c671e93c59ba3dc0e08481bb43017" [label=""];
+  "sha256:0d34125e65bfd7f0c4b17247e7420babb2625cfcab5bf97e5a982bc59b4b471b" -> "sha256:f0de13731919989727233deb63e1f3f6c94c671e93c59ba3dc0e08481bb43017" [label=""];
+  "sha256:f0de13731919989727233deb63e1f3f6c94c671e93c59ba3dc0e08481bb43017" -> "sha256:aa4834fc0bd3e5a735df4e4a85e9f5af95853e0dc244cce804ef5ad63b0eb795" [label=""];
+  "sha256:aa4834fc0bd3e5a735df4e4a85e9f5af95853e0dc244cce804ef5ad63b0eb795" -> "sha256:91ebc5629ca82abd962903815f7006c59d7ee8567ec380b993cf0f681298e388" [label=""];
+  "sha256:91ebc5629ca82abd962903815f7006c59d7ee8567ec380b993cf0f681298e388" -> "sha256:8317f7cc2c353972851e87167dcd6ffafb4c7ef956bb2bfa9840d2c591c76323" [label=""];
+  "sha256:0d34125e65bfd7f0c4b17247e7420babb2625cfcab5bf97e5a982bc59b4b471b" -> "sha256:8317f7cc2c353972851e87167dcd6ffafb4c7ef956bb2bfa9840d2c591c76323" [label=""];
+  "sha256:8317f7cc2c353972851e87167dcd6ffafb4c7ef956bb2bfa9840d2c591c76323" -> "sha256:82b4afcf21827e92f71af22b2bfe466ab54190210f747c2436758fd14ddc8611" [label=""];
+  "sha256:82b4afcf21827e92f71af22b2bfe466ab54190210f747c2436758fd14ddc8611" -> "sha256:015d3356b0a49c8e17fcca0c1da06448e601bea7d60aed3c0a165c6b8cd56a65" [label=""];
+  "sha256:015d3356b0a49c8e17fcca0c1da06448e601bea7d60aed3c0a165c6b8cd56a65" -> "sha256:b6ecb51163a999af4ab4de2f5541a8af09a5b284d034fa17776aaa2556e07038" [label=""];
+  "sha256:b6ecb51163a999af4ab4de2f5541a8af09a5b284d034fa17776aaa2556e07038" -> "sha256:f4eb2a8b8da8288e8cd223e537388b285928dc3a0c16a0c1823025c328c85794" [label=""];
+  "sha256:0d34125e65bfd7f0c4b17247e7420babb2625cfcab5bf97e5a982bc59b4b471b" -> "sha256:f4eb2a8b8da8288e8cd223e537388b285928dc3a0c16a0c1823025c328c85794" [label=""];
+  "sha256:f4eb2a8b8da8288e8cd223e537388b285928dc3a0c16a0c1823025c328c85794" -> "sha256:a34a18e68f1d2632e4bb377e6e3c85acb89032f412ca145ae9f26d600ca50b04" [label=""];
+  "sha256:a34a18e68f1d2632e4bb377e6e3c85acb89032f412ca145ae9f26d600ca50b04" -> "sha256:777276323a3af9f44de15c0a79c91f46aa408823980d04ed5335bea32d6515c0" [label=""];
+  "sha256:0d34125e65bfd7f0c4b17247e7420babb2625cfcab5bf97e5a982bc59b4b471b" -> "sha256:777276323a3af9f44de15c0a79c91f46aa408823980d04ed5335bea32d6515c0" [label=""];
+  "sha256:777276323a3af9f44de15c0a79c91f46aa408823980d04ed5335bea32d6515c0" -> "sha256:8ee2e4ee9aea684dfc48cecb8632536a8899f174076dfaa47b9c13669084c73b" [label=""];
+  "sha256:8ee2e4ee9aea684dfc48cecb8632536a8899f174076dfaa47b9c13669084c73b" -> "sha256:aab071784837f901395ff3e74fddd9613f5422f83b69d9df62a7e15c385bb203" [label=""];
+  "sha256:aab071784837f901395ff3e74fddd9613f5422f83b69d9df62a7e15c385bb203" -> "sha256:36595b1e64986909e97e83fad7c6b0610c0c42f3a7f245fe341423b6dbcb32c7" [label=""];
+  "sha256:0d34125e65bfd7f0c4b17247e7420babb2625cfcab5bf97e5a982bc59b4b471b" -> "sha256:36595b1e64986909e97e83fad7c6b0610c0c42f3a7f245fe341423b6dbcb32c7" [label=""];
+  "sha256:36595b1e64986909e97e83fad7c6b0610c0c42f3a7f245fe341423b6dbcb32c7" -> "sha256:29101f25c4bf2330bdfc7c065446b694dd910608020bf8b06ca574d02fd28f61" [label=""];
+  "sha256:0d34125e65bfd7f0c4b17247e7420babb2625cfcab5bf97e5a982bc59b4b471b" -> "sha256:29101f25c4bf2330bdfc7c065446b694dd910608020bf8b06ca574d02fd28f61" [label=""];
+  "sha256:29101f25c4bf2330bdfc7c065446b694dd910608020bf8b06ca574d02fd28f61" -> "sha256:b6fd60118517a8c20613c2e7cf336e79643cf51809b880bc1e4099c7b268cb2e" [label=""];
+}
+

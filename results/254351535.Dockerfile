@@ -1,0 +1,13 @@
+[app/sources/254351535.Dockerfile]
+digraph {
+  "sha256:b3ad7f78eb5344674aa86c5f248cc19b26f9e11f297398bf7ba8c97ee4383278" [label="docker-image://docker.io/library/python:alpine" shape="ellipse"];
+  "sha256:56dd01ecb654eab15d67482f659ed50b101a0aa8457857f99135c5394ff6de5a" [label="local://context" shape="ellipse"];
+  "sha256:4699f0c5fa8ac481f8267f8608c46ad901a46b9d18ec49d0c489a3349cf70fa5" [label="copy{src=/*, dest=/work/}" shape="note"];
+  "sha256:c137b6627530b1fd7cfaf0ebc01e80c53e8a535372e472d0e7714472e337ff5b" [label="mkdir{path=/work}" shape="note"];
+  "sha256:06f096a8e244a5360017129026c2faf72b26804519da898a3d72f33b6cd26aa7" [label="sha256:06f096a8e244a5360017129026c2faf72b26804519da898a3d72f33b6cd26aa7" shape="plaintext"];
+  "sha256:b3ad7f78eb5344674aa86c5f248cc19b26f9e11f297398bf7ba8c97ee4383278" -> "sha256:4699f0c5fa8ac481f8267f8608c46ad901a46b9d18ec49d0c489a3349cf70fa5" [label=""];
+  "sha256:56dd01ecb654eab15d67482f659ed50b101a0aa8457857f99135c5394ff6de5a" -> "sha256:4699f0c5fa8ac481f8267f8608c46ad901a46b9d18ec49d0c489a3349cf70fa5" [label=""];
+  "sha256:4699f0c5fa8ac481f8267f8608c46ad901a46b9d18ec49d0c489a3349cf70fa5" -> "sha256:c137b6627530b1fd7cfaf0ebc01e80c53e8a535372e472d0e7714472e337ff5b" [label=""];
+  "sha256:c137b6627530b1fd7cfaf0ebc01e80c53e8a535372e472d0e7714472e337ff5b" -> "sha256:06f096a8e244a5360017129026c2faf72b26804519da898a3d72f33b6cd26aa7" [label=""];
+}
+

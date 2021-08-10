@@ -1,0 +1,52 @@
+[app/sources/351149743.Dockerfile]
+digraph {
+  "sha256:9284cd7faaaa823e6d9e1a470c54cefd8a6d749ed21e031d24694dffff1f4fb2" [label="http://download.osgeo.org/postgis/source/postgis-1.5.8.tar.gz" shape="ellipse"];
+  "sha256:982834b456b5be0ce3fca8d81a87ee187d8f1c210d8b925d128686f7d1ae03eb" [label="http://download.osgeo.org/proj/proj-datumgrid-1.5.tar.gz" shape="ellipse"];
+  "sha256:6bfac072e14c5bf98d2f55f2f57dcc3726f30e7ac226ecba3ba70c13a9c68ce7" [label="http://download.osgeo.org/geos/geos-3.4.2.tar.bz2" shape="ellipse"];
+  "sha256:fb3e9c548cad755dbe6b51d5ae04ace1f38638b4a3df691e7d4c3e9acad303eb" [label="docker-image://docker.io/library/ubuntu:trusty@sha256:43cb19408de1e0ecf3ba5b5372ec98978963d6d0be42d0ad825e77a3bd16b5f7" shape="ellipse"];
+  "sha256:0663b92de02f89c547e9a8c73b1142b8d7cc60e3afbdaf1aaae1e749d383ac48" [label="mkdir{path=/usr/local}" shape="note"];
+  "sha256:dc0d8f4c96e0ffeb6fe0730fa544b5126e90191c37c4e96d0d988f28d4e52615" [label="https://ftp.postgresql.org/pub/source/v9.1.2/postgresql-9.1.2.tar.bz2" shape="ellipse"];
+  "sha256:347f3975a22c577aef7b9843d684b7b4842fe660cd164f8dab98c649eeef43ab" [label="copy{src=/postgresql-9.1.2.tar.bz2, dest=/usr/local/src/}" shape="note"];
+  "sha256:9924f16ae877ed1ee07d982228d8809b0a792dacfc2e4994cd5a2940786c3aef" [label="copy{src=/geos-3.4.2.tar.bz2, dest=/usr/local/src/}" shape="note"];
+  "sha256:bf9c36abc99d1a9f480baf760bd1a36031bab23c1b1d4219dfc0669ad9a4a8dc" [label="http://download.osgeo.org/proj/proj-4.8.0.tar.gz" shape="ellipse"];
+  "sha256:9707c701998b983a322e9d2658ec6df94b3fc98e7d2552a69928c813e23d976f" [label="copy{src=/proj-4.8.0.tar.gz, dest=/usr/local/src/}" shape="note"];
+  "sha256:8cbedfdc8462bbe7ac7998eb2f103b0973bb512ba0890947a532be35065ff601" [label="local://context" shape="ellipse"];
+  "sha256:d4ee4db644cddefcbafa1fe2f3cc3dbd4636c51161be806be5de4208afc0fc18" [label="copy{src=/packages/proj4-patch/src/pj_datums.c, dest=/usr/local/src/}" shape="note"];
+  "sha256:202e15db6e82f7eec34b28d6f37be68d06c34fda71d805ef2de7ad0e19b14c63" [label="copy{src=/proj-datumgrid-1.5.tar.gz, dest=/usr/local/src/}" shape="note"];
+  "sha256:504fd2bc9f273913b8226f52d82673faeb7d822fa5acc8ed411a7379f70b4a9c" [label="copy{src=/packages/proj4-patch/nad/epsg, dest=/usr/local/src/}" shape="note"];
+  "sha256:3fbf07629586ada8a5639d0758427b6251da0efff0245dbd3e90497b7164b2ab" [label="copy{src=/packages/proj4-patch/nad/PENR2009.gsb, dest=/usr/local/src/}" shape="note"];
+  "sha256:f38f9dcfca40a285b2426cbc372a05ab2ec639b3ffae2185c017b3f411021cd5" [label="copy{src=/postgis-1.5.8.tar.gz, dest=/usr/local/src/}" shape="note"];
+  "sha256:9f533f23a78863672b9fa52e9a86270e4b9a0ba226b21f99720622e2f591046c" [label="copy{src=/packages/postgis-patch/spatial_ref_sys.sql, dest=/usr/local/src/}" shape="note"];
+  "sha256:1ff68b42949968e19eba4366e77af53c0fb4b1ff8b6e9426a3240a508625d234" [label="copy{src=/packages/compile.sh, dest=/usr/local/src/}" shape="note"];
+  "sha256:5c0382caedf5766539ad5d32a360ac456725efe30a5c4fe871d6455c9d99d935" [label="copy{src=/packages/run.sh, dest=/usr/local/bin/run.sh}" shape="note"];
+  "sha256:6d7b61b8a649716ee929d7e7af3c2eb4e13265c069e4407859d83d1b3dd70e31" [label="/bin/sh -c chmod 777 src/compile.sh" shape="box"];
+  "sha256:751b8a8ab9136f78cf9531d991cd1b1c1940c2d2232a819df1818fe5f24fef51" [label="/bin/sh -c src/compile.sh --encoding ${ENCODING} --locale ${LOCALE} --pg-version ${PG_VERSION} --geos-version ${GEOS_VERSION}   --proj4-version ${PROJ4_VERSION} --postgis-version ${POSTGIS_VERSION}" shape="box"];
+  "sha256:9732602eb46894399b1b34525de23f1466a97534ead00f36e62a720f74669774" [label="sha256:9732602eb46894399b1b34525de23f1466a97534ead00f36e62a720f74669774" shape="plaintext"];
+  "sha256:fb3e9c548cad755dbe6b51d5ae04ace1f38638b4a3df691e7d4c3e9acad303eb" -> "sha256:0663b92de02f89c547e9a8c73b1142b8d7cc60e3afbdaf1aaae1e749d383ac48" [label=""];
+  "sha256:0663b92de02f89c547e9a8c73b1142b8d7cc60e3afbdaf1aaae1e749d383ac48" -> "sha256:347f3975a22c577aef7b9843d684b7b4842fe660cd164f8dab98c649eeef43ab" [label=""];
+  "sha256:dc0d8f4c96e0ffeb6fe0730fa544b5126e90191c37c4e96d0d988f28d4e52615" -> "sha256:347f3975a22c577aef7b9843d684b7b4842fe660cd164f8dab98c649eeef43ab" [label=""];
+  "sha256:347f3975a22c577aef7b9843d684b7b4842fe660cd164f8dab98c649eeef43ab" -> "sha256:9924f16ae877ed1ee07d982228d8809b0a792dacfc2e4994cd5a2940786c3aef" [label=""];
+  "sha256:6bfac072e14c5bf98d2f55f2f57dcc3726f30e7ac226ecba3ba70c13a9c68ce7" -> "sha256:9924f16ae877ed1ee07d982228d8809b0a792dacfc2e4994cd5a2940786c3aef" [label=""];
+  "sha256:9924f16ae877ed1ee07d982228d8809b0a792dacfc2e4994cd5a2940786c3aef" -> "sha256:9707c701998b983a322e9d2658ec6df94b3fc98e7d2552a69928c813e23d976f" [label=""];
+  "sha256:bf9c36abc99d1a9f480baf760bd1a36031bab23c1b1d4219dfc0669ad9a4a8dc" -> "sha256:9707c701998b983a322e9d2658ec6df94b3fc98e7d2552a69928c813e23d976f" [label=""];
+  "sha256:9707c701998b983a322e9d2658ec6df94b3fc98e7d2552a69928c813e23d976f" -> "sha256:d4ee4db644cddefcbafa1fe2f3cc3dbd4636c51161be806be5de4208afc0fc18" [label=""];
+  "sha256:8cbedfdc8462bbe7ac7998eb2f103b0973bb512ba0890947a532be35065ff601" -> "sha256:d4ee4db644cddefcbafa1fe2f3cc3dbd4636c51161be806be5de4208afc0fc18" [label=""];
+  "sha256:d4ee4db644cddefcbafa1fe2f3cc3dbd4636c51161be806be5de4208afc0fc18" -> "sha256:202e15db6e82f7eec34b28d6f37be68d06c34fda71d805ef2de7ad0e19b14c63" [label=""];
+  "sha256:982834b456b5be0ce3fca8d81a87ee187d8f1c210d8b925d128686f7d1ae03eb" -> "sha256:202e15db6e82f7eec34b28d6f37be68d06c34fda71d805ef2de7ad0e19b14c63" [label=""];
+  "sha256:202e15db6e82f7eec34b28d6f37be68d06c34fda71d805ef2de7ad0e19b14c63" -> "sha256:504fd2bc9f273913b8226f52d82673faeb7d822fa5acc8ed411a7379f70b4a9c" [label=""];
+  "sha256:8cbedfdc8462bbe7ac7998eb2f103b0973bb512ba0890947a532be35065ff601" -> "sha256:504fd2bc9f273913b8226f52d82673faeb7d822fa5acc8ed411a7379f70b4a9c" [label=""];
+  "sha256:504fd2bc9f273913b8226f52d82673faeb7d822fa5acc8ed411a7379f70b4a9c" -> "sha256:3fbf07629586ada8a5639d0758427b6251da0efff0245dbd3e90497b7164b2ab" [label=""];
+  "sha256:8cbedfdc8462bbe7ac7998eb2f103b0973bb512ba0890947a532be35065ff601" -> "sha256:3fbf07629586ada8a5639d0758427b6251da0efff0245dbd3e90497b7164b2ab" [label=""];
+  "sha256:3fbf07629586ada8a5639d0758427b6251da0efff0245dbd3e90497b7164b2ab" -> "sha256:f38f9dcfca40a285b2426cbc372a05ab2ec639b3ffae2185c017b3f411021cd5" [label=""];
+  "sha256:9284cd7faaaa823e6d9e1a470c54cefd8a6d749ed21e031d24694dffff1f4fb2" -> "sha256:f38f9dcfca40a285b2426cbc372a05ab2ec639b3ffae2185c017b3f411021cd5" [label=""];
+  "sha256:f38f9dcfca40a285b2426cbc372a05ab2ec639b3ffae2185c017b3f411021cd5" -> "sha256:9f533f23a78863672b9fa52e9a86270e4b9a0ba226b21f99720622e2f591046c" [label=""];
+  "sha256:8cbedfdc8462bbe7ac7998eb2f103b0973bb512ba0890947a532be35065ff601" -> "sha256:9f533f23a78863672b9fa52e9a86270e4b9a0ba226b21f99720622e2f591046c" [label=""];
+  "sha256:9f533f23a78863672b9fa52e9a86270e4b9a0ba226b21f99720622e2f591046c" -> "sha256:1ff68b42949968e19eba4366e77af53c0fb4b1ff8b6e9426a3240a508625d234" [label=""];
+  "sha256:8cbedfdc8462bbe7ac7998eb2f103b0973bb512ba0890947a532be35065ff601" -> "sha256:1ff68b42949968e19eba4366e77af53c0fb4b1ff8b6e9426a3240a508625d234" [label=""];
+  "sha256:1ff68b42949968e19eba4366e77af53c0fb4b1ff8b6e9426a3240a508625d234" -> "sha256:5c0382caedf5766539ad5d32a360ac456725efe30a5c4fe871d6455c9d99d935" [label=""];
+  "sha256:8cbedfdc8462bbe7ac7998eb2f103b0973bb512ba0890947a532be35065ff601" -> "sha256:5c0382caedf5766539ad5d32a360ac456725efe30a5c4fe871d6455c9d99d935" [label=""];
+  "sha256:5c0382caedf5766539ad5d32a360ac456725efe30a5c4fe871d6455c9d99d935" -> "sha256:6d7b61b8a649716ee929d7e7af3c2eb4e13265c069e4407859d83d1b3dd70e31" [label=""];
+  "sha256:6d7b61b8a649716ee929d7e7af3c2eb4e13265c069e4407859d83d1b3dd70e31" -> "sha256:751b8a8ab9136f78cf9531d991cd1b1c1940c2d2232a819df1818fe5f24fef51" [label=""];
+  "sha256:751b8a8ab9136f78cf9531d991cd1b1c1940c2d2232a819df1818fe5f24fef51" -> "sha256:9732602eb46894399b1b34525de23f1466a97534ead00f36e62a720f74669774" [label=""];
+}
+

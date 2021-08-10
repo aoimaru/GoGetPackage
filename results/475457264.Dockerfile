@@ -1,0 +1,22 @@
+[app/sources/475457264.Dockerfile]
+digraph {
+  "sha256:b09057aa81ff761884644b3e35e9ea36f23df4c6890b539e4cd93da0435f9e8f" [label="local://context" shape="ellipse"];
+  "sha256:27cbf668581bf538c66b46b195018ecb00358796f7c86b0e01afa26c1f56de8b" [label="docker-image://docker.io/cattle/agent:dev" shape="ellipse"];
+  "sha256:c6430da0fc3ef42322413ca6978217ffa85adaf094e1afa45e47e4406f030030" [label="/bin/sh -c mv /usr/local/bin/cattle /usr/local/cattle; cp /usr/bin/jq /usr/bin/cattle-jq" shape="box"];
+  "sha256:7a9bdc9518cda882dbb54cc03e7dec06a11c572842b476550cc0aa301d22ae82" [label="copy{src=/files, dest=/files/}" shape="note"];
+  "sha256:8e09e127a37aad39454c4560d92a90c9064a4dc31b6c9b31884c12c6b7c80797" [label="copy{src=/cattle, dest=/usr/bin/cattle}" shape="note"];
+  "sha256:089077809e00a8949c6f15c41154a95532d4af6bbf7618fde8408ce291cb1305" [label="copy{src=/cattle-default-ssh-key, dest=/usr/bin/cattle-default-ssh-key}" shape="note"];
+  "sha256:7c9c821a58b08024ad5db59288825964847d174293bdd35e001f75b681ee7d97" [label="copy{src=/startup.sh, dest=/}" shape="note"];
+  "sha256:344a75ab5c377f9e61cd5338be0a5428fb8983b5d31f40cff2204eb8ffa15596" [label="sha256:344a75ab5c377f9e61cd5338be0a5428fb8983b5d31f40cff2204eb8ffa15596" shape="plaintext"];
+  "sha256:27cbf668581bf538c66b46b195018ecb00358796f7c86b0e01afa26c1f56de8b" -> "sha256:c6430da0fc3ef42322413ca6978217ffa85adaf094e1afa45e47e4406f030030" [label=""];
+  "sha256:c6430da0fc3ef42322413ca6978217ffa85adaf094e1afa45e47e4406f030030" -> "sha256:7a9bdc9518cda882dbb54cc03e7dec06a11c572842b476550cc0aa301d22ae82" [label=""];
+  "sha256:b09057aa81ff761884644b3e35e9ea36f23df4c6890b539e4cd93da0435f9e8f" -> "sha256:7a9bdc9518cda882dbb54cc03e7dec06a11c572842b476550cc0aa301d22ae82" [label=""];
+  "sha256:7a9bdc9518cda882dbb54cc03e7dec06a11c572842b476550cc0aa301d22ae82" -> "sha256:8e09e127a37aad39454c4560d92a90c9064a4dc31b6c9b31884c12c6b7c80797" [label=""];
+  "sha256:b09057aa81ff761884644b3e35e9ea36f23df4c6890b539e4cd93da0435f9e8f" -> "sha256:8e09e127a37aad39454c4560d92a90c9064a4dc31b6c9b31884c12c6b7c80797" [label=""];
+  "sha256:8e09e127a37aad39454c4560d92a90c9064a4dc31b6c9b31884c12c6b7c80797" -> "sha256:089077809e00a8949c6f15c41154a95532d4af6bbf7618fde8408ce291cb1305" [label=""];
+  "sha256:b09057aa81ff761884644b3e35e9ea36f23df4c6890b539e4cd93da0435f9e8f" -> "sha256:089077809e00a8949c6f15c41154a95532d4af6bbf7618fde8408ce291cb1305" [label=""];
+  "sha256:089077809e00a8949c6f15c41154a95532d4af6bbf7618fde8408ce291cb1305" -> "sha256:7c9c821a58b08024ad5db59288825964847d174293bdd35e001f75b681ee7d97" [label=""];
+  "sha256:b09057aa81ff761884644b3e35e9ea36f23df4c6890b539e4cd93da0435f9e8f" -> "sha256:7c9c821a58b08024ad5db59288825964847d174293bdd35e001f75b681ee7d97" [label=""];
+  "sha256:7c9c821a58b08024ad5db59288825964847d174293bdd35e001f75b681ee7d97" -> "sha256:344a75ab5c377f9e61cd5338be0a5428fb8983b5d31f40cff2204eb8ffa15596" [label=""];
+}
+

@@ -1,0 +1,21 @@
+[app/sources/229215086.Dockerfile]
+digraph {
+  "sha256:c139e859151268321f8b3d9af4bf0195aab52a1b66880ee4294469151c73bfb9" [label="docker-image://docker.io/library/alpine:3.7" shape="ellipse"];
+  "sha256:3680caade0f4e733d067700403285a1fe438f93800c687924d65824152145291" [label="local://context" shape="ellipse"];
+  "sha256:45706687c21b5ba9f3d3e45444b0c024ded0ec807a2571f85065b7875424544a" [label="copy{src=/rootfs, dest=/}" shape="note"];
+  "sha256:8023e524be6d00922c797c3ee875777fd4a8c6c08b876304fef4d06c278c2f5e" [label="/bin/sh -c mkdir -p /usr/local/etc \t&& { \t\techo 'install: --no-document'; \t\techo 'update: --no-document'; \t} >> /usr/local/etc/gemrc" shape="box"];
+  "sha256:4d63b054462e266e908afaa6ba5233c7b009b1414a317a7de914acd459c6a67f" [label="/bin/sh -c mkdir -p \"$GEM_HOME\" \"$BUNDLE_BIN\" \t&& chmod 777 \"$GEM_HOME\" \"$BUNDLE_BIN\"" shape="box"];
+  "sha256:bf724edd261daf281fd81489b1a4faf64a2774620070ea26895c14dc9946e520" [label="/bin/sh -c set -ex \t\t&& apk add --no-cache --virtual .ruby-builddeps \t\tautoconf \t\tbison \t\tbzip2 \t\tbzip2-dev \t\tca-certificates \t\tcoreutils \t\tgcc \t\tgdbm-dev \t\tglib-dev \t\tlibc-dev \t\tlibffi-dev \t\tlibxml2-dev \t\tlibxslt-dev \t\tlinux-headers \t\tmake \t\tncurses-dev \t\tlibressl \t\tlibressl-dev \t\tprocps \t\treadline-dev \t\truby \t\ttar \t\tyaml-dev \t\tzlib-dev \t\txz \t\t&& wget -O ruby.tar.xz \"https://cache.ruby-lang.org/pub/ruby/${RUBY_MAJOR%-rc}/ruby-$RUBY_VERSION.tar.xz\" \t&& echo \"$RUBY_DOWNLOAD_XZ_SHA256 *ruby.tar.xz\" | sha256sum -c - \t\t&& mkdir -p /usr/src/ruby \t&& tar -xJf ruby.tar.xz -C /usr/src/ruby --strip-components=1 \t&& rm ruby.tar.xz \t\t&& cd /usr/src/ruby \t\t&& { \t\techo '#define ENABLE_PATH_CHECK 0'; \t\techo; \t\tcat file.c; \t} > file.c.new \t&& mv file.c.new file.c \t\t&& autoconf \t&& ac_cv_func_isnan=yes ac_cv_func_isinf=yes \t\t./configure --disable-install-doc --enable-shared \t&& make -j\"$(getconf _NPROCESSORS_ONLN)\" \t&& make install \t\t&& runDeps=\"$( \t\tscanelf --needed --nobanner --recursive /usr/local \t\t\t| awk '{ gsub(/,/, \"\\nso:\", $2); print \"so:\" $2 }' \t\t\t| sort -u \t\t\t| xargs -r apk info --installed \t\t\t| sort -u \t)\" \t&& apk add --virtual .ruby-rundeps $runDeps \t\tbzip2 \t\tca-certificates \t\tlibffi-dev \t\tlibressl-dev \t\tyaml-dev \t\tprocps \t\tzlib-dev \t&& apk del .ruby-builddeps \t&& cd / \t&& rm -r /usr/src/ruby" shape="box"];
+  "sha256:f2a4d9075a03c3ac12e4f1f445dba313eca5a9dc7993ea3527d9058ba12aa8ad" [label="/bin/sh -c gem update --system \"$RUBYGEMS_VERSION\"" shape="box"];
+  "sha256:e27f6fe37caf57296254e0f30f4bfe7a6860f43788a033e4a2089dd89f2e88b9" [label="/bin/sh -c gem install bundler --version \"$BUNDLER_VERSION\"" shape="box"];
+  "sha256:2e198ffc1e2671c549d97ee685f25138983b5edc28e17762ee0082cca6a12022" [label="sha256:2e198ffc1e2671c549d97ee685f25138983b5edc28e17762ee0082cca6a12022" shape="plaintext"];
+  "sha256:c139e859151268321f8b3d9af4bf0195aab52a1b66880ee4294469151c73bfb9" -> "sha256:45706687c21b5ba9f3d3e45444b0c024ded0ec807a2571f85065b7875424544a" [label=""];
+  "sha256:3680caade0f4e733d067700403285a1fe438f93800c687924d65824152145291" -> "sha256:45706687c21b5ba9f3d3e45444b0c024ded0ec807a2571f85065b7875424544a" [label=""];
+  "sha256:45706687c21b5ba9f3d3e45444b0c024ded0ec807a2571f85065b7875424544a" -> "sha256:8023e524be6d00922c797c3ee875777fd4a8c6c08b876304fef4d06c278c2f5e" [label=""];
+  "sha256:8023e524be6d00922c797c3ee875777fd4a8c6c08b876304fef4d06c278c2f5e" -> "sha256:4d63b054462e266e908afaa6ba5233c7b009b1414a317a7de914acd459c6a67f" [label=""];
+  "sha256:4d63b054462e266e908afaa6ba5233c7b009b1414a317a7de914acd459c6a67f" -> "sha256:bf724edd261daf281fd81489b1a4faf64a2774620070ea26895c14dc9946e520" [label=""];
+  "sha256:bf724edd261daf281fd81489b1a4faf64a2774620070ea26895c14dc9946e520" -> "sha256:f2a4d9075a03c3ac12e4f1f445dba313eca5a9dc7993ea3527d9058ba12aa8ad" [label=""];
+  "sha256:f2a4d9075a03c3ac12e4f1f445dba313eca5a9dc7993ea3527d9058ba12aa8ad" -> "sha256:e27f6fe37caf57296254e0f30f4bfe7a6860f43788a033e4a2089dd89f2e88b9" [label=""];
+  "sha256:e27f6fe37caf57296254e0f30f4bfe7a6860f43788a033e4a2089dd89f2e88b9" -> "sha256:2e198ffc1e2671c549d97ee685f25138983b5edc28e17762ee0082cca6a12022" [label=""];
+}
+

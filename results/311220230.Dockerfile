@@ -1,0 +1,15 @@
+[app/sources/311220230.Dockerfile]
+digraph {
+  "sha256:410db45c6bc9d81c470b2e8c3e2857090edb85a54b40176623772fd7505d415d" [label="docker-image://docker.io/brimstone/ubuntu:14.04@sha256:f58e9b93e0cbbcb22ca4f995a14447732cce2aa6ff4d66d6112374272790f4e1" shape="ellipse"];
+  "sha256:d2ef2270b40cb5b0cd720f9fd977ced4ea5b6c209fae895f7215410a94bf533b" [label="/bin/sh -c apt-get update     && apt-get install -y unzip wget \t&& apt-get clean \t&& rm -rf /var/lib/apt/lists" shape="box"];
+  "sha256:a522a0c371154aff7a75bcd88e01aa381c372441461198b016f6a420692e5884" [label="/bin/sh -c cd /tmp     && wget https://dl.bintray.com/mitchellh/consul/0.3.1_web_ui.zip        -O web_ui.zip     && unzip web_ui.zip     && mv dist /webui     && rm web_ui.zip" shape="box"];
+  "sha256:61aaa61744b13eb5e7d7a8f24e0bce154a6670ec4302956986bc0df562ea4a21" [label="/bin/sh -c apt-get update \t&& dpkg -l | awk '/^ii/ {print $2}' > /tmp/dpkg.clean     && apt-get install -y --no-install-recommends unzip wget     && apt-get clean     && rm -rf /var/lib/apt/lists     && cd /tmp     && wget https://dl.bintray.com/mitchellh/consul/0.3.1_web_ui.zip        -O web_ui.zip     && unzip web_ui.zip     && mv dist /webui     && rm web_ui.zip \t&& dpkg -l | awk '/^ii/ {print $2}' > /tmp/dpkg.dirty \t&& apt-get remove --purge -y $(diff /tmp/dpkg.clean /tmp/dpkg.dirty | awk '/^>/ {print $2}') \t&& rm /tmp/dpkg.*" shape="box"];
+  "sha256:08e9465cebb1fbd8aee2d790319237ffe1fb0f3ab25198c3a759b7f3ab34579d" [label="/bin/sh -c apt-get update \t&& dpkg -l | awk '/^ii/ {print $2}' > /tmp/dpkg.clean     && apt-get install -y --no-install-recommends git golang ca-certificates build-essential     && apt-get clean     && rm -rf /var/lib/apt/lists \t&& go get -v github.com/hashicorp/consul \t&& mv $GOPATH/bin/consul /usr/bin/consul \t&& dpkg -l | awk '/^ii/ {print $2}' > /tmp/dpkg.dirty \t&& apt-get remove --purge -y $(diff /tmp/dpkg.clean /tmp/dpkg.dirty | awk '/^>/ {print $2}') \t&& rm /tmp/dpkg.* \t&& rm -rf $GOPATH" shape="box"];
+  "sha256:877f76a80f3d6d052bfc29512bdff46d67a277f568c587170936a1ec54803428" [label="sha256:877f76a80f3d6d052bfc29512bdff46d67a277f568c587170936a1ec54803428" shape="plaintext"];
+  "sha256:410db45c6bc9d81c470b2e8c3e2857090edb85a54b40176623772fd7505d415d" -> "sha256:d2ef2270b40cb5b0cd720f9fd977ced4ea5b6c209fae895f7215410a94bf533b" [label=""];
+  "sha256:d2ef2270b40cb5b0cd720f9fd977ced4ea5b6c209fae895f7215410a94bf533b" -> "sha256:a522a0c371154aff7a75bcd88e01aa381c372441461198b016f6a420692e5884" [label=""];
+  "sha256:a522a0c371154aff7a75bcd88e01aa381c372441461198b016f6a420692e5884" -> "sha256:61aaa61744b13eb5e7d7a8f24e0bce154a6670ec4302956986bc0df562ea4a21" [label=""];
+  "sha256:61aaa61744b13eb5e7d7a8f24e0bce154a6670ec4302956986bc0df562ea4a21" -> "sha256:08e9465cebb1fbd8aee2d790319237ffe1fb0f3ab25198c3a759b7f3ab34579d" [label=""];
+  "sha256:08e9465cebb1fbd8aee2d790319237ffe1fb0f3ab25198c3a759b7f3ab34579d" -> "sha256:877f76a80f3d6d052bfc29512bdff46d67a277f568c587170936a1ec54803428" [label=""];
+}
+

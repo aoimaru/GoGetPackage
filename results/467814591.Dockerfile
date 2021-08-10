@@ -1,0 +1,13 @@
+[app/sources/467814591.Dockerfile]
+digraph {
+  "sha256:3582a35cfe39d81838a2f9d689af66dcf0191c4b66f923333b50f523d0016370" [label="docker-image://docker.io/tiredofit/alpine:edge" shape="ellipse"];
+  "sha256:f30183ce6285743468626a5b506e0ae6c0ebd79c1371b4788d91a4ad05275d37" [label="/bin/sh -c set -x && \tapk update && \tapk upgrade &&         \tapk add             expect             gnu-libiconv             nginx             mariadb-client             openssl             php7-apcu             php7-bz2             php7-cli             php7-ctype             php7-curl             php7-dom             php7-embed             php7-fileinfo             php7-fpm             php7-gd             php7-iconv             php7-imap             php7-json             php7-mbstring             php7-mysqli             php7-opcache             php7-openssl             php7-pdo             php7-pdo_mysql             php7-phar             php7-session             php7-simplexml             php7-tokenizer             php7-xml             php7-xmlrpc             php7-zip             php7-zlib         &&         sed -i 's/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g' /etc/php7/php.ini &&     ln -s /sbin/php-fpm7 /sbin/php-fpm &&         curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer &&         mkdir -p /www/logs &&     mkdir -p /www/html &&     curl -sSL https://github.com/freescout-helpdesk/freescout/archive/${FREESCOUT_VERSION}.tar.gz | tar xvfz - --strip 1 -C /www/html &&     chown -R nginx:www-data /www/html &&         rm -rf /usr/src/* /var/tmp/* /var/cache/apk/*" shape="box"];
+  "sha256:a3ef9d96cce6b746baecb31fdcdb7075a3b9b12a8d7d640c399cc9f7e9cbf1fb" [label="local://context" shape="ellipse"];
+  "sha256:42532472aaf964a30065e4c682c70584cdcfb5ddedeca88201fc9826aa887165" [label="copy{src=/install, dest=/}" shape="note"];
+  "sha256:e4635678a131da3287435a5d07f21383412882c4f3ea02bcf760732773ddf71b" [label="sha256:e4635678a131da3287435a5d07f21383412882c4f3ea02bcf760732773ddf71b" shape="plaintext"];
+  "sha256:3582a35cfe39d81838a2f9d689af66dcf0191c4b66f923333b50f523d0016370" -> "sha256:f30183ce6285743468626a5b506e0ae6c0ebd79c1371b4788d91a4ad05275d37" [label=""];
+  "sha256:f30183ce6285743468626a5b506e0ae6c0ebd79c1371b4788d91a4ad05275d37" -> "sha256:42532472aaf964a30065e4c682c70584cdcfb5ddedeca88201fc9826aa887165" [label=""];
+  "sha256:a3ef9d96cce6b746baecb31fdcdb7075a3b9b12a8d7d640c399cc9f7e9cbf1fb" -> "sha256:42532472aaf964a30065e4c682c70584cdcfb5ddedeca88201fc9826aa887165" [label=""];
+  "sha256:42532472aaf964a30065e4c682c70584cdcfb5ddedeca88201fc9826aa887165" -> "sha256:e4635678a131da3287435a5d07f21383412882c4f3ea02bcf760732773ddf71b" [label=""];
+}
+

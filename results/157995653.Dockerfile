@@ -1,0 +1,25 @@
+[app/sources/157995653.Dockerfile]
+digraph {
+  "sha256:a9ab970ef4810de5fde05a4caa66b977b639ff067a8b0241cb81432a2f533c04" [label="docker-image://docker.io/library/ubuntu:14.04" shape="ellipse"];
+  "sha256:f88eec3549a54767b7a6b706906498a275159d534dce20378517f01c56765984" [label="/bin/sh -c DEBIAN_FRONTEND=noninteractive apt-get -qq update  && apt-get -yqq --no-install-recommends install  \tcurl  \tlibpq5  \tlibpython2.7  \tpython3-sip  \ttcpdump  \ttelnet  \timagemagick  && apt-get -yqq clean  && rm -rf /var/lib/apt/lists/*" shape="box"];
+  "sha256:ceb9ec0d7aec1e760d50221aa43d3e25d824edd11827b1f0fe75fc05c38e361d" [label="mkdir{path=/tmp}" shape="note"];
+  "sha256:852893e7e36641ff9398df5489ea9a8c9aaf4a5eede7e2a91f9a9542ff06fe8a" [label="/bin/sh -c curl -Lks \"https://downloads.sourceforge.net/project/cgru/${CGRU_VERSION}/cgru.${CGRU_VERSION}.ubuntu${CGRU_UBUNTU_VERSION}_amd64.tar.gz\" | tar zxvf -  && dpkg -i cgru-common*.deb afanasy-common*.deb afanasy-server*.deb afanasy-render*.deb  && rm -rf *" shape="box"];
+  "sha256:084fcf034a1a372b8a6869158aa6c6b8789ad555707e99c848d1d35404a2e48b" [label="https://github.com/kreuzwerker/envplate/releases/download/v0.0.8/ep-linux" shape="ellipse"];
+  "sha256:2d96983a77d22ceddb7436d9ef9d92e06efed93ba7501cf6349b9a96cda8a5ec" [label="copy{src=/ep-linux, dest=/usr/local/bin/ep}" shape="note"];
+  "sha256:1530704e0d5a12196808c2c6f8b53253f6d9ba84568a201660e4f891473a8127" [label="local://context" shape="ellipse"];
+  "sha256:d22f3182773653f3ad8913c2fc99d928517ab6e5879679404b19addfe576dfe5" [label="copy{src=/resources/docker-entrypoint.sh, dest=/usr/local/bin/}" shape="note"];
+  "sha256:0a7fd204f8f3feb4098b6871efe58e969aec093c70398b1f9ceac39bc93ad9b3" [label="/bin/sh -c chmod +rx /usr/local/bin/ep /usr/local/bin/docker-entrypoint.sh  && chown render /opt/cgru/afanasy/config_default.json /opt/cgru/config_default.json  && sed -i 's/\"af_servername\":\".\\+\",/\"af_servername\":\"${AF_SERVERNAME}\",/' /opt/cgru/afanasy/config_default.json  && sed -i 's/\"af_serverport\":[0-9]\\+,/\"af_serverport\":${AF_SERVERPORT},/' /opt/cgru/afanasy/config_default.json  && sed -i 's/\"af_clientport\":[0-9]\\+,/\"af_clientport\":${AF_CLIENTPORT},/' /opt/cgru/afanasy/config_default.json  && sed -i 's/\"af_thumbnail_extensions\":.\\+,/\"af_thumbnail_extensions\":${AF_THUMBNAIL_EXTENSIONS},/' /opt/cgru/afanasy/config_default.json  && sed -i 's/\"af_thumbnail_cmd\":\".\\+\",/\"af_thumbnail_cmd\":\"${AF_THUMBNAIL_CMD}\",/' /opt/cgru/afanasy/config_default.json  && sed -i 's/\"af_render_zombietime\":.\\+,/\"af_render_zombietime\":${AF_RENDER_ZOMBIETIME},/' /opt/cgru/afanasy/config_default.json  && sed -i 's/\"af_render_connectretries\":.\\+,/\"af_render_connectretries\":${AF_RENDER_CONNECTRETRIES},/' /opt/cgru/afanasy/config_default.json  && sed -i 's/\"af_render_connectretries\":.\\+,/\"af_render_connectretries\":${AF_RENDER_CONNECTRETRIES},/' /opt/cgru/afanasy/config_default.json  && sed -i 's/\"cmd_shell\":\"\\/bin\\/sh -c\"/\"cmd_shell\":\"${CGRU_CMD_SHELL}\"/' /opt/cgru/config_default.json" shape="box"];
+  "sha256:0f9bce735f36d5fb396ff4ed8c61255de4d556c52c73ee375befcf050f6f4775" [label="mkdir{path=/opt/cgru}" shape="note"];
+  "sha256:0b446799da26b5b093f0ae965f312bf322bb8addd202481a9304d497912af0f6" [label="sha256:0b446799da26b5b093f0ae965f312bf322bb8addd202481a9304d497912af0f6" shape="plaintext"];
+  "sha256:a9ab970ef4810de5fde05a4caa66b977b639ff067a8b0241cb81432a2f533c04" -> "sha256:f88eec3549a54767b7a6b706906498a275159d534dce20378517f01c56765984" [label=""];
+  "sha256:f88eec3549a54767b7a6b706906498a275159d534dce20378517f01c56765984" -> "sha256:ceb9ec0d7aec1e760d50221aa43d3e25d824edd11827b1f0fe75fc05c38e361d" [label=""];
+  "sha256:ceb9ec0d7aec1e760d50221aa43d3e25d824edd11827b1f0fe75fc05c38e361d" -> "sha256:852893e7e36641ff9398df5489ea9a8c9aaf4a5eede7e2a91f9a9542ff06fe8a" [label=""];
+  "sha256:852893e7e36641ff9398df5489ea9a8c9aaf4a5eede7e2a91f9a9542ff06fe8a" -> "sha256:2d96983a77d22ceddb7436d9ef9d92e06efed93ba7501cf6349b9a96cda8a5ec" [label=""];
+  "sha256:084fcf034a1a372b8a6869158aa6c6b8789ad555707e99c848d1d35404a2e48b" -> "sha256:2d96983a77d22ceddb7436d9ef9d92e06efed93ba7501cf6349b9a96cda8a5ec" [label=""];
+  "sha256:2d96983a77d22ceddb7436d9ef9d92e06efed93ba7501cf6349b9a96cda8a5ec" -> "sha256:d22f3182773653f3ad8913c2fc99d928517ab6e5879679404b19addfe576dfe5" [label=""];
+  "sha256:1530704e0d5a12196808c2c6f8b53253f6d9ba84568a201660e4f891473a8127" -> "sha256:d22f3182773653f3ad8913c2fc99d928517ab6e5879679404b19addfe576dfe5" [label=""];
+  "sha256:d22f3182773653f3ad8913c2fc99d928517ab6e5879679404b19addfe576dfe5" -> "sha256:0a7fd204f8f3feb4098b6871efe58e969aec093c70398b1f9ceac39bc93ad9b3" [label=""];
+  "sha256:0a7fd204f8f3feb4098b6871efe58e969aec093c70398b1f9ceac39bc93ad9b3" -> "sha256:0f9bce735f36d5fb396ff4ed8c61255de4d556c52c73ee375befcf050f6f4775" [label=""];
+  "sha256:0f9bce735f36d5fb396ff4ed8c61255de4d556c52c73ee375befcf050f6f4775" -> "sha256:0b446799da26b5b093f0ae965f312bf322bb8addd202481a9304d497912af0f6" [label=""];
+}
+

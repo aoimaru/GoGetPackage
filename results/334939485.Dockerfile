@@ -1,0 +1,25 @@
+[app/sources/334939485.Dockerfile]
+digraph {
+  "sha256:907a8e46c6c4f2673863e93d32ccc117b1124226eddaa892755ee0db3bd55958" [label="local://context" shape="ellipse"];
+  "sha256:406d64099aede5935f4c20c2d6ac46efb237eac5f3796fdf172e6d26169e88d6" [label="docker-image://docker.io/appsvcorg/nginx-fpm:php7.3.4-redis" shape="ellipse"];
+  "sha256:29c6ab1c9b1f37f11f07d36c60b8c0aa05dc797ba497ed1ac48bb29df38d5099" [label="copy{src=/wordpress_src, dest=/usr/src/wordpress/}" shape="note"];
+  "sha256:afc35f98d51e529d7042cac39b5c014403c0754d4b7cf95a1495a59fb54e1504" [label="copy{src=/supervisord.conf, dest=/etc/}" shape="note"];
+  "sha256:f57d9f2f99ff82f5ca3d8477333caeefbbb8a0a123b2f4182528b14761070a50" [label="copy{src=/uploads.ini, dest=/usr/local/etc/php/conf.d/}" shape="note"];
+  "sha256:6e2f4e8605c038c02133aa991b3d3b64bad744d1ed71cf7d8590454077d9ae23" [label="copy{src=/nginx_conf, dest=/etc/nginx/conf.d/}" shape="note"];
+  "sha256:db86c414b755712731e62202c990923de9312607a70c41cbf80d1ee78e259ff4" [label="copy{src=/local_bin, dest=/usr/local/bin/}" shape="note"];
+  "sha256:f9aa5b27d71f94e1354f79c2816f9d2f65b692e5c13f623252bee566c092b7f5" [label="/bin/sh -c chmod -R +x /usr/local/bin" shape="box"];
+  "sha256:312c6f96aa090db369e529c717ef190b52d44831d525e72c1798ba11075f7c6e" [label="sha256:312c6f96aa090db369e529c717ef190b52d44831d525e72c1798ba11075f7c6e" shape="plaintext"];
+  "sha256:406d64099aede5935f4c20c2d6ac46efb237eac5f3796fdf172e6d26169e88d6" -> "sha256:29c6ab1c9b1f37f11f07d36c60b8c0aa05dc797ba497ed1ac48bb29df38d5099" [label=""];
+  "sha256:907a8e46c6c4f2673863e93d32ccc117b1124226eddaa892755ee0db3bd55958" -> "sha256:29c6ab1c9b1f37f11f07d36c60b8c0aa05dc797ba497ed1ac48bb29df38d5099" [label=""];
+  "sha256:29c6ab1c9b1f37f11f07d36c60b8c0aa05dc797ba497ed1ac48bb29df38d5099" -> "sha256:afc35f98d51e529d7042cac39b5c014403c0754d4b7cf95a1495a59fb54e1504" [label=""];
+  "sha256:907a8e46c6c4f2673863e93d32ccc117b1124226eddaa892755ee0db3bd55958" -> "sha256:afc35f98d51e529d7042cac39b5c014403c0754d4b7cf95a1495a59fb54e1504" [label=""];
+  "sha256:afc35f98d51e529d7042cac39b5c014403c0754d4b7cf95a1495a59fb54e1504" -> "sha256:f57d9f2f99ff82f5ca3d8477333caeefbbb8a0a123b2f4182528b14761070a50" [label=""];
+  "sha256:907a8e46c6c4f2673863e93d32ccc117b1124226eddaa892755ee0db3bd55958" -> "sha256:f57d9f2f99ff82f5ca3d8477333caeefbbb8a0a123b2f4182528b14761070a50" [label=""];
+  "sha256:f57d9f2f99ff82f5ca3d8477333caeefbbb8a0a123b2f4182528b14761070a50" -> "sha256:6e2f4e8605c038c02133aa991b3d3b64bad744d1ed71cf7d8590454077d9ae23" [label=""];
+  "sha256:907a8e46c6c4f2673863e93d32ccc117b1124226eddaa892755ee0db3bd55958" -> "sha256:6e2f4e8605c038c02133aa991b3d3b64bad744d1ed71cf7d8590454077d9ae23" [label=""];
+  "sha256:6e2f4e8605c038c02133aa991b3d3b64bad744d1ed71cf7d8590454077d9ae23" -> "sha256:db86c414b755712731e62202c990923de9312607a70c41cbf80d1ee78e259ff4" [label=""];
+  "sha256:907a8e46c6c4f2673863e93d32ccc117b1124226eddaa892755ee0db3bd55958" -> "sha256:db86c414b755712731e62202c990923de9312607a70c41cbf80d1ee78e259ff4" [label=""];
+  "sha256:db86c414b755712731e62202c990923de9312607a70c41cbf80d1ee78e259ff4" -> "sha256:f9aa5b27d71f94e1354f79c2816f9d2f65b692e5c13f623252bee566c092b7f5" [label=""];
+  "sha256:f9aa5b27d71f94e1354f79c2816f9d2f65b692e5c13f623252bee566c092b7f5" -> "sha256:312c6f96aa090db369e529c717ef190b52d44831d525e72c1798ba11075f7c6e" [label=""];
+}
+

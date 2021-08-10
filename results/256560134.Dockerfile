@@ -1,0 +1,15 @@
+[app/sources/256560134.Dockerfile]
+digraph {
+  "sha256:04187b885604d112762d71717a1346cbc4f17e131fc82857a048019e04951455" [label="docker-image://docker.io/library/ubuntu:16.04" shape="ellipse"];
+  "sha256:b51d64505e191454e9235228a262d597f69c84bc2f90a6eecb017519626e5776" [label="/bin/sh -c apt-get update     && apt-get install -y         build-essential         cmake         git         libatlas-base-dev         libeigen3-dev         libgoogle-glog-dev         libopencv-dev         libsuitesparse-dev         python-dev         python-numpy         python-opencv         python-pip         python-pyexiv2         python-pyproj         python-scipy         python-yaml         curl     && apt-get clean     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*" shape="box"];
+  "sha256:ed357d5c348979321af04c2aa2a93b21b5f7eff50333f1de4d4384b569c1af7d" [label="/bin/sh -c mkdir -p /source && cd /source &&     curl -L http://ceres-solver.org/ceres-solver-1.14.0.tar.gz | tar xz &&     cd /source/ceres-solver-1.14.0 &&     mkdir -p build && cd build &&     cmake .. -DCMAKE_C_FLAGS=-fPIC -DCMAKE_CXX_FLAGS=-fPIC -DBUILD_EXAMPLES=OFF -DBUILD_TESTING=OFF &&     make -j4 install &&     cd / && rm -rf /source/ceres-solver-1.14.0" shape="box"];
+  "sha256:62ca4eb2c7113e31fcd66c64d0c7fb6280e011948e0b971ae39f7081b6094f27" [label="/bin/sh -c mkdir -p /source && cd /source &&     git clone https://github.com/paulinus/opengv.git &&     cd /source/opengv &&     git submodule update --init --recursive &&     mkdir -p build && cd build &&     cmake .. -DBUILD_TESTS=OFF -DBUILD_PYTHON=ON -DPYBIND11_PYTHON_VERSION=2.7 &&     make install &&     cd / && rm -rf /source/opengv" shape="box"];
+  "sha256:d939bd7d99e9fe755515ed948660d979da3e88ec6d10e921cc64307ec8615d59" [label="/bin/sh -c pip install exifread==2.1.2                 gpxpy==1.1.2                 networkx==1.11                 numpy                 pyproj==1.9.5.1                 pytest==3.0.7                 python-dateutil==2.6.0                 PyYAML==3.12                 scipy                 xmltodict==0.10.2                 cloudpickle==0.4.0                 loky==1.2.1" shape="box"];
+  "sha256:ed2f32b528c47b7b70fd889502fdba37ac18ed786550a5d82a9b5449c0cc13b3" [label="sha256:ed2f32b528c47b7b70fd889502fdba37ac18ed786550a5d82a9b5449c0cc13b3" shape="plaintext"];
+  "sha256:04187b885604d112762d71717a1346cbc4f17e131fc82857a048019e04951455" -> "sha256:b51d64505e191454e9235228a262d597f69c84bc2f90a6eecb017519626e5776" [label=""];
+  "sha256:b51d64505e191454e9235228a262d597f69c84bc2f90a6eecb017519626e5776" -> "sha256:ed357d5c348979321af04c2aa2a93b21b5f7eff50333f1de4d4384b569c1af7d" [label=""];
+  "sha256:ed357d5c348979321af04c2aa2a93b21b5f7eff50333f1de4d4384b569c1af7d" -> "sha256:62ca4eb2c7113e31fcd66c64d0c7fb6280e011948e0b971ae39f7081b6094f27" [label=""];
+  "sha256:62ca4eb2c7113e31fcd66c64d0c7fb6280e011948e0b971ae39f7081b6094f27" -> "sha256:d939bd7d99e9fe755515ed948660d979da3e88ec6d10e921cc64307ec8615d59" [label=""];
+  "sha256:d939bd7d99e9fe755515ed948660d979da3e88ec6d10e921cc64307ec8615d59" -> "sha256:ed2f32b528c47b7b70fd889502fdba37ac18ed786550a5d82a9b5449c0cc13b3" [label=""];
+}
+

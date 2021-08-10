@@ -1,0 +1,58 @@
+[app/sources/284706867.Dockerfile]
+digraph {
+  "sha256:939b140a123def81e15a1f181240baeed32ba9aa8810faface6d333e37eed8dd" [label="docker-image://docker.io/library/debian:stretch-slim" shape="ellipse"];
+  "sha256:6bc30522e644adef44d33db9a69fc8df976265174209d210d3ab76d45fc47320" [label="/bin/sh -c groupadd -g 999 mysql" shape="box"];
+  "sha256:576f0ec5c699f56a399aaadd34b2db9febdbf2224a515a615f1e05adf78df448" [label="/bin/sh -c useradd -u 999 -r -g 999 -s /sbin/nologin     -c \"Default Application User\" mysql" shape="box"];
+  "sha256:8f982c7e62488ea684d56c61f118d316f1965a1aa76f5bee759f26690079d02e" [label="/bin/sh -c apt-get update     && apt-get install -y --no-install-recommends         apt-transport-https ca-certificates wget     && rm -rf /var/lib/apt/lists/*" shape="box"];
+  "sha256:4ae9ddd6b0d5147fb07f380d671cd9b97ae225065284aa49c19207ae36bb45c5" [label="local://context" shape="ellipse"];
+  "sha256:9fb38320dc453cc7735bb81dbd3718a616a3ef7b313970f7eea2b50e3d5200c2" [label="copy{src=/hack/docker/percona.gpg, dest=/etc/apt/trusted.gpg.d/percona.gpg}" shape="note"];
+  "sha256:6c6b2b1aaf8cf5451a075fedad3b3301c584ce668bd96398249ae023bfd86fac" [label="/bin/sh -c echo 'deb https://repo.percona.com/apt stretch main' > /etc/apt/sources.list.d/percona.list" shape="box"];
+  "sha256:a70a81c40a34a60e17a1b91773723640d70c1af8717036095c4e2dd3d39af5c6" [label="/bin/sh -c apt-get update     && apt-get install -y --no-install-recommends         percona-toolkit percona-xtrabackup-24 unzip     && wget https://github.com/maxbube/mydumper/releases/download/v0.9.5/mydumper_0.9.5-2.stretch_amd64.deb     && dpkg -i mydumper_0.9.5-2.stretch_amd64.deb     && rm -rf mydumper_0.9.5-2.stretch_amd64.deb /var/lib/apt/lists/*     && mkdir -p /usr/share/src     && wget https://github.com/maxbube/mydumper/archive/v0.9.5.tar.gz -O /usr/share/src/mydumper-v0.9.5.tar.gz" shape="box"];
+  "sha256:387669731062e1009d0e8e3822e3da5eb8c26d67cca0765028ae56393ba18ced" [label="copy{src=/hack/docker/sidecar-entrypoint.sh, dest=/usr/local/bin/sidecar-entrypoint.sh}" shape="note"];
+  "sha256:ffe27f6671bec511d877f7d04491578c6298219c52275ed5d98ea81205baf954" [label="docker-image://docker.io/library/golang:1.11.2" shape="ellipse"];
+  "sha256:1cd0b5993cb172cde56f14fdd0d938914d59a882183c2c128822f1df3702e56f" [label="mkdir{path=/go/src/github.com/presslabs/mysql-operator}" shape="note"];
+  "sha256:098cde95b1dd706f2ccf01b5fcfb4e4d9efbaa01c69ae899cb5fa649eef92749" [label="copy{src=/pkg, dest=/go/src/github.com/presslabs/mysql-operator/pkg/}" shape="note"];
+  "sha256:df807e3f2cc2b283cf799571e7103b30e5d464c4f5c051770fce36c4beebc07c" [label="copy{src=/cmd, dest=/go/src/github.com/presslabs/mysql-operator/cmd/}" shape="note"];
+  "sha256:2c0d46bffc448cf4419aea92d2fe40e46989918c7882df85a6d364c18186952d" [label="copy{src=/vendor, dest=/go/src/github.com/presslabs/mysql-operator/vendor/}" shape="note"];
+  "sha256:d061b3ecf30faa64d4dd14b264d7e056582fa6c33b0bd3f66c9e9de4328eeb87" [label="/bin/sh -c CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -o mysql-operator github.com/presslabs/mysql-operator/cmd/mysql-operator" shape="box"];
+  "sha256:4d622450221cf30dfcc5e94281fe886c465cde4b90d1c341633a12b69cd80604" [label="/bin/sh -c CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -o mysql-operator-sidecar github.com/presslabs/mysql-operator/cmd/mysql-operator-sidecar" shape="box"];
+  "sha256:3d0d3ea766b2407cd3530356fa1270befc395c8ed3528d540f0f7009c916ceb6" [label="/bin/sh -c CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -o orc-helper github.com/presslabs/mysql-operator/cmd/orc-helper" shape="box"];
+  "sha256:d5653baa0ef5c4d988f3907d1f586f20a0b5f107d13cebcee406a3c9dcfa463a" [label="copy{src=/go/src/github.com/presslabs/mysql-operator/mysql-operator-sidecar, dest=/usr/local/bin/mysql-operator-sidecar}" shape="note"];
+  "sha256:931a1c72c3e0943f8ae3bad2d6c2c0d04efc9031392f7574cafc331814fa690d" [label="docker-image://docker.io/library/debian:stretch" shape="ellipse"];
+  "sha256:12adea5a747d5ba9f81ffacaf2b0aa610e52c55357fb8973f3266827e1920e21" [label="/bin/sh -c apt-get update     && apt-get install -y --no-install-recommends         gnupg ca-certificates wget unzip" shape="box"];
+  "sha256:42c20033a49da5aa9d2830c373b556e07ffe3cd470c45cd8eddf58e86a024901" [label="copy{src=/hack/docker/rclone.gpg, dest=/root/rclone.gpg}" shape="note"];
+  "sha256:7840fe7efd37742042c8ef7cc656fd5f2b576ed54441bc79bc7b67785462d5fe" [label="/bin/sh -c gpg --import /root/rclone.gpg" shape="box"];
+  "sha256:b7bef0f853cc8d70b4851f3e0d3ab225aa19b6910818d2f617b5359bc0587d84" [label="/bin/sh -c wget -nv https://github.com/ncw/rclone/releases/download/v1.46/rclone-v1.46-linux-amd64.zip     && wget -nv https://github.com/ncw/rclone/releases/download/v1.46/SHA256SUMS     && gpg --verify --output=- SHA256SUMS > sums     && sha256sum -c --ignore-missing sums     && unzip rclone-*-linux-amd64.zip     && mv rclone-*-linux-amd64/rclone /usr/local/bin/     && chmod 755 /usr/local/bin/rclone" shape="box"];
+  "sha256:b8d27283287226d99133d8e55ebc9e59033acebc6d7e0af2c781cf73d614be28" [label="copy{src=/usr/local/bin/rclone, dest=/usr/local/bin/rclone}" shape="note"];
+  "sha256:12b28d1473124d51b84e9a7e2957d0cd77de4482d52e48dfa3029ef5e9e62073" [label="sha256:12b28d1473124d51b84e9a7e2957d0cd77de4482d52e48dfa3029ef5e9e62073" shape="plaintext"];
+  "sha256:939b140a123def81e15a1f181240baeed32ba9aa8810faface6d333e37eed8dd" -> "sha256:6bc30522e644adef44d33db9a69fc8df976265174209d210d3ab76d45fc47320" [label=""];
+  "sha256:6bc30522e644adef44d33db9a69fc8df976265174209d210d3ab76d45fc47320" -> "sha256:576f0ec5c699f56a399aaadd34b2db9febdbf2224a515a615f1e05adf78df448" [label=""];
+  "sha256:576f0ec5c699f56a399aaadd34b2db9febdbf2224a515a615f1e05adf78df448" -> "sha256:8f982c7e62488ea684d56c61f118d316f1965a1aa76f5bee759f26690079d02e" [label=""];
+  "sha256:8f982c7e62488ea684d56c61f118d316f1965a1aa76f5bee759f26690079d02e" -> "sha256:9fb38320dc453cc7735bb81dbd3718a616a3ef7b313970f7eea2b50e3d5200c2" [label=""];
+  "sha256:4ae9ddd6b0d5147fb07f380d671cd9b97ae225065284aa49c19207ae36bb45c5" -> "sha256:9fb38320dc453cc7735bb81dbd3718a616a3ef7b313970f7eea2b50e3d5200c2" [label=""];
+  "sha256:9fb38320dc453cc7735bb81dbd3718a616a3ef7b313970f7eea2b50e3d5200c2" -> "sha256:6c6b2b1aaf8cf5451a075fedad3b3301c584ce668bd96398249ae023bfd86fac" [label=""];
+  "sha256:6c6b2b1aaf8cf5451a075fedad3b3301c584ce668bd96398249ae023bfd86fac" -> "sha256:a70a81c40a34a60e17a1b91773723640d70c1af8717036095c4e2dd3d39af5c6" [label=""];
+  "sha256:a70a81c40a34a60e17a1b91773723640d70c1af8717036095c4e2dd3d39af5c6" -> "sha256:387669731062e1009d0e8e3822e3da5eb8c26d67cca0765028ae56393ba18ced" [label=""];
+  "sha256:4ae9ddd6b0d5147fb07f380d671cd9b97ae225065284aa49c19207ae36bb45c5" -> "sha256:387669731062e1009d0e8e3822e3da5eb8c26d67cca0765028ae56393ba18ced" [label=""];
+  "sha256:ffe27f6671bec511d877f7d04491578c6298219c52275ed5d98ea81205baf954" -> "sha256:1cd0b5993cb172cde56f14fdd0d938914d59a882183c2c128822f1df3702e56f" [label=""];
+  "sha256:1cd0b5993cb172cde56f14fdd0d938914d59a882183c2c128822f1df3702e56f" -> "sha256:098cde95b1dd706f2ccf01b5fcfb4e4d9efbaa01c69ae899cb5fa649eef92749" [label=""];
+  "sha256:4ae9ddd6b0d5147fb07f380d671cd9b97ae225065284aa49c19207ae36bb45c5" -> "sha256:098cde95b1dd706f2ccf01b5fcfb4e4d9efbaa01c69ae899cb5fa649eef92749" [label=""];
+  "sha256:098cde95b1dd706f2ccf01b5fcfb4e4d9efbaa01c69ae899cb5fa649eef92749" -> "sha256:df807e3f2cc2b283cf799571e7103b30e5d464c4f5c051770fce36c4beebc07c" [label=""];
+  "sha256:4ae9ddd6b0d5147fb07f380d671cd9b97ae225065284aa49c19207ae36bb45c5" -> "sha256:df807e3f2cc2b283cf799571e7103b30e5d464c4f5c051770fce36c4beebc07c" [label=""];
+  "sha256:df807e3f2cc2b283cf799571e7103b30e5d464c4f5c051770fce36c4beebc07c" -> "sha256:2c0d46bffc448cf4419aea92d2fe40e46989918c7882df85a6d364c18186952d" [label=""];
+  "sha256:4ae9ddd6b0d5147fb07f380d671cd9b97ae225065284aa49c19207ae36bb45c5" -> "sha256:2c0d46bffc448cf4419aea92d2fe40e46989918c7882df85a6d364c18186952d" [label=""];
+  "sha256:2c0d46bffc448cf4419aea92d2fe40e46989918c7882df85a6d364c18186952d" -> "sha256:d061b3ecf30faa64d4dd14b264d7e056582fa6c33b0bd3f66c9e9de4328eeb87" [label=""];
+  "sha256:d061b3ecf30faa64d4dd14b264d7e056582fa6c33b0bd3f66c9e9de4328eeb87" -> "sha256:4d622450221cf30dfcc5e94281fe886c465cde4b90d1c341633a12b69cd80604" [label=""];
+  "sha256:4d622450221cf30dfcc5e94281fe886c465cde4b90d1c341633a12b69cd80604" -> "sha256:3d0d3ea766b2407cd3530356fa1270befc395c8ed3528d540f0f7009c916ceb6" [label=""];
+  "sha256:387669731062e1009d0e8e3822e3da5eb8c26d67cca0765028ae56393ba18ced" -> "sha256:d5653baa0ef5c4d988f3907d1f586f20a0b5f107d13cebcee406a3c9dcfa463a" [label=""];
+  "sha256:3d0d3ea766b2407cd3530356fa1270befc395c8ed3528d540f0f7009c916ceb6" -> "sha256:d5653baa0ef5c4d988f3907d1f586f20a0b5f107d13cebcee406a3c9dcfa463a" [label=""];
+  "sha256:931a1c72c3e0943f8ae3bad2d6c2c0d04efc9031392f7574cafc331814fa690d" -> "sha256:12adea5a747d5ba9f81ffacaf2b0aa610e52c55357fb8973f3266827e1920e21" [label=""];
+  "sha256:12adea5a747d5ba9f81ffacaf2b0aa610e52c55357fb8973f3266827e1920e21" -> "sha256:42c20033a49da5aa9d2830c373b556e07ffe3cd470c45cd8eddf58e86a024901" [label=""];
+  "sha256:4ae9ddd6b0d5147fb07f380d671cd9b97ae225065284aa49c19207ae36bb45c5" -> "sha256:42c20033a49da5aa9d2830c373b556e07ffe3cd470c45cd8eddf58e86a024901" [label=""];
+  "sha256:42c20033a49da5aa9d2830c373b556e07ffe3cd470c45cd8eddf58e86a024901" -> "sha256:7840fe7efd37742042c8ef7cc656fd5f2b576ed54441bc79bc7b67785462d5fe" [label=""];
+  "sha256:7840fe7efd37742042c8ef7cc656fd5f2b576ed54441bc79bc7b67785462d5fe" -> "sha256:b7bef0f853cc8d70b4851f3e0d3ab225aa19b6910818d2f617b5359bc0587d84" [label=""];
+  "sha256:d5653baa0ef5c4d988f3907d1f586f20a0b5f107d13cebcee406a3c9dcfa463a" -> "sha256:b8d27283287226d99133d8e55ebc9e59033acebc6d7e0af2c781cf73d614be28" [label=""];
+  "sha256:b7bef0f853cc8d70b4851f3e0d3ab225aa19b6910818d2f617b5359bc0587d84" -> "sha256:b8d27283287226d99133d8e55ebc9e59033acebc6d7e0af2c781cf73d614be28" [label=""];
+  "sha256:b8d27283287226d99133d8e55ebc9e59033acebc6d7e0af2c781cf73d614be28" -> "sha256:12b28d1473124d51b84e9a7e2957d0cd77de4482d52e48dfa3029ef5e9e62073" [label=""];
+}
+

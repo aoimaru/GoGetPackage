@@ -1,0 +1,15 @@
+[app/sources/363765090.Dockerfile]
+digraph {
+  "sha256:04187b885604d112762d71717a1346cbc4f17e131fc82857a048019e04951455" [label="docker-image://docker.io/library/ubuntu:16.04" shape="ellipse"];
+  "sha256:f7eb920500be1dc0178fb3e799743595cdca347d37efa87b83e5b03428ea37ec" [label="docker-image://docker.io/webdevops/toolbox:latest" shape="ellipse"];
+  "sha256:628f746b27fa5d3976f29de1b19f497f8ffb0c7eb4bec7d47e366f52201a797f" [label="/bin/sh -c mkdir -p         /baselayout/sbin         /baselayout/usr/local/bin     && wget -O /tmp/baselayout-install.sh https://raw.githubusercontent.com/webdevops/Docker-Image-Baselayout/master/install.sh     && sh /tmp/baselayout-install.sh /baselayout     && wget -O \"/baselayout/usr/local/bin/go-replace\" \"https://github.com/webdevops/goreplace/releases/download/1.1.2/gr-64-linux\"     && chmod +x \"/baselayout/usr/local/bin/go-replace\"     && \"/baselayout/usr/local/bin/go-replace\" --version     && wget -O \"/baselayout/sbin/gosu\" \"https://github.com/tianon/gosu/releases/download/1.10/gosu-amd64\"     && wget -O \"/tmp/gosu.asc\" \"https://github.com/tianon/gosu/releases/download/1.10/gosu-amd64.asc\"     && export GNUPGHOME=\"$(mktemp -d)\"     && gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4     && gpg --batch --verify /tmp/gosu.asc \"/baselayout/sbin/gosu\"     && rm -rf \"$GNUPGHOME\" /tmp/gosu.asc     && chmod +x \"/baselayout/sbin/gosu\"     && \"/baselayout/sbin/gosu\" nobody true" shape="box"];
+  "sha256:55fffd2564c412df164b39efdceb4112d2866a609618efe7bb673ac661c18bfd" [label="copy{src=/baselayout, dest=/}" shape="note"];
+  "sha256:d5b113ba516595cc2bb093cf3ac02d3963edbb702c174f6f1bc439406c41c1c0" [label="/bin/sh -c set -x     && apt-update     && /usr/local/bin/apt-upgrade     && apt-install         ca-certificates         apt-transport-https     && apt-add-repository multiverse     && apt-update     && /usr/local/bin/generate-dockerimage-info     && docker-run-bootstrap     && docker-image-cleanup" shape="box"];
+  "sha256:7ba91fef6db10da348b5e2533f63f80fac457a92b3de343a508f034e66aca917" [label="sha256:7ba91fef6db10da348b5e2533f63f80fac457a92b3de343a508f034e66aca917" shape="plaintext"];
+  "sha256:f7eb920500be1dc0178fb3e799743595cdca347d37efa87b83e5b03428ea37ec" -> "sha256:628f746b27fa5d3976f29de1b19f497f8ffb0c7eb4bec7d47e366f52201a797f" [label=""];
+  "sha256:04187b885604d112762d71717a1346cbc4f17e131fc82857a048019e04951455" -> "sha256:55fffd2564c412df164b39efdceb4112d2866a609618efe7bb673ac661c18bfd" [label=""];
+  "sha256:628f746b27fa5d3976f29de1b19f497f8ffb0c7eb4bec7d47e366f52201a797f" -> "sha256:55fffd2564c412df164b39efdceb4112d2866a609618efe7bb673ac661c18bfd" [label=""];
+  "sha256:55fffd2564c412df164b39efdceb4112d2866a609618efe7bb673ac661c18bfd" -> "sha256:d5b113ba516595cc2bb093cf3ac02d3963edbb702c174f6f1bc439406c41c1c0" [label=""];
+  "sha256:d5b113ba516595cc2bb093cf3ac02d3963edbb702c174f6f1bc439406c41c1c0" -> "sha256:7ba91fef6db10da348b5e2533f63f80fac457a92b3de343a508f034e66aca917" [label=""];
+}
+

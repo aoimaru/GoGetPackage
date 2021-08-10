@@ -1,0 +1,52 @@
+[app/sources/179086923.Dockerfile]
+digraph {
+  "sha256:57f6260d49f2c499e3b4981497b6c2a9abe5c377157373abc2904f3a33849f13" [label="docker-image://docker.io/library/ubuntu:15.04" shape="ellipse"];
+  "sha256:1dc47be9eaabe6fc220cbad2f28666f946a841fe1875da69c324200e4e8c4463" [label="/bin/sh -c DEBIAN_FRONTEND=noninteractive apt-get update" shape="box"];
+  "sha256:085737bd5960b21fd766a6a64b1c6241c08553c9f2c821a9d4e29e9facf92b8c" [label="/bin/sh -c DEBIAN_FRONTEND=noninteractive apt-get install -y -q git autoconf build-essential sudo gperf bison flex texinfo libtool libtool-bin libncurses5-dev wget gawk libc6 python-serial libexpat-dev" shape="box"];
+  "sha256:c0f5e6ad74be0b8ec861ff28f7ae5e85d7bf119b8fe3248a942dbbb7c5f8533c" [label="/bin/sh -c useradd -d /opt/Espressif -m -s /bin/bash esp32" shape="box"];
+  "sha256:7da6d76c697e3612c51cfc632e0046692309b91735ed04da62964df94d21548c" [label="/bin/sh -c usermod -aG sudo esp32" shape="box"];
+  "sha256:aaf1a595ee8ed395db55a0a35dfd423eb908e360a09c1998ab58ac98a208c846" [label="local://context" shape="ellipse"];
+  "sha256:fcc76aa476c17f9694b6d66bff378b1729c42ac5ec781983d693cca97b18f7dc" [label="copy{src=/sudoers.txt, dest=/etc/sudoers}" shape="note"];
+  "sha256:a3a248746d5792966bcfbb5ee50f6fa96e5d3a39cb69d6c010c4e04e461a1db6" [label="/bin/sh -c chmod 440 /etc/sudoers" shape="box"];
+  "sha256:b27b06ac6a36c8669536027cdab3ae2d51447356c6010f70e495d9077dd46b93" [label="/bin/sh -c cd /opt/Espressif/ && git clone -b esp108-1.21.0 git://github.com/jcmvbkbc/crosstool-NG.git" shape="box"];
+  "sha256:51cb948bef9fb542ef53a823177d88c6106ef17b92cc5d9d6714970a4ca0dd3b" [label="/bin/sh -c cd /opt/Espressif/crosstool-NG && ./bootstrap && ./configure --prefix=`pwd` && make" shape="box"];
+  "sha256:6bbc836387024ff488f6776af1089da699ac2b37c5a18c435697a7d6e68c79c1" [label="/bin/sh -c cd /opt/Espressif/crosstool-NG && sudo make install" shape="box"];
+  "sha256:c3f8ca0b42172789dad9e85ec131136f79acd702530b71309d74d08a31965202" [label="/bin/sh -c cd /opt/Espressif/crosstool-NG && ./ct-ng xtensa-esp108-elf" shape="box"];
+  "sha256:551edd4955f60e9291e89e3786441061c37df8c74276347be8474754cfdfc778" [label="/bin/sh -c cd /opt/Espressif/crosstool-NG && ./ct-ng build" shape="box"];
+  "sha256:22112b53e06ed4f81a9e5913ab9ffa44db574bac0a61fd4510cfd9d1add59a78" [label="/bin/sh -c chmod a+rw /opt/Espressif/" shape="box"];
+  "sha256:d2542ce7b1a394b0d500168c5bddaed916c4756d8599529120103dc04bf76840" [label="/bin/sh -c mkdir /opt/Espressif/esptool32" shape="box"];
+  "sha256:9f79d7a4a6cc9a376be87296d3f7c5eebc96dc1ab4141a7c0509134ac44a7c2f" [label="copy{src=/esptool32.py, dest=/opt/Espressif/esptool32}" shape="note"];
+  "sha256:ff84ba3edd1222c430583ac25f9b2b828179d727fb7a81ff2395846e1e26a734" [label="/bin/sh -c mkdir /opt/Espressif/Workspace" shape="box"];
+  "sha256:44a3dfbfe20b8fb590f78dad8d398d39cd3972a38aeb2e4e44cb80728a88df45" [label="/bin/sh -c chmod a+rw /opt/Espressif/Workspace" shape="box"];
+  "sha256:0bea0dd188538ad5f9a296985c42f9bd2d8cba8abd0ec05d18ce944472c627ae" [label="/bin/sh -c cd /opt/Espressif/Workspace && git clone https://github.com/espressif/ESP32_RTOS_SDK.git" shape="box"];
+  "sha256:09c1231cc7956fb46d953c1ee6c2edd3073295cad42fc70ed5030844e47fa07c" [label="/bin/sh -c mkdir /opt/Espressif/Workspace/ESP32_BIN" shape="box"];
+  "sha256:81cc599f2969ec34668163c324d9ba2b9c6b5cfd9d8c74e0d80a647a240f7f54" [label="/bin/sh -c cp -R /opt/Espressif/Workspace/ESP32_RTOS_SDK/examples/project_template/ /opt/Espressif/Workspace/" shape="box"];
+  "sha256:2992040c6e4d1245067a7157262f8289d5bf380271012e32f1e698345217c548" [label="/bin/sh -c chmod u+x /opt/Espressif/Workspace/project_template/gen_misc.sh" shape="box"];
+  "sha256:2b03fc082d0bc55165f211b7b444e33c12136a02342b1b391e7d8bf093580044" [label="/bin/sh -c cd /opt/Espressif/Workspace/project_template && ./gen_misc.sh" shape="box"];
+  "sha256:b06f35a54827151b6cfdeb4e9a6364a7709cb1390fa54aabe969fc34b654bebc" [label="sha256:b06f35a54827151b6cfdeb4e9a6364a7709cb1390fa54aabe969fc34b654bebc" shape="plaintext"];
+  "sha256:57f6260d49f2c499e3b4981497b6c2a9abe5c377157373abc2904f3a33849f13" -> "sha256:1dc47be9eaabe6fc220cbad2f28666f946a841fe1875da69c324200e4e8c4463" [label=""];
+  "sha256:1dc47be9eaabe6fc220cbad2f28666f946a841fe1875da69c324200e4e8c4463" -> "sha256:085737bd5960b21fd766a6a64b1c6241c08553c9f2c821a9d4e29e9facf92b8c" [label=""];
+  "sha256:085737bd5960b21fd766a6a64b1c6241c08553c9f2c821a9d4e29e9facf92b8c" -> "sha256:c0f5e6ad74be0b8ec861ff28f7ae5e85d7bf119b8fe3248a942dbbb7c5f8533c" [label=""];
+  "sha256:c0f5e6ad74be0b8ec861ff28f7ae5e85d7bf119b8fe3248a942dbbb7c5f8533c" -> "sha256:7da6d76c697e3612c51cfc632e0046692309b91735ed04da62964df94d21548c" [label=""];
+  "sha256:7da6d76c697e3612c51cfc632e0046692309b91735ed04da62964df94d21548c" -> "sha256:fcc76aa476c17f9694b6d66bff378b1729c42ac5ec781983d693cca97b18f7dc" [label=""];
+  "sha256:aaf1a595ee8ed395db55a0a35dfd423eb908e360a09c1998ab58ac98a208c846" -> "sha256:fcc76aa476c17f9694b6d66bff378b1729c42ac5ec781983d693cca97b18f7dc" [label=""];
+  "sha256:fcc76aa476c17f9694b6d66bff378b1729c42ac5ec781983d693cca97b18f7dc" -> "sha256:a3a248746d5792966bcfbb5ee50f6fa96e5d3a39cb69d6c010c4e04e461a1db6" [label=""];
+  "sha256:a3a248746d5792966bcfbb5ee50f6fa96e5d3a39cb69d6c010c4e04e461a1db6" -> "sha256:b27b06ac6a36c8669536027cdab3ae2d51447356c6010f70e495d9077dd46b93" [label=""];
+  "sha256:b27b06ac6a36c8669536027cdab3ae2d51447356c6010f70e495d9077dd46b93" -> "sha256:51cb948bef9fb542ef53a823177d88c6106ef17b92cc5d9d6714970a4ca0dd3b" [label=""];
+  "sha256:51cb948bef9fb542ef53a823177d88c6106ef17b92cc5d9d6714970a4ca0dd3b" -> "sha256:6bbc836387024ff488f6776af1089da699ac2b37c5a18c435697a7d6e68c79c1" [label=""];
+  "sha256:6bbc836387024ff488f6776af1089da699ac2b37c5a18c435697a7d6e68c79c1" -> "sha256:c3f8ca0b42172789dad9e85ec131136f79acd702530b71309d74d08a31965202" [label=""];
+  "sha256:c3f8ca0b42172789dad9e85ec131136f79acd702530b71309d74d08a31965202" -> "sha256:551edd4955f60e9291e89e3786441061c37df8c74276347be8474754cfdfc778" [label=""];
+  "sha256:551edd4955f60e9291e89e3786441061c37df8c74276347be8474754cfdfc778" -> "sha256:22112b53e06ed4f81a9e5913ab9ffa44db574bac0a61fd4510cfd9d1add59a78" [label=""];
+  "sha256:22112b53e06ed4f81a9e5913ab9ffa44db574bac0a61fd4510cfd9d1add59a78" -> "sha256:d2542ce7b1a394b0d500168c5bddaed916c4756d8599529120103dc04bf76840" [label=""];
+  "sha256:d2542ce7b1a394b0d500168c5bddaed916c4756d8599529120103dc04bf76840" -> "sha256:9f79d7a4a6cc9a376be87296d3f7c5eebc96dc1ab4141a7c0509134ac44a7c2f" [label=""];
+  "sha256:aaf1a595ee8ed395db55a0a35dfd423eb908e360a09c1998ab58ac98a208c846" -> "sha256:9f79d7a4a6cc9a376be87296d3f7c5eebc96dc1ab4141a7c0509134ac44a7c2f" [label=""];
+  "sha256:9f79d7a4a6cc9a376be87296d3f7c5eebc96dc1ab4141a7c0509134ac44a7c2f" -> "sha256:ff84ba3edd1222c430583ac25f9b2b828179d727fb7a81ff2395846e1e26a734" [label=""];
+  "sha256:ff84ba3edd1222c430583ac25f9b2b828179d727fb7a81ff2395846e1e26a734" -> "sha256:44a3dfbfe20b8fb590f78dad8d398d39cd3972a38aeb2e4e44cb80728a88df45" [label=""];
+  "sha256:44a3dfbfe20b8fb590f78dad8d398d39cd3972a38aeb2e4e44cb80728a88df45" -> "sha256:0bea0dd188538ad5f9a296985c42f9bd2d8cba8abd0ec05d18ce944472c627ae" [label=""];
+  "sha256:0bea0dd188538ad5f9a296985c42f9bd2d8cba8abd0ec05d18ce944472c627ae" -> "sha256:09c1231cc7956fb46d953c1ee6c2edd3073295cad42fc70ed5030844e47fa07c" [label=""];
+  "sha256:09c1231cc7956fb46d953c1ee6c2edd3073295cad42fc70ed5030844e47fa07c" -> "sha256:81cc599f2969ec34668163c324d9ba2b9c6b5cfd9d8c74e0d80a647a240f7f54" [label=""];
+  "sha256:81cc599f2969ec34668163c324d9ba2b9c6b5cfd9d8c74e0d80a647a240f7f54" -> "sha256:2992040c6e4d1245067a7157262f8289d5bf380271012e32f1e698345217c548" [label=""];
+  "sha256:2992040c6e4d1245067a7157262f8289d5bf380271012e32f1e698345217c548" -> "sha256:2b03fc082d0bc55165f211b7b444e33c12136a02342b1b391e7d8bf093580044" [label=""];
+  "sha256:2b03fc082d0bc55165f211b7b444e33c12136a02342b1b391e7d8bf093580044" -> "sha256:b06f35a54827151b6cfdeb4e9a6364a7709cb1390fa54aabe969fc34b654bebc" [label=""];
+}
+

@@ -1,0 +1,58 @@
+[app/sources/250261895.Dockerfile]
+digraph {
+  "sha256:931a1c72c3e0943f8ae3bad2d6c2c0d04efc9031392f7574cafc331814fa690d" [label="docker-image://docker.io/library/debian:stretch" shape="ellipse"];
+  "sha256:0640a50f7546ddc9de5b18f95b42e119087912d98d88e98451a2bee23187897f" [label="/bin/sh -c echo \"deb http://ftp.de.debian.org/debian/ stretch main non-free contrib\" > /etc/apt/sources.list &&   echo \"deb-src http://ftp.de.debian.org/debian/ stretch main non-free contrib\" >> /etc/apt/sources.list &&   echo \"deb http://security.debian.org/ stretch/updates main contrib non-free\" >> /etc/apt/sources.list &&   echo \"deb-src http://security.debian.org/ stretch/updates main contrib non-free\" >> /etc/apt/sources.list &&   apt-get -qq update && apt-get -qqy upgrade" shape="box"];
+  "sha256:56ed0aff747a6fc549b77dcee193ff575acfb9d656213dd57b261f6855dfce25" [label="/bin/sh -c apt-get -yqq install   apt-utils   build-essential   debconf-utils   debconf   mysql-client   locales   curl   wget   unzip   patch   rsync   vim   nano   openssh-client   git   bash-completion   locales   libjpeg-turbo-progs libjpeg-progs   pngcrush optipng" shape="box"];
+  "sha256:cd9defc0e7a224d795a7f9efcf2300f58613ae91f5f93d4b9c2386bd98ed8452" [label="/bin/sh -c sed -i -e \"s/# $LOCALE/$LOCALE/\" /etc/locale.gen &&   echo \"LANG=$LOCALE\">/etc/default/locale &&   dpkg-reconfigure --frontend=noninteractive locales &&   update-locale LANG=$LOCALE" shape="box"];
+  "sha256:80dc917a2cf4c682969173d43d2be0e1734da861a8967a581149489c995e0d19" [label="/bin/sh -c gotpl_url=\"https://github.com/wodby/gotpl/releases/download/${GOTPL_VER}/gotpl-linux-amd64-${GOTPL_VER}.tar.gz\";   wget -qO- \"${gotpl_url}\" | tar xz -C /usr/local/bin;" shape="box"];
+  "sha256:eebbe005a881fdcd9d02b32ae095aa9185aab4643ea4f00814917ecbef81944d" [label="/bin/sh -c apt-get -yqq install apt-transport-https lsb-release ca-certificates &&   wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg &&   echo \"deb https://packages.sury.org/php/ $(lsb_release -sc) main\" > /etc/apt/sources.list.d/php.list &&   apt-get -qq update && apt-get -qqy upgrade" shape="box"];
+  "sha256:06408c63242e6654f7ed77461bf590b5c163897b748ae96d240e53f6cebb7fd8" [label="/bin/sh -c apt-get -yqq install   php7.2 \t\t  php7.2-bcmath     php7.2-bz2     php7.2-curl \t\t  php7.2-dev \t\t  php7.2-gd \t\t  php7.2-dom\t\t  php7.2-imap       php7.2-imagick    php7.2-intl \t\t  php7.2-json \t\t  php7.2-ldap \t\t  php7.2-mbstring\t  php7.2-mysql\t\t  php7.2-oauth\t\t  php7.2-odbc\t\t  php7.2-uploadprogress   php7.2-ssh2\t\t  php7.2-xml\t\t  php7.2-zip\t\t  php7.2-solr\t\t  php7.2-apcu\t\t  php7.2-opcache\t  php7.2-memcache \t  php7.2-memcached \t  php7.2-redis\t\t  php7.2-xdebug\t\t  libapache2-mod-php7.2" shape="box"];
+  "sha256:319bea1234bc5c58ab1287b72d29bdd555abfa74a6fa53caee26ab2eae1b081c" [label="/bin/sh -c cd /tmp &&   wget https://github.com/Yaoguais/phpng-xhprof/archive/master.zip &&   unzip master.zip &&   cd phpng-xhprof-master &&   phpize7.2 &&   ./configure --with-php-config=/usr/bin/php-config7.2 &&   make && make install &&   mv /usr/lib/php/20170718/phpng_xhprof.so /usr/lib/php/20170718/xhprof.so  &&   echo \"extension=xhprof.so\" > /etc/php/7.2/mods-available/xhprof.ini &&   echo \"xhprof.output_dir=/var/www/xhprof\" >> /etc/php/7.2/mods-available/xhprof.ini" shape="box"];
+  "sha256:3bba9cdc1519b6dd9ea406027d29df47ed98e06e815251276b38a2295706e373" [label="/bin/sh -c echo \"extension=apcu.so\" > /etc/php/7.2/mods-available/apcu_bc.ini &&   echo \"extension=apc.so\" >> /etc/php/7.2/mods-available/apcu_bc.ini" shape="box"];
+  "sha256:0b5b4dc41c6a3d434335b9f7f4f5e50c02629c3556cfebdfd4af00a93fe0a88f" [label="/bin/sh -c apt-get install -y ssmtp" shape="box"];
+  "sha256:ecaaa27355b947dfe856a33e2e63251650baa7369c7b43e6246026b48d5fe13c" [label="/bin/sh -c apt-get -yqq install apache2" shape="box"];
+  "sha256:ef0ffc549c8f3d7e2ab15a3b2001a252c854ba06f1f791e87b676a1f7b06b8fc" [label="/bin/sh -c phpenmod uploadprogress imagick redis solr" shape="box"];
+  "sha256:435f0cb7deb7814e409332f56a29394a9b3fe0116a0d635395c486d19aeef26f" [label="/bin/sh -c phpdismod apcu apcu_bc opcache xdebug xhprof" shape="box"];
+  "sha256:ae6161afe3c49619fed4700ddfed9847e60718f8108c39b692e517fc4d47ab51" [label="/bin/sh -c a2dismod   mpm_event  cgi # mpm_worker enabled." shape="box"];
+  "sha256:ccaec8ce72d1292389897c4b1cd1758ee13267d4bf99eac1ee3b3092f84cabf4" [label="/bin/sh -c a2enmod\t\t  access_compat\t\t  actions\t\t  alias\t\t\t  auth_basic\t\t  authn_core\t\t  authn_file\t\t  authz_core\t\t  authz_groupfile\t  authz_host \t\t  authz_user\t\t  autoindex\t\t  dir\t\t\t  env \t\t\t  expires \t\t  filter \t\t  headers\t\t  mime \t\t\t  negotiation \t\t  php7.2 \t\t  mpm_prefork \t\t  reqtimeout \t\t  rewrite \t\t  setenvif \t\t  status \t\t  ssl" shape="box"];
+  "sha256:c738a720782145fe46897aec0c252522e9f71c1b17e08a8e90d2f694591399e9" [label="/bin/sh -c sed -i '/<Directory \\/var\\/www\\/>/,/<\\/Directory>/ s/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf" shape="box"];
+  "sha256:7822dc7c51d15298647a7c16d7a626875c6d1349350ed086bef0a2fb49796e3b" [label="/bin/sh -c curl -sS https://getcomposer.org/installer | php &&   mv composer.phar /usr/local/bin/composer &&   composer global require \"hirak/prestissimo:^0.3\"" shape="box"];
+  "sha256:7a6daee5420df4737839ca26ad4d6236574aad5e3c42a53aefac51d6923a8447" [label="/bin/sh -c composer global require drush/drush &&   ~/.composer/vendor/bin/drush init" shape="box"];
+  "sha256:5fdf7e903818e6d960c0d3aa8986a5f1e152be8909ac42e16fa4d27ed4ebb20f" [label="/bin/sh -c curl https://drupalconsole.com/installer -L -o drupal.phar &&   mv drupal.phar /usr/local/bin/drupal &&   chmod +x /usr/local/bin/drupal  &&   drupal self-update" shape="box"];
+  "sha256:a8ed00b4c6dee7ae1ea953046b05405232234bdb7530038e3cdd78dbf9677024" [label="/bin/sh -c echo \". /usr/share/bash-completion/bash_completion\" >> ~/.bashrc && echo \"alias ll='ls -lahs'\" >> ~/.bashrc" shape="box"];
+  "sha256:9ae6676578490e428c57398b784b4af2b2fcc59c46023810ecf8d265dae0f1d6" [label="/bin/sh -c apt-get -q autoclean &&   rm -rf /var/lib/apt/lists/*" shape="box"];
+  "sha256:bbb45f84ce9e4f9aec85e5970cf89f11dd5004dfff8f01d817c4371efc2d0542" [label="/bin/sh -c groupadd -g $UID $GID ;   useradd -m -u $UID -g $GID -s /bin/bash $UNAME ;   usermod -aG www-data $UNAME;   echo \". /usr/share/bash-completion/bash_completion\" >> ~/.bashrc && echo \"alias ll='ls -lahs'\" >> /home/$UNAME/.bashrc" shape="box"];
+  "sha256:bbf252ababa47456d87ad9c8c8a4dd103cf4e68600d26b0fc990f36208b64ad1" [label="mkdir{path=/var/www/html}" shape="note"];
+  "sha256:5b8ec9cafea7ea57f9e335f2b49069a349d34e1d767ad42ae355bae20176dbec" [label="local://context" shape="ellipse"];
+  "sha256:e265da76a1c57050478ac9e433a24a9011e6ff5bb93354d1723857ae2250b7be" [label="copy{src=/templates, dest=/etc/gotpl/}" shape="note"];
+  "sha256:b15f682679bb2cc85ca414ffc7a0e30781ca0e1d2ec2969827bc93e8941ddb2a" [label="copy{src=/scripts/apache2-foreground, dest=/usr/bin/}" shape="note"];
+  "sha256:be3007c221571b65b0c79a60703eee446aa4c07306e44a56975ac4eff197f019" [label="sha256:be3007c221571b65b0c79a60703eee446aa4c07306e44a56975ac4eff197f019" shape="plaintext"];
+  "sha256:931a1c72c3e0943f8ae3bad2d6c2c0d04efc9031392f7574cafc331814fa690d" -> "sha256:0640a50f7546ddc9de5b18f95b42e119087912d98d88e98451a2bee23187897f" [label=""];
+  "sha256:0640a50f7546ddc9de5b18f95b42e119087912d98d88e98451a2bee23187897f" -> "sha256:56ed0aff747a6fc549b77dcee193ff575acfb9d656213dd57b261f6855dfce25" [label=""];
+  "sha256:56ed0aff747a6fc549b77dcee193ff575acfb9d656213dd57b261f6855dfce25" -> "sha256:cd9defc0e7a224d795a7f9efcf2300f58613ae91f5f93d4b9c2386bd98ed8452" [label=""];
+  "sha256:cd9defc0e7a224d795a7f9efcf2300f58613ae91f5f93d4b9c2386bd98ed8452" -> "sha256:80dc917a2cf4c682969173d43d2be0e1734da861a8967a581149489c995e0d19" [label=""];
+  "sha256:80dc917a2cf4c682969173d43d2be0e1734da861a8967a581149489c995e0d19" -> "sha256:eebbe005a881fdcd9d02b32ae095aa9185aab4643ea4f00814917ecbef81944d" [label=""];
+  "sha256:eebbe005a881fdcd9d02b32ae095aa9185aab4643ea4f00814917ecbef81944d" -> "sha256:06408c63242e6654f7ed77461bf590b5c163897b748ae96d240e53f6cebb7fd8" [label=""];
+  "sha256:06408c63242e6654f7ed77461bf590b5c163897b748ae96d240e53f6cebb7fd8" -> "sha256:319bea1234bc5c58ab1287b72d29bdd555abfa74a6fa53caee26ab2eae1b081c" [label=""];
+  "sha256:319bea1234bc5c58ab1287b72d29bdd555abfa74a6fa53caee26ab2eae1b081c" -> "sha256:3bba9cdc1519b6dd9ea406027d29df47ed98e06e815251276b38a2295706e373" [label=""];
+  "sha256:3bba9cdc1519b6dd9ea406027d29df47ed98e06e815251276b38a2295706e373" -> "sha256:0b5b4dc41c6a3d434335b9f7f4f5e50c02629c3556cfebdfd4af00a93fe0a88f" [label=""];
+  "sha256:0b5b4dc41c6a3d434335b9f7f4f5e50c02629c3556cfebdfd4af00a93fe0a88f" -> "sha256:ecaaa27355b947dfe856a33e2e63251650baa7369c7b43e6246026b48d5fe13c" [label=""];
+  "sha256:ecaaa27355b947dfe856a33e2e63251650baa7369c7b43e6246026b48d5fe13c" -> "sha256:ef0ffc549c8f3d7e2ab15a3b2001a252c854ba06f1f791e87b676a1f7b06b8fc" [label=""];
+  "sha256:ef0ffc549c8f3d7e2ab15a3b2001a252c854ba06f1f791e87b676a1f7b06b8fc" -> "sha256:435f0cb7deb7814e409332f56a29394a9b3fe0116a0d635395c486d19aeef26f" [label=""];
+  "sha256:435f0cb7deb7814e409332f56a29394a9b3fe0116a0d635395c486d19aeef26f" -> "sha256:ae6161afe3c49619fed4700ddfed9847e60718f8108c39b692e517fc4d47ab51" [label=""];
+  "sha256:ae6161afe3c49619fed4700ddfed9847e60718f8108c39b692e517fc4d47ab51" -> "sha256:ccaec8ce72d1292389897c4b1cd1758ee13267d4bf99eac1ee3b3092f84cabf4" [label=""];
+  "sha256:ccaec8ce72d1292389897c4b1cd1758ee13267d4bf99eac1ee3b3092f84cabf4" -> "sha256:c738a720782145fe46897aec0c252522e9f71c1b17e08a8e90d2f694591399e9" [label=""];
+  "sha256:c738a720782145fe46897aec0c252522e9f71c1b17e08a8e90d2f694591399e9" -> "sha256:7822dc7c51d15298647a7c16d7a626875c6d1349350ed086bef0a2fb49796e3b" [label=""];
+  "sha256:7822dc7c51d15298647a7c16d7a626875c6d1349350ed086bef0a2fb49796e3b" -> "sha256:7a6daee5420df4737839ca26ad4d6236574aad5e3c42a53aefac51d6923a8447" [label=""];
+  "sha256:7a6daee5420df4737839ca26ad4d6236574aad5e3c42a53aefac51d6923a8447" -> "sha256:5fdf7e903818e6d960c0d3aa8986a5f1e152be8909ac42e16fa4d27ed4ebb20f" [label=""];
+  "sha256:5fdf7e903818e6d960c0d3aa8986a5f1e152be8909ac42e16fa4d27ed4ebb20f" -> "sha256:a8ed00b4c6dee7ae1ea953046b05405232234bdb7530038e3cdd78dbf9677024" [label=""];
+  "sha256:a8ed00b4c6dee7ae1ea953046b05405232234bdb7530038e3cdd78dbf9677024" -> "sha256:9ae6676578490e428c57398b784b4af2b2fcc59c46023810ecf8d265dae0f1d6" [label=""];
+  "sha256:9ae6676578490e428c57398b784b4af2b2fcc59c46023810ecf8d265dae0f1d6" -> "sha256:bbb45f84ce9e4f9aec85e5970cf89f11dd5004dfff8f01d817c4371efc2d0542" [label=""];
+  "sha256:bbb45f84ce9e4f9aec85e5970cf89f11dd5004dfff8f01d817c4371efc2d0542" -> "sha256:bbf252ababa47456d87ad9c8c8a4dd103cf4e68600d26b0fc990f36208b64ad1" [label=""];
+  "sha256:bbf252ababa47456d87ad9c8c8a4dd103cf4e68600d26b0fc990f36208b64ad1" -> "sha256:e265da76a1c57050478ac9e433a24a9011e6ff5bb93354d1723857ae2250b7be" [label=""];
+  "sha256:5b8ec9cafea7ea57f9e335f2b49069a349d34e1d767ad42ae355bae20176dbec" -> "sha256:e265da76a1c57050478ac9e433a24a9011e6ff5bb93354d1723857ae2250b7be" [label=""];
+  "sha256:e265da76a1c57050478ac9e433a24a9011e6ff5bb93354d1723857ae2250b7be" -> "sha256:b15f682679bb2cc85ca414ffc7a0e30781ca0e1d2ec2969827bc93e8941ddb2a" [label=""];
+  "sha256:5b8ec9cafea7ea57f9e335f2b49069a349d34e1d767ad42ae355bae20176dbec" -> "sha256:b15f682679bb2cc85ca414ffc7a0e30781ca0e1d2ec2969827bc93e8941ddb2a" [label=""];
+  "sha256:b15f682679bb2cc85ca414ffc7a0e30781ca0e1d2ec2969827bc93e8941ddb2a" -> "sha256:be3007c221571b65b0c79a60703eee446aa4c07306e44a56975ac4eff197f019" [label=""];
+}
+

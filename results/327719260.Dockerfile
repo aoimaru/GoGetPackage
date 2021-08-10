@@ -1,0 +1,25 @@
+[app/sources/327719260.Dockerfile]
+digraph {
+  "sha256:7912b197187b03b65bd3365adb49e5891af3a2ab2b85ec638f8040c56fa287f8" [label="docker-image://docker.io/library/fedora:30" shape="ellipse"];
+  "sha256:aa60ccab4d1cfe421fa9457097d4ca8526f75261a20e93862dca628297f0b190" [label="/bin/sh -c (cd /lib/systemd/system/sysinit.target.wants/; for i in *; do [ $i == systemd-tmpfiles-setup.service ] || rm -f $i; done); rm -f /lib/systemd/system/multi-user.target.wants/*; rm -f /etc/systemd/system/*.wants/*; rm -f /lib/systemd/system/local-fs.target.wants/*; rm -f /lib/systemd/system/sockets.target.wants/*udev*; rm -f /lib/systemd/system/sockets.target.wants/*initctl*; rm -f /lib/systemd/system/basic.target.wants/*; rm -f /lib/systemd/system/anaconda.target.wants/*;" shape="box"];
+  "sha256:13763aa59ff6ebee8c6a676f987c2234fefb06a6823be72380594906ddf1ed23" [label="/bin/sh -c dnf clean all &&     dnf -y upgrade &&     dnf -y --allowerasing install coreutils &&     dnf -y --setopt=install_weak_deps=false install     acl     bzip2     file     findutils     gcc     git     glibc-locale-source     iproute     libffi     libffi-devel     make     mariadb-server     openssh-clients-7.9p1     openssh-server-7.9p1     openssl-devel     pass     procps     python3-cryptography     python3-dbus     python3-devel     python3-dnf     python3-httplib2     python3-jinja2     python3-lxml     python3-mock     python3-mysql     python3-nose     python3-passlib     python3-pip     python3-PyYAML     python3-setuptools     python3-virtualenv     rpm-build     rubygems     rubygem-rdoc     sshpass     subversion     sudo     tar     unzip     which     zip     &&     dnf clean all" shape="box"];
+  "sha256:f8d60c5ef2cfe3895ac5d0509b5bb7bf04635486a524afd21d4c2d8b6ce746ad" [label="/bin/sh -c localedef --quiet -c -i en_US -f UTF-8 en_US.UTF-8" shape="box"];
+  "sha256:3dca62b66328fe0acd7c1b73d364a52b7cdb244555c2ddad508ceb01a0220b75" [label="/bin/sh -c /usr/bin/sed -i -e 's/^\\(Defaults\\s*requiretty\\)/#--- \\1/'  /etc/sudoers" shape="box"];
+  "sha256:344ae71b133652e52400a6189ce981f7634775dd1ff41592e4705366981cd56e" [label="/bin/sh -c mkdir /etc/ansible/" shape="box"];
+  "sha256:5b11ae9272ea357102ab0857952261017b494f78fb67652ef3059004be13ee76" [label="/bin/sh -c /usr/bin/echo -e '[local]\\nlocalhost ansible_connection=local' > /etc/ansible/hosts" shape="box"];
+  "sha256:f2cb72393644e4dfc9705b5cb3e6badc4d478c6009fe603ab0bf340687e34cc5" [label="/bin/sh -c ssh-keygen -q -t dsa -N '' -f /etc/ssh/ssh_host_dsa_key &&     ssh-keygen -q -t rsa -N '' -f /etc/ssh/ssh_host_rsa_key &&     ssh-keygen -m PEM -q -t rsa -N '' -f /root/.ssh/id_rsa &&     cp /root/.ssh/id_rsa.pub /root/.ssh/authorized_keys &&     for key in /etc/ssh/ssh_host_*_key.pub; do echo \"localhost $(cat ${key})\" >> /root/.ssh/known_hosts; done" shape="box"];
+  "sha256:a6631043d77e08b34594818f6591eb417452656fa1a9b6a6e7cbf99ceeb5b462" [label="/bin/sh -c dnf -y update     openssh-clients     openssh-server     &&     dnf clean all" shape="box"];
+  "sha256:ff11b449fb3634d5c872683383755ccdb5b9b3aee120d7672f7052a0db09650f" [label="/bin/sh -c pip3 install coverage junit-xml" shape="box"];
+  "sha256:a48fb2b1a2aed4da7aa2b22b81d1b74601e35fbc850edb0a293ef718031409e5" [label="sha256:a48fb2b1a2aed4da7aa2b22b81d1b74601e35fbc850edb0a293ef718031409e5" shape="plaintext"];
+  "sha256:7912b197187b03b65bd3365adb49e5891af3a2ab2b85ec638f8040c56fa287f8" -> "sha256:aa60ccab4d1cfe421fa9457097d4ca8526f75261a20e93862dca628297f0b190" [label=""];
+  "sha256:aa60ccab4d1cfe421fa9457097d4ca8526f75261a20e93862dca628297f0b190" -> "sha256:13763aa59ff6ebee8c6a676f987c2234fefb06a6823be72380594906ddf1ed23" [label=""];
+  "sha256:13763aa59ff6ebee8c6a676f987c2234fefb06a6823be72380594906ddf1ed23" -> "sha256:f8d60c5ef2cfe3895ac5d0509b5bb7bf04635486a524afd21d4c2d8b6ce746ad" [label=""];
+  "sha256:f8d60c5ef2cfe3895ac5d0509b5bb7bf04635486a524afd21d4c2d8b6ce746ad" -> "sha256:3dca62b66328fe0acd7c1b73d364a52b7cdb244555c2ddad508ceb01a0220b75" [label=""];
+  "sha256:3dca62b66328fe0acd7c1b73d364a52b7cdb244555c2ddad508ceb01a0220b75" -> "sha256:344ae71b133652e52400a6189ce981f7634775dd1ff41592e4705366981cd56e" [label=""];
+  "sha256:344ae71b133652e52400a6189ce981f7634775dd1ff41592e4705366981cd56e" -> "sha256:5b11ae9272ea357102ab0857952261017b494f78fb67652ef3059004be13ee76" [label=""];
+  "sha256:5b11ae9272ea357102ab0857952261017b494f78fb67652ef3059004be13ee76" -> "sha256:f2cb72393644e4dfc9705b5cb3e6badc4d478c6009fe603ab0bf340687e34cc5" [label=""];
+  "sha256:f2cb72393644e4dfc9705b5cb3e6badc4d478c6009fe603ab0bf340687e34cc5" -> "sha256:a6631043d77e08b34594818f6591eb417452656fa1a9b6a6e7cbf99ceeb5b462" [label=""];
+  "sha256:a6631043d77e08b34594818f6591eb417452656fa1a9b6a6e7cbf99ceeb5b462" -> "sha256:ff11b449fb3634d5c872683383755ccdb5b9b3aee120d7672f7052a0db09650f" [label=""];
+  "sha256:ff11b449fb3634d5c872683383755ccdb5b9b3aee120d7672f7052a0db09650f" -> "sha256:a48fb2b1a2aed4da7aa2b22b81d1b74601e35fbc850edb0a293ef718031409e5" [label=""];
+}
+

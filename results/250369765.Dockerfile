@@ -1,0 +1,19 @@
+[app/sources/250369765.Dockerfile]
+digraph {
+  "sha256:665ba8b2cdc0cb0200e2a42a6b3c0f8f684089f4cd1b81494fbb9805879120f7" [label="docker-image://docker.io/library/alpine:latest" shape="ellipse"];
+  "sha256:6546be74b227fa13eec41a7075f7594b727dfe10ecce7646c2958e0fdd27f21a" [label="local://context" shape="ellipse"];
+  "sha256:525a2eed4f5fabc38f61c215b7f338922a076b0ffd62c2793c3c1e6c42562e3d" [label="copy{src=/*.patch, dest=/}" shape="note"];
+  "sha256:a0af5825589a5f2f45128c7bf8a0e363b41c13cf3d0bc551a018331e3f7614b1" [label="/bin/sh -c apk add --no-cache --virtual .build-deps \t\tbison \t\tflex \t\tfontconfig-dev \t\tfreetype-dev \t\tg++ \t\tgcc \t\tgit \t\tgperf \t\ticu-dev \t\tlibc-dev \t\tlibjpeg-turbo-dev \t\tlibpng-dev \t\tlibx11-dev \t\tlibxext-dev \t\tlinux-headers \t\tmake \t\topenssl-dev \t\tpaxctl \t\tperl \t\tpython \t\truby \t\tsqlite-dev \t&& mkdir -p /usr/src \t&& cd /usr/src \t&& git clone git://github.com/ariya/phantomjs.git \t&& cd phantomjs \t&& git checkout $PHANTOMJS_VERSION \t&& git submodule init \t&& git submodule update \t&& for i in qtbase qtwebkit; do \t\tcd /usr/src/phantomjs/src/qt/$i \t\t\t&& patch -p1 -i /$i*.patch || break; \t\tdone \t&& cd /usr/src/phantomjs \t&& patch -p1 -i /build.patch" shape="box"];
+  "sha256:cca48fce2c8e3b8892f044d4fc1c52d6b3b0068a2496c2abd6d3e15eb6318e71" [label="/bin/sh -c cd /usr/src/phantomjs   && python build.py --confirm \t&& paxctl -cm bin/phantomjs \t&& strip --strip-all bin/phantomjs \t&& install -m755 bin/phantomjs /usr/bin/phantomjs \t&& runDeps=\"$( \t\tscanelf --needed --nobanner /usr/bin/phantomjs \t\t\t| awk '{ gsub(/,/, \"\\nso:\", $2); print \"so:\" $2 }' \t\t\t| sort -u \t\t\t| xargs -r apk info --installed \t\t\t| sort -u \t)\" \t&& apk add --virtual .phantomjs-rundeps $runDeps \t&& apk del .build-deps \t&& rm -r /*.patch /usr/src" shape="box"];
+  "sha256:132513a42da2468cc81bcd62a4bebfde6f18b57e838c80afe6094cf5ac8ffd6a" [label="/bin/sh -c apk add patchelf --update-cache --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ --allow-untrusted" shape="box"];
+  "sha256:6d681b583d830a978ea4b0b6001682e6b8c043f7f2e680a317e3191c3c4b42b3" [label="/bin/sh -c cd /root   && mkdir -p phantomjs/lib   && cp /usr/bin/phantomjs phantomjs/   && cd phantomjs     && for lib in `ldd phantomjs       | awk '{if(substr($3,0,1)==\"/\") print $1,$3}'       | cut -d' ' -f2`; do         cp $lib lib/`basename $lib`;       done     && patchelf --set-rpath '$ORIGIN/lib' phantomjs   && cd /root   && tar cvf phantomjs.tar phantomjs   && bzip2 -9 phantomjs.tar" shape="box"];
+  "sha256:0545cd1ffdd84f51df8357c9356d697685538aa68b77392a22eca935e80f3900" [label="sha256:0545cd1ffdd84f51df8357c9356d697685538aa68b77392a22eca935e80f3900" shape="plaintext"];
+  "sha256:665ba8b2cdc0cb0200e2a42a6b3c0f8f684089f4cd1b81494fbb9805879120f7" -> "sha256:525a2eed4f5fabc38f61c215b7f338922a076b0ffd62c2793c3c1e6c42562e3d" [label=""];
+  "sha256:6546be74b227fa13eec41a7075f7594b727dfe10ecce7646c2958e0fdd27f21a" -> "sha256:525a2eed4f5fabc38f61c215b7f338922a076b0ffd62c2793c3c1e6c42562e3d" [label=""];
+  "sha256:525a2eed4f5fabc38f61c215b7f338922a076b0ffd62c2793c3c1e6c42562e3d" -> "sha256:a0af5825589a5f2f45128c7bf8a0e363b41c13cf3d0bc551a018331e3f7614b1" [label=""];
+  "sha256:a0af5825589a5f2f45128c7bf8a0e363b41c13cf3d0bc551a018331e3f7614b1" -> "sha256:cca48fce2c8e3b8892f044d4fc1c52d6b3b0068a2496c2abd6d3e15eb6318e71" [label=""];
+  "sha256:cca48fce2c8e3b8892f044d4fc1c52d6b3b0068a2496c2abd6d3e15eb6318e71" -> "sha256:132513a42da2468cc81bcd62a4bebfde6f18b57e838c80afe6094cf5ac8ffd6a" [label=""];
+  "sha256:132513a42da2468cc81bcd62a4bebfde6f18b57e838c80afe6094cf5ac8ffd6a" -> "sha256:6d681b583d830a978ea4b0b6001682e6b8c043f7f2e680a317e3191c3c4b42b3" [label=""];
+  "sha256:6d681b583d830a978ea4b0b6001682e6b8c043f7f2e680a317e3191c3c4b42b3" -> "sha256:0545cd1ffdd84f51df8357c9356d697685538aa68b77392a22eca935e80f3900" [label=""];
+}
+

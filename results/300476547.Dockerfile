@@ -1,0 +1,7 @@
+[app/sources/300476547.Dockerfile]
+digraph {
+  "sha256:cdc31ac52c635bfe4866d9431deca248108bd6bcc958f08d18c34e75490ec00e" [label="docker-image://quay.io/calico/kube-controllers:v3.6.1-2-g15ebfd7-amd64@sha256:b8b1e98623fad6cf5954556124d0cb487436b62608225927c04d1b0c104a774f" shape="ellipse"];
+  "sha256:cc57b4b794bb69007c04cd38471278792e2b54d4968d142baa31986a5a16329c" [label="sha256:cc57b4b794bb69007c04cd38471278792e2b54d4968d142baa31986a5a16329c" shape="plaintext"];
+  "sha256:cdc31ac52c635bfe4866d9431deca248108bd6bcc958f08d18c34e75490ec00e" -> "sha256:cc57b4b794bb69007c04cd38471278792e2b54d4968d142baa31986a5a16329c" [label=""];
+}
+

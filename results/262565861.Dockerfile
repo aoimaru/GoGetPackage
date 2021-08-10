@@ -1,0 +1,50 @@
+[app/sources/262565861.Dockerfile]
+digraph {
+  "sha256:194bb469540c41a8eabf6b60a12f8ded23da52125a8bafa9fac03ae56521969e" [label="docker-image://mcr.microsoft.com/windows/servercore:ltsc2019" shape="ellipse"];
+  "sha256:f73a3a377c8f16954323c3340f55ed33ebdb39c10918fe55a33b86a7823c2c2b" [label="mkdir{path=/C:\\save-prospect-handler}" shape="note"];
+  "sha256:c00409526a1d141de3dd5fdd0b653a780bc4411f9a5349efbef84108a8ec9353" [label="local://context" shape="ellipse"];
+  "sha256:f13a6456322be81c6a624542f8b283fba5d20b9dc1d9d0ec67735279a90e6718" [label="copy{src=/.\\docker\\prod-config\\save-handler\\startup.ps1, dest=/C:\\save-prospect-handler/}" shape="note"];
+  "sha256:9e422e2f8e972d15ef2ca76a55a1a3b86ba84a4735e31b4b8bd1edad0ef8438a" [label="docker-image://mcr.microsoft.com/dotnet/framework/sdk:4.7.2-20190312-windowsservercore-ltsc2019@sha256:60886eea753c9ceebcc00dac4e40e91340621cf9d0c644c1ddd233201e2bf91d" shape="ellipse"];
+  "sha256:31398b9ede0593991707c5971140fd56fced6ba04865a7f24d590fd6fccfd9aa" [label="mkdir{path=/C:\\src}" shape="note"];
+  "sha256:700a20b167a924c39d6bc86c732b741704b8a554a939013dd8d61a2bb0d5b54f" [label="copy{src=/src\\SignUp.sln, dest=/C:\\src/}" shape="note"];
+  "sha256:8592b3c3d9041aa96263c72fbf25f6bd8fdadd9a29a16d4123d1544bb11952c1" [label="copy{src=/src\\SignUp.Core\\SignUp.Core.csproj, dest=/C:\\src/.\\SignUp.Core\\}" shape="note"];
+  "sha256:7fc91280f80607784e4260723f659ff12eb2e80bb94c860e7847bb816ebeefa3" [label="copy{src=/src\\SignUp.Entities\\SignUp.Entities.csproj, dest=/C:\\src/.\\SignUp.Entities\\}" shape="note"];
+  "sha256:4a32babfc2db8b7b0261daf84cf0ca9fd214d486ca523baff026285b17cb2571" [label="copy{src=/src\\SignUp.Messaging\\SignUp.Messaging.csproj, dest=/C:\\src/.\\SignUp.Messaging\\}" shape="note"];
+  "sha256:4716b66c0c12ad62a432a7038de80288cbd392fc4c5c2de5583e184205540e3f" [label="copy{src=/src\\SignUp.Model\\SignUp.Model.csproj, dest=/C:\\src/.\\SignUp.Model\\}" shape="note"];
+  "sha256:7fd04360f4aea9c775596c03a6e0d4565dcff1e2925ba50f8b6de130a46d9820" [label="copy{src=/src\\SignUp.Model\\packages.config, dest=/C:\\src/.\\SignUp.Model\\}" shape="note"];
+  "sha256:183dc6a0eaf83eb479ec3f03f6e9303b2123f4ba66e2fae5e7631e46d5346652" [label="copy{src=/src\\SignUp.MessageHandlers.SaveProspect\\SignUp.MessageHandlers.SaveProspect.csproj, dest=/C:\\src/.\\SignUp.MessageHandlers.SaveProspect\\}" shape="note"];
+  "sha256:e725ad75d02d6df91ef7e3e148ceb969c4cc9817b81fa1c5c27012681fb4ec50" [label="copy{src=/src\\SignUp.MessageHandlers.SaveProspect\\packages.config, dest=/C:\\src/.\\SignUp.MessageHandlers.SaveProspect\\}" shape="note"];
+  "sha256:00f7ea5c3900af1e20910eab9c50598c7838b425b4768c8055c222a7a04d4797" [label="powershell -Command $ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue'; nuget restore .\\SignUp.sln" shape="box"];
+  "sha256:d91e013bbc174a6934e50e108e828257b312318414c66c21b3cc516543f9561c" [label="copy{src=/src, dest=/C:\\src/C:\\src}" shape="note"];
+  "sha256:74a773372cade33f3dc31761bf1bfbe6c4a60431f31c9ffc52ae9f1f70723617" [label="powershell -Command $ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue'; msbuild SignUp.MessageHandlers.SaveProspect\\SignUp.MessageHandlers.SaveProspect.csproj /p:OutputPath=c:\\out\\save-prospect\\SaveProspectHandler" shape="box"];
+  "sha256:d55144ee56fbfa2ecdbebc6f2f6f45f1307c5d92fb5db105b6381d6b68e1a352" [label="copy{src=/C:\\src/C:\\out\\save-prospect\\SaveProspectHandler, dest=/C:\\save-prospect-handler/}" shape="note"];
+  "sha256:633c0c39b84895347b5f36290624983dcab88afd30208468b8951c8470a374e0" [label="sha256:633c0c39b84895347b5f36290624983dcab88afd30208468b8951c8470a374e0" shape="plaintext"];
+  "sha256:194bb469540c41a8eabf6b60a12f8ded23da52125a8bafa9fac03ae56521969e" -> "sha256:f73a3a377c8f16954323c3340f55ed33ebdb39c10918fe55a33b86a7823c2c2b" [label=""];
+  "sha256:f73a3a377c8f16954323c3340f55ed33ebdb39c10918fe55a33b86a7823c2c2b" -> "sha256:f13a6456322be81c6a624542f8b283fba5d20b9dc1d9d0ec67735279a90e6718" [label=""];
+  "sha256:c00409526a1d141de3dd5fdd0b653a780bc4411f9a5349efbef84108a8ec9353" -> "sha256:f13a6456322be81c6a624542f8b283fba5d20b9dc1d9d0ec67735279a90e6718" [label=""];
+  "sha256:9e422e2f8e972d15ef2ca76a55a1a3b86ba84a4735e31b4b8bd1edad0ef8438a" -> "sha256:31398b9ede0593991707c5971140fd56fced6ba04865a7f24d590fd6fccfd9aa" [label=""];
+  "sha256:31398b9ede0593991707c5971140fd56fced6ba04865a7f24d590fd6fccfd9aa" -> "sha256:700a20b167a924c39d6bc86c732b741704b8a554a939013dd8d61a2bb0d5b54f" [label=""];
+  "sha256:c00409526a1d141de3dd5fdd0b653a780bc4411f9a5349efbef84108a8ec9353" -> "sha256:700a20b167a924c39d6bc86c732b741704b8a554a939013dd8d61a2bb0d5b54f" [label=""];
+  "sha256:700a20b167a924c39d6bc86c732b741704b8a554a939013dd8d61a2bb0d5b54f" -> "sha256:8592b3c3d9041aa96263c72fbf25f6bd8fdadd9a29a16d4123d1544bb11952c1" [label=""];
+  "sha256:c00409526a1d141de3dd5fdd0b653a780bc4411f9a5349efbef84108a8ec9353" -> "sha256:8592b3c3d9041aa96263c72fbf25f6bd8fdadd9a29a16d4123d1544bb11952c1" [label=""];
+  "sha256:8592b3c3d9041aa96263c72fbf25f6bd8fdadd9a29a16d4123d1544bb11952c1" -> "sha256:7fc91280f80607784e4260723f659ff12eb2e80bb94c860e7847bb816ebeefa3" [label=""];
+  "sha256:c00409526a1d141de3dd5fdd0b653a780bc4411f9a5349efbef84108a8ec9353" -> "sha256:7fc91280f80607784e4260723f659ff12eb2e80bb94c860e7847bb816ebeefa3" [label=""];
+  "sha256:7fc91280f80607784e4260723f659ff12eb2e80bb94c860e7847bb816ebeefa3" -> "sha256:4a32babfc2db8b7b0261daf84cf0ca9fd214d486ca523baff026285b17cb2571" [label=""];
+  "sha256:c00409526a1d141de3dd5fdd0b653a780bc4411f9a5349efbef84108a8ec9353" -> "sha256:4a32babfc2db8b7b0261daf84cf0ca9fd214d486ca523baff026285b17cb2571" [label=""];
+  "sha256:4a32babfc2db8b7b0261daf84cf0ca9fd214d486ca523baff026285b17cb2571" -> "sha256:4716b66c0c12ad62a432a7038de80288cbd392fc4c5c2de5583e184205540e3f" [label=""];
+  "sha256:c00409526a1d141de3dd5fdd0b653a780bc4411f9a5349efbef84108a8ec9353" -> "sha256:4716b66c0c12ad62a432a7038de80288cbd392fc4c5c2de5583e184205540e3f" [label=""];
+  "sha256:4716b66c0c12ad62a432a7038de80288cbd392fc4c5c2de5583e184205540e3f" -> "sha256:7fd04360f4aea9c775596c03a6e0d4565dcff1e2925ba50f8b6de130a46d9820" [label=""];
+  "sha256:c00409526a1d141de3dd5fdd0b653a780bc4411f9a5349efbef84108a8ec9353" -> "sha256:7fd04360f4aea9c775596c03a6e0d4565dcff1e2925ba50f8b6de130a46d9820" [label=""];
+  "sha256:7fd04360f4aea9c775596c03a6e0d4565dcff1e2925ba50f8b6de130a46d9820" -> "sha256:183dc6a0eaf83eb479ec3f03f6e9303b2123f4ba66e2fae5e7631e46d5346652" [label=""];
+  "sha256:c00409526a1d141de3dd5fdd0b653a780bc4411f9a5349efbef84108a8ec9353" -> "sha256:183dc6a0eaf83eb479ec3f03f6e9303b2123f4ba66e2fae5e7631e46d5346652" [label=""];
+  "sha256:183dc6a0eaf83eb479ec3f03f6e9303b2123f4ba66e2fae5e7631e46d5346652" -> "sha256:e725ad75d02d6df91ef7e3e148ceb969c4cc9817b81fa1c5c27012681fb4ec50" [label=""];
+  "sha256:c00409526a1d141de3dd5fdd0b653a780bc4411f9a5349efbef84108a8ec9353" -> "sha256:e725ad75d02d6df91ef7e3e148ceb969c4cc9817b81fa1c5c27012681fb4ec50" [label=""];
+  "sha256:e725ad75d02d6df91ef7e3e148ceb969c4cc9817b81fa1c5c27012681fb4ec50" -> "sha256:00f7ea5c3900af1e20910eab9c50598c7838b425b4768c8055c222a7a04d4797" [label=""];
+  "sha256:00f7ea5c3900af1e20910eab9c50598c7838b425b4768c8055c222a7a04d4797" -> "sha256:d91e013bbc174a6934e50e108e828257b312318414c66c21b3cc516543f9561c" [label=""];
+  "sha256:c00409526a1d141de3dd5fdd0b653a780bc4411f9a5349efbef84108a8ec9353" -> "sha256:d91e013bbc174a6934e50e108e828257b312318414c66c21b3cc516543f9561c" [label=""];
+  "sha256:d91e013bbc174a6934e50e108e828257b312318414c66c21b3cc516543f9561c" -> "sha256:74a773372cade33f3dc31761bf1bfbe6c4a60431f31c9ffc52ae9f1f70723617" [label=""];
+  "sha256:f13a6456322be81c6a624542f8b283fba5d20b9dc1d9d0ec67735279a90e6718" -> "sha256:d55144ee56fbfa2ecdbebc6f2f6f45f1307c5d92fb5db105b6381d6b68e1a352" [label=""];
+  "sha256:74a773372cade33f3dc31761bf1bfbe6c4a60431f31c9ffc52ae9f1f70723617" -> "sha256:d55144ee56fbfa2ecdbebc6f2f6f45f1307c5d92fb5db105b6381d6b68e1a352" [label=""];
+  "sha256:d55144ee56fbfa2ecdbebc6f2f6f45f1307c5d92fb5db105b6381d6b68e1a352" -> "sha256:633c0c39b84895347b5f36290624983dcab88afd30208468b8951c8470a374e0" [label=""];
+}
+

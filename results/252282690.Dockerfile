@@ -1,0 +1,26 @@
+[app/sources/252282690.Dockerfile]
+digraph {
+  "sha256:8a680d1c7e51e0e223861647099bea62c74fbb0429d566c6b2a3dcc74684f848" [label="local://context" shape="ellipse"];
+  "sha256:9fff19baefdca8f8327f853db6c634c5381cf7bc88dfc0c2127f98bc30e4ad9b" [label="docker-image://docker.io/zhicwu/java:8" shape="ellipse"];
+  "sha256:7c0cc46cabcc119f24dc86db79b95b9a73b97a7f309a7059ab0055f55f093de7" [label="copy{src=/purge-old-files.sh, dest=/usr/local/bin/purge-old-files.sh}" shape="note"];
+  "sha256:9e25a32c2a9aca03577c489e1299fba71ec97b28a2e825bf5e2290b7bbd249c2" [label="/bin/sh -c apt-get update \t&& apt-get clean \t&& rm -rf /var/lib/apt/lists/* \t&& useradd -md $KETTLE_HOME -s /bin/bash $PDI_USER" shape="box"];
+  "sha256:547b946c774ec52fd39942b5d981ef059e4639a1909c52c8321d2cfee282585b" [label="/bin/sh -c wget --progress=dot:giga http://downloads.sourceforge.net/project/pentaho/Data%20Integration/${PDI_VERSION}/pdi-ce-${PDI_BUILD}.zip \t&& unzip -q *.zip \t&& rm -f *.zip" shape="box"];
+  "sha256:833853d97b7fadc7f147c659c7e42aab45b33b60b4aa577ecdcfc9553d85719a" [label="copy{src=/docker-entrypoint.sh, dest=/data-integration/docker-entrypoint.sh}" shape="note"];
+  "sha256:5632de3bb9071e13a8edddec23e8a5522b6421f6fa0f4ff4b9a5ca55aadba4fd" [label="mkdir{path=/data-integration}" shape="note"];
+  "sha256:8733d5d1dbe709c8eb68307f47405785a9dca10fff33456815aac5644759b53b" [label="/bin/sh -c wget --progress=dot:giga https://github.com/zhicwu/pdi-cluster/releases/download/${PDI_PATCH}/pentaho-kettle-${PDI_PATCH}.jar \t&& unzip -q pentaho-kettle*.jar -d classes \t&& rm -f pentaho-kettle*.jar" shape="box"];
+  "sha256:bbcfe4223ebd16d40489f991f86ffeac188503f6731a3fb2bdeaa6c3f585fbbb" [label="/bin/sh -c wget --progress=dot:giga https://jdbc.postgresql.org/download/postgresql-${POSTGRESQL_DRIVER_VERSION}.jar \t\thttp://central.maven.org/maven2/mysql/mysql-connector-java/${MYSQL_DRIVER_VERSION}/mysql-connector-java-${MYSQL_DRIVER_VERSION}.jar \t\thttp://central.maven.org/maven2/net/sourceforge/jtds/jtds/${JTDS_VERSION}/jtds-${JTDS_VERSION}.jar \t\thttp://central.maven.org/maven2/com/github/zhicwu/cassandra-jdbc-driver/${CASSANDRA_DRIVER_VERSION}/cassandra-jdbc-driver-${CASSANDRA_DRIVER_VERSION}-shaded.jar \t\thttp://central.maven.org/maven2/com/h2database/h2/${H2DB_VERSION}/h2-${H2DB_VERSION}.jar \t\thttp://central.maven.org/maven2/org/hsqldb/hsqldb/${HSQLDB_VERSION}/hsqldb-${HSQLDB_VERSION}.jar \t&& rm -f lib/postgre*.jar lib/mysql*.jar lib/jtds*.jar lib/h2*.jar lib/hsqldb*.jar \t&& mv *.jar lib/." shape="box"];
+  "sha256:c1be1ef7f6ec3deb278975b6c0220e1fdcf8a236ff2f9ad32c789bfc729c5a63" [label="/bin/sh -c rm -rf system/osgi/log4j.xml classes/log4j.xml pwd/* simple-jndi/* system/karaf/data/tmp \t&& ln -s $JMX_EXPORTER_FILE jmx-exporter.jar \t&& echo \"01 * * * * /usr/local/bin/purge-old-files.sh 2>>/var/log/cron.log\" > /var/spool/cron/crontabs/root \t&& chmod 0600 /var/spool/cron/crontabs/root \t&& chmod +x *.sh /usr/local/bin/*.sh \t&& sed -i -e 's|\\(.*if \\[ \\$OS = \"linux\" \\]; then\\)|if \\[ \\$OS = \"n/a\" \\]; then|' spoon.sh \t&& sed -i 's/^\\(respectStartLvlDuringFeatureStartup=\\).*/\\1true/' system/karaf/etc/org.apache.karaf.features.cfg \t&& sed -i 's/^\\(featuresBootAsynchronous=\\).*/\\1false/' system/karaf/etc/org.apache.karaf.features.cfg" shape="box"];
+  "sha256:4d5ce755dda08e4e41c0abb41c94f4478c181085c7e26e92103a5af5c712f2e5" [label="sha256:4d5ce755dda08e4e41c0abb41c94f4478c181085c7e26e92103a5af5c712f2e5" shape="plaintext"];
+  "sha256:9fff19baefdca8f8327f853db6c634c5381cf7bc88dfc0c2127f98bc30e4ad9b" -> "sha256:7c0cc46cabcc119f24dc86db79b95b9a73b97a7f309a7059ab0055f55f093de7" [label=""];
+  "sha256:8a680d1c7e51e0e223861647099bea62c74fbb0429d566c6b2a3dcc74684f848" -> "sha256:7c0cc46cabcc119f24dc86db79b95b9a73b97a7f309a7059ab0055f55f093de7" [label=""];
+  "sha256:7c0cc46cabcc119f24dc86db79b95b9a73b97a7f309a7059ab0055f55f093de7" -> "sha256:9e25a32c2a9aca03577c489e1299fba71ec97b28a2e825bf5e2290b7bbd249c2" [label=""];
+  "sha256:9e25a32c2a9aca03577c489e1299fba71ec97b28a2e825bf5e2290b7bbd249c2" -> "sha256:547b946c774ec52fd39942b5d981ef059e4639a1909c52c8321d2cfee282585b" [label=""];
+  "sha256:547b946c774ec52fd39942b5d981ef059e4639a1909c52c8321d2cfee282585b" -> "sha256:833853d97b7fadc7f147c659c7e42aab45b33b60b4aa577ecdcfc9553d85719a" [label=""];
+  "sha256:8a680d1c7e51e0e223861647099bea62c74fbb0429d566c6b2a3dcc74684f848" -> "sha256:833853d97b7fadc7f147c659c7e42aab45b33b60b4aa577ecdcfc9553d85719a" [label=""];
+  "sha256:833853d97b7fadc7f147c659c7e42aab45b33b60b4aa577ecdcfc9553d85719a" -> "sha256:5632de3bb9071e13a8edddec23e8a5522b6421f6fa0f4ff4b9a5ca55aadba4fd" [label=""];
+  "sha256:5632de3bb9071e13a8edddec23e8a5522b6421f6fa0f4ff4b9a5ca55aadba4fd" -> "sha256:8733d5d1dbe709c8eb68307f47405785a9dca10fff33456815aac5644759b53b" [label=""];
+  "sha256:8733d5d1dbe709c8eb68307f47405785a9dca10fff33456815aac5644759b53b" -> "sha256:bbcfe4223ebd16d40489f991f86ffeac188503f6731a3fb2bdeaa6c3f585fbbb" [label=""];
+  "sha256:bbcfe4223ebd16d40489f991f86ffeac188503f6731a3fb2bdeaa6c3f585fbbb" -> "sha256:c1be1ef7f6ec3deb278975b6c0220e1fdcf8a236ff2f9ad32c789bfc729c5a63" [label=""];
+  "sha256:c1be1ef7f6ec3deb278975b6c0220e1fdcf8a236ff2f9ad32c789bfc729c5a63" -> "sha256:4d5ce755dda08e4e41c0abb41c94f4478c181085c7e26e92103a5af5c712f2e5" [label=""];
+}
+

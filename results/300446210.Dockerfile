@@ -1,0 +1,7 @@
+[app/sources/300446210.Dockerfile]
+digraph {
+  "sha256:d371857548b843e4df37092b5c78895b816523546373b7bb3d60d751d9304cbe" [label="docker-image://gcr.io/google-containers/hyperkube:v1.4.0-beta.5@sha256:c625557913b2e8140721b43009fdf3e265068ff1f3ec6d507898c2acc0e37dee" shape="ellipse"];
+  "sha256:56920add8fc60da242e90d88203fe7aad520138650b3caf16c6494a8f40ff30a" [label="sha256:56920add8fc60da242e90d88203fe7aad520138650b3caf16c6494a8f40ff30a" shape="plaintext"];
+  "sha256:d371857548b843e4df37092b5c78895b816523546373b7bb3d60d751d9304cbe" -> "sha256:56920add8fc60da242e90d88203fe7aad520138650b3caf16c6494a8f40ff30a" [label=""];
+}
+

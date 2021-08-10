@@ -1,0 +1,51 @@
+[app/sources/181856659.Dockerfile]
+digraph {
+  "sha256:5e691c7ba4998fa4b60d1218bbc4ed9845bfa527d7d91b0c48922bbea45ce425" [label="docker-image://docker.io/library/ubuntu:18.04" shape="ellipse"];
+  "sha256:dfb46fc2247b640bc3193c835623ee11e58022645d6af3c0445cdff8c4ac6ab6" [label="/bin/sh -c apt update -y && apt install -y     build-essential     libssl-dev     libffi-dev     libxml2-dev     libxslt1-dev     locales" shape="box"];
+  "sha256:b678aa6557cd121fc8c6d1b3213a4a650c8dcdbf9d4d5d1e4dbe046cf9ba6823" [label="/bin/sh -c locale-gen en_US.UTF-8" shape="box"];
+  "sha256:38b5feb981c04b73a445723302cde2c08323b94f5646a2911eccd602d0adfff5" [label="/bin/sh -c apt install -y software-properties-common &&     add-apt-repository ppa:linuxuprising/java -y &&     apt update &&     echo oracle-java12-installer shared/accepted-oracle-license-v1-2 select true | /usr/bin/debconf-set-selections &&     apt install -y oracle-java12-installer" shape="box"];
+  "sha256:f8e515366356a6f9b6aa9ec4f4b8cb344040604719e4f9c4d8901bc908806a78" [label="/bin/sh -c apt install -y     python3.6     python3-dev     python3-setuptools &&     python3 /usr/lib/python3/dist-packages/easy_install.py pip" shape="box"];
+  "sha256:d68f57c56fc2319126c398f06ce69e8662f4e3cc752f10106fe75e1727d75282" [label="/bin/sh -c apt install -y     sqlite3     fontconfig-config     libjpeg-turbo8     fontconfig     xorg     xfonts-75dpi     git" shape="box"];
+  "sha256:484482c24824f6205a4f7d209322a921029cc870aa0f225931538cc34ae81709" [label="mkdir{path=/tmp}" shape="note"];
+  "sha256:c5f644b8f472651b38d0d1e017bab2e95c7c54c588033eec58f6977a0d252d45" [label="/bin/sh -c wget ${PDFGEN_URL} &&     dpkg -i ${PDFGEN_PKGFILE} &&     rm -rf ${PDFGEN_PKGFILE}" shape="box"];
+  "sha256:a54db4b6c8bb932c7957d75dc8305e83187c8e89a4c62716a303b7a56eaa5419" [label="local://context" shape="ellipse"];
+  "sha256:8e5d0830d5f89c03409594153be86405c97fbcdbe59fdf78e194d6df8d3a4acd" [label="copy{src=/, dest=/root/Mobile-Security-Framework-MobSF}" shape="note"];
+  "sha256:692d3f431acc26334288604e13ee16eb8abf06c18b0e7440aa522986ad76cb26" [label="mkdir{path=/root/Mobile-Security-Framework-MobSF}" shape="note"];
+  "sha256:e57c663a8254988b7903a91c38d673986f82f2aa8b5c6fdf1135207e4decec88" [label="/bin/sh -c sed -i 's/USE_HOME = False/USE_HOME = True/g' MobSF/settings.py" shape="box"];
+  "sha256:a9a69d9075bad661897ce7092457001669e376912ba33e904dd59c61cb9d1b48" [label="/bin/sh -c ./scripts/kali_fix.sh" shape="box"];
+  "sha256:30406d1b1379cb6fb79d9188269dc1e1955c32287121942ce8101e58f054ef9c" [label="/bin/sh -c cd scripts && chmod +x postgres_support.sh; sync; ./postgres_support.sh $POSTGRES" shape="box"];
+  "sha256:0f964c358776238eca93e2508a6d942013fb6e1d95eac440cc06bc572312f80c" [label="/bin/sh -c mkdir -p /root/.local/share/apktool/framework" shape="box"];
+  "sha256:d826bab511c82dee50149988dfd8181022b72eb12da845f0a2b8e1da08cbe7ea" [label="/bin/sh -c pip3 install wheel" shape="box"];
+  "sha256:a8822152f02d3c02a283983a9d432ea9167b845006292d68e2975787ca07e4dd" [label="/bin/sh -c pip3 wheel --wheel-dir=/tmp/yara-python --build-option=\"build\" --build-option=\"--enable-dex\" git+https://github.com/VirusTotal/yara-python.git@v3.10.0" shape="box"];
+  "sha256:55b6ac0355bd5f70c5ab43aef494b0b334fc257410763b7f27b1ec244971d5d3" [label="/bin/sh -c pip3 install --no-index --find-links=/tmp/yara-python yara-python" shape="box"];
+  "sha256:eda61623e0fc2f642b197effc094aca4773b0380eb122cf3e763319a781452c2" [label="/bin/sh -c pip3 install -r requirements.txt" shape="box"];
+  "sha256:d34db0f038711eb17e788042e77ce370880053f9f02c46cbb5f9b0eb91afc5e9" [label="/bin/sh -c apt remove -y git &&     apt clean &&     apt autoclean &&     apt autoremove -y" shape="box"];
+  "sha256:c7732b8d5ea67eb874e5e46663d4d42f931209d1c157af9ddddf7de0b6da9acc" [label="/bin/sh -c rm -rf /var/lib/apt/lists/* /tmp/* > /dev/null 2>&1" shape="box"];
+  "sha256:dd2eae715334ed46b84e90369a0c8702846c641e160cf2ca61bd581be3146976" [label="/bin/sh -c python3 manage.py makemigrations" shape="box"];
+  "sha256:cc309b60309667e416d5ae5903dd589fd6cebceb63111a620bce3221f5aac8c6" [label="/bin/sh -c python3 manage.py migrate" shape="box"];
+  "sha256:135c9fa92b5e98abc7fc651097c16c10f9dfe1246e645788fcefa71568e5ec0f" [label="sha256:135c9fa92b5e98abc7fc651097c16c10f9dfe1246e645788fcefa71568e5ec0f" shape="plaintext"];
+  "sha256:5e691c7ba4998fa4b60d1218bbc4ed9845bfa527d7d91b0c48922bbea45ce425" -> "sha256:dfb46fc2247b640bc3193c835623ee11e58022645d6af3c0445cdff8c4ac6ab6" [label=""];
+  "sha256:dfb46fc2247b640bc3193c835623ee11e58022645d6af3c0445cdff8c4ac6ab6" -> "sha256:b678aa6557cd121fc8c6d1b3213a4a650c8dcdbf9d4d5d1e4dbe046cf9ba6823" [label=""];
+  "sha256:b678aa6557cd121fc8c6d1b3213a4a650c8dcdbf9d4d5d1e4dbe046cf9ba6823" -> "sha256:38b5feb981c04b73a445723302cde2c08323b94f5646a2911eccd602d0adfff5" [label=""];
+  "sha256:38b5feb981c04b73a445723302cde2c08323b94f5646a2911eccd602d0adfff5" -> "sha256:f8e515366356a6f9b6aa9ec4f4b8cb344040604719e4f9c4d8901bc908806a78" [label=""];
+  "sha256:f8e515366356a6f9b6aa9ec4f4b8cb344040604719e4f9c4d8901bc908806a78" -> "sha256:d68f57c56fc2319126c398f06ce69e8662f4e3cc752f10106fe75e1727d75282" [label=""];
+  "sha256:d68f57c56fc2319126c398f06ce69e8662f4e3cc752f10106fe75e1727d75282" -> "sha256:484482c24824f6205a4f7d209322a921029cc870aa0f225931538cc34ae81709" [label=""];
+  "sha256:484482c24824f6205a4f7d209322a921029cc870aa0f225931538cc34ae81709" -> "sha256:c5f644b8f472651b38d0d1e017bab2e95c7c54c588033eec58f6977a0d252d45" [label=""];
+  "sha256:c5f644b8f472651b38d0d1e017bab2e95c7c54c588033eec58f6977a0d252d45" -> "sha256:8e5d0830d5f89c03409594153be86405c97fbcdbe59fdf78e194d6df8d3a4acd" [label=""];
+  "sha256:a54db4b6c8bb932c7957d75dc8305e83187c8e89a4c62716a303b7a56eaa5419" -> "sha256:8e5d0830d5f89c03409594153be86405c97fbcdbe59fdf78e194d6df8d3a4acd" [label=""];
+  "sha256:8e5d0830d5f89c03409594153be86405c97fbcdbe59fdf78e194d6df8d3a4acd" -> "sha256:692d3f431acc26334288604e13ee16eb8abf06c18b0e7440aa522986ad76cb26" [label=""];
+  "sha256:692d3f431acc26334288604e13ee16eb8abf06c18b0e7440aa522986ad76cb26" -> "sha256:e57c663a8254988b7903a91c38d673986f82f2aa8b5c6fdf1135207e4decec88" [label=""];
+  "sha256:e57c663a8254988b7903a91c38d673986f82f2aa8b5c6fdf1135207e4decec88" -> "sha256:a9a69d9075bad661897ce7092457001669e376912ba33e904dd59c61cb9d1b48" [label=""];
+  "sha256:a9a69d9075bad661897ce7092457001669e376912ba33e904dd59c61cb9d1b48" -> "sha256:30406d1b1379cb6fb79d9188269dc1e1955c32287121942ce8101e58f054ef9c" [label=""];
+  "sha256:30406d1b1379cb6fb79d9188269dc1e1955c32287121942ce8101e58f054ef9c" -> "sha256:0f964c358776238eca93e2508a6d942013fb6e1d95eac440cc06bc572312f80c" [label=""];
+  "sha256:0f964c358776238eca93e2508a6d942013fb6e1d95eac440cc06bc572312f80c" -> "sha256:d826bab511c82dee50149988dfd8181022b72eb12da845f0a2b8e1da08cbe7ea" [label=""];
+  "sha256:d826bab511c82dee50149988dfd8181022b72eb12da845f0a2b8e1da08cbe7ea" -> "sha256:a8822152f02d3c02a283983a9d432ea9167b845006292d68e2975787ca07e4dd" [label=""];
+  "sha256:a8822152f02d3c02a283983a9d432ea9167b845006292d68e2975787ca07e4dd" -> "sha256:55b6ac0355bd5f70c5ab43aef494b0b334fc257410763b7f27b1ec244971d5d3" [label=""];
+  "sha256:55b6ac0355bd5f70c5ab43aef494b0b334fc257410763b7f27b1ec244971d5d3" -> "sha256:eda61623e0fc2f642b197effc094aca4773b0380eb122cf3e763319a781452c2" [label=""];
+  "sha256:eda61623e0fc2f642b197effc094aca4773b0380eb122cf3e763319a781452c2" -> "sha256:d34db0f038711eb17e788042e77ce370880053f9f02c46cbb5f9b0eb91afc5e9" [label=""];
+  "sha256:d34db0f038711eb17e788042e77ce370880053f9f02c46cbb5f9b0eb91afc5e9" -> "sha256:c7732b8d5ea67eb874e5e46663d4d42f931209d1c157af9ddddf7de0b6da9acc" [label=""];
+  "sha256:c7732b8d5ea67eb874e5e46663d4d42f931209d1c157af9ddddf7de0b6da9acc" -> "sha256:dd2eae715334ed46b84e90369a0c8702846c641e160cf2ca61bd581be3146976" [label=""];
+  "sha256:dd2eae715334ed46b84e90369a0c8702846c641e160cf2ca61bd581be3146976" -> "sha256:cc309b60309667e416d5ae5903dd589fd6cebceb63111a620bce3221f5aac8c6" [label=""];
+  "sha256:cc309b60309667e416d5ae5903dd589fd6cebceb63111a620bce3221f5aac8c6" -> "sha256:135c9fa92b5e98abc7fc651097c16c10f9dfe1246e645788fcefa71568e5ec0f" [label=""];
+}
+

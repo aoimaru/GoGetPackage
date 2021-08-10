@@ -1,0 +1,7 @@
+[app/sources/420221871.Dockerfile]
+digraph {
+  "sha256:4d23fc221027281a8d77c67e787c0f9c179827287c190bce4c501578b3120ab1" [label="docker-image://gcr.io/clusterfuzz-images/chromium/base@sha256:f65620a1aefa04bfbdbb23667989fd1d3e398fac0a37fedfaed077fa700dbfed" shape="ellipse"];
+  "sha256:1143b7ab47f5398371a8901ea7eeff2983a6302da87fa6294fc195392966653e" [label="sha256:1143b7ab47f5398371a8901ea7eeff2983a6302da87fa6294fc195392966653e" shape="plaintext"];
+  "sha256:4d23fc221027281a8d77c67e787c0f9c179827287c190bce4c501578b3120ab1" -> "sha256:1143b7ab47f5398371a8901ea7eeff2983a6302da87fa6294fc195392966653e" [label=""];
+}
+

@@ -1,0 +1,13 @@
+[app/sources/252772584.Dockerfile]
+digraph {
+  "sha256:5045d46e15358f34ea7fff145af304a1fa3a317561e9c609f4ae17c0bd3359df" [label="docker-image://docker.io/library/node:latest" shape="ellipse"];
+  "sha256:f94fe014f3931b0fe674a5cf2f96862e4a6ed26a9e040f795d12aa9f1f03b42a" [label="local://context" shape="ellipse"];
+  "sha256:6703d84bb3e50169f34f4dfc47db757614ffacb481f2aa13f3090e782e6e7c8c" [label="copy{src=/app, dest=/app}" shape="note"];
+  "sha256:805de620f525794abd92a157a618f2d6594a14c9803803bc078b0dc929673aa6" [label="mkdir{path=/app}" shape="note"];
+  "sha256:efc532896f883a8cb1c5c7983f0338b9169285c078d7099fa223779d67e08ff8" [label="sha256:efc532896f883a8cb1c5c7983f0338b9169285c078d7099fa223779d67e08ff8" shape="plaintext"];
+  "sha256:5045d46e15358f34ea7fff145af304a1fa3a317561e9c609f4ae17c0bd3359df" -> "sha256:6703d84bb3e50169f34f4dfc47db757614ffacb481f2aa13f3090e782e6e7c8c" [label=""];
+  "sha256:f94fe014f3931b0fe674a5cf2f96862e4a6ed26a9e040f795d12aa9f1f03b42a" -> "sha256:6703d84bb3e50169f34f4dfc47db757614ffacb481f2aa13f3090e782e6e7c8c" [label=""];
+  "sha256:6703d84bb3e50169f34f4dfc47db757614ffacb481f2aa13f3090e782e6e7c8c" -> "sha256:805de620f525794abd92a157a618f2d6594a14c9803803bc078b0dc929673aa6" [label=""];
+  "sha256:805de620f525794abd92a157a618f2d6594a14c9803803bc078b0dc929673aa6" -> "sha256:efc532896f883a8cb1c5c7983f0338b9169285c078d7099fa223779d67e08ff8" [label=""];
+}
+

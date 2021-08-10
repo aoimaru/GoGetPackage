@@ -1,0 +1,7 @@
+[app/sources/300459484.Dockerfile]
+digraph {
+  "sha256:9d10fb76f0e4fc6aea2823774482003d09ef65c64d620675a27364ab507f5fe8" [label="docker-image://gcr.io/spinnaker-marketplace/rosco:0.4.2-20170918142556@sha256:5d1a1e59084839b4a99286321bbfee5f792dd3c386a6193707363e173fd485b5" shape="ellipse"];
+  "sha256:f02517346ef0baafd9bef2b3756c64746e85bc4761d15fed2ed2773064d6a5a7" [label="sha256:f02517346ef0baafd9bef2b3756c64746e85bc4761d15fed2ed2773064d6a5a7" shape="plaintext"];
+  "sha256:9d10fb76f0e4fc6aea2823774482003d09ef65c64d620675a27364ab507f5fe8" -> "sha256:f02517346ef0baafd9bef2b3756c64746e85bc4761d15fed2ed2773064d6a5a7" [label=""];
+}
+

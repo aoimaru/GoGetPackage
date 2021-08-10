@@ -1,0 +1,9 @@
+[app/sources/252769218.Dockerfile]
+digraph {
+  "sha256:0c736d3ba4c5b7f6a1157d1e42e06323663133228cc97a3ccc9b5dc4290a1537" [label="docker-image://docker.io/library/python:3-alpine" shape="ellipse"];
+  "sha256:c8a65a585fe4345919a0612d992d8c775b54e5c40e815c419b6a2d27c21938a8" [label="/bin/sh -c pip install sphinx==1.7.2" shape="box"];
+  "sha256:a21c4dae6a512b45dda7ca78d281630436a3c562c70a8f108a18594a931f0683" [label="sha256:a21c4dae6a512b45dda7ca78d281630436a3c562c70a8f108a18594a931f0683" shape="plaintext"];
+  "sha256:0c736d3ba4c5b7f6a1157d1e42e06323663133228cc97a3ccc9b5dc4290a1537" -> "sha256:c8a65a585fe4345919a0612d992d8c775b54e5c40e815c419b6a2d27c21938a8" [label=""];
+  "sha256:c8a65a585fe4345919a0612d992d8c775b54e5c40e815c419b6a2d27c21938a8" -> "sha256:a21c4dae6a512b45dda7ca78d281630436a3c562c70a8f108a18594a931f0683" [label=""];
+}
+

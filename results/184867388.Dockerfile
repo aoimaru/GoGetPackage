@@ -1,0 +1,51 @@
+[app/sources/184867388.Dockerfile]
+digraph {
+  "sha256:f64d4a83486b304343e8de0d7e7b1839790c56b7cd76739707e98bbc871f9b3f" [label="docker-image://docker.io/library/ubuntu:12.04" shape="ellipse"];
+  "sha256:f295a8c545a2835c1847935bcd27c37c94392b759600a7f1656e3352da73117b" [label="/bin/sh -c apt-get -y install python-software-properties" shape="box"];
+  "sha256:df6f6e3ade0d6a4677d28806268caf51b73863bce06e3c3c6fdf34db64d140b6" [label="/bin/sh -c add-apt-repository -y ppa:ubuntu-toolchain-r/test" shape="box"];
+  "sha256:e3ace9a7307f965ba563444c714e2724a01afd87b6baac731f7fc46f9c9663e4" [label="/bin/sh -c add-apt-repository -y ppa:boost-latest/ppa" shape="box"];
+  "sha256:87f0281c32eef886fc773784846f5a2612cd0f87078cd6285ac9ecf27bd05b84" [label="/bin/sh -c apt-get update" shape="box"];
+  "sha256:ef47fa0fc2f335d675d444b7c2e5239f3f6a6789ec6d90445094124ddc67cd13" [label="/bin/sh -c apt-get -y install gcc-4.8 g++-4.8" shape="box"];
+  "sha256:0cf6d8a7d1b938538b2fdfb3aed7ad9c95515085c66e86a64e76e80695d1a85a" [label="/bin/sh -c update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 50" shape="box"];
+  "sha256:4e6727e91d326f6967238d43f7316876868191d720dfe99fa9692143b59b125d" [label="/bin/sh -c update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 50" shape="box"];
+  "sha256:2ea87f8f86bac854f2d2e8fd319e53af63697fa1acfa66fc1e1cb23afce58a4e" [label="/bin/sh -c apt-get -y install bzip2" shape="box"];
+  "sha256:3c8caf110c77fe49c2a8431cab7d4c1ca63048f95ba09e517069d67670d7aba7" [label="/bin/sh -c apt-get -y install vim" shape="box"];
+  "sha256:ffdad42b94656d4d186a12487587e1b663999f8079384b352323f84d9a825f32" [label="/bin/sh -c apt-get -y install man" shape="box"];
+  "sha256:5fee1c700835c781aef4bde6b363ed4752ad3180538d32f21a4addc774b51a32" [label="/bin/sh -c apt-get -y install xmlto" shape="box"];
+  "sha256:e20f543bdd76493f82ca3ebb3f8a5232a877894a65b653b9e56d5407b4164738" [label="/bin/sh -c apt-get -y install git" shape="box"];
+  "sha256:bd9a0c8146a0837f35d31865735e5910994613ff16a01a33bd3ae800eedfe8d1" [label="/bin/sh -c apt-get -y install ruby1.9.3" shape="box"];
+  "sha256:5001acc90478dff174662026c7298612cb5ae4792a80ac6f5b4c5641832319de" [label="/bin/sh -c apt-get -y install wget" shape="box"];
+  "sha256:6275c877b9af4b4a71c677a6cbefe7bd9040f81f859a7a6a796b26d42dae7df8" [label="/bin/sh -c apt-get -y install make" shape="box"];
+  "sha256:147d9565a75ec698ff86e5081da164c895c2c758fd83db806af0a74603a42152" [label="/bin/sh -c apt-get -y install flex" shape="box"];
+  "sha256:60edb2aa15f85aeefe2f62942a96abfbf017807583f8b3895420d8d20d59c244" [label="/bin/sh -c apt-get -y install bison" shape="box"];
+  "sha256:f56a58a8e5a3f7ee47da2fa0d63d57e839d5ec8904bfc0e725317b9ff6b3ef5e" [label="/bin/sh -c apt-get -y install cppcheck" shape="box"];
+  "sha256:9c4143a419c18243a4a2cdc2b4ff7fb30cb99fe4ad1afa3b845e965cb67b5131" [label="/bin/sh -c wget https://s3.amazonaws.com/kylo-pl-bucket/cmake_install.tar.bz2 &&     tar xjf cmake_install.tar.bz2 --strip 1 -C /usr/local &&     rm cmake_install.tar.bz2" shape="box"];
+  "sha256:96efef38264584f84e5179a2f98a6707579ae28a72d8367a59484f0188ce450f" [label="/bin/sh -c wget https://github.com/doxygen/doxygen/archive/Release_1_8_7.tar.gz -O doxygen-1.8.7.tgz &&     tar xzf doxygen-1.8.7.tgz &&     cd doxygen-Release_1_8_7 &&     ./configure > /dev/null &&     make > /dev/null &&     make install > /dev/null &&     cd .. &&     rm -r doxygen-1.8.7.tgz doxygen-Release_1_8_7" shape="box"];
+  "sha256:d43dc106672437ccd32b795d6214a715520fe92240d837540f7094649842bd66" [label="/bin/sh -c wget http://sourceforge.net/projects/pcre/files/pcre/8.36/pcre-8.36.tar.bz2 -O pcre-8.36.tar.bz2 &&     tar xjf pcre-8.36.tar.bz2 &&     cd pcre-8.36 &&     ./configure > /dev/null &&     make install > /dev/null &&     cd .. &&     rm -r pcre-8.36.tar.bz2 pcre-8.36" shape="box"];
+  "sha256:a3587dda24df7c78b2b0ae4584c6bf8b8a5770eb20a9eafe03d57a3dc0c510e4" [label="/bin/sh -c wget http://sourceforge.net/projects/cppcheck/files/cppcheck/1.68/cppcheck-1.68.tar.bz2 -O cppcheck-1.68.tar.bz2 &&     tar xjf cppcheck-1.68.tar.bz2 &&     cd cppcheck-1.68 &&     make install SRCDIR=build CFGDIR=/usr/local/cfg HAVE_RULES=yes > /dev/null &&     cd .. &&     rm -r cppcheck-1.68.tar.bz2 cppcheck-1.68" shape="box"];
+  "sha256:2ee264a07fd98bd10c0364aea330f9b2323d44edde8e3fde0a023ac00d6f37d7" [label="sha256:2ee264a07fd98bd10c0364aea330f9b2323d44edde8e3fde0a023ac00d6f37d7" shape="plaintext"];
+  "sha256:f64d4a83486b304343e8de0d7e7b1839790c56b7cd76739707e98bbc871f9b3f" -> "sha256:f295a8c545a2835c1847935bcd27c37c94392b759600a7f1656e3352da73117b" [label=""];
+  "sha256:f295a8c545a2835c1847935bcd27c37c94392b759600a7f1656e3352da73117b" -> "sha256:df6f6e3ade0d6a4677d28806268caf51b73863bce06e3c3c6fdf34db64d140b6" [label=""];
+  "sha256:df6f6e3ade0d6a4677d28806268caf51b73863bce06e3c3c6fdf34db64d140b6" -> "sha256:e3ace9a7307f965ba563444c714e2724a01afd87b6baac731f7fc46f9c9663e4" [label=""];
+  "sha256:e3ace9a7307f965ba563444c714e2724a01afd87b6baac731f7fc46f9c9663e4" -> "sha256:87f0281c32eef886fc773784846f5a2612cd0f87078cd6285ac9ecf27bd05b84" [label=""];
+  "sha256:87f0281c32eef886fc773784846f5a2612cd0f87078cd6285ac9ecf27bd05b84" -> "sha256:ef47fa0fc2f335d675d444b7c2e5239f3f6a6789ec6d90445094124ddc67cd13" [label=""];
+  "sha256:ef47fa0fc2f335d675d444b7c2e5239f3f6a6789ec6d90445094124ddc67cd13" -> "sha256:0cf6d8a7d1b938538b2fdfb3aed7ad9c95515085c66e86a64e76e80695d1a85a" [label=""];
+  "sha256:0cf6d8a7d1b938538b2fdfb3aed7ad9c95515085c66e86a64e76e80695d1a85a" -> "sha256:4e6727e91d326f6967238d43f7316876868191d720dfe99fa9692143b59b125d" [label=""];
+  "sha256:4e6727e91d326f6967238d43f7316876868191d720dfe99fa9692143b59b125d" -> "sha256:2ea87f8f86bac854f2d2e8fd319e53af63697fa1acfa66fc1e1cb23afce58a4e" [label=""];
+  "sha256:2ea87f8f86bac854f2d2e8fd319e53af63697fa1acfa66fc1e1cb23afce58a4e" -> "sha256:3c8caf110c77fe49c2a8431cab7d4c1ca63048f95ba09e517069d67670d7aba7" [label=""];
+  "sha256:3c8caf110c77fe49c2a8431cab7d4c1ca63048f95ba09e517069d67670d7aba7" -> "sha256:ffdad42b94656d4d186a12487587e1b663999f8079384b352323f84d9a825f32" [label=""];
+  "sha256:ffdad42b94656d4d186a12487587e1b663999f8079384b352323f84d9a825f32" -> "sha256:5fee1c700835c781aef4bde6b363ed4752ad3180538d32f21a4addc774b51a32" [label=""];
+  "sha256:5fee1c700835c781aef4bde6b363ed4752ad3180538d32f21a4addc774b51a32" -> "sha256:e20f543bdd76493f82ca3ebb3f8a5232a877894a65b653b9e56d5407b4164738" [label=""];
+  "sha256:e20f543bdd76493f82ca3ebb3f8a5232a877894a65b653b9e56d5407b4164738" -> "sha256:bd9a0c8146a0837f35d31865735e5910994613ff16a01a33bd3ae800eedfe8d1" [label=""];
+  "sha256:bd9a0c8146a0837f35d31865735e5910994613ff16a01a33bd3ae800eedfe8d1" -> "sha256:5001acc90478dff174662026c7298612cb5ae4792a80ac6f5b4c5641832319de" [label=""];
+  "sha256:5001acc90478dff174662026c7298612cb5ae4792a80ac6f5b4c5641832319de" -> "sha256:6275c877b9af4b4a71c677a6cbefe7bd9040f81f859a7a6a796b26d42dae7df8" [label=""];
+  "sha256:6275c877b9af4b4a71c677a6cbefe7bd9040f81f859a7a6a796b26d42dae7df8" -> "sha256:147d9565a75ec698ff86e5081da164c895c2c758fd83db806af0a74603a42152" [label=""];
+  "sha256:147d9565a75ec698ff86e5081da164c895c2c758fd83db806af0a74603a42152" -> "sha256:60edb2aa15f85aeefe2f62942a96abfbf017807583f8b3895420d8d20d59c244" [label=""];
+  "sha256:60edb2aa15f85aeefe2f62942a96abfbf017807583f8b3895420d8d20d59c244" -> "sha256:f56a58a8e5a3f7ee47da2fa0d63d57e839d5ec8904bfc0e725317b9ff6b3ef5e" [label=""];
+  "sha256:f56a58a8e5a3f7ee47da2fa0d63d57e839d5ec8904bfc0e725317b9ff6b3ef5e" -> "sha256:9c4143a419c18243a4a2cdc2b4ff7fb30cb99fe4ad1afa3b845e965cb67b5131" [label=""];
+  "sha256:9c4143a419c18243a4a2cdc2b4ff7fb30cb99fe4ad1afa3b845e965cb67b5131" -> "sha256:96efef38264584f84e5179a2f98a6707579ae28a72d8367a59484f0188ce450f" [label=""];
+  "sha256:96efef38264584f84e5179a2f98a6707579ae28a72d8367a59484f0188ce450f" -> "sha256:d43dc106672437ccd32b795d6214a715520fe92240d837540f7094649842bd66" [label=""];
+  "sha256:d43dc106672437ccd32b795d6214a715520fe92240d837540f7094649842bd66" -> "sha256:a3587dda24df7c78b2b0ae4584c6bf8b8a5770eb20a9eafe03d57a3dc0c510e4" [label=""];
+  "sha256:a3587dda24df7c78b2b0ae4584c6bf8b8a5770eb20a9eafe03d57a3dc0c510e4" -> "sha256:2ee264a07fd98bd10c0364aea330f9b2323d44edde8e3fde0a023ac00d6f37d7" [label=""];
+}
+

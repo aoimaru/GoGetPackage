@@ -1,0 +1,7 @@
+[app/sources/296243485.Dockerfile]
+digraph {
+  "sha256:80677e1c374bc363820d1510cf54d1473cfc3f0ca2d0731e564f549e7c751b86" [label="docker-image://docker.elastic.co/kibana/kibana:6.1.1@sha256:6cccb1dc8b9caf656dd8c8527dcae5ff9d90e33f74f9d563f18f829b96fbbbff" shape="ellipse"];
+  "sha256:f9467c7c6e7006842a5453f131d8425311403b9245e16c30961bdb293e4aafcf" [label="sha256:f9467c7c6e7006842a5453f131d8425311403b9245e16c30961bdb293e4aafcf" shape="plaintext"];
+  "sha256:80677e1c374bc363820d1510cf54d1473cfc3f0ca2d0731e564f549e7c751b86" -> "sha256:f9467c7c6e7006842a5453f131d8425311403b9245e16c30961bdb293e4aafcf" [label=""];
+}
+

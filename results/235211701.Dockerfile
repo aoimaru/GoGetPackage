@@ -1,0 +1,16 @@
+[app/sources/235211701.Dockerfile]
+digraph {
+  "sha256:f6b3222c6092a9e9791a834cacf1e7fba1de6483c8bee590b6c32929db42c37d" [label="docker-image://docker.io/library/openjdk:8-jdk" shape="ellipse"];
+  "sha256:cf8f6651a7922cefcad3a2a2df4a67e03a5d45e36c430244f5c41f2cd8e18015" [label="/bin/sh -c set -x     && addgroup --gid ${gid} --system ${group}     && adduser --system --home \"$CAKESHOP_HOME\" --shell /sbin/nologin --ingroup ${group} ${user}     && apt-get update     && apt-get -y install curl     && curl -fsSL https://github.com/krallin/tini/releases/download/v${TINI_VERSION}/tini-static -o /bin/tini && chmod +x /bin/tini     && echo \"$TINI_SHA  /bin/tini\" | sha256sum -c -     && apt-get install -y --no-install-recommends ca-certificates wget && rm -rf /var/lib/apt/lists/*     && dpkgArch=\"$(dpkg --print-architecture | awk -F- '{ print $NF }')\"     && wget -O /usr/local/bin/gosu \"https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch\"     && wget -O /usr/local/bin/gosu.asc \"https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch.asc\"     && export GNUPGHOME=\"$(mktemp -d)\"     && gpg --keyserver ha.pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4     && gpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu     && rm -r \"$GNUPGHOME\" /usr/local/bin/gosu.asc     && chmod +x /usr/local/bin/gosu     && gosu nobody true     && rm -rf /usr/share/doc /usr/share/doc-base           /usr/share/man /usr/share/locale /usr/share/zoneinfo     && rm -rf /tmp/* /var/tmp/*     && apt-get clean     && rm -rf /var/lib/apt/lists/*" shape="box"];
+  "sha256:0192fc7f26c56860a4a599e0aee03652eb5639a9911a8d02658489ffbfdcc994" [label="local://context" shape="ellipse"];
+  "sha256:8bd255d3901dbaf738b48ee836e3651a97a0c39a6c2010e2d59f2ff597244d84" [label="copy{src=/cakeshop*.war, dest=/opt/cakeshop/cakeshop.war}" shape="note"];
+  "sha256:510db530c403e6cc1644112adccb3528721a5c7f17c758b9eeb60c5685a8a41c" [label="copy{src=/cakeshop.sh, dest=/usr/local/bin/cakeshop.sh}" shape="note"];
+  "sha256:88174cd1c2d6603c15bb526fc2615e3cc35b757aeca47fdf1e54ef7a95027d02" [label="sha256:88174cd1c2d6603c15bb526fc2615e3cc35b757aeca47fdf1e54ef7a95027d02" shape="plaintext"];
+  "sha256:f6b3222c6092a9e9791a834cacf1e7fba1de6483c8bee590b6c32929db42c37d" -> "sha256:cf8f6651a7922cefcad3a2a2df4a67e03a5d45e36c430244f5c41f2cd8e18015" [label=""];
+  "sha256:cf8f6651a7922cefcad3a2a2df4a67e03a5d45e36c430244f5c41f2cd8e18015" -> "sha256:8bd255d3901dbaf738b48ee836e3651a97a0c39a6c2010e2d59f2ff597244d84" [label=""];
+  "sha256:0192fc7f26c56860a4a599e0aee03652eb5639a9911a8d02658489ffbfdcc994" -> "sha256:8bd255d3901dbaf738b48ee836e3651a97a0c39a6c2010e2d59f2ff597244d84" [label=""];
+  "sha256:8bd255d3901dbaf738b48ee836e3651a97a0c39a6c2010e2d59f2ff597244d84" -> "sha256:510db530c403e6cc1644112adccb3528721a5c7f17c758b9eeb60c5685a8a41c" [label=""];
+  "sha256:0192fc7f26c56860a4a599e0aee03652eb5639a9911a8d02658489ffbfdcc994" -> "sha256:510db530c403e6cc1644112adccb3528721a5c7f17c758b9eeb60c5685a8a41c" [label=""];
+  "sha256:510db530c403e6cc1644112adccb3528721a5c7f17c758b9eeb60c5685a8a41c" -> "sha256:88174cd1c2d6603c15bb526fc2615e3cc35b757aeca47fdf1e54ef7a95027d02" [label=""];
+}
+

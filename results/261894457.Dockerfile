@@ -1,0 +1,55 @@
+[app/sources/261894457.Dockerfile]
+digraph {
+  "sha256:929a601b3cc251e7ab7938ac22983eaffcd6defdf6e7dabdc91eee41b18f0dab" [label="docker-image://docker.io/microsoft/dotnet:2.1-aspnetcore-runtime" shape="ellipse"];
+  "sha256:8990eb034c9a20d8260b1f358b6d37826630cf5365c62c2a0e0f81209862f593" [label="/bin/sh -c apt-get update \t&& apt-get install -y \tgcc-multilib \t&& rm -rf /var/lib/apt/lists/*" shape="box"];
+  "sha256:dc184d43ff90ec18a3c9f9a277a4622a7ff5382c2ebdae45a4cd7a61c868bdfa" [label="mkdir{path=/app}" shape="note"];
+  "sha256:95ebc7aa89060a0bb064bbb970f2f510902bc639411306b2b0183c35e2dbd348" [label="docker-image://docker.io/microsoft/dotnet:2.1-sdk" shape="ellipse"];
+  "sha256:f0eeb2a01cc488a2160e1eac44b4833e87c456bfcaf8a6d002483b5eb00d75d6" [label="/bin/sh -c curl --silent -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.2/install.sh | sh" shape="box"];
+  "sha256:1f6083af6c03dbc2f929990b6b378c7d0593de726a2399f51b96acef5b0b87cb" [label="/bin/sh -c . $NVM_DIR/nvm.sh     && nvm install $NODE_VERSION \t&& nvm use $NODE_VERSION \t&& apt-get update \t&& apt-get install -y \tdos2unix \t&& rm -rf /var/lib/apt/lists/*" shape="box"];
+  "sha256:9584aa331d26ee872967a899a06a1b1fb62b333cb37893f4120cbdcacd968bcf" [label="mkdir{path=/src}" shape="note"];
+  "sha256:f0df3c5fa40306c4732372da16d030332e6973fc477da85ef34d0582ead4e49a" [label="local://context" shape="ellipse"];
+  "sha256:fbb78afcf4c3e715ff024d15521b1544a6df0349e92ea8a766b0434d9be34a6d" [label="copy{src=/tgstation-server.sln, dest=/src/}" shape="note"];
+  "sha256:d2664c44bdaefd8589db02cdefb7a1a21d7136cacce1c1a22a381f3db7510460" [label="copy{src=/src/Tgstation.Server.Host.Console/Tgstation.Server.Host.Console.csproj, dest=/src/src/Tgstation.Server.Host.Console/}" shape="note"];
+  "sha256:d2021df299c795a98c41b9276225d75df47f10d7bb6145450190d9c8e37007ad" [label="copy{src=/src/Tgstation.Server.Host.Watchdog/Tgstation.Server.Host.Watchdog.csproj, dest=/src/src/Tgstation.Server.Host.Watchdog/}" shape="note"];
+  "sha256:fef63c93c6f2fa14f85c7ac4adde47208351876baccb81ec1730491af273750a" [label="copy{src=/src/Tgstation.Server.Host/Tgstation.Server.Host.csproj, dest=/src/src/Tgstation.Server.Host/}" shape="note"];
+  "sha256:627e40bd83d941c2c73e38192a342998c8786ead5e55729b1b542cbfa3ffc3ca" [label="copy{src=/src/Tgstation.Server.Api/Tgstation.Server.Api.csproj, dest=/src/src/Tgstation.Server.Api/}" shape="note"];
+  "sha256:36eee35723670e4aa147f181e1fa1ac915a160e0ce7793bd8a1053645899346c" [label="/bin/sh -c dotnet restore -nowarn:MSB3202,nu1503 -p:RestoreUseSkipNonexistentTargets=false" shape="box"];
+  "sha256:93c15bf085f54ba1ff255d53e8d2351b71a5cb772bb82c5d5174f8891ee1f487" [label="copy{src=/, dest=/src/}" shape="note"];
+  "sha256:b90c658a39227a4c3a10734b585822d9dd1d436926591eedcf9d482feb6ed518" [label="/bin/sh -c dos2unix build/tgs.docker.sh" shape="box"];
+  "sha256:0febb68dd20ba5030ae30b90147fab3168a305b63e688445a237e293c4a4d3e6" [label="mkdir{path=/src/src/Tgstation.Server.Host.Console}" shape="note"];
+  "sha256:10e9ed0d278fb5b2e29f3a5f4d488fdddc354733f4ed96e529c47b1b85f70b35" [label="/bin/sh -c dotnet publish -c Release -o /app" shape="box"];
+  "sha256:260da89f7e3459af9f325d605af73fddb0c983763908e12ff206e80f3140659e" [label="mkdir{path=/src/src/Tgstation.Server.Host}" shape="note"];
+  "sha256:1689257a9326fbc51b88da16e1a891f9538ae84eef89b6c7362e12a706f7eb05" [label="/bin/sh -c dotnet publish -c Release -o /app/lib/Default && mv /app/lib/Default/appsettings* /app" shape="box"];
+  "sha256:eb3fc7d79943271959c40183fc5ba8f3ccf5bae18eb74325e5f5386a7f056116" [label="copy{src=/app, dest=/app/}" shape="note"];
+  "sha256:20ac91d3f8c8ee67b3554a792a7ab2450915e223e1be2d698591c66ad6d5de8f" [label="copy{src=/src/build/tgs.docker.sh, dest=/app/tgs.sh}" shape="note"];
+  "sha256:14aee73c1b70d58a5ef21fe6c14c7cb322b4fe7fed37c59e3eb867e2d32d68de" [label="sha256:14aee73c1b70d58a5ef21fe6c14c7cb322b4fe7fed37c59e3eb867e2d32d68de" shape="plaintext"];
+  "sha256:929a601b3cc251e7ab7938ac22983eaffcd6defdf6e7dabdc91eee41b18f0dab" -> "sha256:8990eb034c9a20d8260b1f358b6d37826630cf5365c62c2a0e0f81209862f593" [label=""];
+  "sha256:8990eb034c9a20d8260b1f358b6d37826630cf5365c62c2a0e0f81209862f593" -> "sha256:dc184d43ff90ec18a3c9f9a277a4622a7ff5382c2ebdae45a4cd7a61c868bdfa" [label=""];
+  "sha256:95ebc7aa89060a0bb064bbb970f2f510902bc639411306b2b0183c35e2dbd348" -> "sha256:f0eeb2a01cc488a2160e1eac44b4833e87c456bfcaf8a6d002483b5eb00d75d6" [label=""];
+  "sha256:f0eeb2a01cc488a2160e1eac44b4833e87c456bfcaf8a6d002483b5eb00d75d6" -> "sha256:1f6083af6c03dbc2f929990b6b378c7d0593de726a2399f51b96acef5b0b87cb" [label=""];
+  "sha256:1f6083af6c03dbc2f929990b6b378c7d0593de726a2399f51b96acef5b0b87cb" -> "sha256:9584aa331d26ee872967a899a06a1b1fb62b333cb37893f4120cbdcacd968bcf" [label=""];
+  "sha256:9584aa331d26ee872967a899a06a1b1fb62b333cb37893f4120cbdcacd968bcf" -> "sha256:fbb78afcf4c3e715ff024d15521b1544a6df0349e92ea8a766b0434d9be34a6d" [label=""];
+  "sha256:f0df3c5fa40306c4732372da16d030332e6973fc477da85ef34d0582ead4e49a" -> "sha256:fbb78afcf4c3e715ff024d15521b1544a6df0349e92ea8a766b0434d9be34a6d" [label=""];
+  "sha256:fbb78afcf4c3e715ff024d15521b1544a6df0349e92ea8a766b0434d9be34a6d" -> "sha256:d2664c44bdaefd8589db02cdefb7a1a21d7136cacce1c1a22a381f3db7510460" [label=""];
+  "sha256:f0df3c5fa40306c4732372da16d030332e6973fc477da85ef34d0582ead4e49a" -> "sha256:d2664c44bdaefd8589db02cdefb7a1a21d7136cacce1c1a22a381f3db7510460" [label=""];
+  "sha256:d2664c44bdaefd8589db02cdefb7a1a21d7136cacce1c1a22a381f3db7510460" -> "sha256:d2021df299c795a98c41b9276225d75df47f10d7bb6145450190d9c8e37007ad" [label=""];
+  "sha256:f0df3c5fa40306c4732372da16d030332e6973fc477da85ef34d0582ead4e49a" -> "sha256:d2021df299c795a98c41b9276225d75df47f10d7bb6145450190d9c8e37007ad" [label=""];
+  "sha256:d2021df299c795a98c41b9276225d75df47f10d7bb6145450190d9c8e37007ad" -> "sha256:fef63c93c6f2fa14f85c7ac4adde47208351876baccb81ec1730491af273750a" [label=""];
+  "sha256:f0df3c5fa40306c4732372da16d030332e6973fc477da85ef34d0582ead4e49a" -> "sha256:fef63c93c6f2fa14f85c7ac4adde47208351876baccb81ec1730491af273750a" [label=""];
+  "sha256:fef63c93c6f2fa14f85c7ac4adde47208351876baccb81ec1730491af273750a" -> "sha256:627e40bd83d941c2c73e38192a342998c8786ead5e55729b1b542cbfa3ffc3ca" [label=""];
+  "sha256:f0df3c5fa40306c4732372da16d030332e6973fc477da85ef34d0582ead4e49a" -> "sha256:627e40bd83d941c2c73e38192a342998c8786ead5e55729b1b542cbfa3ffc3ca" [label=""];
+  "sha256:627e40bd83d941c2c73e38192a342998c8786ead5e55729b1b542cbfa3ffc3ca" -> "sha256:36eee35723670e4aa147f181e1fa1ac915a160e0ce7793bd8a1053645899346c" [label=""];
+  "sha256:36eee35723670e4aa147f181e1fa1ac915a160e0ce7793bd8a1053645899346c" -> "sha256:93c15bf085f54ba1ff255d53e8d2351b71a5cb772bb82c5d5174f8891ee1f487" [label=""];
+  "sha256:f0df3c5fa40306c4732372da16d030332e6973fc477da85ef34d0582ead4e49a" -> "sha256:93c15bf085f54ba1ff255d53e8d2351b71a5cb772bb82c5d5174f8891ee1f487" [label=""];
+  "sha256:93c15bf085f54ba1ff255d53e8d2351b71a5cb772bb82c5d5174f8891ee1f487" -> "sha256:b90c658a39227a4c3a10734b585822d9dd1d436926591eedcf9d482feb6ed518" [label=""];
+  "sha256:b90c658a39227a4c3a10734b585822d9dd1d436926591eedcf9d482feb6ed518" -> "sha256:0febb68dd20ba5030ae30b90147fab3168a305b63e688445a237e293c4a4d3e6" [label=""];
+  "sha256:0febb68dd20ba5030ae30b90147fab3168a305b63e688445a237e293c4a4d3e6" -> "sha256:10e9ed0d278fb5b2e29f3a5f4d488fdddc354733f4ed96e529c47b1b85f70b35" [label=""];
+  "sha256:10e9ed0d278fb5b2e29f3a5f4d488fdddc354733f4ed96e529c47b1b85f70b35" -> "sha256:260da89f7e3459af9f325d605af73fddb0c983763908e12ff206e80f3140659e" [label=""];
+  "sha256:260da89f7e3459af9f325d605af73fddb0c983763908e12ff206e80f3140659e" -> "sha256:1689257a9326fbc51b88da16e1a891f9538ae84eef89b6c7362e12a706f7eb05" [label=""];
+  "sha256:dc184d43ff90ec18a3c9f9a277a4622a7ff5382c2ebdae45a4cd7a61c868bdfa" -> "sha256:eb3fc7d79943271959c40183fc5ba8f3ccf5bae18eb74325e5f5386a7f056116" [label=""];
+  "sha256:1689257a9326fbc51b88da16e1a891f9538ae84eef89b6c7362e12a706f7eb05" -> "sha256:eb3fc7d79943271959c40183fc5ba8f3ccf5bae18eb74325e5f5386a7f056116" [label=""];
+  "sha256:eb3fc7d79943271959c40183fc5ba8f3ccf5bae18eb74325e5f5386a7f056116" -> "sha256:20ac91d3f8c8ee67b3554a792a7ab2450915e223e1be2d698591c66ad6d5de8f" [label=""];
+  "sha256:1689257a9326fbc51b88da16e1a891f9538ae84eef89b6c7362e12a706f7eb05" -> "sha256:20ac91d3f8c8ee67b3554a792a7ab2450915e223e1be2d698591c66ad6d5de8f" [label=""];
+  "sha256:20ac91d3f8c8ee67b3554a792a7ab2450915e223e1be2d698591c66ad6d5de8f" -> "sha256:14aee73c1b70d58a5ef21fe6c14c7cb322b4fe7fed37c59e3eb867e2d32d68de" [label=""];
+}
+

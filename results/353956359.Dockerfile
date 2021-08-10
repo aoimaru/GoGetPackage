@@ -1,0 +1,29 @@
+[app/sources/353956359.Dockerfile]
+digraph {
+  "sha256:4cb6ee2b8113cd87afd4b2ba784a1780b4b81c96f0bbde77a6ddff43729f418b" [label="docker-image://docker.io/library/debian:buster-slim" shape="ellipse"];
+  "sha256:11fbaadcd8a0f82e26285645d26c28bd9fe3931010d90b245cea171181accdbe" [label="/bin/sh -c useradd --shell /bin/sh --user-group weblate   && mkdir -p /home/weblate/.ssh   && touch /home/weblate/.ssh/authorized_keys   && chown -R weblate:weblate /home/weblate   && chmod 700 /home/weblate/.ssh   && install -d -o weblate -g weblate -m 755 /usr/local/lib/python3.7/dist-packages/data-test   && install -d -o weblate -g weblate -m 755 /app/data" shape="box"];
+  "sha256:56da4361beeb825c4efd0b0d807f0c7ba945444e77920585a19a620ea386cf99" [label="local://context" shape="ellipse"];
+  "sha256:9e323c45768964b60daae39f41e7444a444417a68957b3acc55813947a98b130" [label="copy{src=/requirements.txt, dest=/usr/src/weblate/},copy{src=/patches, dest=/usr/src/weblate/}" shape="note"];
+  "sha256:ed1c94336b930aa2a7bea7ce25ddfa82a8e89d0a5349bdb0a57c04e862fab7a4" [label="/bin/sh -c set -x   && export DEBIAN_FRONTEND=noninteractive   && apt-get update   && apt-get -y upgrade   && apt-get install --no-install-recommends -y     sudo     uwsgi     uwsgi-plugin-python3     netcat-openbsd     nginx     supervisor     openssh-client     curl     gir1.2-pango-1.0     python3-gi     python3-gi-cairo     python3-cairo     python3-pip     python3-lxml     python3-yaml     python3-pillow     python3-setuptools     python3-wheel     python3-gdbm     python3-psycopg2     python3-rcssmin     python3-rjsmin     gettext     postgresql-client     mercurial     git     git-svn     subversion     pkg-config     python3-dev     libxml2-dev     libxmlsec1-dev     libleptonica-dev     libtesseract-dev     libsasl2-dev     libldap2-dev     libssl-dev     cython     gcc     g++     tesseract-ocr     patch   && pip3 install Weblate==$VERSION -r /usr/src/weblate/requirements.txt   && python3 -c 'from phply.phpparse import make_parser; make_parser()'   && ln -s /usr/local/share/weblate/examples/ /app/   && rm -rf /root/.cache /tmp/*   && apt-get -y purge     python3-dev     pkg-config     libleptonica-dev     libtesseract-dev     libxml2-dev     libxmlsec1-dev     cython     gcc     g++     libsasl2-dev     libldap2-dev     libssl-dev   && apt-get -y autoremove   && apt-get clean" shape="box"];
+  "sha256:9e7741e3dc84d74560a50835848584f9b523e33bf33e887f2b17243664e78552" [label="/bin/sh -c curl -L https://github.com/github/hub/releases/download/v2.2.9/hub-linux-amd64-2.2.9.tgz | tar xzv --wildcards hub-linux*/bin/hub &&   cp hub-linux-amd64-2.2.9/bin/hub /usr/bin &&   rm -rf hub-linux-amd64-2.2.9" shape="box"];
+  "sha256:c63c9743a181f36cffb6f460055c09b097f69a34067f48a61a02bed50b280c5d" [label="copy{src=/etc, dest=/etc/}" shape="note"];
+  "sha256:847bf46379960bb25ce87f60f0905ba4d6db361596f7060bb0c0d8d3df68b727" [label="/bin/sh -c chmod a+r /etc/weblate/settings.py &&   ln -s /etc/weblate/settings.py /usr/local/lib/python3.7/dist-packages/weblate/settings.py" shape="box"];
+  "sha256:99a63681653d8e29294d0ff60477b75b00d592e211d4c82a466cc050a6dd3264" [label="/bin/sh -c find /usr/src/weblate -name '*.patch' -print0 | sort -z |     xargs -n1 -0 -r patch -p1 -d /usr/local/lib/python3.7/dist-packages/ -i" shape="box"];
+  "sha256:e04e2e45466f1509dbc696e82fb774afa849da7e886dc8ecf32846c2db003f5b" [label="copy{src=/start, dest=/app/bin/}" shape="note"];
+  "sha256:e07bcf4875526f3f0acfc0a2052fdbad9bc8e8d28281db6f0a955afc6c3a65db" [label="/bin/sh -c chmod a+rx /app/bin/start" shape="box"];
+  "sha256:ae0f3994ffcc94466492343d6833977eac4dbb4deb71f5c67db72658cced6fb1" [label="sha256:ae0f3994ffcc94466492343d6833977eac4dbb4deb71f5c67db72658cced6fb1" shape="plaintext"];
+  "sha256:4cb6ee2b8113cd87afd4b2ba784a1780b4b81c96f0bbde77a6ddff43729f418b" -> "sha256:11fbaadcd8a0f82e26285645d26c28bd9fe3931010d90b245cea171181accdbe" [label=""];
+  "sha256:11fbaadcd8a0f82e26285645d26c28bd9fe3931010d90b245cea171181accdbe" -> "sha256:9e323c45768964b60daae39f41e7444a444417a68957b3acc55813947a98b130" [label=""];
+  "sha256:56da4361beeb825c4efd0b0d807f0c7ba945444e77920585a19a620ea386cf99" -> "sha256:9e323c45768964b60daae39f41e7444a444417a68957b3acc55813947a98b130" [label=""];
+  "sha256:9e323c45768964b60daae39f41e7444a444417a68957b3acc55813947a98b130" -> "sha256:ed1c94336b930aa2a7bea7ce25ddfa82a8e89d0a5349bdb0a57c04e862fab7a4" [label=""];
+  "sha256:ed1c94336b930aa2a7bea7ce25ddfa82a8e89d0a5349bdb0a57c04e862fab7a4" -> "sha256:9e7741e3dc84d74560a50835848584f9b523e33bf33e887f2b17243664e78552" [label=""];
+  "sha256:9e7741e3dc84d74560a50835848584f9b523e33bf33e887f2b17243664e78552" -> "sha256:c63c9743a181f36cffb6f460055c09b097f69a34067f48a61a02bed50b280c5d" [label=""];
+  "sha256:56da4361beeb825c4efd0b0d807f0c7ba945444e77920585a19a620ea386cf99" -> "sha256:c63c9743a181f36cffb6f460055c09b097f69a34067f48a61a02bed50b280c5d" [label=""];
+  "sha256:c63c9743a181f36cffb6f460055c09b097f69a34067f48a61a02bed50b280c5d" -> "sha256:847bf46379960bb25ce87f60f0905ba4d6db361596f7060bb0c0d8d3df68b727" [label=""];
+  "sha256:847bf46379960bb25ce87f60f0905ba4d6db361596f7060bb0c0d8d3df68b727" -> "sha256:99a63681653d8e29294d0ff60477b75b00d592e211d4c82a466cc050a6dd3264" [label=""];
+  "sha256:99a63681653d8e29294d0ff60477b75b00d592e211d4c82a466cc050a6dd3264" -> "sha256:e04e2e45466f1509dbc696e82fb774afa849da7e886dc8ecf32846c2db003f5b" [label=""];
+  "sha256:56da4361beeb825c4efd0b0d807f0c7ba945444e77920585a19a620ea386cf99" -> "sha256:e04e2e45466f1509dbc696e82fb774afa849da7e886dc8ecf32846c2db003f5b" [label=""];
+  "sha256:e04e2e45466f1509dbc696e82fb774afa849da7e886dc8ecf32846c2db003f5b" -> "sha256:e07bcf4875526f3f0acfc0a2052fdbad9bc8e8d28281db6f0a955afc6c3a65db" [label=""];
+  "sha256:e07bcf4875526f3f0acfc0a2052fdbad9bc8e8d28281db6f0a955afc6c3a65db" -> "sha256:ae0f3994ffcc94466492343d6833977eac4dbb4deb71f5c67db72658cced6fb1" [label=""];
+}
+

@@ -1,0 +1,21 @@
+[app/sources/256267161.Dockerfile]
+digraph {
+  "sha256:16074aeb086bfd1ab9068b8465da3a7831680648c64da252d5755f648385f95c" [label="docker-image://docker.io/jupyter/minimal-notebook:latest" shape="ellipse"];
+  "sha256:c02b17c2a4edc48e1a6bff0bc81cf2eb200dc3c16ce57a7745de9aee899147f0" [label="/bin/sh -c apt-get update &&     apt-get install -y --no-install-recommends libav-tools &&     apt-get clean &&     rm -rf /var/lib/apt/lists/*" shape="box"];
+  "sha256:69edc61e441207cce4020a9c9d3805cf3bc4dcfb322c9d6dfa57e61357b12ec1" [label="/bin/sh -c conda install --quiet --yes     'nomkl'     'ipywidgets=6.0*'     'pandas=0.19*'     'numexpr=2.6*'     'matplotlib=2.0*'     'scipy=0.19*'     'seaborn=0.7*'     'scikit-learn=0.18*'     'scikit-image=0.12*'     'sympy=1.0*'     'cython=0.25*'     'patsy=0.4*'     'statsmodels=0.8*'     'cloudpickle=0.2*'     'dill=0.2*'     'numba=0.31*'     'bokeh=0.12*'     'sqlalchemy=1.1*'     'hdf5=1.8.17'     'h5py=2.6*'     'vincent=0.4.*'     'beautifulsoup4=4.5.*'     'xlrd'  &&     conda remove --quiet --yes --force qt pyqt &&     conda clean -tipsy" shape="box"];
+  "sha256:cd1fd25b3d13ffe1ae28792a0f4b3ab75a959e2cbac525b8e4535e8d34c391ab" [label="/bin/sh -c jupyter nbextension enable --py widgetsnbextension --sys-prefix" shape="box"];
+  "sha256:56926e7457bb7044112d973ad160dc94900066159f011c5155cf1a5f4f697bc0" [label="/bin/sh -c conda create --quiet --yes -p $CONDA_DIR/envs/python2 python=2.7     'nomkl'     'ipython=5.3*'     'ipywidgets=6.0*'     'pandas=0.19*'     'numexpr=2.6*'     'matplotlib=2.0*'     'scipy=0.19*'     'seaborn=0.7*'     'scikit-learn=0.18*'     'scikit-image=0.12*'     'sympy=1.0*'     'cython=0.25*'     'patsy=0.4*'     'statsmodels=0.8*'     'cloudpickle=0.2*'     'dill=0.2*'     'numba=0.31*'     'bokeh=0.12*'     'hdf5=1.8.17'     'h5py=2.6*'     'sqlalchemy=1.1*'     'pyzmq'     'vincent=0.4.*'     'beautifulsoup4=4.5.*'     'xlrd' &&     conda remove -n python2 --quiet --yes --force qt pyqt &&     conda clean -tipsy" shape="box"];
+  "sha256:d44196f398d60c7296b70d660015b1af30e6eea2073734d9549402afbd85e58e" [label="/bin/sh -c ln -s $CONDA_DIR/envs/python2/bin/pip $CONDA_DIR/bin/pip2 &&     ln -s $CONDA_DIR/bin/pip $CONDA_DIR/bin/pip3" shape="box"];
+  "sha256:c8b0834b18456d071ff6cd29dc53adbec558c3f4eda98e0292fc496aaf23f0aa" [label="/bin/sh -c MPLBACKEND=Agg $CONDA_DIR/envs/python2/bin/python -c \"import matplotlib.pyplot\"" shape="box"];
+  "sha256:9b00668931df6e76bb4cff0d64a9715553e796b4c9945c97b09cd0a54a57bc7b" [label="/bin/sh -c pip install kernda --no-cache &&     $CONDA_DIR/envs/python2/bin/python -m ipykernel install &&     kernda -o -y /usr/local/share/jupyter/kernels/python2/kernel.json &&     pip uninstall kernda -y" shape="box"];
+  "sha256:16df0881412f7ddb1e3b10dd696dd2eb3439793b60d6257b163e918fb5f4a504" [label="sha256:16df0881412f7ddb1e3b10dd696dd2eb3439793b60d6257b163e918fb5f4a504" shape="plaintext"];
+  "sha256:16074aeb086bfd1ab9068b8465da3a7831680648c64da252d5755f648385f95c" -> "sha256:c02b17c2a4edc48e1a6bff0bc81cf2eb200dc3c16ce57a7745de9aee899147f0" [label=""];
+  "sha256:c02b17c2a4edc48e1a6bff0bc81cf2eb200dc3c16ce57a7745de9aee899147f0" -> "sha256:69edc61e441207cce4020a9c9d3805cf3bc4dcfb322c9d6dfa57e61357b12ec1" [label=""];
+  "sha256:69edc61e441207cce4020a9c9d3805cf3bc4dcfb322c9d6dfa57e61357b12ec1" -> "sha256:cd1fd25b3d13ffe1ae28792a0f4b3ab75a959e2cbac525b8e4535e8d34c391ab" [label=""];
+  "sha256:cd1fd25b3d13ffe1ae28792a0f4b3ab75a959e2cbac525b8e4535e8d34c391ab" -> "sha256:56926e7457bb7044112d973ad160dc94900066159f011c5155cf1a5f4f697bc0" [label=""];
+  "sha256:56926e7457bb7044112d973ad160dc94900066159f011c5155cf1a5f4f697bc0" -> "sha256:d44196f398d60c7296b70d660015b1af30e6eea2073734d9549402afbd85e58e" [label=""];
+  "sha256:d44196f398d60c7296b70d660015b1af30e6eea2073734d9549402afbd85e58e" -> "sha256:c8b0834b18456d071ff6cd29dc53adbec558c3f4eda98e0292fc496aaf23f0aa" [label=""];
+  "sha256:c8b0834b18456d071ff6cd29dc53adbec558c3f4eda98e0292fc496aaf23f0aa" -> "sha256:9b00668931df6e76bb4cff0d64a9715553e796b4c9945c97b09cd0a54a57bc7b" [label=""];
+  "sha256:9b00668931df6e76bb4cff0d64a9715553e796b4c9945c97b09cd0a54a57bc7b" -> "sha256:16df0881412f7ddb1e3b10dd696dd2eb3439793b60d6257b163e918fb5f4a504" [label=""];
+}
+

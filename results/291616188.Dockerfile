@@ -1,0 +1,17 @@
+[app/sources/291616188.Dockerfile]
+digraph {
+  "sha256:18612b6f084bf07006a14717b349ddce18f0fd149805b485aed08ff12233cc36" [label="docker-image://docker.io/library/openjdk:8u171-jre-stretch" shape="ellipse"];
+  "sha256:7a6ac57a7da49aef7595bf6839df3f2c934af637f6d7e151a64c73a1e785abee" [label="/bin/sh -c set -x   && apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF   && echo \"deb http://download.mono-project.com/repo/debian stable-stretch main\" | tee /etc/apt/sources.list.d/mono-official-stable.list   && apt-get update   && apt-get install     curl     libunwind8     gettext     apt-transport-https     mono-complete=\"$MONO_DEBIAN_VERSION\"     ca-certificates-mono=\"$MONO_DEBIAN_VERSION\"     referenceassemblies-pcl     mono-xsp4     wget     unzip     -y   && curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg   && mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg   && sh -c 'echo \"deb [arch=amd64] https://packages.microsoft.com/debian/9/prod stretch main\" > /etc/apt/sources.list.d/microsoft-prod.list'   && apt-get update   && apt-get install dotnet-sdk-$DOTNET_SDK_VERSION -y   && apt-get clean   && rm -rf /var/lib/apt/lists/*" shape="box"];
+  "sha256:2a3a633009fce730969518446f24a12a1c84c9a6591254f0cb9450a91a3084eb" [label="/bin/sh -c wget https://github.com/SonarSource/sonar-scanner-msbuild/releases/download/$SONAR_SCANNER_MSBUILD_VERSION/sonar-scanner-msbuild-$SONAR_SCANNER_MSBUILD_VERSION-net46.zip -O /opt/sonar-scanner-msbuild.zip   && mkdir -p $SONAR_SCANNER_MSBUILD_HOME   && mkdir -p $DOTNET_PROJECT_DIR   && unzip /opt/sonar-scanner-msbuild.zip -d $SONAR_SCANNER_MSBUILD_HOME   && rm /opt/sonar-scanner-msbuild.zip   && chmod 775 $SONAR_SCANNER_MSBUILD_HOME/*.exe   && chmod 775 $SONAR_SCANNER_MSBUILD_HOME/**/bin/*   && chmod 775 $SONAR_SCANNER_MSBUILD_HOME/**/lib/*.jar" shape="box"];
+  "sha256:0e94838ec7045ebf4febc8b59df22c5d5e1ef844c5e106f169f4b16f3fc3061d" [label="local://context" shape="ellipse"];
+  "sha256:1926591185041072f8fadb8dfdc5046dd70239721977473f79e53332778e2d30" [label="copy{src=/run.sh, dest=/opt/sonar-scanner-msbuild/sonar-scanner-3.2.0.1227/bin/}" shape="note"];
+  "sha256:55e73767ea9ea7861f5ff05ffa5afcf8a003085406240117dfdfe0520130dc06" [label="mkdir{path=/project}" shape="note"];
+  "sha256:199ca603433c80d6a4ed2357f5b083941b947dec53f8e16628373ca6fdc76e4d" [label="sha256:199ca603433c80d6a4ed2357f5b083941b947dec53f8e16628373ca6fdc76e4d" shape="plaintext"];
+  "sha256:18612b6f084bf07006a14717b349ddce18f0fd149805b485aed08ff12233cc36" -> "sha256:7a6ac57a7da49aef7595bf6839df3f2c934af637f6d7e151a64c73a1e785abee" [label=""];
+  "sha256:7a6ac57a7da49aef7595bf6839df3f2c934af637f6d7e151a64c73a1e785abee" -> "sha256:2a3a633009fce730969518446f24a12a1c84c9a6591254f0cb9450a91a3084eb" [label=""];
+  "sha256:2a3a633009fce730969518446f24a12a1c84c9a6591254f0cb9450a91a3084eb" -> "sha256:1926591185041072f8fadb8dfdc5046dd70239721977473f79e53332778e2d30" [label=""];
+  "sha256:0e94838ec7045ebf4febc8b59df22c5d5e1ef844c5e106f169f4b16f3fc3061d" -> "sha256:1926591185041072f8fadb8dfdc5046dd70239721977473f79e53332778e2d30" [label=""];
+  "sha256:1926591185041072f8fadb8dfdc5046dd70239721977473f79e53332778e2d30" -> "sha256:55e73767ea9ea7861f5ff05ffa5afcf8a003085406240117dfdfe0520130dc06" [label=""];
+  "sha256:55e73767ea9ea7861f5ff05ffa5afcf8a003085406240117dfdfe0520130dc06" -> "sha256:199ca603433c80d6a4ed2357f5b083941b947dec53f8e16628373ca6fdc76e4d" [label=""];
+}
+

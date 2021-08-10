@@ -1,0 +1,55 @@
+[app/sources/193083329.Dockerfile]
+digraph {
+  "sha256:a9ab970ef4810de5fde05a4caa66b977b639ff067a8b0241cb81432a2f533c04" [label="docker-image://docker.io/library/ubuntu:14.04" shape="ellipse"];
+  "sha256:ff106250fb601d19f04e4501ddec078f26ea45d3cb9fef923cccbcc8afbcc427" [label="/bin/sh -c apt-get update &&      apt-get upgrade -y &&      apt-get install -y python &&      apt-get install -y python3-pip &&      apt-get install -y wget curl unzip gcc python-dev python-setuptools git less lynx hdfview" shape="box"];
+  "sha256:21da8093d20ea55f5f91788652f7e26a9b972cd05628029bbe707ca303955191" [label="/bin/sh -c apt-get install -y  aufs-tools  automake  bedtools  btrfs-tools  build-essential  dpkg-sig  iptables  samtools  software-properties-common" shape="box"];
+  "sha256:f2ba73ad72a76ac5645e53f828caacf94275c5dd7871cc81c12eb5a641cf23b6" [label="/bin/sh -c wget https://dl.google.com/dl/cloudsdk/release/google-cloud-sdk.zip     && unzip google-cloud-sdk.zip     && rm google-cloud-sdk.zip" shape="box"];
+  "sha256:2ad94998d397a5c0c3151aa1ab0ea9464778194dae968cd2ee1e91f00546d42c" [label="/bin/sh -c google-cloud-sdk/install.sh --usage-reporting=true --path-update=true --bash-completion=true --rc-path=/.bashrc --disable-installation-options" shape="box"];
+  "sha256:498ef52e9060349c3c8984b26a63b83cc292fee3014d20c71f23429d70fe2f81" [label="/bin/sh -c yes | gcloud components update" shape="box"];
+  "sha256:ad26e08806b5e2985b527fdfbb73cabd05208b6a9c716383996d49375c586899" [label="/bin/sh -c yes | gcloud components update preview" shape="box"];
+  "sha256:e98fe728e09fa683b5ad756d5d3d09b505e5d0205db65af41aa397484b83bb71" [label="mkdir{path=/root}" shape="note"];
+  "sha256:b190420c22e7aeab5e7a9861d07888c5c2e6589583944cf6c81e97c8bd39f0f1" [label="/bin/sh -c echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections &&   add-apt-repository -y ppa:webupd8team/java &&   apt-get update &&   apt-get install -y oracle-java8-installer &&   rm -rf /var/lib/apt/lists/* &&   rm -rf /var/cache/oracle-jdk8-installer" shape="box"];
+  "sha256:6967f099956a248b55c6513bd58ea85cb92bedc052a3f84cc993503efcdd3ce5" [label="/bin/sh -c mkdir -p /usr/local/lib/R/ &&     mkdir -p ~/site-library &&     ln -sFv ~/site-library /usr/local/lib/R/site-library" shape="box"];
+  "sha256:d21d1ea70afe39acb5d26441c72d2ea87ff61876cba57f20f85b14e3c97966a2" [label="/bin/sh -c apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9 &&     add-apt-repository \"deb http://cran.rstudio.com/bin/linux/ubuntu trusty/\" &&     apt-get update &&     apt-get install -y --force-yes         r-base-dev=3.1.3-1trusty         r-base-core=3.1.3-1trusty" shape="box"];
+  "sha256:bd5c6d7a218be0d61b22b7249d00dfd0feb6893772f2f3aeb6e1c89f1c4f34ad" [label="/bin/sh -c mkdir -p /root/gatk-protected/" shape="box"];
+  "sha256:7e8b92b9ac86a10c587544428a239ca5b8846719493d8b353f73fe106fe82e7a" [label="local://context" shape="ellipse"];
+  "sha256:4e676273c156e923917a79c0eeea5577bce9d0e11f1f81f2a94e310127950456" [label="copy{src=/, dest=/root/gatk-protected/}" shape="note"];
+  "sha256:3748b5220910593ca2333b22892fdf297bec4fe2d1e2450ae12e254d12408bd2" [label="mkdir{path=/root/gatk-protected}" shape="note"];
+  "sha256:1df51d147b3b28015bc6893f67e9bee9f685e06c9dbca94bfe3ba0d1efca0a8e" [label="/bin/sh -c Rscript /root/gatk-protected/scripts/install_R_packages.R" shape="box"];
+  "sha256:c7ac88bc635ba40c5d367e921be697b4aaf63af782c21acdfea90c5ac5cf2a72" [label="/bin/sh -c ./gradlew clean compileTestJava shadowJar" shape="box"];
+  "sha256:f694e52c2c3c6ee754e83226c6646655e358b21dceffeecbe092d8505c08fdc5" [label="mkdir{path=/root}" shape="note"];
+  "sha256:6f371981ea42788c66c8d69dfdad1753de4f6787993c291c745d9acb633b7b6e" [label="/bin/sh -c ln -sFv /root/gatk-protected/build/libs/gatk-protected.jar" shape="box"];
+  "sha256:8b5f88bc891d62c61c00dd5c0fd133ddf7b5ac8b158654aa3308e066cc7923ae" [label="/bin/sh -c java -jar gatk-protected.jar -h" shape="box"];
+  "sha256:0e1ab5e1e67b62326f3ee44dbf878eca8a49a4584880d58459e068d293ff3423" [label="mkdir{path=/root/gatk-protected}" shape="note"];
+  "sha256:09581e5c9554a96f9d71de5d904768e9d0378f0cbed932275c0682f8f75178f4" [label="/bin/sh -c bash scripts/install_git_lfs.sh" shape="box"];
+  "sha256:d2dae482be66c0cb012f7777d1c2a32ccf8d8c04a53a37591253c2fec3355860" [label="/bin/sh -c echo This docker image is running gatk-protected `git describe --tags` > /root/GATK_PROTECTED_VERSION" shape="box"];
+  "sha256:34c8517c9f3ab57a8b41ccfec6a2450d6aea1bdd12ae4b0e88f19a4d5ec76440" [label="/bin/sh -c echo \"cd /root/gatk-protected/ && ./gradlew test\" >/root/run_unit_tests.sh" shape="box"];
+  "sha256:bc32d58d8f5cfdce7758be5afd682fb010e5ed2843ba867bc40f00acf91c50b9" [label="mkdir{path=/root}" shape="note"];
+  "sha256:e3c680c776d7abd7909fbaffafaba401587d5ec2c48fad63aae90cbf5d118c2c" [label="sha256:e3c680c776d7abd7909fbaffafaba401587d5ec2c48fad63aae90cbf5d118c2c" shape="plaintext"];
+  "sha256:a9ab970ef4810de5fde05a4caa66b977b639ff067a8b0241cb81432a2f533c04" -> "sha256:ff106250fb601d19f04e4501ddec078f26ea45d3cb9fef923cccbcc8afbcc427" [label=""];
+  "sha256:ff106250fb601d19f04e4501ddec078f26ea45d3cb9fef923cccbcc8afbcc427" -> "sha256:21da8093d20ea55f5f91788652f7e26a9b972cd05628029bbe707ca303955191" [label=""];
+  "sha256:21da8093d20ea55f5f91788652f7e26a9b972cd05628029bbe707ca303955191" -> "sha256:f2ba73ad72a76ac5645e53f828caacf94275c5dd7871cc81c12eb5a641cf23b6" [label=""];
+  "sha256:f2ba73ad72a76ac5645e53f828caacf94275c5dd7871cc81c12eb5a641cf23b6" -> "sha256:2ad94998d397a5c0c3151aa1ab0ea9464778194dae968cd2ee1e91f00546d42c" [label=""];
+  "sha256:2ad94998d397a5c0c3151aa1ab0ea9464778194dae968cd2ee1e91f00546d42c" -> "sha256:498ef52e9060349c3c8984b26a63b83cc292fee3014d20c71f23429d70fe2f81" [label=""];
+  "sha256:498ef52e9060349c3c8984b26a63b83cc292fee3014d20c71f23429d70fe2f81" -> "sha256:ad26e08806b5e2985b527fdfbb73cabd05208b6a9c716383996d49375c586899" [label=""];
+  "sha256:ad26e08806b5e2985b527fdfbb73cabd05208b6a9c716383996d49375c586899" -> "sha256:e98fe728e09fa683b5ad756d5d3d09b505e5d0205db65af41aa397484b83bb71" [label=""];
+  "sha256:e98fe728e09fa683b5ad756d5d3d09b505e5d0205db65af41aa397484b83bb71" -> "sha256:b190420c22e7aeab5e7a9861d07888c5c2e6589583944cf6c81e97c8bd39f0f1" [label=""];
+  "sha256:b190420c22e7aeab5e7a9861d07888c5c2e6589583944cf6c81e97c8bd39f0f1" -> "sha256:6967f099956a248b55c6513bd58ea85cb92bedc052a3f84cc993503efcdd3ce5" [label=""];
+  "sha256:6967f099956a248b55c6513bd58ea85cb92bedc052a3f84cc993503efcdd3ce5" -> "sha256:d21d1ea70afe39acb5d26441c72d2ea87ff61876cba57f20f85b14e3c97966a2" [label=""];
+  "sha256:d21d1ea70afe39acb5d26441c72d2ea87ff61876cba57f20f85b14e3c97966a2" -> "sha256:bd5c6d7a218be0d61b22b7249d00dfd0feb6893772f2f3aeb6e1c89f1c4f34ad" [label=""];
+  "sha256:bd5c6d7a218be0d61b22b7249d00dfd0feb6893772f2f3aeb6e1c89f1c4f34ad" -> "sha256:4e676273c156e923917a79c0eeea5577bce9d0e11f1f81f2a94e310127950456" [label=""];
+  "sha256:7e8b92b9ac86a10c587544428a239ca5b8846719493d8b353f73fe106fe82e7a" -> "sha256:4e676273c156e923917a79c0eeea5577bce9d0e11f1f81f2a94e310127950456" [label=""];
+  "sha256:4e676273c156e923917a79c0eeea5577bce9d0e11f1f81f2a94e310127950456" -> "sha256:3748b5220910593ca2333b22892fdf297bec4fe2d1e2450ae12e254d12408bd2" [label=""];
+  "sha256:3748b5220910593ca2333b22892fdf297bec4fe2d1e2450ae12e254d12408bd2" -> "sha256:1df51d147b3b28015bc6893f67e9bee9f685e06c9dbca94bfe3ba0d1efca0a8e" [label=""];
+  "sha256:1df51d147b3b28015bc6893f67e9bee9f685e06c9dbca94bfe3ba0d1efca0a8e" -> "sha256:c7ac88bc635ba40c5d367e921be697b4aaf63af782c21acdfea90c5ac5cf2a72" [label=""];
+  "sha256:c7ac88bc635ba40c5d367e921be697b4aaf63af782c21acdfea90c5ac5cf2a72" -> "sha256:f694e52c2c3c6ee754e83226c6646655e358b21dceffeecbe092d8505c08fdc5" [label=""];
+  "sha256:f694e52c2c3c6ee754e83226c6646655e358b21dceffeecbe092d8505c08fdc5" -> "sha256:6f371981ea42788c66c8d69dfdad1753de4f6787993c291c745d9acb633b7b6e" [label=""];
+  "sha256:6f371981ea42788c66c8d69dfdad1753de4f6787993c291c745d9acb633b7b6e" -> "sha256:8b5f88bc891d62c61c00dd5c0fd133ddf7b5ac8b158654aa3308e066cc7923ae" [label=""];
+  "sha256:8b5f88bc891d62c61c00dd5c0fd133ddf7b5ac8b158654aa3308e066cc7923ae" -> "sha256:0e1ab5e1e67b62326f3ee44dbf878eca8a49a4584880d58459e068d293ff3423" [label=""];
+  "sha256:0e1ab5e1e67b62326f3ee44dbf878eca8a49a4584880d58459e068d293ff3423" -> "sha256:09581e5c9554a96f9d71de5d904768e9d0378f0cbed932275c0682f8f75178f4" [label=""];
+  "sha256:09581e5c9554a96f9d71de5d904768e9d0378f0cbed932275c0682f8f75178f4" -> "sha256:d2dae482be66c0cb012f7777d1c2a32ccf8d8c04a53a37591253c2fec3355860" [label=""];
+  "sha256:d2dae482be66c0cb012f7777d1c2a32ccf8d8c04a53a37591253c2fec3355860" -> "sha256:34c8517c9f3ab57a8b41ccfec6a2450d6aea1bdd12ae4b0e88f19a4d5ec76440" [label=""];
+  "sha256:34c8517c9f3ab57a8b41ccfec6a2450d6aea1bdd12ae4b0e88f19a4d5ec76440" -> "sha256:bc32d58d8f5cfdce7758be5afd682fb010e5ed2843ba867bc40f00acf91c50b9" [label=""];
+  "sha256:bc32d58d8f5cfdce7758be5afd682fb010e5ed2843ba867bc40f00acf91c50b9" -> "sha256:e3c680c776d7abd7909fbaffafaba401587d5ec2c48fad63aae90cbf5d118c2c" [label=""];
+}
+

@@ -1,0 +1,17 @@
+[app/sources/282256279.Dockerfile]
+digraph {
+  "sha256:04187b885604d112762d71717a1346cbc4f17e131fc82857a048019e04951455" [label="docker-image://docker.io/library/ubuntu:16.04" shape="ellipse"];
+  "sha256:5eb56efa8de728b2e03d832640c0602e85619fef0db3e61586687b8a47a123e4" [label="https://github.com/Yelp/dumb-init/releases/download/v1.0.2/dumb-init_1.0.2_amd64" shape="ellipse"];
+  "sha256:4e4f0e6adfdd8d171cd851c6377ef5f53b81a1c7d8ae7948612862eb3449a483" [label="copy{src=/dumb-init_1.0.2_amd64, dest=/usr/bin/dumb-init}" shape="note"];
+  "sha256:d0ea0337548e5fb92d8eda69d922b57b826b65fd3123dad81f01dacd75a61257" [label="/bin/sh -c apt-get update -y &&     apt-get upgrade -y &&     apt-get install -y ca-certificates apt-transport-https curl dnsutils bridge-utils lsb-release software-properties-common &&     chmod +x /usr/bin/dumb-init &&     echo \"deb https://packages.gitlab.com/runner/gitlab-ci-multi-runner/ubuntu/ `lsb_release -cs` main\" > /etc/apt/sources.list.d/runner_gitlab-ci-multi-runner.list &&     curl -sSL https://packages.gitlab.com/gpg.key | apt-key add - &&     apt-get update -y &&     apt-get install -y gitlab-ci-multi-runner=${GITLAB_RUNNER_VERSION} &&     mkdir -p /etc/gitlab-runner/certs &&     chmod -R 700 /etc/gitlab-runner &&     curl -sSL https://raw.githubusercontent.com/tobilg/mesosdns-resolver/master/mesosdns-resolver.sh -o /usr/local/bin/mesosdns-resolver &&     chmod +x /usr/local/bin/mesosdns-resolver &&     apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D &&     apt-add-repository 'deb https://apt.dockerproject.org/repo ubuntu-xenial main' &&     apt-get update &&     apt-get install -y docker-engine=${DOCKER_ENGINE_VERSION} &&     curl -sSL https://raw.githubusercontent.com/docker/docker/${DIND_COMMIT}/hack/dind -o /usr/local/bin/dind &&     chmod a+x /usr/local/bin/dind &&     apt-get clean &&     rm -rf /var/lib/apt/lists/*" shape="box"];
+  "sha256:efe73a1b2b4101086e0f65c6b628ae473b7903fe13397e06f1e1b4b46990ef7a" [label="local://context" shape="ellipse"];
+  "sha256:63862b4a445ddadc668cd0a425d552d6c71e966ccb01b867d95504972063bf88" [label="copy{src=/register_and_run.sh, dest=/}" shape="note"];
+  "sha256:ab1c9297eed43c4790c9b418392ec87014999254bd5c47561506f63886b00771" [label="sha256:ab1c9297eed43c4790c9b418392ec87014999254bd5c47561506f63886b00771" shape="plaintext"];
+  "sha256:04187b885604d112762d71717a1346cbc4f17e131fc82857a048019e04951455" -> "sha256:4e4f0e6adfdd8d171cd851c6377ef5f53b81a1c7d8ae7948612862eb3449a483" [label=""];
+  "sha256:5eb56efa8de728b2e03d832640c0602e85619fef0db3e61586687b8a47a123e4" -> "sha256:4e4f0e6adfdd8d171cd851c6377ef5f53b81a1c7d8ae7948612862eb3449a483" [label=""];
+  "sha256:4e4f0e6adfdd8d171cd851c6377ef5f53b81a1c7d8ae7948612862eb3449a483" -> "sha256:d0ea0337548e5fb92d8eda69d922b57b826b65fd3123dad81f01dacd75a61257" [label=""];
+  "sha256:d0ea0337548e5fb92d8eda69d922b57b826b65fd3123dad81f01dacd75a61257" -> "sha256:63862b4a445ddadc668cd0a425d552d6c71e966ccb01b867d95504972063bf88" [label=""];
+  "sha256:efe73a1b2b4101086e0f65c6b628ae473b7903fe13397e06f1e1b4b46990ef7a" -> "sha256:63862b4a445ddadc668cd0a425d552d6c71e966ccb01b867d95504972063bf88" [label=""];
+  "sha256:63862b4a445ddadc668cd0a425d552d6c71e966ccb01b867d95504972063bf88" -> "sha256:ab1c9297eed43c4790c9b418392ec87014999254bd5c47561506f63886b00771" [label=""];
+}
+
