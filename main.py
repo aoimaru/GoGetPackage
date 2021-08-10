@@ -3,27 +3,29 @@
 import subprocess
 from subprocess import PIPE
 import glob
+import os
 
 
 
-def main():
 
-    fileNames = glob.glob("app/sources/*.Dockerfile")
-    for fileName in fileNames:
-        print(fileName)
-
+def execute(filePath):
+    outPath = os.path.basename(filePath)
     proc = subprocess.run(
-        "docker-compose exec app ./main app/sources/128489309.Dockerfile", 
+        "docker-compose exec app ./main {} >> results/{}".format(filePath, outPath), 
         shell=True, 
         stdout=PIPE, 
         stderr=PIPE, 
         text=True
     )
-    date = proc.stdout
-    print('STDOUT: {}'.format(date))
+    return
 
 
+def main():
 
+    filePaths = glob.glob("app/sources/*.Dockerfile")
+    for filePath in filePaths:
+        print(filePath)
+        execute(filePath)
 
 
 if __name__ == "__main__":
