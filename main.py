@@ -10,7 +10,7 @@ import os
 
 def execute(filePath):
     outPath = os.path.basename(filePath)
-    proc = subprocess.run(
+    _ = subprocess.run(
         "docker-compose exec app ./main {} >> results/{}".format(filePath, outPath), 
         shell=True, 
         stdout=PIPE, 
@@ -23,8 +23,8 @@ def execute(filePath):
 def main():
 
     filePaths = glob.glob("app/sources/*.Dockerfile")
-    for filePath in filePaths:
-        print(filePath)
+    for cnt, filePath in enumerate(filePaths):
+        print(cnt, filePath)
         execute(filePath)
 
 
