@@ -1,0 +1,56 @@
+[app/sources/147005884.Dockerfile]
+digraph {
+  "sha256:363fb9ff21a33616e334820e780c311ce729dfd233acdf65b4b421252c7afeb3" [label="local://context" shape="ellipse"];
+  "sha256:78210b0c2cb609e7297f90cb4e8df077d0526f218afd180c6e8a074e6e2976c4" [label="docker-image://docker.io/library/maven:3.6.0-jdk-8" shape="ellipse"];
+  "sha256:e319fadffa52ddc22fbbbf8e4c70f67f9cddfafa292e0ac7425a52324f90f66c" [label="/bin/sh -c apt-get -y update && apt-get install -y groovy && rm -rf /var/lib/apt/lists/*" shape="box"];
+  "sha256:05c0d4ee3da9cdb682a49a7e6de6d1face4fbd5b5264ab9494880f068da6e34c" [label="/bin/sh -c curl -L --show-error https://download.java.net/java/GA/jdk11/13/GPL/openjdk-11.0.1_linux-x64_bin.tar.gz --output openjdk.tar.gz &&     echo \"7a6bb980b9c91c478421f865087ad2d69086a0583aeeb9e69204785e8e97dcfd  openjdk.tar.gz\" | sha256sum -c &&     tar xvzf openjdk.tar.gz &&     mv jdk-11.0.1/ /usr/lib/jvm/java-11-openjdk-amd64 &&     rm openjdk.tar.gz" shape="box"];
+  "sha256:5a6d10e92d032f3b53a31fba08a4039bc86ad9deef4a4c0cb8afe5b94333d41d" [label="copy{src=/src/main/docker/*.groovy, dest=/pct/scripts/}" shape="note"];
+  "sha256:d49818c2ae666509e6e37595cb1f487947c3f37613df2d1b6b34a132d3c0daf5" [label="/bin/sh -c git clone https://github.com/jenkinsci/plugin-compat-tester &&    cd plugin-compat-tester &&     mvn clean package -Dmaven.test.skip=true dependency:go-offline &&     mvn clean" shape="box"];
+  "sha256:c6110bfca3bc9872b50d5a6a0a442302a9517327e23b8ee814e62bad633eec34" [label="copy{src=/plugins-compat-tester, dest=/pct/src/plugins-compat-tester/}" shape="note"];
+  "sha256:f66edd84adf59dc35eb73240335a7eb1615935ad17f54007c27f0e2e434e95e4" [label="copy{src=/plugins-compat-tester-cli, dest=/pct/src/plugins-compat-tester-cli/}" shape="note"];
+  "sha256:9751de4dd195b53acd9d97f5709fc5f1a3f8f535147da96a6b22ba129fcaf706" [label="copy{src=/plugins-compat-tester-gae, dest=/pct/src/plugins-compat-tester-gae/}" shape="note"];
+  "sha256:7e03be1d611fd866fcbc38653658d724c11f7b3f5bd5dbbc71ec81a02fe7e7a6" [label="copy{src=/plugins-compat-tester-gae-client, dest=/pct/src/plugins-compat-tester-gae-client/}" shape="note"];
+  "sha256:6a77e5eb531f0d85eb0c765b585efad2bbdc8659df5fae2466b6a6d2690a482e" [label="copy{src=/plugins-compat-tester-model, dest=/pct/src/plugins-compat-tester-model/}" shape="note"];
+  "sha256:7aba1be7b44e0a048d29966da61a35f64404e44f5dc49414f33d34caa7ffc715" [label="copy{src=/*.xml, dest=/pct/src/}" shape="note"];
+  "sha256:51d2b58797d3ac623c89fc8bfe04ab07d71d6f1e0ef4145d04be41c3da3d1093" [label="copy{src=/LICENSE.txt, dest=/pct/src/LICENSE.txt}" shape="note"];
+  "sha256:09a7baf26d951e5f0e81eec5ac13cee1eaa144a2a453cc9ede6514cc0b54af7b" [label="mkdir{path=/pct/src}" shape="note"];
+  "sha256:cbd28e8d6ee70b0ef1ead72ec6ab5d80136edb8301db699a6bd5ba3d0316bbbd" [label="/bin/sh -c mvn clean package -Dmaven.test.skip=true" shape="box"];
+  "sha256:a2fe2cc4d2193607fcff3ef884b5948b9a8590f5d4ae97e261c2406f8c75a161" [label="copy{src=/pct/src/plugins-compat-tester-cli/target/plugins-compat-tester-cli.jar, dest=/pct/pct-cli.jar}" shape="note"];
+  "sha256:f64b0412d28172042e1edc5278c6c55ee874c0ecfabfcbf80ae3521b41d0aff3" [label="copy{src=/src/main/docker/run-pct.sh, dest=/usr/local/bin/run-pct}" shape="note"];
+  "sha256:51daaf564de08454b7c734be3661ef699cb043a9b96bdc89de17597c3772e98c" [label="copy{src=/src/main/docker/pct-default-settings.xml, dest=/pct/default-m2-settings.xml}" shape="note"];
+  "sha256:bbb75c76c0cf89efa7852004a8aa50c9691cb746ce5537e2af465eb04717cf97" [label="copy{src=/.git, dest=/tmp/repo}" shape="note"];
+  "sha256:e55205a0af81e3498ec6785947615bb53e6d8c6220246ef4201d6f2dda4908cf" [label="/bin/sh -c cd /tmp/repo && git rev-parse HEAD > /commit.txt && rm -rf /tmp/repo" shape="box"];
+  "sha256:eef1eb17806f8e825a6edeb6db52ba4cf0819b69d2b5d88d54f18585c3e82771" [label="sha256:eef1eb17806f8e825a6edeb6db52ba4cf0819b69d2b5d88d54f18585c3e82771" shape="plaintext"];
+  "sha256:78210b0c2cb609e7297f90cb4e8df077d0526f218afd180c6e8a074e6e2976c4" -> "sha256:e319fadffa52ddc22fbbbf8e4c70f67f9cddfafa292e0ac7425a52324f90f66c" [label=""];
+  "sha256:e319fadffa52ddc22fbbbf8e4c70f67f9cddfafa292e0ac7425a52324f90f66c" -> "sha256:05c0d4ee3da9cdb682a49a7e6de6d1face4fbd5b5264ab9494880f068da6e34c" [label=""];
+  "sha256:05c0d4ee3da9cdb682a49a7e6de6d1face4fbd5b5264ab9494880f068da6e34c" -> "sha256:5a6d10e92d032f3b53a31fba08a4039bc86ad9deef4a4c0cb8afe5b94333d41d" [label=""];
+  "sha256:363fb9ff21a33616e334820e780c311ce729dfd233acdf65b4b421252c7afeb3" -> "sha256:5a6d10e92d032f3b53a31fba08a4039bc86ad9deef4a4c0cb8afe5b94333d41d" [label=""];
+  "sha256:78210b0c2cb609e7297f90cb4e8df077d0526f218afd180c6e8a074e6e2976c4" -> "sha256:d49818c2ae666509e6e37595cb1f487947c3f37613df2d1b6b34a132d3c0daf5" [label=""];
+  "sha256:d49818c2ae666509e6e37595cb1f487947c3f37613df2d1b6b34a132d3c0daf5" -> "sha256:c6110bfca3bc9872b50d5a6a0a442302a9517327e23b8ee814e62bad633eec34" [label=""];
+  "sha256:363fb9ff21a33616e334820e780c311ce729dfd233acdf65b4b421252c7afeb3" -> "sha256:c6110bfca3bc9872b50d5a6a0a442302a9517327e23b8ee814e62bad633eec34" [label=""];
+  "sha256:c6110bfca3bc9872b50d5a6a0a442302a9517327e23b8ee814e62bad633eec34" -> "sha256:f66edd84adf59dc35eb73240335a7eb1615935ad17f54007c27f0e2e434e95e4" [label=""];
+  "sha256:363fb9ff21a33616e334820e780c311ce729dfd233acdf65b4b421252c7afeb3" -> "sha256:f66edd84adf59dc35eb73240335a7eb1615935ad17f54007c27f0e2e434e95e4" [label=""];
+  "sha256:f66edd84adf59dc35eb73240335a7eb1615935ad17f54007c27f0e2e434e95e4" -> "sha256:9751de4dd195b53acd9d97f5709fc5f1a3f8f535147da96a6b22ba129fcaf706" [label=""];
+  "sha256:363fb9ff21a33616e334820e780c311ce729dfd233acdf65b4b421252c7afeb3" -> "sha256:9751de4dd195b53acd9d97f5709fc5f1a3f8f535147da96a6b22ba129fcaf706" [label=""];
+  "sha256:9751de4dd195b53acd9d97f5709fc5f1a3f8f535147da96a6b22ba129fcaf706" -> "sha256:7e03be1d611fd866fcbc38653658d724c11f7b3f5bd5dbbc71ec81a02fe7e7a6" [label=""];
+  "sha256:363fb9ff21a33616e334820e780c311ce729dfd233acdf65b4b421252c7afeb3" -> "sha256:7e03be1d611fd866fcbc38653658d724c11f7b3f5bd5dbbc71ec81a02fe7e7a6" [label=""];
+  "sha256:7e03be1d611fd866fcbc38653658d724c11f7b3f5bd5dbbc71ec81a02fe7e7a6" -> "sha256:6a77e5eb531f0d85eb0c765b585efad2bbdc8659df5fae2466b6a6d2690a482e" [label=""];
+  "sha256:363fb9ff21a33616e334820e780c311ce729dfd233acdf65b4b421252c7afeb3" -> "sha256:6a77e5eb531f0d85eb0c765b585efad2bbdc8659df5fae2466b6a6d2690a482e" [label=""];
+  "sha256:6a77e5eb531f0d85eb0c765b585efad2bbdc8659df5fae2466b6a6d2690a482e" -> "sha256:7aba1be7b44e0a048d29966da61a35f64404e44f5dc49414f33d34caa7ffc715" [label=""];
+  "sha256:363fb9ff21a33616e334820e780c311ce729dfd233acdf65b4b421252c7afeb3" -> "sha256:7aba1be7b44e0a048d29966da61a35f64404e44f5dc49414f33d34caa7ffc715" [label=""];
+  "sha256:7aba1be7b44e0a048d29966da61a35f64404e44f5dc49414f33d34caa7ffc715" -> "sha256:51d2b58797d3ac623c89fc8bfe04ab07d71d6f1e0ef4145d04be41c3da3d1093" [label=""];
+  "sha256:363fb9ff21a33616e334820e780c311ce729dfd233acdf65b4b421252c7afeb3" -> "sha256:51d2b58797d3ac623c89fc8bfe04ab07d71d6f1e0ef4145d04be41c3da3d1093" [label=""];
+  "sha256:51d2b58797d3ac623c89fc8bfe04ab07d71d6f1e0ef4145d04be41c3da3d1093" -> "sha256:09a7baf26d951e5f0e81eec5ac13cee1eaa144a2a453cc9ede6514cc0b54af7b" [label=""];
+  "sha256:09a7baf26d951e5f0e81eec5ac13cee1eaa144a2a453cc9ede6514cc0b54af7b" -> "sha256:cbd28e8d6ee70b0ef1ead72ec6ab5d80136edb8301db699a6bd5ba3d0316bbbd" [label=""];
+  "sha256:5a6d10e92d032f3b53a31fba08a4039bc86ad9deef4a4c0cb8afe5b94333d41d" -> "sha256:a2fe2cc4d2193607fcff3ef884b5948b9a8590f5d4ae97e261c2406f8c75a161" [label=""];
+  "sha256:cbd28e8d6ee70b0ef1ead72ec6ab5d80136edb8301db699a6bd5ba3d0316bbbd" -> "sha256:a2fe2cc4d2193607fcff3ef884b5948b9a8590f5d4ae97e261c2406f8c75a161" [label=""];
+  "sha256:a2fe2cc4d2193607fcff3ef884b5948b9a8590f5d4ae97e261c2406f8c75a161" -> "sha256:f64b0412d28172042e1edc5278c6c55ee874c0ecfabfcbf80ae3521b41d0aff3" [label=""];
+  "sha256:363fb9ff21a33616e334820e780c311ce729dfd233acdf65b4b421252c7afeb3" -> "sha256:f64b0412d28172042e1edc5278c6c55ee874c0ecfabfcbf80ae3521b41d0aff3" [label=""];
+  "sha256:f64b0412d28172042e1edc5278c6c55ee874c0ecfabfcbf80ae3521b41d0aff3" -> "sha256:51daaf564de08454b7c734be3661ef699cb043a9b96bdc89de17597c3772e98c" [label=""];
+  "sha256:363fb9ff21a33616e334820e780c311ce729dfd233acdf65b4b421252c7afeb3" -> "sha256:51daaf564de08454b7c734be3661ef699cb043a9b96bdc89de17597c3772e98c" [label=""];
+  "sha256:51daaf564de08454b7c734be3661ef699cb043a9b96bdc89de17597c3772e98c" -> "sha256:bbb75c76c0cf89efa7852004a8aa50c9691cb746ce5537e2af465eb04717cf97" [label=""];
+  "sha256:363fb9ff21a33616e334820e780c311ce729dfd233acdf65b4b421252c7afeb3" -> "sha256:bbb75c76c0cf89efa7852004a8aa50c9691cb746ce5537e2af465eb04717cf97" [label=""];
+  "sha256:bbb75c76c0cf89efa7852004a8aa50c9691cb746ce5537e2af465eb04717cf97" -> "sha256:e55205a0af81e3498ec6785947615bb53e6d8c6220246ef4201d6f2dda4908cf" [label=""];
+  "sha256:e55205a0af81e3498ec6785947615bb53e6d8c6220246ef4201d6f2dda4908cf" -> "sha256:eef1eb17806f8e825a6edeb6db52ba4cf0819b69d2b5d88d54f18585c3e82771" [label=""];
+}
+

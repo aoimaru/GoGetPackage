@@ -1,0 +1,51 @@
+[app/sources/259857735.Dockerfile]
+digraph {
+  "sha256:434f211818d6bca1b0ba32ce7c6a354cc817ffa5371c250226693a918d05bb02" [label="local://context" shape="ellipse"];
+  "sha256:1fd9cf9eb3b276b63d03fac3e6535930c34933bac3e8fae29127513c6e4783d7" [label="docker-image://docker.io/library/maven:3.5.4-jdk-8-alpine" shape="ellipse"];
+  "sha256:71444640e2a0d1289f1c201a514ff53d9ff437a526a30d24172dc7c34b3e4433" [label="mkdir{path=/home}" shape="note"];
+  "sha256:274b3f4bfd13834dab56030ef4be8bf0ba978ca98c5f8da953e9bc4491718636" [label="copy{src=/pom.xml, dest=/home/}" shape="note"];
+  "sha256:3966fdc8b0270c83b1e93cc5bf97ba277ad4c4b35468bd2c9c0f2af2237d9c12" [label="copy{src=/jpo-ode-common/pom.xml, dest=/home/jpo-ode-common/}" shape="note"];
+  "sha256:bd6425c60426ae08bcfcd9e43a4da9bcb6f784b5ef21e75d0f86513c0287b4b7" [label="copy{src=/jpo-ode-common/src, dest=/home/jpo-ode-common/src}" shape="note"];
+  "sha256:e4dd10f628f7e8c9c6141b1ad9a9bc4a3c7c511bf5d603389d3ae819297cca01" [label="copy{src=/jpo-ode-plugins/pom.xml, dest=/home/jpo-ode-plugins/}" shape="note"];
+  "sha256:d3296408897543fd2556f7dd5eb0edc7bc7d29118eeb39eca18ce2f72cad8006" [label="copy{src=/jpo-ode-plugins/src, dest=/home/jpo-ode-plugins/src}" shape="note"];
+  "sha256:50a2dbb2764713be672acc0be586241d5bd33840d11ef6346358b265a19305bc" [label="copy{src=/jpo-ode-core/pom.xml, dest=/home/jpo-ode-core/}" shape="note"];
+  "sha256:b27c167ba720bc7f1e34630d7d5973c00c7a74162485b192fbc8d8c3d64cb068" [label="copy{src=/jpo-ode-core/src, dest=/home/jpo-ode-core/src/}" shape="note"];
+  "sha256:31fc3e36ab8fc4a94cc373339f6adca0127042ba97d8be65b2ec46718a7d11ef" [label="copy{src=/jpo-ode-svcs/pom.xml, dest=/home/jpo-ode-svcs/}" shape="note"];
+  "sha256:c40f121421ba4306f7fba1152023e29097dbc93c95f9766eee520fd4b407dec9" [label="copy{src=/jpo-ode-svcs/src, dest=/home/jpo-ode-svcs/src}" shape="note"];
+  "sha256:9c5986273e52a07c8d7d1a04eb96371d34d0acdc90783106e2a687a36f3ce452" [label="/bin/sh -c mvn clean package -DskipTests" shape="box"];
+  "sha256:42bb93e4f323e97554b050c6a3ed4ca0782ac4863d6c6a3048a4ef5ebad139aa" [label="docker-image://docker.io/library/openjdk:8u171-jre-alpine" shape="ellipse"];
+  "sha256:0f23cd74ce5a79b660ad2d790f124502b9d6a0c4da42ad5447b0d08f981c87b1" [label="mkdir{path=/home}" shape="note"];
+  "sha256:8fac7f2b3b6012948bc99d25906e7d1b7628ba323b0ed7572a1c88d4707c0147" [label="copy{src=/home/jpo-ode-svcs/src/main/resources/application.properties, dest=/home}" shape="note"];
+  "sha256:801ed17f315ad1b9c0caff9ce0f35f151a96824ef99ed7d8480fd0ce9da108a9" [label="copy{src=/home/jpo-ode-svcs/src/main/resources/logback.xml, dest=/home}" shape="note"];
+  "sha256:3498334efe5234eae410a5405408af33d626351b163a0df92c1a30569e8bab15" [label="copy{src=/home/jpo-ode-svcs/target/jpo-ode-svcs.jar, dest=/home}" shape="note"];
+  "sha256:caa016a9d2775b1c4a267aac1b4ae6f1c9905742ae6066fa3312d5bda9f17ff7" [label="sha256:caa016a9d2775b1c4a267aac1b4ae6f1c9905742ae6066fa3312d5bda9f17ff7" shape="plaintext"];
+  "sha256:1fd9cf9eb3b276b63d03fac3e6535930c34933bac3e8fae29127513c6e4783d7" -> "sha256:71444640e2a0d1289f1c201a514ff53d9ff437a526a30d24172dc7c34b3e4433" [label=""];
+  "sha256:71444640e2a0d1289f1c201a514ff53d9ff437a526a30d24172dc7c34b3e4433" -> "sha256:274b3f4bfd13834dab56030ef4be8bf0ba978ca98c5f8da953e9bc4491718636" [label=""];
+  "sha256:434f211818d6bca1b0ba32ce7c6a354cc817ffa5371c250226693a918d05bb02" -> "sha256:274b3f4bfd13834dab56030ef4be8bf0ba978ca98c5f8da953e9bc4491718636" [label=""];
+  "sha256:274b3f4bfd13834dab56030ef4be8bf0ba978ca98c5f8da953e9bc4491718636" -> "sha256:3966fdc8b0270c83b1e93cc5bf97ba277ad4c4b35468bd2c9c0f2af2237d9c12" [label=""];
+  "sha256:434f211818d6bca1b0ba32ce7c6a354cc817ffa5371c250226693a918d05bb02" -> "sha256:3966fdc8b0270c83b1e93cc5bf97ba277ad4c4b35468bd2c9c0f2af2237d9c12" [label=""];
+  "sha256:3966fdc8b0270c83b1e93cc5bf97ba277ad4c4b35468bd2c9c0f2af2237d9c12" -> "sha256:bd6425c60426ae08bcfcd9e43a4da9bcb6f784b5ef21e75d0f86513c0287b4b7" [label=""];
+  "sha256:434f211818d6bca1b0ba32ce7c6a354cc817ffa5371c250226693a918d05bb02" -> "sha256:bd6425c60426ae08bcfcd9e43a4da9bcb6f784b5ef21e75d0f86513c0287b4b7" [label=""];
+  "sha256:bd6425c60426ae08bcfcd9e43a4da9bcb6f784b5ef21e75d0f86513c0287b4b7" -> "sha256:e4dd10f628f7e8c9c6141b1ad9a9bc4a3c7c511bf5d603389d3ae819297cca01" [label=""];
+  "sha256:434f211818d6bca1b0ba32ce7c6a354cc817ffa5371c250226693a918d05bb02" -> "sha256:e4dd10f628f7e8c9c6141b1ad9a9bc4a3c7c511bf5d603389d3ae819297cca01" [label=""];
+  "sha256:e4dd10f628f7e8c9c6141b1ad9a9bc4a3c7c511bf5d603389d3ae819297cca01" -> "sha256:d3296408897543fd2556f7dd5eb0edc7bc7d29118eeb39eca18ce2f72cad8006" [label=""];
+  "sha256:434f211818d6bca1b0ba32ce7c6a354cc817ffa5371c250226693a918d05bb02" -> "sha256:d3296408897543fd2556f7dd5eb0edc7bc7d29118eeb39eca18ce2f72cad8006" [label=""];
+  "sha256:d3296408897543fd2556f7dd5eb0edc7bc7d29118eeb39eca18ce2f72cad8006" -> "sha256:50a2dbb2764713be672acc0be586241d5bd33840d11ef6346358b265a19305bc" [label=""];
+  "sha256:434f211818d6bca1b0ba32ce7c6a354cc817ffa5371c250226693a918d05bb02" -> "sha256:50a2dbb2764713be672acc0be586241d5bd33840d11ef6346358b265a19305bc" [label=""];
+  "sha256:50a2dbb2764713be672acc0be586241d5bd33840d11ef6346358b265a19305bc" -> "sha256:b27c167ba720bc7f1e34630d7d5973c00c7a74162485b192fbc8d8c3d64cb068" [label=""];
+  "sha256:434f211818d6bca1b0ba32ce7c6a354cc817ffa5371c250226693a918d05bb02" -> "sha256:b27c167ba720bc7f1e34630d7d5973c00c7a74162485b192fbc8d8c3d64cb068" [label=""];
+  "sha256:b27c167ba720bc7f1e34630d7d5973c00c7a74162485b192fbc8d8c3d64cb068" -> "sha256:31fc3e36ab8fc4a94cc373339f6adca0127042ba97d8be65b2ec46718a7d11ef" [label=""];
+  "sha256:434f211818d6bca1b0ba32ce7c6a354cc817ffa5371c250226693a918d05bb02" -> "sha256:31fc3e36ab8fc4a94cc373339f6adca0127042ba97d8be65b2ec46718a7d11ef" [label=""];
+  "sha256:31fc3e36ab8fc4a94cc373339f6adca0127042ba97d8be65b2ec46718a7d11ef" -> "sha256:c40f121421ba4306f7fba1152023e29097dbc93c95f9766eee520fd4b407dec9" [label=""];
+  "sha256:434f211818d6bca1b0ba32ce7c6a354cc817ffa5371c250226693a918d05bb02" -> "sha256:c40f121421ba4306f7fba1152023e29097dbc93c95f9766eee520fd4b407dec9" [label=""];
+  "sha256:c40f121421ba4306f7fba1152023e29097dbc93c95f9766eee520fd4b407dec9" -> "sha256:9c5986273e52a07c8d7d1a04eb96371d34d0acdc90783106e2a687a36f3ce452" [label=""];
+  "sha256:42bb93e4f323e97554b050c6a3ed4ca0782ac4863d6c6a3048a4ef5ebad139aa" -> "sha256:0f23cd74ce5a79b660ad2d790f124502b9d6a0c4da42ad5447b0d08f981c87b1" [label=""];
+  "sha256:0f23cd74ce5a79b660ad2d790f124502b9d6a0c4da42ad5447b0d08f981c87b1" -> "sha256:8fac7f2b3b6012948bc99d25906e7d1b7628ba323b0ed7572a1c88d4707c0147" [label=""];
+  "sha256:9c5986273e52a07c8d7d1a04eb96371d34d0acdc90783106e2a687a36f3ce452" -> "sha256:8fac7f2b3b6012948bc99d25906e7d1b7628ba323b0ed7572a1c88d4707c0147" [label=""];
+  "sha256:8fac7f2b3b6012948bc99d25906e7d1b7628ba323b0ed7572a1c88d4707c0147" -> "sha256:801ed17f315ad1b9c0caff9ce0f35f151a96824ef99ed7d8480fd0ce9da108a9" [label=""];
+  "sha256:9c5986273e52a07c8d7d1a04eb96371d34d0acdc90783106e2a687a36f3ce452" -> "sha256:801ed17f315ad1b9c0caff9ce0f35f151a96824ef99ed7d8480fd0ce9da108a9" [label=""];
+  "sha256:801ed17f315ad1b9c0caff9ce0f35f151a96824ef99ed7d8480fd0ce9da108a9" -> "sha256:3498334efe5234eae410a5405408af33d626351b163a0df92c1a30569e8bab15" [label=""];
+  "sha256:9c5986273e52a07c8d7d1a04eb96371d34d0acdc90783106e2a687a36f3ce452" -> "sha256:3498334efe5234eae410a5405408af33d626351b163a0df92c1a30569e8bab15" [label=""];
+  "sha256:3498334efe5234eae410a5405408af33d626351b163a0df92c1a30569e8bab15" -> "sha256:caa016a9d2775b1c4a267aac1b4ae6f1c9905742ae6066fa3312d5bda9f17ff7" [label=""];
+}
+

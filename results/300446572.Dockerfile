@@ -1,0 +1,7 @@
+[app/sources/300446572.Dockerfile]
+digraph {
+  "sha256:812a9408417444d42288daf579059808de67100dcb0f8674b59222acf2a0de59" [label="docker-image://gcr.io/google_containers/etcd-amd64:3.3.10-1@sha256:02cd751eef4f7dcea7986e58d51903dab39baf4606f636b50891f30190abce2c" shape="ellipse"];
+  "sha256:e09df6c8110c05ebbce7498a529217bb1f57f7e0f79741ba9862295e98ce8b27" [label="sha256:e09df6c8110c05ebbce7498a529217bb1f57f7e0f79741ba9862295e98ce8b27" shape="plaintext"];
+  "sha256:812a9408417444d42288daf579059808de67100dcb0f8674b59222acf2a0de59" -> "sha256:e09df6c8110c05ebbce7498a529217bb1f57f7e0f79741ba9862295e98ce8b27" [label=""];
+}
+

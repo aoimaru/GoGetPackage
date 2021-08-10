@@ -1,0 +1,58 @@
+[app/sources/229857822.Dockerfile]
+digraph {
+  "sha256:d1a6123fcd53665b5d5907d457138d252b04072dce5ddb398ce053b34a7cc614" [label="docker-image://docker.io/library/centos:centos6" shape="ellipse"];
+  "sha256:84e93a3e8e5688c77a075d0f21dce68e0a3d18fe18ed3dd01bf347e79521e651" [label="/bin/sh -c yum update -y" shape="box"];
+  "sha256:86fc15e96f0b2071b187d0b9c8385681212a48c3542ec1b3cb1350a5dc964c57" [label="local://context" shape="ellipse"];
+  "sha256:7fa1e5e7d7cfdd065b09bdb28dbeca5b3c940cdad8a6c5ce7c6738f7555067ee" [label="copy{src=/root/build/add_epel.sh, dest=/build/add_epel.sh}" shape="note"];
+  "sha256:8ea9be7baa2fb03bc03cd8a27a6f6e1baf10455342d140d3e9b0b20fbc3057fc" [label="/bin/sh -c /build/add_epel.sh" shape="box"];
+  "sha256:1fc155ef3e17b77801b382af01e522b069abcd3bca710d9ae4cad708d3191845" [label="copy{src=/root/build/add_runtime_dependencies.sh, dest=/build/add_runtime_dependencies.sh}" shape="note"];
+  "sha256:0788677e39718e82fe7d147e9f3e7743a1c25c8b3dd809496292c7d398de4127" [label="/bin/sh -c /build/add_runtime_dependencies.sh" shape="box"];
+  "sha256:ca416b747e2123a8a1244dbff0f186c7d94c87e3b6daa31dd41acacda1177416" [label="copy{src=/root/build/add_common_buildtime_dependencies.sh, dest=/build/add_common_buildtime_dependencies.sh}" shape="note"];
+  "sha256:08b7ddc6413e99ff5d153ca19f253f15af1ea5cc333888929a13d3350ba5dff9" [label="/bin/sh -c /build/add_common_buildtime_dependencies.sh" shape="box"];
+  "sha256:445c061c7dad532da1e62220774ff6bb2c59dcdda7fd6d7fe2f678b065753bd5" [label="copy{src=/root/build/envtpl.sh, dest=/build/envtpl.sh}" shape="note"];
+  "sha256:bbd4b7c2ea20845292e9402c3f1098f7775051533f0f201cccf7c6c608a1720c" [label="/bin/sh -c /build/envtpl.sh" shape="box"];
+  "sha256:87ddffdb84183c5fc817513480d01a00e35796ee12005ddf458af146e64ba620" [label="copy{src=/root/build/logger.sh, dest=/build/logger.sh}" shape="note"];
+  "sha256:150fbee9e1ef057a551c7b4f32646de2c9db18f9c998b6d65a6d16966e02ca9b" [label="/bin/sh -c /build/logger.sh" shape="box"];
+  "sha256:b16bc1ab0b7c6902cf3c3e1e8a40d46b50797adc956fbe3478f0ac20b5d84afa" [label="copy{src=/root/build/s6_overlay.sh, dest=/build/s6_overlay.sh}" shape="note"];
+  "sha256:cad1ddac8bd0d6bcc43d3364fb60d0525d34f1f84ddd85b779beb51b31cba519" [label="/bin/sh -c /build/s6_overlay.sh" shape="box"];
+  "sha256:618a1ce2d5177dc25893ba8c2acd4db1d403b3138f4248f18f2530677d902b78" [label="copy{src=/root/build/rsyslog.sh, dest=/build/rsyslog.sh}" shape="note"];
+  "sha256:0daf1429faef9e8623454fae8000a35c4f949d75cdb1a2c97c24f7312921a6d9" [label="/bin/sh -c /build/rsyslog.sh" shape="box"];
+  "sha256:76f82e0e5c4609748bab1d0dc4e7e06604b7438c8dc73c4b61629df8d1ed65db" [label="copy{src=/root/build/cronie.sh, dest=/build/cronie.sh}" shape="note"];
+  "sha256:cc70337786347d4aa9b855106ec58bc4a4e7a0345664700b964a2a1f43675078" [label="/bin/sh -c /build/cronie.sh" shape="box"];
+  "sha256:d47afcd18bcac820c2e6f78ae6bc9b8425b83d2cb8a49f4a6bed2750001c2604" [label="copy{src=/root/build/remove_buildtime_dependencies.sh, dest=/build/remove_buildtime_dependencies.sh}" shape="note"];
+  "sha256:cc1d4b48daa8dfe2144d570aefc4844b627d84e554c95fd2f0a72520d50b516f" [label="/bin/sh -c /build/remove_buildtime_dependencies.sh" shape="box"];
+  "sha256:4c0f9c3c8c7139445a6860355f26ff0684041918901343d3e0258065b656e747" [label="copy{src=/root, dest=/}" shape="note"];
+  "sha256:948de2c4de5d25b38ecd160fae0ad07967db472a60954db4ff03b6ffa9e420fe" [label="sha256:948de2c4de5d25b38ecd160fae0ad07967db472a60954db4ff03b6ffa9e420fe" shape="plaintext"];
+  "sha256:d1a6123fcd53665b5d5907d457138d252b04072dce5ddb398ce053b34a7cc614" -> "sha256:84e93a3e8e5688c77a075d0f21dce68e0a3d18fe18ed3dd01bf347e79521e651" [label=""];
+  "sha256:84e93a3e8e5688c77a075d0f21dce68e0a3d18fe18ed3dd01bf347e79521e651" -> "sha256:7fa1e5e7d7cfdd065b09bdb28dbeca5b3c940cdad8a6c5ce7c6738f7555067ee" [label=""];
+  "sha256:86fc15e96f0b2071b187d0b9c8385681212a48c3542ec1b3cb1350a5dc964c57" -> "sha256:7fa1e5e7d7cfdd065b09bdb28dbeca5b3c940cdad8a6c5ce7c6738f7555067ee" [label=""];
+  "sha256:7fa1e5e7d7cfdd065b09bdb28dbeca5b3c940cdad8a6c5ce7c6738f7555067ee" -> "sha256:8ea9be7baa2fb03bc03cd8a27a6f6e1baf10455342d140d3e9b0b20fbc3057fc" [label=""];
+  "sha256:8ea9be7baa2fb03bc03cd8a27a6f6e1baf10455342d140d3e9b0b20fbc3057fc" -> "sha256:1fc155ef3e17b77801b382af01e522b069abcd3bca710d9ae4cad708d3191845" [label=""];
+  "sha256:86fc15e96f0b2071b187d0b9c8385681212a48c3542ec1b3cb1350a5dc964c57" -> "sha256:1fc155ef3e17b77801b382af01e522b069abcd3bca710d9ae4cad708d3191845" [label=""];
+  "sha256:1fc155ef3e17b77801b382af01e522b069abcd3bca710d9ae4cad708d3191845" -> "sha256:0788677e39718e82fe7d147e9f3e7743a1c25c8b3dd809496292c7d398de4127" [label=""];
+  "sha256:0788677e39718e82fe7d147e9f3e7743a1c25c8b3dd809496292c7d398de4127" -> "sha256:ca416b747e2123a8a1244dbff0f186c7d94c87e3b6daa31dd41acacda1177416" [label=""];
+  "sha256:86fc15e96f0b2071b187d0b9c8385681212a48c3542ec1b3cb1350a5dc964c57" -> "sha256:ca416b747e2123a8a1244dbff0f186c7d94c87e3b6daa31dd41acacda1177416" [label=""];
+  "sha256:ca416b747e2123a8a1244dbff0f186c7d94c87e3b6daa31dd41acacda1177416" -> "sha256:08b7ddc6413e99ff5d153ca19f253f15af1ea5cc333888929a13d3350ba5dff9" [label=""];
+  "sha256:08b7ddc6413e99ff5d153ca19f253f15af1ea5cc333888929a13d3350ba5dff9" -> "sha256:445c061c7dad532da1e62220774ff6bb2c59dcdda7fd6d7fe2f678b065753bd5" [label=""];
+  "sha256:86fc15e96f0b2071b187d0b9c8385681212a48c3542ec1b3cb1350a5dc964c57" -> "sha256:445c061c7dad532da1e62220774ff6bb2c59dcdda7fd6d7fe2f678b065753bd5" [label=""];
+  "sha256:445c061c7dad532da1e62220774ff6bb2c59dcdda7fd6d7fe2f678b065753bd5" -> "sha256:bbd4b7c2ea20845292e9402c3f1098f7775051533f0f201cccf7c6c608a1720c" [label=""];
+  "sha256:bbd4b7c2ea20845292e9402c3f1098f7775051533f0f201cccf7c6c608a1720c" -> "sha256:87ddffdb84183c5fc817513480d01a00e35796ee12005ddf458af146e64ba620" [label=""];
+  "sha256:86fc15e96f0b2071b187d0b9c8385681212a48c3542ec1b3cb1350a5dc964c57" -> "sha256:87ddffdb84183c5fc817513480d01a00e35796ee12005ddf458af146e64ba620" [label=""];
+  "sha256:87ddffdb84183c5fc817513480d01a00e35796ee12005ddf458af146e64ba620" -> "sha256:150fbee9e1ef057a551c7b4f32646de2c9db18f9c998b6d65a6d16966e02ca9b" [label=""];
+  "sha256:150fbee9e1ef057a551c7b4f32646de2c9db18f9c998b6d65a6d16966e02ca9b" -> "sha256:b16bc1ab0b7c6902cf3c3e1e8a40d46b50797adc956fbe3478f0ac20b5d84afa" [label=""];
+  "sha256:86fc15e96f0b2071b187d0b9c8385681212a48c3542ec1b3cb1350a5dc964c57" -> "sha256:b16bc1ab0b7c6902cf3c3e1e8a40d46b50797adc956fbe3478f0ac20b5d84afa" [label=""];
+  "sha256:b16bc1ab0b7c6902cf3c3e1e8a40d46b50797adc956fbe3478f0ac20b5d84afa" -> "sha256:cad1ddac8bd0d6bcc43d3364fb60d0525d34f1f84ddd85b779beb51b31cba519" [label=""];
+  "sha256:cad1ddac8bd0d6bcc43d3364fb60d0525d34f1f84ddd85b779beb51b31cba519" -> "sha256:618a1ce2d5177dc25893ba8c2acd4db1d403b3138f4248f18f2530677d902b78" [label=""];
+  "sha256:86fc15e96f0b2071b187d0b9c8385681212a48c3542ec1b3cb1350a5dc964c57" -> "sha256:618a1ce2d5177dc25893ba8c2acd4db1d403b3138f4248f18f2530677d902b78" [label=""];
+  "sha256:618a1ce2d5177dc25893ba8c2acd4db1d403b3138f4248f18f2530677d902b78" -> "sha256:0daf1429faef9e8623454fae8000a35c4f949d75cdb1a2c97c24f7312921a6d9" [label=""];
+  "sha256:0daf1429faef9e8623454fae8000a35c4f949d75cdb1a2c97c24f7312921a6d9" -> "sha256:76f82e0e5c4609748bab1d0dc4e7e06604b7438c8dc73c4b61629df8d1ed65db" [label=""];
+  "sha256:86fc15e96f0b2071b187d0b9c8385681212a48c3542ec1b3cb1350a5dc964c57" -> "sha256:76f82e0e5c4609748bab1d0dc4e7e06604b7438c8dc73c4b61629df8d1ed65db" [label=""];
+  "sha256:76f82e0e5c4609748bab1d0dc4e7e06604b7438c8dc73c4b61629df8d1ed65db" -> "sha256:cc70337786347d4aa9b855106ec58bc4a4e7a0345664700b964a2a1f43675078" [label=""];
+  "sha256:cc70337786347d4aa9b855106ec58bc4a4e7a0345664700b964a2a1f43675078" -> "sha256:d47afcd18bcac820c2e6f78ae6bc9b8425b83d2cb8a49f4a6bed2750001c2604" [label=""];
+  "sha256:86fc15e96f0b2071b187d0b9c8385681212a48c3542ec1b3cb1350a5dc964c57" -> "sha256:d47afcd18bcac820c2e6f78ae6bc9b8425b83d2cb8a49f4a6bed2750001c2604" [label=""];
+  "sha256:d47afcd18bcac820c2e6f78ae6bc9b8425b83d2cb8a49f4a6bed2750001c2604" -> "sha256:cc1d4b48daa8dfe2144d570aefc4844b627d84e554c95fd2f0a72520d50b516f" [label=""];
+  "sha256:cc1d4b48daa8dfe2144d570aefc4844b627d84e554c95fd2f0a72520d50b516f" -> "sha256:4c0f9c3c8c7139445a6860355f26ff0684041918901343d3e0258065b656e747" [label=""];
+  "sha256:86fc15e96f0b2071b187d0b9c8385681212a48c3542ec1b3cb1350a5dc964c57" -> "sha256:4c0f9c3c8c7139445a6860355f26ff0684041918901343d3e0258065b656e747" [label=""];
+  "sha256:4c0f9c3c8c7139445a6860355f26ff0684041918901343d3e0258065b656e747" -> "sha256:948de2c4de5d25b38ecd160fae0ad07967db472a60954db4ff03b6ffa9e420fe" [label=""];
+}
+

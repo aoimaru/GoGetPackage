@@ -1,0 +1,31 @@
+[app/sources/363544643.Dockerfile]
+digraph {
+  "sha256:5e691c7ba4998fa4b60d1218bbc4ed9845bfa527d7d91b0c48922bbea45ce425" [label="docker-image://docker.io/library/ubuntu:18.04" shape="ellipse"];
+  "sha256:99f677110ba1e2066e88078fe956b03c7b8521d9b152906c9f092d7214f193a1" [label="/bin/sh -c apt-get update &&     apt-get install -y         ca-certificates         wget curl git-core         vim-tiny zip unzip         python3 python3-pip         libssl-dev         libmpdec2         proj-bin libproj-dev         libgeos-dev libgeos++-dev         mime-support         gcc g++ &&     apt-get clean &&     rm -rf /var/lib/apt/lists/" shape="box"];
+  "sha256:ce753565b8629da9136f617f37fe09a6af98d9f5a7ef80fa3db62caca7cfe60f" [label="docker-image://docker.io/library/tensorflow-binary:latest" shape="ellipse"];
+  "sha256:07ccab35e7680ffebf051aa4090810abed00d7aa15e23939f4a8d521a4ce8f9e" [label="copy{src=/tmp/*.whl, dest=/tmp}" shape="note"];
+  "sha256:719b669a051c888b457e0b88b0288a14f80b744b157c5dfdfc8eaa34c3e4bb11" [label="/bin/sh -c curl https://bootstrap.pypa.io/get-pip.py | python3 &&     python3 -m pip install --no-cache-dir -U setuptools &&     python3 -m pip install --no-cache-dir wheel &&     python3 -m pip install --no-cache-dir pyzmq simplejson msgpack-python uvloop &&     python3 -m pip install --no-cache-dir aiozmq dataclasses tabulate &&     python3 -m pip install --no-cache-dir namedlist six \"python-dateutil>=2\" &&     python3 -m pip install --no-cache-dir h5py &&     python3 -m pip install --no-cache-dir Cython &&     python3 -m pip install --no-cache-dir numpy scipy &&     python3 -m pip install --no-cache-dir versioneer==0.17 &&     python3 -m pip install --no-cache-dir pyproj Cartopy==0.16 &&     python3 -m pip install --no-cache-dir matplotlib bokeh &&     python3 -m pip install --no-cache-dir pandas &&     python3 -m pip install --no-cache-dir seaborn &&     python3 -m pip install --no-cache-dir pillow &&     python3 -m pip install --no-cache-dir networkx cvxpy &&     python3 -m pip install --no-cache-dir scikit-learn scikit-image &&     python3 -m pip install --no-cache-dir pygments &&     python3 -m pip install --no-cache-dir wheel /tmp/*.whl &&     python3 -m pip install --no-cache-dir keras &&     python3 -m pip install --no-cache-dir keras_applications &&     python3 -m pip install --no-cache-dir keras_preprocessing &&     python3 -m pip install --no-cache-dir ipython &&     python3 -m pip install --no-cache-dir jupyter &&     python3 -m pip install --no-cache-dir jupyterlab &&     rm -rf /root/.cache &&     rm -f /tmp/*.whl" shape="box"];
+  "sha256:57b9706be3921f65c404e545689c2ba933f720b4776ae455655f781438b41fa7" [label="/bin/sh -c update-alternatives --install /usr/bin/python python /usr/bin/python3 2" shape="box"];
+  "sha256:3015d5818ddb04a0a2251cccd269533836494d99944f7f77ff559b94e5f086d6" [label="/bin/sh -c python -m ipykernel install --display-name \"TensorFlow 2.0 on Python 3.6 (CPU-only)\" &&     cat /usr/local/share/jupyter/kernels/python3/kernel.json" shape="box"];
+  "sha256:aa54c52525ecdb38613d5382d5b7b58c56d454746ceb11d15f63267024a1ae87" [label="/bin/sh -c mkdir -p /home/work/.jupyter/custom" shape="box"];
+  "sha256:de0a39bebf9d784a39367308980c3651a1124fd577beb55e4bef70699daadb6f" [label="local://context" shape="ellipse"];
+  "sha256:a5b404e435879224f5e941a025f93c519e176b9079a1ef9c3a1d09c683a17bf5" [label="copy{src=/custom.css, dest=/home/work/.jupyter/custom/custom.css}" shape="note"];
+  "sha256:2def0a7718a9d799cda82bf86e7b92a3bdfc490ba98b1646f7bf7b2297a50055" [label="copy{src=/logo.svg, dest=/home/work/.jupyter/custom/logo.svg}" shape="note"];
+  "sha256:bb9a850e7042fdbb85db942563deb3b031366ffe6cb1f9e0e5291d2e76334192" [label="copy{src=/policy.yml, dest=/etc/backend.ai/jail/policy.yml}" shape="note"];
+  "sha256:dd9b2e2b68b9c5f83ab0b17a124004038e0dab93f66b26cf3ca4d9fce1ccc864" [label="sha256:dd9b2e2b68b9c5f83ab0b17a124004038e0dab93f66b26cf3ca4d9fce1ccc864" shape="plaintext"];
+  "sha256:5e691c7ba4998fa4b60d1218bbc4ed9845bfa527d7d91b0c48922bbea45ce425" -> "sha256:99f677110ba1e2066e88078fe956b03c7b8521d9b152906c9f092d7214f193a1" [label=""];
+  "sha256:99f677110ba1e2066e88078fe956b03c7b8521d9b152906c9f092d7214f193a1" -> "sha256:07ccab35e7680ffebf051aa4090810abed00d7aa15e23939f4a8d521a4ce8f9e" [label=""];
+  "sha256:ce753565b8629da9136f617f37fe09a6af98d9f5a7ef80fa3db62caca7cfe60f" -> "sha256:07ccab35e7680ffebf051aa4090810abed00d7aa15e23939f4a8d521a4ce8f9e" [label=""];
+  "sha256:07ccab35e7680ffebf051aa4090810abed00d7aa15e23939f4a8d521a4ce8f9e" -> "sha256:719b669a051c888b457e0b88b0288a14f80b744b157c5dfdfc8eaa34c3e4bb11" [label=""];
+  "sha256:719b669a051c888b457e0b88b0288a14f80b744b157c5dfdfc8eaa34c3e4bb11" -> "sha256:57b9706be3921f65c404e545689c2ba933f720b4776ae455655f781438b41fa7" [label=""];
+  "sha256:57b9706be3921f65c404e545689c2ba933f720b4776ae455655f781438b41fa7" -> "sha256:3015d5818ddb04a0a2251cccd269533836494d99944f7f77ff559b94e5f086d6" [label=""];
+  "sha256:3015d5818ddb04a0a2251cccd269533836494d99944f7f77ff559b94e5f086d6" -> "sha256:aa54c52525ecdb38613d5382d5b7b58c56d454746ceb11d15f63267024a1ae87" [label=""];
+  "sha256:aa54c52525ecdb38613d5382d5b7b58c56d454746ceb11d15f63267024a1ae87" -> "sha256:a5b404e435879224f5e941a025f93c519e176b9079a1ef9c3a1d09c683a17bf5" [label=""];
+  "sha256:de0a39bebf9d784a39367308980c3651a1124fd577beb55e4bef70699daadb6f" -> "sha256:a5b404e435879224f5e941a025f93c519e176b9079a1ef9c3a1d09c683a17bf5" [label=""];
+  "sha256:a5b404e435879224f5e941a025f93c519e176b9079a1ef9c3a1d09c683a17bf5" -> "sha256:2def0a7718a9d799cda82bf86e7b92a3bdfc490ba98b1646f7bf7b2297a50055" [label=""];
+  "sha256:de0a39bebf9d784a39367308980c3651a1124fd577beb55e4bef70699daadb6f" -> "sha256:2def0a7718a9d799cda82bf86e7b92a3bdfc490ba98b1646f7bf7b2297a50055" [label=""];
+  "sha256:2def0a7718a9d799cda82bf86e7b92a3bdfc490ba98b1646f7bf7b2297a50055" -> "sha256:bb9a850e7042fdbb85db942563deb3b031366ffe6cb1f9e0e5291d2e76334192" [label=""];
+  "sha256:de0a39bebf9d784a39367308980c3651a1124fd577beb55e4bef70699daadb6f" -> "sha256:bb9a850e7042fdbb85db942563deb3b031366ffe6cb1f9e0e5291d2e76334192" [label=""];
+  "sha256:bb9a850e7042fdbb85db942563deb3b031366ffe6cb1f9e0e5291d2e76334192" -> "sha256:dd9b2e2b68b9c5f83ab0b17a124004038e0dab93f66b26cf3ca4d9fce1ccc864" [label=""];
+}
+

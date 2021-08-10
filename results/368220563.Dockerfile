@@ -1,0 +1,57 @@
+[app/sources/368220563.Dockerfile]
+digraph {
+  "sha256:168e3dc3abab43edc2869ce1a53b82e563b33e9d6a37a8e436520474573ca484" [label="local://context" shape="ellipse"];
+  "sha256:868fdd9de755bc2b7af9cd6d1b11415d8cbcb83d39905725780923e17d39550c" [label="docker-image://docker.io/library/ubuntu:trusty" shape="ellipse"];
+  "sha256:9634701cb8059f55fe04203b3dba4b251a6fc286cc5b3ff8da24ea891b707aaf" [label="copy{src=/opam-installext, dest=/usr/bin/opam-installext}" shape="note"];
+  "sha256:f4eb82e00157e52f9b4c5968e3cc3d03740af3948fc79ecfbc192d5ea37cdd6b" [label="/bin/sh -c apt-get -y update" shape="box"];
+  "sha256:da420f97b7bf445c5dc36a20b3dc5ca1ee936870d7ded74a07aec68a7db0bac2" [label="/bin/sh -c apt-get -y install sudo pkg-config git build-essential m4 software-properties-common aspcud unzip curl libx11-dev ocaml ocaml-native-compilers camlp4-extra" shape="box"];
+  "sha256:8c0d67f67a8fc798f6c9981fd6f9bcee534f345167211bb4ca5145890a53d225" [label="copy{src=/opam.list, dest=/etc/apt/sources.list.d/opam.list}" shape="note"];
+  "sha256:50156706d469abe6821b44391618ca52a75500de5d2dc59d8b0e43651bf5c436" [label="/bin/sh -c curl -OL http://download.opensuse.org/repositories/home:ocaml/xUbuntu_14.04/Release.key" shape="box"];
+  "sha256:09c8e2cb6b615b037faf80777eee7abdbdd1e006196769b6724d8fe1e92f239b" [label="/bin/sh -c apt-key add - < Release.key" shape="box"];
+  "sha256:5a04916f2c19d63abdb5d6aed1ca570c9a605d0838ecaf4970a7d3a393a217a9" [label="/bin/sh -c apt-get -y update" shape="box"];
+  "sha256:7c4a338cd4a541c049d5598cbf45e5f073f5ad9df57ab606982de78483828134" [label="/bin/sh -c git clone -b 1.2 git://github.com/ocaml/opam" shape="box"];
+  "sha256:e6cf04270d6060eb22a326524f5fe1c7d5b26265f790ff469b4a2bd4a985dd27" [label="/bin/sh -c sh -c \"cd opam && make cold && make install\"" shape="box"];
+  "sha256:e03622085b1cd6a6a693b733b9cc038b0ac96115ef59c85dd61a8588c7a61321" [label="/bin/sh -c git config --global user.email \"docker@example.com\"" shape="box"];
+  "sha256:d190f5d7a6a1aaf1f7e6019e6447bafbbc865f32708f8cc94c5dd5062dd140ab" [label="/bin/sh -c git config --global user.name \"Docker CI\"" shape="box"];
+  "sha256:c1aa8a415a004d1c93ceddc1838ba72ea774e76d35255e5d47b7be964feb5157" [label="/bin/sh -c adduser --disabled-password --gecos \"\" opam" shape="box"];
+  "sha256:644852def88de6824221d5d01bf279aa1c2b144661283affc23c4899d97bbc37" [label="/bin/sh -c passwd -l opam" shape="box"];
+  "sha256:cc4f35549ee3a1a83a05f225d279e6571ee9948ea5834df80ce428384bfd1b22" [label="copy{src=/opamsudo, dest=/etc/sudoers.d/opam}" shape="note"];
+  "sha256:7b3abcd16a31218e76021f9d0ffd1d814274628bd61260799d29c5c1a7185073" [label="/bin/sh -c chmod 440 /etc/sudoers.d/opam" shape="box"];
+  "sha256:a7c6c3e8ff62836a1abfb95c7f6f4d5cbfed454eaaad7a226e517b281b9836b2" [label="/bin/sh -c chown root:root /etc/sudoers.d/opam" shape="box"];
+  "sha256:d56c636cf0bf73e1c298631bc8c7a10afa11374691fccc54667a49cc90eec0ab" [label="/bin/sh -c chown -R opam:opam /home/opam" shape="box"];
+  "sha256:941f6e579d2ed21463ac59a2e6478da713e83228afa0f00a16b8d018c4ad503a" [label="mkdir{path=/home/opam}" shape="note"];
+  "sha256:797e582f55a2e330c6664d0b0912c68fd31c23de8158133c87e69ba8edf8aa76" [label="/bin/sh -c sudo -u opam sh -c \"git clone git://github.com/ocaml/opam-repository\"" shape="box"];
+  "sha256:633fb8a0a8f7aa1c9b28ad1e96ddfba514e56c9b748db4d6a5a354e72ec4b355" [label="/bin/sh -c sudo -u opam sh -c \"opam init -a -y /home/opam/opam-repository\"" shape="box"];
+  "sha256:cc8e3d03c97b1d8185be0005e57373381aa7b47582023497f6c0613badf6d6f7" [label="/bin/sh -c sudo -u opam sh -c \"opam switch -y @COMPILER_VERSION@\"" shape="box"];
+  "sha256:b84a9cd68713dd2472e0a347ef162adf69da5c6eba03a8ebb2e54bd8dfb987cc" [label="/bin/sh -c sudo -u opam sh -c \"opam install ocamlfind camlp4\"" shape="box"];
+  "sha256:a6f8840aa85977d7ea6da91c10d91f5f2ba9edc3495baa99e84652877a923897" [label="mkdir{path=/home/opam/opam-repository}" shape="note"];
+  "sha256:15991d58c1cbd5659180a025bfc3f9e0aaf2c119f52a7ae1ee140c2c6d2842ba" [label="sha256:15991d58c1cbd5659180a025bfc3f9e0aaf2c119f52a7ae1ee140c2c6d2842ba" shape="plaintext"];
+  "sha256:868fdd9de755bc2b7af9cd6d1b11415d8cbcb83d39905725780923e17d39550c" -> "sha256:9634701cb8059f55fe04203b3dba4b251a6fc286cc5b3ff8da24ea891b707aaf" [label=""];
+  "sha256:168e3dc3abab43edc2869ce1a53b82e563b33e9d6a37a8e436520474573ca484" -> "sha256:9634701cb8059f55fe04203b3dba4b251a6fc286cc5b3ff8da24ea891b707aaf" [label=""];
+  "sha256:9634701cb8059f55fe04203b3dba4b251a6fc286cc5b3ff8da24ea891b707aaf" -> "sha256:f4eb82e00157e52f9b4c5968e3cc3d03740af3948fc79ecfbc192d5ea37cdd6b" [label=""];
+  "sha256:f4eb82e00157e52f9b4c5968e3cc3d03740af3948fc79ecfbc192d5ea37cdd6b" -> "sha256:da420f97b7bf445c5dc36a20b3dc5ca1ee936870d7ded74a07aec68a7db0bac2" [label=""];
+  "sha256:da420f97b7bf445c5dc36a20b3dc5ca1ee936870d7ded74a07aec68a7db0bac2" -> "sha256:8c0d67f67a8fc798f6c9981fd6f9bcee534f345167211bb4ca5145890a53d225" [label=""];
+  "sha256:168e3dc3abab43edc2869ce1a53b82e563b33e9d6a37a8e436520474573ca484" -> "sha256:8c0d67f67a8fc798f6c9981fd6f9bcee534f345167211bb4ca5145890a53d225" [label=""];
+  "sha256:8c0d67f67a8fc798f6c9981fd6f9bcee534f345167211bb4ca5145890a53d225" -> "sha256:50156706d469abe6821b44391618ca52a75500de5d2dc59d8b0e43651bf5c436" [label=""];
+  "sha256:50156706d469abe6821b44391618ca52a75500de5d2dc59d8b0e43651bf5c436" -> "sha256:09c8e2cb6b615b037faf80777eee7abdbdd1e006196769b6724d8fe1e92f239b" [label=""];
+  "sha256:09c8e2cb6b615b037faf80777eee7abdbdd1e006196769b6724d8fe1e92f239b" -> "sha256:5a04916f2c19d63abdb5d6aed1ca570c9a605d0838ecaf4970a7d3a393a217a9" [label=""];
+  "sha256:5a04916f2c19d63abdb5d6aed1ca570c9a605d0838ecaf4970a7d3a393a217a9" -> "sha256:7c4a338cd4a541c049d5598cbf45e5f073f5ad9df57ab606982de78483828134" [label=""];
+  "sha256:7c4a338cd4a541c049d5598cbf45e5f073f5ad9df57ab606982de78483828134" -> "sha256:e6cf04270d6060eb22a326524f5fe1c7d5b26265f790ff469b4a2bd4a985dd27" [label=""];
+  "sha256:e6cf04270d6060eb22a326524f5fe1c7d5b26265f790ff469b4a2bd4a985dd27" -> "sha256:e03622085b1cd6a6a693b733b9cc038b0ac96115ef59c85dd61a8588c7a61321" [label=""];
+  "sha256:e03622085b1cd6a6a693b733b9cc038b0ac96115ef59c85dd61a8588c7a61321" -> "sha256:d190f5d7a6a1aaf1f7e6019e6447bafbbc865f32708f8cc94c5dd5062dd140ab" [label=""];
+  "sha256:d190f5d7a6a1aaf1f7e6019e6447bafbbc865f32708f8cc94c5dd5062dd140ab" -> "sha256:c1aa8a415a004d1c93ceddc1838ba72ea774e76d35255e5d47b7be964feb5157" [label=""];
+  "sha256:c1aa8a415a004d1c93ceddc1838ba72ea774e76d35255e5d47b7be964feb5157" -> "sha256:644852def88de6824221d5d01bf279aa1c2b144661283affc23c4899d97bbc37" [label=""];
+  "sha256:644852def88de6824221d5d01bf279aa1c2b144661283affc23c4899d97bbc37" -> "sha256:cc4f35549ee3a1a83a05f225d279e6571ee9948ea5834df80ce428384bfd1b22" [label=""];
+  "sha256:168e3dc3abab43edc2869ce1a53b82e563b33e9d6a37a8e436520474573ca484" -> "sha256:cc4f35549ee3a1a83a05f225d279e6571ee9948ea5834df80ce428384bfd1b22" [label=""];
+  "sha256:cc4f35549ee3a1a83a05f225d279e6571ee9948ea5834df80ce428384bfd1b22" -> "sha256:7b3abcd16a31218e76021f9d0ffd1d814274628bd61260799d29c5c1a7185073" [label=""];
+  "sha256:7b3abcd16a31218e76021f9d0ffd1d814274628bd61260799d29c5c1a7185073" -> "sha256:a7c6c3e8ff62836a1abfb95c7f6f4d5cbfed454eaaad7a226e517b281b9836b2" [label=""];
+  "sha256:a7c6c3e8ff62836a1abfb95c7f6f4d5cbfed454eaaad7a226e517b281b9836b2" -> "sha256:d56c636cf0bf73e1c298631bc8c7a10afa11374691fccc54667a49cc90eec0ab" [label=""];
+  "sha256:d56c636cf0bf73e1c298631bc8c7a10afa11374691fccc54667a49cc90eec0ab" -> "sha256:941f6e579d2ed21463ac59a2e6478da713e83228afa0f00a16b8d018c4ad503a" [label=""];
+  "sha256:941f6e579d2ed21463ac59a2e6478da713e83228afa0f00a16b8d018c4ad503a" -> "sha256:797e582f55a2e330c6664d0b0912c68fd31c23de8158133c87e69ba8edf8aa76" [label=""];
+  "sha256:797e582f55a2e330c6664d0b0912c68fd31c23de8158133c87e69ba8edf8aa76" -> "sha256:633fb8a0a8f7aa1c9b28ad1e96ddfba514e56c9b748db4d6a5a354e72ec4b355" [label=""];
+  "sha256:633fb8a0a8f7aa1c9b28ad1e96ddfba514e56c9b748db4d6a5a354e72ec4b355" -> "sha256:cc8e3d03c97b1d8185be0005e57373381aa7b47582023497f6c0613badf6d6f7" [label=""];
+  "sha256:cc8e3d03c97b1d8185be0005e57373381aa7b47582023497f6c0613badf6d6f7" -> "sha256:b84a9cd68713dd2472e0a347ef162adf69da5c6eba03a8ebb2e54bd8dfb987cc" [label=""];
+  "sha256:b84a9cd68713dd2472e0a347ef162adf69da5c6eba03a8ebb2e54bd8dfb987cc" -> "sha256:a6f8840aa85977d7ea6da91c10d91f5f2ba9edc3495baa99e84652877a923897" [label=""];
+  "sha256:a6f8840aa85977d7ea6da91c10d91f5f2ba9edc3495baa99e84652877a923897" -> "sha256:15991d58c1cbd5659180a025bfc3f9e0aaf2c119f52a7ae1ee140c2c6d2842ba" [label=""];
+}
+

@@ -1,0 +1,53 @@
+[app/sources/288779519.Dockerfile]
+digraph {
+  "sha256:079d5299ea2657a1def285fce890a6925a18740cd0c4742ad8e65827af64c251" [label="docker-image://docker.io/library/erlang:18-slim" shape="ellipse"];
+  "sha256:1f13ea3871e01563e4570decf5f22a0b475e9a07ef69ea1a55ea163b687a1f17" [label="/bin/sh -c apt-get -qq update -y   && DEBIAN_FRONTEND=noninteractive apt-get -qq install -y apt-utils   && DEBIAN_FRONTEND=noninteractive apt-get -qq install -y --no-install-recommends   libnspr4 libnspr4-0d   curl   unzip   openjdk-7-jre-headless   && rm -rf /var/lib/apt/lists/*" shape="box"];
+  "sha256:71193150e7e4f7cc2725f7a0c3f9f2524acd74b461730a7386cea1a7ebc600c5" [label="/bin/sh -c mkdir -p \"${CLOUSEAU_PATH}/lib\"   && groupadd -r clouseau && useradd -d \"$CLOUSEAU_PATH\" -g clouseau clouseau" shape="box"];
+  "sha256:223a2af88c0511a3f294bfa9ba07e74db66892879b92c48d776d1cd0acbc218c" [label="mkdir{path=/opt/clouseau}" shape="note"];
+  "sha256:b4fc191af1e59fc97ee4a62b7f87ba8895c6ed6b094574453e2cafea664e7c93" [label="docker-image://docker.io/library/buildpack-deps:jessie" shape="ellipse"];
+  "sha256:7d5a04d5cf3e2b561d693db08c70fa6e5f04fa872f0e7482ce10b992b796d805" [label="/bin/bash -o pipefail -c curl -fsSL \"http://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz\" | tar xzf - -C /usr/share   && mv \"/usr/share/apache-maven-${MAVEN_VERSION}\" /usr/share/maven" shape="box"];
+  "sha256:795b6adeeff919d57a141eb37d941d4abb24a8f298ea7d9f4afc531f4ab90fba" [label="copy{src=/usr/share/maven, dest=/usr/share/maven}" shape="note"];
+  "sha256:f443f0a4666e9a0b89aaf2902f9704a3dd7e062ce8c43a4d5e06062410da51a1" [label="/bin/sh -c ln -s /usr/share/maven/bin/mvn /usr/bin/mvn && ls -l /usr/bin/mvn" shape="box"];
+  "sha256:af403ca80b154aaa9d28aca0657841fff86600fc6d8fdcc18c0250e745d402fb" [label="/bin/sh -c groupadd -r clouseau && useradd -d \"$CLOUSEAU_PATH\" -g clouseau clouseau" shape="box"];
+  "sha256:e46e6794f4b19f69b442b872fe64ed8a89523d8d3a379d41bb14e0877b7c2274" [label="/bin/sh -c apt-get -qq update -y   && DEBIAN_FRONTEND=noninteractive apt-get -qq install -y apt-utils   && DEBIAN_FRONTEND=noninteractive apt-get -qq install -y --no-install-recommends   build-essential   apt-transport-https   libnspr4 libnspr4-0d   openssl   curl   ca-certificates   git   pkg-config   openjdk-7-jdk   && rm -rf /var/lib/apt/lists/*" shape="box"];
+  "sha256:97c0d76b9088b3dd27a80febc43213de2c6cc50355f228bf9c283b973ea891f5" [label="/bin/sh -c mkdir /clouseau_deps \"$CLOUSEAU_PATH\"" shape="box"];
+  "sha256:ece8faa300f0ad6e5db1ac0b30b75ca1e19211a1d73556703984c00b2b8f4000" [label="mkdir{path=/clouseau_deps}" shape="note"];
+  "sha256:f2f6f5cfabc364cfaab44467ae05965ed3f6068ffa4b696aa4d6305b48bc766a" [label="/bin/sh -c curl https://raw.githubusercontent.com/neutrinity/clouseau/ntr_master/pom.xml -o pom.xml && curl https://raw.githubusercontent.com/neutrinity/clouseau/ntr_master/src/main/assembly/distribution.xml --create-dirs -o src/main/assembly/distribution.xml && mvn -T 1C install -Dmaven.test.skip=true" shape="box"];
+  "sha256:fd0641711a7d836ad48ab1648df38dd514c624520cb0179aace856b2da25e11e" [label="mkdir{path=/opt/clouseau}" shape="note"];
+  "sha256:61f326bf0592b069e50df54749c188a243123300e1b3d71927c4e1863af665cb" [label="/bin/sh -c git clone -b ntr_master https://github.com/neutrinity/clouseau .   && cp -RT /clouseau_deps/ \"${CLOUSEAU_PATH}/\" && rm -r /clouseau_deps" shape="box"];
+  "sha256:8aeeabee710e25ad093c089464fb3aa38b60ca2852975b0d9e0038f2ede30aaa" [label="/bin/sh -c mvn verify -Dmaven.test.skip=true" shape="box"];
+  "sha256:b74470a402f7a28679ba6ea34bf4179c646869207122b513583f8f38d4debee0" [label="copy{src=/opt/clouseau/target/clouseau-2.10.0-SNAPSHOT.zip, dest=/opt/clouseau/}" shape="note"];
+  "sha256:5543dd8fce87cce67816900a3d03cdf89d37324dc7c0aeae779f1c9868fc1403" [label="/bin/sh -c unzip -j \"${CLOUSEAU_PATH}/clouseau-2.10.0-SNAPSHOT.zip\" -d \"${CLOUSEAU_PATH}/lib\"   && rm \"${CLOUSEAU_PATH}/clouseau-2.10.0-SNAPSHOT.zip\"" shape="box"];
+  "sha256:c3d15e0a7fbdf11419282cc78be59eaeae7d2246c706f371392fa72257ee72fd" [label="local://context" shape="ellipse"];
+  "sha256:04dd98bbfd1e0aec238ee732e4ae750717e2150b9ec5070e8e40e5204b468648" [label="copy{src=/docker-entrypoint.sh, dest=/opt/clouseau}" shape="note"];
+  "sha256:daef7bfaa0a77239137f706c7dc04a1603bfd96ddd0a12fb5c28bc23e8915509" [label="/bin/sh -c mkdir -p \"${CLOUSEAU_PATH}/etc\"   && touch \"${CLOUSEAU_PATH}/etc/clouseau.ini\"   && chmod +x docker-entrypoint.sh   && chown -R clouseau:clouseau \"$CLOUSEAU_PATH\"" shape="box"];
+  "sha256:5b0d415185400424c68f0c20b67f9c3b1417ac078f37b7afa67caba22dcf414b" [label="copy{src=/clouseau/log4j.properties, dest=/opt/clouseau/etc}" shape="note"];
+  "sha256:e4944aaef736faa6de3680b3cf8d1b97028b7036a4eb29452b484689ca5e6d63" [label="/bin/sh -c mkdir -p \"$INDEX_DIR\" && chown -R clouseau:clouseau \"$INDEX_DIR\"" shape="box"];
+  "sha256:6ab973b9da15df8b3986c4f15be1bbd0b156d630fbbe0dd24c09012ec5622160" [label="sha256:6ab973b9da15df8b3986c4f15be1bbd0b156d630fbbe0dd24c09012ec5622160" shape="plaintext"];
+  "sha256:079d5299ea2657a1def285fce890a6925a18740cd0c4742ad8e65827af64c251" -> "sha256:1f13ea3871e01563e4570decf5f22a0b475e9a07ef69ea1a55ea163b687a1f17" [label=""];
+  "sha256:1f13ea3871e01563e4570decf5f22a0b475e9a07ef69ea1a55ea163b687a1f17" -> "sha256:71193150e7e4f7cc2725f7a0c3f9f2524acd74b461730a7386cea1a7ebc600c5" [label=""];
+  "sha256:71193150e7e4f7cc2725f7a0c3f9f2524acd74b461730a7386cea1a7ebc600c5" -> "sha256:223a2af88c0511a3f294bfa9ba07e74db66892879b92c48d776d1cd0acbc218c" [label=""];
+  "sha256:b4fc191af1e59fc97ee4a62b7f87ba8895c6ed6b094574453e2cafea664e7c93" -> "sha256:7d5a04d5cf3e2b561d693db08c70fa6e5f04fa872f0e7482ce10b992b796d805" [label=""];
+  "sha256:079d5299ea2657a1def285fce890a6925a18740cd0c4742ad8e65827af64c251" -> "sha256:795b6adeeff919d57a141eb37d941d4abb24a8f298ea7d9f4afc531f4ab90fba" [label=""];
+  "sha256:7d5a04d5cf3e2b561d693db08c70fa6e5f04fa872f0e7482ce10b992b796d805" -> "sha256:795b6adeeff919d57a141eb37d941d4abb24a8f298ea7d9f4afc531f4ab90fba" [label=""];
+  "sha256:795b6adeeff919d57a141eb37d941d4abb24a8f298ea7d9f4afc531f4ab90fba" -> "sha256:f443f0a4666e9a0b89aaf2902f9704a3dd7e062ce8c43a4d5e06062410da51a1" [label=""];
+  "sha256:f443f0a4666e9a0b89aaf2902f9704a3dd7e062ce8c43a4d5e06062410da51a1" -> "sha256:af403ca80b154aaa9d28aca0657841fff86600fc6d8fdcc18c0250e745d402fb" [label=""];
+  "sha256:af403ca80b154aaa9d28aca0657841fff86600fc6d8fdcc18c0250e745d402fb" -> "sha256:e46e6794f4b19f69b442b872fe64ed8a89523d8d3a379d41bb14e0877b7c2274" [label=""];
+  "sha256:e46e6794f4b19f69b442b872fe64ed8a89523d8d3a379d41bb14e0877b7c2274" -> "sha256:97c0d76b9088b3dd27a80febc43213de2c6cc50355f228bf9c283b973ea891f5" [label=""];
+  "sha256:97c0d76b9088b3dd27a80febc43213de2c6cc50355f228bf9c283b973ea891f5" -> "sha256:ece8faa300f0ad6e5db1ac0b30b75ca1e19211a1d73556703984c00b2b8f4000" [label=""];
+  "sha256:ece8faa300f0ad6e5db1ac0b30b75ca1e19211a1d73556703984c00b2b8f4000" -> "sha256:f2f6f5cfabc364cfaab44467ae05965ed3f6068ffa4b696aa4d6305b48bc766a" [label=""];
+  "sha256:f2f6f5cfabc364cfaab44467ae05965ed3f6068ffa4b696aa4d6305b48bc766a" -> "sha256:fd0641711a7d836ad48ab1648df38dd514c624520cb0179aace856b2da25e11e" [label=""];
+  "sha256:fd0641711a7d836ad48ab1648df38dd514c624520cb0179aace856b2da25e11e" -> "sha256:61f326bf0592b069e50df54749c188a243123300e1b3d71927c4e1863af665cb" [label=""];
+  "sha256:61f326bf0592b069e50df54749c188a243123300e1b3d71927c4e1863af665cb" -> "sha256:8aeeabee710e25ad093c089464fb3aa38b60ca2852975b0d9e0038f2ede30aaa" [label=""];
+  "sha256:223a2af88c0511a3f294bfa9ba07e74db66892879b92c48d776d1cd0acbc218c" -> "sha256:b74470a402f7a28679ba6ea34bf4179c646869207122b513583f8f38d4debee0" [label=""];
+  "sha256:8aeeabee710e25ad093c089464fb3aa38b60ca2852975b0d9e0038f2ede30aaa" -> "sha256:b74470a402f7a28679ba6ea34bf4179c646869207122b513583f8f38d4debee0" [label=""];
+  "sha256:b74470a402f7a28679ba6ea34bf4179c646869207122b513583f8f38d4debee0" -> "sha256:5543dd8fce87cce67816900a3d03cdf89d37324dc7c0aeae779f1c9868fc1403" [label=""];
+  "sha256:5543dd8fce87cce67816900a3d03cdf89d37324dc7c0aeae779f1c9868fc1403" -> "sha256:04dd98bbfd1e0aec238ee732e4ae750717e2150b9ec5070e8e40e5204b468648" [label=""];
+  "sha256:c3d15e0a7fbdf11419282cc78be59eaeae7d2246c706f371392fa72257ee72fd" -> "sha256:04dd98bbfd1e0aec238ee732e4ae750717e2150b9ec5070e8e40e5204b468648" [label=""];
+  "sha256:04dd98bbfd1e0aec238ee732e4ae750717e2150b9ec5070e8e40e5204b468648" -> "sha256:daef7bfaa0a77239137f706c7dc04a1603bfd96ddd0a12fb5c28bc23e8915509" [label=""];
+  "sha256:daef7bfaa0a77239137f706c7dc04a1603bfd96ddd0a12fb5c28bc23e8915509" -> "sha256:5b0d415185400424c68f0c20b67f9c3b1417ac078f37b7afa67caba22dcf414b" [label=""];
+  "sha256:c3d15e0a7fbdf11419282cc78be59eaeae7d2246c706f371392fa72257ee72fd" -> "sha256:5b0d415185400424c68f0c20b67f9c3b1417ac078f37b7afa67caba22dcf414b" [label=""];
+  "sha256:5b0d415185400424c68f0c20b67f9c3b1417ac078f37b7afa67caba22dcf414b" -> "sha256:e4944aaef736faa6de3680b3cf8d1b97028b7036a4eb29452b484689ca5e6d63" [label=""];
+  "sha256:e4944aaef736faa6de3680b3cf8d1b97028b7036a4eb29452b484689ca5e6d63" -> "sha256:6ab973b9da15df8b3986c4f15be1bbd0b156d630fbbe0dd24c09012ec5622160" [label=""];
+}
+

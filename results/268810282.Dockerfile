@@ -1,0 +1,53 @@
+[app/sources/268810282.Dockerfile]
+digraph {
+  "sha256:e531ec672ac409aaaccd4d4d0941bf743c5173c998d0eeedf1ba21926c75510b" [label="docker-image://docker.io/andrewosh/binder-base:latest" shape="ellipse"];
+  "sha256:18be6c205c914a184650990ba62e0b5bd96f0960f078c0a17d64edb6720a60d5" [label="/bin/sh -c apt-get update -y" shape="box"];
+  "sha256:d0463a47c139726d7fed4f1c79c21f6b172e66b19ee4e17dbdc132f1fbffad04" [label="/bin/sh -c apt-get install -y --no-install-recommends curl ca-certificates hdf5-tools" shape="box"];
+  "sha256:640af61faffe18dae38215a776c690a70625720dc4fd3de504956573b2035477" [label="/bin/sh -c apt-get update -y && apt-get install -yq --no-install-recommends \ttexlive-latex-base     texlive-latex-extra     texlive-fonts-extra     texlive-fonts-recommended     && apt-get clean" shape="box"];
+  "sha256:5a58470ad311f5009013b04588c19d86876dd4c67c957eb127857a3b868502dd" [label="/bin/sh -c apt-get install -y --no-install-recommends julia libnettle4 && apt-get clean" shape="box"];
+  "sha256:169b33e698dc2cee6a7e3cf787da4657b9d7e8219833661b0d07ed3d8dbf5233" [label="/bin/sh -c rm -r /home/main/anaconda" shape="box"];
+  "sha256:efcea770c3751fb5b086f5dab771a15dc3871b426c486157e7dda5f6e775dbdf" [label="/bin/sh -c wget --quiet https://3230d63b5fc54e62148e-c95ac804525aac4b6dba79b00b39d1d3.ssl.cf1.rackcdn.com/Anaconda3-2.4.1-Linux-x86_64.sh" shape="box"];
+  "sha256:16956f463328de20451e68da7d842cb2f84cccbdf70497d6da93659b413712b6" [label="/bin/sh -c bash Anaconda3-2.4.1-Linux-x86_64.sh -b && rm Anaconda3-2.4.1-Linux-x86_64.sh" shape="box"];
+  "sha256:b39e79631f7f03147d77ee385262aa8f8f8e7e0bc4169219e596b5c9fa1eb6a4" [label="/bin/sh -c /bin/bash -c \"ipython kernelspec install-self --user\"" shape="box"];
+  "sha256:2e92b1e2d1c8a6ad1840d15f099648bf266a355feb27c23e70f76925e969dc8e" [label="/bin/sh -c conda update conda --yes && conda update anaconda --yes" shape="box"];
+  "sha256:7ce3d92ca1638059e824a0944e8b1a3c117637dfbca3ab5b7592afbf0c1514c8" [label="/bin/sh -c conda install pymc && conda install seaborn" shape="box"];
+  "sha256:530dc041a6dfcd4acfe877763fa204fef7fe68f7241450ff7abad21372e4fb5a" [label="/bin/sh -c pip install --upgrade pip" shape="box"];
+  "sha256:587ec692e1bc9f98f7ba3826e052a049a0a9c3f5c4861619c5fcf5f8df1aa5c6" [label="/bin/sh -c pip install quantecon" shape="box"];
+  "sha256:45075639e42674f57cc326325c35ccf4f14f54e1a258a555b47564e4d270ca9d" [label="/bin/sh -c echo \"cacert=/etc/ssl/certs/ca-certificates.crt\" > ~/.curlrc" shape="box"];
+  "sha256:c15a894e579e37f33cdb9b8b49eaeee19f654a959c1b4a8a95693e1fa305994b" [label="/bin/sh -c julia -e 'Pkg.add(\"PyCall\"); Pkg.checkout(\"PyCall\"); Pkg.build(\"PyCall\"); using PyCall'" shape="box"];
+  "sha256:244050fe9e52ac1e97d9e307ec5c98b198a2e4522fc06317fd9de773f49c6f39" [label="/bin/sh -c julia -e 'Pkg.add(\"IJulia\"); using IJulia'" shape="box"];
+  "sha256:da1e9e221d11ee20c007ec7790f5addf0a97a83af519b4ff4ced9e0ccc92d374" [label="/bin/sh -c julia -e 'Pkg.add(\"PyPlot\"); Pkg.checkout(\"PyPlot\"); Pkg.build(\"PyPlot\"); using PyPlot'" shape="box"];
+  "sha256:280b2961f0b47d770ffcb4287c790638f54df9753a35942a9c6ea0d9b1a8ded9" [label="/bin/sh -c julia -e 'Pkg.add(\"Distributions\"); using Distributions'" shape="box"];
+  "sha256:a56ef31aec6625bbc34c0dddd00d268e38123505cbe100355c240e63b363ac01" [label="/bin/sh -c julia -e 'Pkg.add(\"KernelEstimator\"); using KernelEstimator'" shape="box"];
+  "sha256:bf849f48dd29dc99b193ae3c7a3210d16a3393dce3e6275a6ad5dc642394d2b9" [label="/bin/sh -c julia -e 'Pkg.add(\"QuantEcon\"); using QuantEcon'" shape="box"];
+  "sha256:c55def9ab53d54104490429b5f32f921c032463c9a4573046819d887168dd54f" [label="/bin/sh -c julia -e 'Pkg.add(\"Gadfly\"); using Gadfly'" shape="box"];
+  "sha256:ef34c8c6c4390f2ed203d298bb6a4305ecbb59aac9e6a5870f3c60a1b9b81f1b" [label="/bin/sh -c julia -e 'Pkg.add(\"Optim\"); using Optim'" shape="box"];
+  "sha256:0142acec0dc12d0cb433f4493089d19485623b9156c7c47456e245d55bbee204" [label="/bin/sh -c julia -e 'Pkg.add(\"Grid\"); using Grid'" shape="box"];
+  "sha256:00730472fea1febfc4dd2c09382b1694dc1749ab55e5b6366033638940afa3f5" [label="/bin/sh -c julia -e 'Pkg.add(\"Roots\"); using Roots'" shape="box"];
+  "sha256:ae0ac52d966d7dd516267a38a28c0cb85e55072839cb4e85ebab77af0699cc75" [label="sha256:ae0ac52d966d7dd516267a38a28c0cb85e55072839cb4e85ebab77af0699cc75" shape="plaintext"];
+  "sha256:e531ec672ac409aaaccd4d4d0941bf743c5173c998d0eeedf1ba21926c75510b" -> "sha256:18be6c205c914a184650990ba62e0b5bd96f0960f078c0a17d64edb6720a60d5" [label=""];
+  "sha256:18be6c205c914a184650990ba62e0b5bd96f0960f078c0a17d64edb6720a60d5" -> "sha256:d0463a47c139726d7fed4f1c79c21f6b172e66b19ee4e17dbdc132f1fbffad04" [label=""];
+  "sha256:d0463a47c139726d7fed4f1c79c21f6b172e66b19ee4e17dbdc132f1fbffad04" -> "sha256:640af61faffe18dae38215a776c690a70625720dc4fd3de504956573b2035477" [label=""];
+  "sha256:640af61faffe18dae38215a776c690a70625720dc4fd3de504956573b2035477" -> "sha256:5a58470ad311f5009013b04588c19d86876dd4c67c957eb127857a3b868502dd" [label=""];
+  "sha256:5a58470ad311f5009013b04588c19d86876dd4c67c957eb127857a3b868502dd" -> "sha256:169b33e698dc2cee6a7e3cf787da4657b9d7e8219833661b0d07ed3d8dbf5233" [label=""];
+  "sha256:169b33e698dc2cee6a7e3cf787da4657b9d7e8219833661b0d07ed3d8dbf5233" -> "sha256:efcea770c3751fb5b086f5dab771a15dc3871b426c486157e7dda5f6e775dbdf" [label=""];
+  "sha256:efcea770c3751fb5b086f5dab771a15dc3871b426c486157e7dda5f6e775dbdf" -> "sha256:16956f463328de20451e68da7d842cb2f84cccbdf70497d6da93659b413712b6" [label=""];
+  "sha256:16956f463328de20451e68da7d842cb2f84cccbdf70497d6da93659b413712b6" -> "sha256:b39e79631f7f03147d77ee385262aa8f8f8e7e0bc4169219e596b5c9fa1eb6a4" [label=""];
+  "sha256:b39e79631f7f03147d77ee385262aa8f8f8e7e0bc4169219e596b5c9fa1eb6a4" -> "sha256:2e92b1e2d1c8a6ad1840d15f099648bf266a355feb27c23e70f76925e969dc8e" [label=""];
+  "sha256:2e92b1e2d1c8a6ad1840d15f099648bf266a355feb27c23e70f76925e969dc8e" -> "sha256:7ce3d92ca1638059e824a0944e8b1a3c117637dfbca3ab5b7592afbf0c1514c8" [label=""];
+  "sha256:7ce3d92ca1638059e824a0944e8b1a3c117637dfbca3ab5b7592afbf0c1514c8" -> "sha256:530dc041a6dfcd4acfe877763fa204fef7fe68f7241450ff7abad21372e4fb5a" [label=""];
+  "sha256:530dc041a6dfcd4acfe877763fa204fef7fe68f7241450ff7abad21372e4fb5a" -> "sha256:587ec692e1bc9f98f7ba3826e052a049a0a9c3f5c4861619c5fcf5f8df1aa5c6" [label=""];
+  "sha256:587ec692e1bc9f98f7ba3826e052a049a0a9c3f5c4861619c5fcf5f8df1aa5c6" -> "sha256:45075639e42674f57cc326325c35ccf4f14f54e1a258a555b47564e4d270ca9d" [label=""];
+  "sha256:45075639e42674f57cc326325c35ccf4f14f54e1a258a555b47564e4d270ca9d" -> "sha256:c15a894e579e37f33cdb9b8b49eaeee19f654a959c1b4a8a95693e1fa305994b" [label=""];
+  "sha256:c15a894e579e37f33cdb9b8b49eaeee19f654a959c1b4a8a95693e1fa305994b" -> "sha256:244050fe9e52ac1e97d9e307ec5c98b198a2e4522fc06317fd9de773f49c6f39" [label=""];
+  "sha256:244050fe9e52ac1e97d9e307ec5c98b198a2e4522fc06317fd9de773f49c6f39" -> "sha256:da1e9e221d11ee20c007ec7790f5addf0a97a83af519b4ff4ced9e0ccc92d374" [label=""];
+  "sha256:da1e9e221d11ee20c007ec7790f5addf0a97a83af519b4ff4ced9e0ccc92d374" -> "sha256:280b2961f0b47d770ffcb4287c790638f54df9753a35942a9c6ea0d9b1a8ded9" [label=""];
+  "sha256:280b2961f0b47d770ffcb4287c790638f54df9753a35942a9c6ea0d9b1a8ded9" -> "sha256:a56ef31aec6625bbc34c0dddd00d268e38123505cbe100355c240e63b363ac01" [label=""];
+  "sha256:a56ef31aec6625bbc34c0dddd00d268e38123505cbe100355c240e63b363ac01" -> "sha256:bf849f48dd29dc99b193ae3c7a3210d16a3393dce3e6275a6ad5dc642394d2b9" [label=""];
+  "sha256:bf849f48dd29dc99b193ae3c7a3210d16a3393dce3e6275a6ad5dc642394d2b9" -> "sha256:c55def9ab53d54104490429b5f32f921c032463c9a4573046819d887168dd54f" [label=""];
+  "sha256:c55def9ab53d54104490429b5f32f921c032463c9a4573046819d887168dd54f" -> "sha256:ef34c8c6c4390f2ed203d298bb6a4305ecbb59aac9e6a5870f3c60a1b9b81f1b" [label=""];
+  "sha256:ef34c8c6c4390f2ed203d298bb6a4305ecbb59aac9e6a5870f3c60a1b9b81f1b" -> "sha256:0142acec0dc12d0cb433f4493089d19485623b9156c7c47456e245d55bbee204" [label=""];
+  "sha256:0142acec0dc12d0cb433f4493089d19485623b9156c7c47456e245d55bbee204" -> "sha256:00730472fea1febfc4dd2c09382b1694dc1749ab55e5b6366033638940afa3f5" [label=""];
+  "sha256:00730472fea1febfc4dd2c09382b1694dc1749ab55e5b6366033638940afa3f5" -> "sha256:ae0ac52d966d7dd516267a38a28c0cb85e55072839cb4e85ebab77af0699cc75" [label=""];
+}
+

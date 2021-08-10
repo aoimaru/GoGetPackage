@@ -1,0 +1,55 @@
+[app/sources/464809983.Dockerfile]
+digraph {
+  "sha256:04187b885604d112762d71717a1346cbc4f17e131fc82857a048019e04951455" [label="docker-image://docker.io/library/ubuntu:16.04" shape="ellipse"];
+  "sha256:034f3f263fb4c185dd7423a0b0dc5e9c9d5e187cce26d02b7d718074089b397c" [label="/bin/bash -c apt update -y && apt install -y apt-utils && apt upgrade -y && apt install -y git wget zip libz-dev curl cmake python3 python3-pip vim && apt clean" shape="box"];
+  "sha256:3c055bb774158952bcb882b87e65cbc3cc2ac02fc3ab8233a08b0565ca465895" [label="/bin/bash -c useradd --create-home --user-group --shell /bin/bash dvdt" shape="box"];
+  "sha256:d15f5394aecc1517a3448be634216d80e73f55400792fcb2bd5849b5cebacdfa" [label="mkdir{path=/home/dvdt}" shape="note"];
+  "sha256:01802f2a956a0be0ae18c52c294b82fd1c7804bb5c35206a1876fb050579dd16" [label="/bin/bash -c mkdir -p ${CK_ROOT} ${CK_REPOS} ${CK_TOOLS}" shape="box"];
+  "sha256:70e9922fcb087be3211f504d5f890af80223552e54ff1f90b6ab280dbf4044fe" [label="/bin/bash -c git config --global user.name ${GIT_USER} && git config --global user.email ${GIT_EMAIL}" shape="box"];
+  "sha256:6a4ce24b24fe97fd8c3387635b1fa8edcf9f759df3e9420882c6feb65fc70c90" [label="/bin/bash -c git clone https://github.com/ctuning/ck.git ${CK_ROOT}" shape="box"];
+  "sha256:583d4f71d77bdbe9ab22d53aa1c5778abf3336bacd2faf621bb98a9ba9dce28b" [label="/bin/bash -c cd ${CK_ROOT}  && ${CK_PYTHON} setup.py install --user  && ${CK_PYTHON} -c \"import ck.kernel as ck; print ('Collective Knowledge v%s' % ck.__version__)\"" shape="box"];
+  "sha256:8595d15e21493340a1ba51003bcfd8375446b735969f10abb39c52e34d471832" [label="/bin/bash -c ck pull repo:ck-mlperf" shape="box"];
+  "sha256:e5e0f3d3a5013154bf3431efab280a70d14b5738b4ac25b02b60edda4db3c279" [label="/bin/bash -c ck detect platform.os --platform_init_uoa=generic-linux-dummy" shape="box"];
+  "sha256:afe704a57001a053d0a668699c1ed10900a3d67f60177e97888316cc3b9cf8b4" [label="/bin/bash -c ck detect soft:compiler.gcc --full_path=`which ${CK_CC}`" shape="box"];
+  "sha256:b08ab007ee8772cca567cdd64265ad343639cb007dbe8e38fdbb161dfd63c482" [label="/bin/bash -c ck install package --tags=lib,tensorflow-lite,tensorflow-static,v1.13.1" shape="box"];
+  "sha256:6f56ea841a5e55eb1e0e79e7ae0bbee038d2890cf67a06db7d2c091af833d076" [label="/bin/bash -c ck detect soft:compiler.python --full_path=`which ${CK_PYTHON}`" shape="box"];
+  "sha256:d164ab4e3fd91a4124d1eb7bcae7b018307dbbbebbe9b00e27b702f0dbbe1135" [label="/bin/bash -c ${CK_PYTHON} -m pip install --ignore-installed pip setuptools --user" shape="box"];
+  "sha256:cc130cc66e0f67be2903bbe348acef0739482dd727c64700bcb9556d530bdd4c" [label="/bin/bash -c ck install package --tags=lib,python-package,numpy" shape="box"];
+  "sha256:e1f47b97728239351b110047b0bfdfc9b6c02b873d5e0277c4e818156deb13a2" [label="/bin/bash -c ck install package --tags=lib,python-package,scipy --force_version=1.2.1" shape="box"];
+  "sha256:f527a5823b146a98ce8cce6ff80fe9d615ebfe9f12b30c56e5346927625281db" [label="/bin/bash -c ck install package --tags=lib,python-package,pillow" shape="box"];
+  "sha256:587fd14cf2a14c28849d3d3c80aa0aca6003a521e4aa4509b7fb616ddbb98348" [label="/bin/bash -c ck install package --tags=image-classification,model,tf,tflite,mlperf,mobilenet,non-quantized,from-zenodo" shape="box"];
+  "sha256:03625bfdfa2bfb75d7ba36f70aa039e24febd544fdd8eb096bdc54751a7cf3c2" [label="/bin/bash -c ck install package --tags=image-classification,model,tf,tflite,mlperf,mobilenet,quantized,from-google" shape="box"];
+  "sha256:2d7747b02fa7b0275895e1c7329c58206b1406a82c03c58017b18149e68231dd" [label="/bin/bash -c ck install package --tags=image-classification,model,tflite,mlperf,resnet,downloaded,with-argmax" shape="box"];
+  "sha256:623b4058a7887d6bf2e71f10443f448ec499cc68161e41aabd76a716a4190d05" [label="/bin/bash -c ck install package --tags=image-classification,model,tflite,mlperf,resnet,downloaded,no-argmax" shape="box"];
+  "sha256:bd7629c1b55757b17572bec2e7b23b6e04cb766517f9559d1263ba370b24ced5" [label="/bin/bash -c ck install package --tags=dataset,imagenet,aux" shape="box"];
+  "sha256:4fa044140b7c49fb3c660666bfd95f9a778632aeaa82da8dc5c41263e317e6e6" [label="/bin/bash -c ck install package --tags=dataset,imagenet,val,original,min --no_tags=resized" shape="box"];
+  "sha256:8169ae57fdeb9df321a85d21c2decdc4f4cb67759f469ea6056de896a4cff032" [label="/bin/bash -c ck install package --tags=dataset,imagenet,val,preprocessed" shape="box"];
+  "sha256:d287b5b7cdc7da9ec6ecaf60e310f7f531f50e60b19e7d07ff29caba6c025a50" [label="/bin/bash -c ck compile program:image-classification-tflite" shape="box"];
+  "sha256:ca2563e6b68a26d69ebe6edbe404ee927a7faab88db4d1762d838a8d996d7c78" [label="sha256:ca2563e6b68a26d69ebe6edbe404ee927a7faab88db4d1762d838a8d996d7c78" shape="plaintext"];
+  "sha256:04187b885604d112762d71717a1346cbc4f17e131fc82857a048019e04951455" -> "sha256:034f3f263fb4c185dd7423a0b0dc5e9c9d5e187cce26d02b7d718074089b397c" [label=""];
+  "sha256:034f3f263fb4c185dd7423a0b0dc5e9c9d5e187cce26d02b7d718074089b397c" -> "sha256:3c055bb774158952bcb882b87e65cbc3cc2ac02fc3ab8233a08b0565ca465895" [label=""];
+  "sha256:3c055bb774158952bcb882b87e65cbc3cc2ac02fc3ab8233a08b0565ca465895" -> "sha256:d15f5394aecc1517a3448be634216d80e73f55400792fcb2bd5849b5cebacdfa" [label=""];
+  "sha256:d15f5394aecc1517a3448be634216d80e73f55400792fcb2bd5849b5cebacdfa" -> "sha256:01802f2a956a0be0ae18c52c294b82fd1c7804bb5c35206a1876fb050579dd16" [label=""];
+  "sha256:01802f2a956a0be0ae18c52c294b82fd1c7804bb5c35206a1876fb050579dd16" -> "sha256:70e9922fcb087be3211f504d5f890af80223552e54ff1f90b6ab280dbf4044fe" [label=""];
+  "sha256:70e9922fcb087be3211f504d5f890af80223552e54ff1f90b6ab280dbf4044fe" -> "sha256:6a4ce24b24fe97fd8c3387635b1fa8edcf9f759df3e9420882c6feb65fc70c90" [label=""];
+  "sha256:6a4ce24b24fe97fd8c3387635b1fa8edcf9f759df3e9420882c6feb65fc70c90" -> "sha256:583d4f71d77bdbe9ab22d53aa1c5778abf3336bacd2faf621bb98a9ba9dce28b" [label=""];
+  "sha256:583d4f71d77bdbe9ab22d53aa1c5778abf3336bacd2faf621bb98a9ba9dce28b" -> "sha256:8595d15e21493340a1ba51003bcfd8375446b735969f10abb39c52e34d471832" [label=""];
+  "sha256:8595d15e21493340a1ba51003bcfd8375446b735969f10abb39c52e34d471832" -> "sha256:e5e0f3d3a5013154bf3431efab280a70d14b5738b4ac25b02b60edda4db3c279" [label=""];
+  "sha256:e5e0f3d3a5013154bf3431efab280a70d14b5738b4ac25b02b60edda4db3c279" -> "sha256:afe704a57001a053d0a668699c1ed10900a3d67f60177e97888316cc3b9cf8b4" [label=""];
+  "sha256:afe704a57001a053d0a668699c1ed10900a3d67f60177e97888316cc3b9cf8b4" -> "sha256:b08ab007ee8772cca567cdd64265ad343639cb007dbe8e38fdbb161dfd63c482" [label=""];
+  "sha256:b08ab007ee8772cca567cdd64265ad343639cb007dbe8e38fdbb161dfd63c482" -> "sha256:6f56ea841a5e55eb1e0e79e7ae0bbee038d2890cf67a06db7d2c091af833d076" [label=""];
+  "sha256:6f56ea841a5e55eb1e0e79e7ae0bbee038d2890cf67a06db7d2c091af833d076" -> "sha256:d164ab4e3fd91a4124d1eb7bcae7b018307dbbbebbe9b00e27b702f0dbbe1135" [label=""];
+  "sha256:d164ab4e3fd91a4124d1eb7bcae7b018307dbbbebbe9b00e27b702f0dbbe1135" -> "sha256:cc130cc66e0f67be2903bbe348acef0739482dd727c64700bcb9556d530bdd4c" [label=""];
+  "sha256:cc130cc66e0f67be2903bbe348acef0739482dd727c64700bcb9556d530bdd4c" -> "sha256:e1f47b97728239351b110047b0bfdfc9b6c02b873d5e0277c4e818156deb13a2" [label=""];
+  "sha256:e1f47b97728239351b110047b0bfdfc9b6c02b873d5e0277c4e818156deb13a2" -> "sha256:f527a5823b146a98ce8cce6ff80fe9d615ebfe9f12b30c56e5346927625281db" [label=""];
+  "sha256:f527a5823b146a98ce8cce6ff80fe9d615ebfe9f12b30c56e5346927625281db" -> "sha256:587fd14cf2a14c28849d3d3c80aa0aca6003a521e4aa4509b7fb616ddbb98348" [label=""];
+  "sha256:587fd14cf2a14c28849d3d3c80aa0aca6003a521e4aa4509b7fb616ddbb98348" -> "sha256:03625bfdfa2bfb75d7ba36f70aa039e24febd544fdd8eb096bdc54751a7cf3c2" [label=""];
+  "sha256:03625bfdfa2bfb75d7ba36f70aa039e24febd544fdd8eb096bdc54751a7cf3c2" -> "sha256:2d7747b02fa7b0275895e1c7329c58206b1406a82c03c58017b18149e68231dd" [label=""];
+  "sha256:2d7747b02fa7b0275895e1c7329c58206b1406a82c03c58017b18149e68231dd" -> "sha256:623b4058a7887d6bf2e71f10443f448ec499cc68161e41aabd76a716a4190d05" [label=""];
+  "sha256:623b4058a7887d6bf2e71f10443f448ec499cc68161e41aabd76a716a4190d05" -> "sha256:bd7629c1b55757b17572bec2e7b23b6e04cb766517f9559d1263ba370b24ced5" [label=""];
+  "sha256:bd7629c1b55757b17572bec2e7b23b6e04cb766517f9559d1263ba370b24ced5" -> "sha256:4fa044140b7c49fb3c660666bfd95f9a778632aeaa82da8dc5c41263e317e6e6" [label=""];
+  "sha256:4fa044140b7c49fb3c660666bfd95f9a778632aeaa82da8dc5c41263e317e6e6" -> "sha256:8169ae57fdeb9df321a85d21c2decdc4f4cb67759f469ea6056de896a4cff032" [label=""];
+  "sha256:8169ae57fdeb9df321a85d21c2decdc4f4cb67759f469ea6056de896a4cff032" -> "sha256:d287b5b7cdc7da9ec6ecaf60e310f7f531f50e60b19e7d07ff29caba6c025a50" [label=""];
+  "sha256:d287b5b7cdc7da9ec6ecaf60e310f7f531f50e60b19e7d07ff29caba6c025a50" -> "sha256:ca2563e6b68a26d69ebe6edbe404ee927a7faab88db4d1762d838a8d996d7c78" [label=""];
+}
+

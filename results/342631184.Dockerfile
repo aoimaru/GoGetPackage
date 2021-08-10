@@ -1,0 +1,21 @@
+[app/sources/342631184.Dockerfile]
+digraph {
+  "sha256:d20029e6da5ee62f143d53bd3ac8bc169940d82a921fe26eaaf03f2977c65579" [label="docker-image://docker.io/library/ubuntu:bionic" shape="ellipse"];
+  "sha256:cc8d3e60bc3f4c9da73b7afc62a8a2da2895120d7cab5552844f3c6429849fec" [label="/bin/sh -c ln --symbolic --no-dereference --force /usr/share/zoneinfo/$TZ /etc/localtime     && echo $TZ > /etc/timezone" shape="box"];
+  "sha256:d177b19471d7f67a34dc79b71f4f44eb050ad0e7694a3eaa84b1895843185b03" [label="/bin/sh -c apt update                                                                && apt upgrade --yes                                                         && apt install --yes                                                             autoconf bison build-essential clang++-6.0 clang-6.0 cmake coreutils         curl diffutils flex gcc git gnupg libboost-test-dev libffi-dev               libgmp-dev libjemalloc-dev libmpfr-dev libstdc++6 libtool libxml2            libyaml-cpp-dev llvm-6.0 m4 make maven opam openjdk-8-jdk pandoc             pkg-config python3 python-jinja2 python-pygments python-recommonmark         python-sphinx scala time unifdef zlib1g-dev" shape="box"];
+  "sha256:e03e3193ed1bd7ed0db0cdf200450d882e9b576865604fdd6290cc4852db34fa" [label="/bin/sh -c update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java" shape="box"];
+  "sha256:f27e714be6ba03ab54f12a77ad8c63c34f7536fe6eb6485d361a1166f4bdfba7" [label="/bin/sh -c curl -sSL https://get.haskellstack.org/ | sh" shape="box"];
+  "sha256:eaa5bd5815735d8799f2af124812aac42f178f412b421fb1dad3d295638d4f9b" [label="/bin/sh -c git clone 'https://github.com/z3prover/z3' --branch=z3-4.6.0     && cd z3                                                            && python scripts/mk_make.py                                        && cd build                                                         && make -j8                                                         && make install                                                     && cd ../..                                                         && rm -rf z3" shape="box"];
+  "sha256:ad110711bb7f63788b16142f4f41bcae7f789e4d2bcd21838dd62e8154c8be90" [label="/bin/sh -c groupadd --gid $GROUP_ID user                                            && useradd --create-home --uid $USER_ID --shell /bin/sh --gid user user" shape="box"];
+  "sha256:7767af00f6e94b84bfc78bcd9bcc30866f28496972e0327fc640a062e1fd6ec1" [label="/bin/sh -c cd /home/user                                                              && git clone 'https://github.com/kframework/k' --branch=nightly-0f3835d3a     && ./k/k-distribution/src/main/scripts/bin/k-configure-opam-dev               && rm -rf k" shape="box"];
+  "sha256:c8c4a5b6b50bbb8dbd6fd16b71ebaf6733495d40b4e9ba1fea06b93dea855795" [label="sha256:c8c4a5b6b50bbb8dbd6fd16b71ebaf6733495d40b4e9ba1fea06b93dea855795" shape="plaintext"];
+  "sha256:d20029e6da5ee62f143d53bd3ac8bc169940d82a921fe26eaaf03f2977c65579" -> "sha256:cc8d3e60bc3f4c9da73b7afc62a8a2da2895120d7cab5552844f3c6429849fec" [label=""];
+  "sha256:cc8d3e60bc3f4c9da73b7afc62a8a2da2895120d7cab5552844f3c6429849fec" -> "sha256:d177b19471d7f67a34dc79b71f4f44eb050ad0e7694a3eaa84b1895843185b03" [label=""];
+  "sha256:d177b19471d7f67a34dc79b71f4f44eb050ad0e7694a3eaa84b1895843185b03" -> "sha256:e03e3193ed1bd7ed0db0cdf200450d882e9b576865604fdd6290cc4852db34fa" [label=""];
+  "sha256:e03e3193ed1bd7ed0db0cdf200450d882e9b576865604fdd6290cc4852db34fa" -> "sha256:f27e714be6ba03ab54f12a77ad8c63c34f7536fe6eb6485d361a1166f4bdfba7" [label=""];
+  "sha256:f27e714be6ba03ab54f12a77ad8c63c34f7536fe6eb6485d361a1166f4bdfba7" -> "sha256:eaa5bd5815735d8799f2af124812aac42f178f412b421fb1dad3d295638d4f9b" [label=""];
+  "sha256:eaa5bd5815735d8799f2af124812aac42f178f412b421fb1dad3d295638d4f9b" -> "sha256:ad110711bb7f63788b16142f4f41bcae7f789e4d2bcd21838dd62e8154c8be90" [label=""];
+  "sha256:ad110711bb7f63788b16142f4f41bcae7f789e4d2bcd21838dd62e8154c8be90" -> "sha256:7767af00f6e94b84bfc78bcd9bcc30866f28496972e0327fc640a062e1fd6ec1" [label=""];
+  "sha256:7767af00f6e94b84bfc78bcd9bcc30866f28496972e0327fc640a062e1fd6ec1" -> "sha256:c8c4a5b6b50bbb8dbd6fd16b71ebaf6733495d40b4e9ba1fea06b93dea855795" [label=""];
+}
+

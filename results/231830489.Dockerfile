@@ -1,0 +1,30 @@
+[app/sources/231830489.Dockerfile]
+digraph {
+  "sha256:5e691c7ba4998fa4b60d1218bbc4ed9845bfa527d7d91b0c48922bbea45ce425" [label="docker-image://docker.io/library/ubuntu:18.04" shape="ellipse"];
+  "sha256:1a1c3e7f30b77945c2b3f38c6227e60bc6c04211c640387607a9f24a994f525f" [label="/bin/sh -c apt-get update && \tapt-get install -y git wget build-essential libpcre3 libpcre3-dev libssl-dev libtool autoconf apache2-dev libxml2-dev libcurl4-openssl-dev automake pkgconf && \tcd /usr/src/ && \tgit clone -b nginx_refactoring https://github.com/SpiderLabs/ModSecurity.git /usr/src/modsecurity && \tcd /usr/src/modsecurity && \t./autogen.sh && \t./configure --enable-standalone-module --disable-mlogc && \tmake && \tcd / && \twget http://nginx.org/download/nginx-1.15.7.tar.gz && \ttar xvzf nginx-1.15.7.tar.gz && \tcd ../nginx-1.15.7 && \t./configure --user=root --group=root --with-debug --with-ipv6 --with-http_ssl_module --add-module=/usr/src/modsecurity/nginx/modsecurity --with-http_ssl_module --without-http_access_module --without-http_auth_basic_module --without-http_autoindex_module --without-http_empty_gif_module --without-http_fastcgi_module --without-http_referer_module --without-http_memcached_module --without-http_scgi_module --without-http_split_clients_module --without-http_ssi_module --without-http_uwsgi_module && \tmake && \tmake install" shape="box"];
+  "sha256:717823dd495fb12036de98aa69323bedaa2054b24426ae5503271708416f44a8" [label="copy{src=/usr/src/modsecurity, dest=/usr/src/modsecurity/}" shape="note"];
+  "sha256:6e4982948a8bda7782d30c352cbfc2334e1b4a0c3d58f1a3786d173cf0c7d28f" [label="copy{src=/usr/local/nginx, dest=/usr/local/nginx/}" shape="note"];
+  "sha256:4f8cbb3abc00a7b3316ef45bcad2d96afd6e5137c745bc052d32b7440b379e02" [label="/bin/sh -c ln -s /usr/local/nginx/sbin/nginx /bin/nginx && \tcp /usr/src/modsecurity/unicode.mapping /usr/local/nginx/conf/ && \tmkdir -p /opt/modsecurity/var/audit/ && \tapt-get update && \tapt-get install -y git libpcre3 libpcre3-dev libssl-dev libtool autoconf apache2-dev libxml2-dev libcurl4-openssl-dev && \tgit clone https://github.com/SpiderLabs/owasp-modsecurity-crs.git /usr/src/owasp-modsecurity-crs && \tcp -R /usr/src/owasp-modsecurity-crs/rules/ /usr/local/nginx/conf/  && \tmv /usr/local/nginx/conf/rules/REQUEST-900-EXCLUSION-RULES-BEFORE-CRS.conf.example  /usr/local/nginx/conf/rules/REQUEST-900-EXCLUSION-RULES-BEFORE-CRS.conf && \tmv /usr/local/nginx/conf/rules/RESPONSE-999-EXCLUSION-RULES-AFTER-CRS.conf.example  /usr/local/nginx/conf/rules/RESPONSE-999-EXCLUSION-RULES-AFTER-CRS.conf && \tapt-get purge -y git && \tapt-get autoremove -y" shape="box"];
+  "sha256:bfae0c3f963aa8214f3eae63715fafbc257ef6f03524687a911694e7402a2058" [label="local://context" shape="ellipse"];
+  "sha256:8dec71cd4cfbc8f1845447ddfa905754b7afe1988b0bb86e5e28caae37a0d8b8" [label="copy{src=/nginx.conf, dest=/usr/local/nginx/conf/nginx.conf}" shape="note"];
+  "sha256:5af13011aaff8e56a7decf6b59342b0dae347e791d84fe4795787c9509eea12d" [label="copy{src=/modsec_includes.conf, dest=/usr/local/nginx/conf/modsec_includes.conf}" shape="note"];
+  "sha256:8db74ceafd9885b8408048a39d2e9e9d146f4bb4ebb7339171749ec9316164c9" [label="copy{src=/modsecurity.conf, dest=/usr/local/nginx/conf/modsecurity.conf}" shape="note"];
+  "sha256:58c63e03c0bc18af35b45fca775f514547b05a7d950bbefac92c48704ecdf181" [label="copy{src=/crs-setup.conf, dest=/usr/local/nginx/conf/rules/crs-setup.conf}" shape="note"];
+  "sha256:95f415d3178177617ad77d663f33ced48d39814d60d428da4407ec6c764e2285" [label="sha256:95f415d3178177617ad77d663f33ced48d39814d60d428da4407ec6c764e2285" shape="plaintext"];
+  "sha256:5e691c7ba4998fa4b60d1218bbc4ed9845bfa527d7d91b0c48922bbea45ce425" -> "sha256:1a1c3e7f30b77945c2b3f38c6227e60bc6c04211c640387607a9f24a994f525f" [label=""];
+  "sha256:5e691c7ba4998fa4b60d1218bbc4ed9845bfa527d7d91b0c48922bbea45ce425" -> "sha256:717823dd495fb12036de98aa69323bedaa2054b24426ae5503271708416f44a8" [label=""];
+  "sha256:1a1c3e7f30b77945c2b3f38c6227e60bc6c04211c640387607a9f24a994f525f" -> "sha256:717823dd495fb12036de98aa69323bedaa2054b24426ae5503271708416f44a8" [label=""];
+  "sha256:717823dd495fb12036de98aa69323bedaa2054b24426ae5503271708416f44a8" -> "sha256:6e4982948a8bda7782d30c352cbfc2334e1b4a0c3d58f1a3786d173cf0c7d28f" [label=""];
+  "sha256:1a1c3e7f30b77945c2b3f38c6227e60bc6c04211c640387607a9f24a994f525f" -> "sha256:6e4982948a8bda7782d30c352cbfc2334e1b4a0c3d58f1a3786d173cf0c7d28f" [label=""];
+  "sha256:6e4982948a8bda7782d30c352cbfc2334e1b4a0c3d58f1a3786d173cf0c7d28f" -> "sha256:4f8cbb3abc00a7b3316ef45bcad2d96afd6e5137c745bc052d32b7440b379e02" [label=""];
+  "sha256:4f8cbb3abc00a7b3316ef45bcad2d96afd6e5137c745bc052d32b7440b379e02" -> "sha256:8dec71cd4cfbc8f1845447ddfa905754b7afe1988b0bb86e5e28caae37a0d8b8" [label=""];
+  "sha256:bfae0c3f963aa8214f3eae63715fafbc257ef6f03524687a911694e7402a2058" -> "sha256:8dec71cd4cfbc8f1845447ddfa905754b7afe1988b0bb86e5e28caae37a0d8b8" [label=""];
+  "sha256:8dec71cd4cfbc8f1845447ddfa905754b7afe1988b0bb86e5e28caae37a0d8b8" -> "sha256:5af13011aaff8e56a7decf6b59342b0dae347e791d84fe4795787c9509eea12d" [label=""];
+  "sha256:bfae0c3f963aa8214f3eae63715fafbc257ef6f03524687a911694e7402a2058" -> "sha256:5af13011aaff8e56a7decf6b59342b0dae347e791d84fe4795787c9509eea12d" [label=""];
+  "sha256:5af13011aaff8e56a7decf6b59342b0dae347e791d84fe4795787c9509eea12d" -> "sha256:8db74ceafd9885b8408048a39d2e9e9d146f4bb4ebb7339171749ec9316164c9" [label=""];
+  "sha256:bfae0c3f963aa8214f3eae63715fafbc257ef6f03524687a911694e7402a2058" -> "sha256:8db74ceafd9885b8408048a39d2e9e9d146f4bb4ebb7339171749ec9316164c9" [label=""];
+  "sha256:8db74ceafd9885b8408048a39d2e9e9d146f4bb4ebb7339171749ec9316164c9" -> "sha256:58c63e03c0bc18af35b45fca775f514547b05a7d950bbefac92c48704ecdf181" [label=""];
+  "sha256:bfae0c3f963aa8214f3eae63715fafbc257ef6f03524687a911694e7402a2058" -> "sha256:58c63e03c0bc18af35b45fca775f514547b05a7d950bbefac92c48704ecdf181" [label=""];
+  "sha256:58c63e03c0bc18af35b45fca775f514547b05a7d950bbefac92c48704ecdf181" -> "sha256:95f415d3178177617ad77d663f33ced48d39814d60d428da4407ec6c764e2285" [label=""];
+}
+

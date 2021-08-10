@@ -1,0 +1,25 @@
+[app/sources/227528461.Dockerfile]
+digraph {
+  "sha256:021eb2a88474d3d2a54f8e20705e0aaa2a648328dca0bfeedcc8a610e6fb357f" [label="docker-image://docker.io/kkarczmarczyk/node-yarn:latest" shape="ellipse"];
+  "sha256:43c5bd4bcdd18cbe4b812f323893702259d8b2988651266345234a3991dbd2d1" [label="/bin/sh -c mkdir -p /app" shape="box"];
+  "sha256:c720a00d71db79c50480ab4e0f190ba13a940feefcdc74ac5cb03365d16cf518" [label="mkdir{path=/app}" shape="note"];
+  "sha256:142a5596a74ff4d63947524554d21361ca2b1bba58b55db0c16efed8ccd952fb" [label="local://context" shape="ellipse"];
+  "sha256:1e9b58eeb8662955a2c79bb994a0996f7c01b340c0f8abf66bb19e0b144a474e" [label="copy{src=/package.json, dest=/app/}" shape="note"];
+  "sha256:a9f3701dc2b94333e41b9c5d082d43b23b2f9fe229df152f562166a4ae336b25" [label="copy{src=/yarn.lock, dest=/app/}" shape="note"];
+  "sha256:b7fc480d967c882f07bf5cf00357476d5eba5002f32fe3dd84d19d25f413da5f" [label="/bin/sh -c yarn" shape="box"];
+  "sha256:6a8563da3e1cbe3567e983d53d812d33eca7145cb546238712234dd48ee4abae" [label="copy{src=/, dest=/app}" shape="note"];
+  "sha256:b406963a9e14c8367946914db9408b3f03f99a19da786deb7cb04bd30254e588" [label="/bin/sh -c ./node_modules/.bin/babel src --out-dir lib" shape="box"];
+  "sha256:f4384a39f7253c030352302c10252819669709a73012043fd38ea0de4f3d94cd" [label="sha256:f4384a39f7253c030352302c10252819669709a73012043fd38ea0de4f3d94cd" shape="plaintext"];
+  "sha256:021eb2a88474d3d2a54f8e20705e0aaa2a648328dca0bfeedcc8a610e6fb357f" -> "sha256:43c5bd4bcdd18cbe4b812f323893702259d8b2988651266345234a3991dbd2d1" [label=""];
+  "sha256:43c5bd4bcdd18cbe4b812f323893702259d8b2988651266345234a3991dbd2d1" -> "sha256:c720a00d71db79c50480ab4e0f190ba13a940feefcdc74ac5cb03365d16cf518" [label=""];
+  "sha256:c720a00d71db79c50480ab4e0f190ba13a940feefcdc74ac5cb03365d16cf518" -> "sha256:1e9b58eeb8662955a2c79bb994a0996f7c01b340c0f8abf66bb19e0b144a474e" [label=""];
+  "sha256:142a5596a74ff4d63947524554d21361ca2b1bba58b55db0c16efed8ccd952fb" -> "sha256:1e9b58eeb8662955a2c79bb994a0996f7c01b340c0f8abf66bb19e0b144a474e" [label=""];
+  "sha256:1e9b58eeb8662955a2c79bb994a0996f7c01b340c0f8abf66bb19e0b144a474e" -> "sha256:a9f3701dc2b94333e41b9c5d082d43b23b2f9fe229df152f562166a4ae336b25" [label=""];
+  "sha256:142a5596a74ff4d63947524554d21361ca2b1bba58b55db0c16efed8ccd952fb" -> "sha256:a9f3701dc2b94333e41b9c5d082d43b23b2f9fe229df152f562166a4ae336b25" [label=""];
+  "sha256:a9f3701dc2b94333e41b9c5d082d43b23b2f9fe229df152f562166a4ae336b25" -> "sha256:b7fc480d967c882f07bf5cf00357476d5eba5002f32fe3dd84d19d25f413da5f" [label=""];
+  "sha256:b7fc480d967c882f07bf5cf00357476d5eba5002f32fe3dd84d19d25f413da5f" -> "sha256:6a8563da3e1cbe3567e983d53d812d33eca7145cb546238712234dd48ee4abae" [label=""];
+  "sha256:142a5596a74ff4d63947524554d21361ca2b1bba58b55db0c16efed8ccd952fb" -> "sha256:6a8563da3e1cbe3567e983d53d812d33eca7145cb546238712234dd48ee4abae" [label=""];
+  "sha256:6a8563da3e1cbe3567e983d53d812d33eca7145cb546238712234dd48ee4abae" -> "sha256:b406963a9e14c8367946914db9408b3f03f99a19da786deb7cb04bd30254e588" [label=""];
+  "sha256:b406963a9e14c8367946914db9408b3f03f99a19da786deb7cb04bd30254e588" -> "sha256:f4384a39f7253c030352302c10252819669709a73012043fd38ea0de4f3d94cd" [label=""];
+}
+

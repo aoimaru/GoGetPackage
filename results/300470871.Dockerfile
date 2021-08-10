@@ -1,0 +1,7 @@
+[app/sources/300470871.Dockerfile]
+digraph {
+  "sha256:3d30be78d93a8c5d5430d4be4bf5759aeaa1e1ef75d11bb5b1035a0f657058f1" [label="docker-image://quay.io/calico/node:v3.7.0-0.dev-64-gd4ea231@sha256:9f19a584cc60003c7145ef321dcf94bb165e8b8d49a29a7bf594d341fa81e9c2" shape="ellipse"];
+  "sha256:61d9676e68b5e1a584fe444dee80856734ce3738854642bc2387a46df7ae312c" [label="sha256:61d9676e68b5e1a584fe444dee80856734ce3738854642bc2387a46df7ae312c" shape="plaintext"];
+  "sha256:3d30be78d93a8c5d5430d4be4bf5759aeaa1e1ef75d11bb5b1035a0f657058f1" -> "sha256:61d9676e68b5e1a584fe444dee80856734ce3738854642bc2387a46df7ae312c" [label=""];
+}
+

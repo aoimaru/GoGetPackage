@@ -1,0 +1,13 @@
+[app/sources/174987154.Dockerfile]
+digraph {
+  "sha256:5e3ffce172abe029e14398c960f76178160392adccdc24ec33a7ba0bde79cc90" [label="docker-image://docker.io/library/php:5.6-apache" shape="ellipse"];
+  "sha256:d8ba417605bfc78c7b3f4ce4ae5a3980044ae3936d6a524052c59af3849d62a6" [label="/bin/sh -c set -xe     && apt-get update     && apt-get install -y git                           libfreetype6                           libfreetype6-dev                           libjpeg62-turbo                           libjpeg-dev                           libpng12-0                           libpng12-dev                           libzip2                           libzip-dev     && docker-php-ext-configure gd --with-freetype-dir=/usr                                    --with-jpeg-dir=/usr                                    --with-png-dir=/usr     && docker-php-ext-install gd                               mbstring                               mysqli                               zip     && apt-get purge --auto-remove -y libfreetype6-dev                                       libjpeg-dev                                       libpng12-dev                                       libzip-dev     && rm -rf /var/lib/apt/lists/*" shape="box"];
+  "sha256:1b3c72b751b7387727a8f5be64a67cbbf7e12af5d8d169f31279632b9398492c" [label="mkdir{path=/var/www/html}" shape="note"];
+  "sha256:dfb32d15bfa473efdd078afba0d0b222d5cded207bb45f274977e0ee3e235ef4" [label="/bin/sh -c set -xe     && curl -sSL ${PIWIK_URL} -o ${PIWIK_FILE}     && echo \"${PIWIK_MD5}  ${PIWIK_FILE}\" | md5sum -c     && tar xzf ${PIWIK_FILE} --strip 1     && rm ${PIWIK_FILE}     && curl -sS https://getcomposer.org/installer | php     && php composer.phar install     && echo \"always_populate_raw_post_data=-1\" >> /usr/local/etc/php/php.ini     && chown -R www-data:www-data ." shape="box"];
+  "sha256:79968ee0c25fdba7778fb51f76cf1978251878b9807f32db338c1f88477d9e96" [label="sha256:79968ee0c25fdba7778fb51f76cf1978251878b9807f32db338c1f88477d9e96" shape="plaintext"];
+  "sha256:5e3ffce172abe029e14398c960f76178160392adccdc24ec33a7ba0bde79cc90" -> "sha256:d8ba417605bfc78c7b3f4ce4ae5a3980044ae3936d6a524052c59af3849d62a6" [label=""];
+  "sha256:d8ba417605bfc78c7b3f4ce4ae5a3980044ae3936d6a524052c59af3849d62a6" -> "sha256:1b3c72b751b7387727a8f5be64a67cbbf7e12af5d8d169f31279632b9398492c" [label=""];
+  "sha256:1b3c72b751b7387727a8f5be64a67cbbf7e12af5d8d169f31279632b9398492c" -> "sha256:dfb32d15bfa473efdd078afba0d0b222d5cded207bb45f274977e0ee3e235ef4" [label=""];
+  "sha256:dfb32d15bfa473efdd078afba0d0b222d5cded207bb45f274977e0ee3e235ef4" -> "sha256:79968ee0c25fdba7778fb51f76cf1978251878b9807f32db338c1f88477d9e96" [label=""];
+}
+

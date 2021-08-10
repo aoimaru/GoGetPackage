@@ -1,0 +1,54 @@
+[app/sources/267853116.Dockerfile]
+digraph {
+  "sha256:a9ab970ef4810de5fde05a4caa66b977b639ff067a8b0241cb81432a2f533c04" [label="docker-image://docker.io/library/ubuntu:14.04" shape="ellipse"];
+  "sha256:bb9ca9652880496c01096c16584355c354b12a6c9e3eb5ad84410e965a1e901c" [label="/bin/sh -c apt-get update &&     apt-get install -y     software-properties-common     build-essential     libbz2-dev     libfftw3-dev     libfishsound1-dev     libid3tag0-dev     liblo-dev     liblrdf0-dev     libmad0-dev     liboggz2-dev     libopus-dev     libopusfile-dev     libpulse-dev     libasound2-dev     libjack-dev     libsamplerate-dev     libsndfile-dev     libsord-dev     libxml2-utils     libgl1-mesa-dev     raptor-utils     librubberband-dev     git     mercurial     curl wget     mlton     autoconf automake libtool lintian" shape="box"];
+  "sha256:bcde6577173395234a761af66b00dbb133e708bc8430e44927c0c5f90a89797a" [label="/bin/sh -c apt-add-repository -y ppa:beineri/opt-qt-5.10.1-trusty" shape="box"];
+  "sha256:988121d1978f4e92c7d1bf69e58d100ef967ff9d09a7b95393908c2d076c3041" [label="/bin/sh -c apt-get update &&     apt-get install -y     qt510base     qt510svg" shape="box"];
+  "sha256:200baf763fdf7712d86b96e4df2728ef5918631b1ecee7cd32d521a5dc5326a5" [label="/bin/sh -c apt-get clean && rm -rf /var/lib/apt/lists/*" shape="box"];
+  "sha256:bed52e52c3a8f23e147c5a09b5e0242a777309b6edcc96df66ad359e02413dee" [label="/bin/sh -c locale-gen en_US.UTF-8" shape="box"];
+  "sha256:1ea119ea0f2b5ce107c9ba738e81b3d7bc26750042fbdea912f8b5efcd103c13" [label="/bin/sh -c hg clone -r[[REVISION]] https://code.soundsoftware.ac.uk/hg/sonic-visualiser" shape="box"];
+  "sha256:f25f65a770c8e72181351e28574ae3f0acbd6bbc2c97a5f766164455a7d73d69" [label="/bin/sh -c git clone https://github.com/sandstorm-io/capnproto" shape="box"];
+  "sha256:551c39e62002fb3e24cd22b55261dfef30391c815a389523a5944938aa3dcf87" [label="mkdir{path=/capnproto}" shape="note"];
+  "sha256:2b3889910de0083737f3cc4070e393ea29d09087e37704b5420fa08ecf617b4f" [label="/bin/sh -c git checkout v0.6.1" shape="box"];
+  "sha256:22f210fc56f169ed3a6731204aa0127faee531ebebe935e9ed7bd6fbe225f320" [label="mkdir{path=/capnproto/c++}" shape="note"];
+  "sha256:a07b9b68628675024c7f47c3272f6cd88d67da77a10e0527a3b6285dfb980d2b" [label="/bin/sh -c autoreconf -i && ./configure && make -j3 && make install" shape="box"];
+  "sha256:dc781450535922644e81a62e089fc55becb0321dc531f85365a6557ec972451c" [label="mkdir{path=/root}" shape="note"];
+  "sha256:742d56e2e0fc8142c884c630336a0288aba27daa8daef7fce1c336546998e05e" [label="local://context" shape="ellipse"];
+  "sha256:04df6b97904f018f1d3f02cbba4147777db62f55e50a99f439c3892acc7d2a69" [label="copy{src=/id_dsa_build, dest=/root/.ssh/id_dsa_build}" shape="note"];
+  "sha256:d487aefebe678698654bb5576966f68ab0e77d986b387e19c7a5e596a41f6ec9" [label="copy{src=/known_hosts, dest=/root/.ssh/known_hosts}" shape="note"];
+  "sha256:109c18992cc5e559fec4c5bdc048fa3f5a9481c1b88c0e28dfe8ff4c00366942" [label="/bin/sh -c chmod 600 .ssh/id_dsa_build .ssh/known_hosts" shape="box"];
+  "sha256:89e0a9325c7f2fccadb1d0a6aaebc705661b348b02d3d3b96ea2017871f7f669" [label="/bin/sh -c echo '{\"accounts\": {\"bitbucket\": \"cannam\"}}' > .repoint.json" shape="box"];
+  "sha256:405b91fa2a6a40fa1f4dda61e2b0bcb66ea25f33a22cfbba785a3b63cbb6948b" [label="/bin/sh -c ( echo '[ui]' ; echo 'ssh = ssh -i /root/.ssh/id_dsa_build' ) > .hgrc" shape="box"];
+  "sha256:c778546df509a57d523396668a5028665584ee2fd924c974c5e74ce101af19d4" [label="mkdir{path=/sonic-visualiser}" shape="note"];
+  "sha256:49aca08f8948734a378e04de52fd3283816f13faf25c80144259b4d5ec7c44fb" [label="/bin/sh -c ./configure" shape="box"];
+  "sha256:06022ce0b1acfb71d1142d1f642bf007227c9e2f60b5d4c9ca40d29014ff5074" [label="/bin/sh -c make -j3" shape="box"];
+  "sha256:6a0fc63b555198406523d9fd0b90e7e05f7eff2dac1936dda1f25d8e2759154a" [label="/bin/sh -c deploy/linux/deploy-appimage.sh" shape="box"];
+  "sha256:cf81961096e3184ce92868c60b8b24ff3d69738246f297b27c9f4b82ce93e3f4" [label="/bin/sh -c tar cvf output-appimage.tar *.AppImage && cp output-appimage.tar .." shape="box"];
+  "sha256:4bbb540b18c925044aeb50016066586f5446e26b9f429fa7b34556877359440b" [label="sha256:4bbb540b18c925044aeb50016066586f5446e26b9f429fa7b34556877359440b" shape="plaintext"];
+  "sha256:a9ab970ef4810de5fde05a4caa66b977b639ff067a8b0241cb81432a2f533c04" -> "sha256:bb9ca9652880496c01096c16584355c354b12a6c9e3eb5ad84410e965a1e901c" [label=""];
+  "sha256:bb9ca9652880496c01096c16584355c354b12a6c9e3eb5ad84410e965a1e901c" -> "sha256:bcde6577173395234a761af66b00dbb133e708bc8430e44927c0c5f90a89797a" [label=""];
+  "sha256:bcde6577173395234a761af66b00dbb133e708bc8430e44927c0c5f90a89797a" -> "sha256:988121d1978f4e92c7d1bf69e58d100ef967ff9d09a7b95393908c2d076c3041" [label=""];
+  "sha256:988121d1978f4e92c7d1bf69e58d100ef967ff9d09a7b95393908c2d076c3041" -> "sha256:200baf763fdf7712d86b96e4df2728ef5918631b1ecee7cd32d521a5dc5326a5" [label=""];
+  "sha256:200baf763fdf7712d86b96e4df2728ef5918631b1ecee7cd32d521a5dc5326a5" -> "sha256:bed52e52c3a8f23e147c5a09b5e0242a777309b6edcc96df66ad359e02413dee" [label=""];
+  "sha256:bed52e52c3a8f23e147c5a09b5e0242a777309b6edcc96df66ad359e02413dee" -> "sha256:1ea119ea0f2b5ce107c9ba738e81b3d7bc26750042fbdea912f8b5efcd103c13" [label=""];
+  "sha256:1ea119ea0f2b5ce107c9ba738e81b3d7bc26750042fbdea912f8b5efcd103c13" -> "sha256:f25f65a770c8e72181351e28574ae3f0acbd6bbc2c97a5f766164455a7d73d69" [label=""];
+  "sha256:f25f65a770c8e72181351e28574ae3f0acbd6bbc2c97a5f766164455a7d73d69" -> "sha256:551c39e62002fb3e24cd22b55261dfef30391c815a389523a5944938aa3dcf87" [label=""];
+  "sha256:551c39e62002fb3e24cd22b55261dfef30391c815a389523a5944938aa3dcf87" -> "sha256:2b3889910de0083737f3cc4070e393ea29d09087e37704b5420fa08ecf617b4f" [label=""];
+  "sha256:2b3889910de0083737f3cc4070e393ea29d09087e37704b5420fa08ecf617b4f" -> "sha256:22f210fc56f169ed3a6731204aa0127faee531ebebe935e9ed7bd6fbe225f320" [label=""];
+  "sha256:22f210fc56f169ed3a6731204aa0127faee531ebebe935e9ed7bd6fbe225f320" -> "sha256:a07b9b68628675024c7f47c3272f6cd88d67da77a10e0527a3b6285dfb980d2b" [label=""];
+  "sha256:a07b9b68628675024c7f47c3272f6cd88d67da77a10e0527a3b6285dfb980d2b" -> "sha256:dc781450535922644e81a62e089fc55becb0321dc531f85365a6557ec972451c" [label=""];
+  "sha256:dc781450535922644e81a62e089fc55becb0321dc531f85365a6557ec972451c" -> "sha256:04df6b97904f018f1d3f02cbba4147777db62f55e50a99f439c3892acc7d2a69" [label=""];
+  "sha256:742d56e2e0fc8142c884c630336a0288aba27daa8daef7fce1c336546998e05e" -> "sha256:04df6b97904f018f1d3f02cbba4147777db62f55e50a99f439c3892acc7d2a69" [label=""];
+  "sha256:04df6b97904f018f1d3f02cbba4147777db62f55e50a99f439c3892acc7d2a69" -> "sha256:d487aefebe678698654bb5576966f68ab0e77d986b387e19c7a5e596a41f6ec9" [label=""];
+  "sha256:742d56e2e0fc8142c884c630336a0288aba27daa8daef7fce1c336546998e05e" -> "sha256:d487aefebe678698654bb5576966f68ab0e77d986b387e19c7a5e596a41f6ec9" [label=""];
+  "sha256:d487aefebe678698654bb5576966f68ab0e77d986b387e19c7a5e596a41f6ec9" -> "sha256:109c18992cc5e559fec4c5bdc048fa3f5a9481c1b88c0e28dfe8ff4c00366942" [label=""];
+  "sha256:109c18992cc5e559fec4c5bdc048fa3f5a9481c1b88c0e28dfe8ff4c00366942" -> "sha256:89e0a9325c7f2fccadb1d0a6aaebc705661b348b02d3d3b96ea2017871f7f669" [label=""];
+  "sha256:89e0a9325c7f2fccadb1d0a6aaebc705661b348b02d3d3b96ea2017871f7f669" -> "sha256:405b91fa2a6a40fa1f4dda61e2b0bcb66ea25f33a22cfbba785a3b63cbb6948b" [label=""];
+  "sha256:405b91fa2a6a40fa1f4dda61e2b0bcb66ea25f33a22cfbba785a3b63cbb6948b" -> "sha256:c778546df509a57d523396668a5028665584ee2fd924c974c5e74ce101af19d4" [label=""];
+  "sha256:c778546df509a57d523396668a5028665584ee2fd924c974c5e74ce101af19d4" -> "sha256:49aca08f8948734a378e04de52fd3283816f13faf25c80144259b4d5ec7c44fb" [label=""];
+  "sha256:49aca08f8948734a378e04de52fd3283816f13faf25c80144259b4d5ec7c44fb" -> "sha256:06022ce0b1acfb71d1142d1f642bf007227c9e2f60b5d4c9ca40d29014ff5074" [label=""];
+  "sha256:06022ce0b1acfb71d1142d1f642bf007227c9e2f60b5d4c9ca40d29014ff5074" -> "sha256:6a0fc63b555198406523d9fd0b90e7e05f7eff2dac1936dda1f25d8e2759154a" [label=""];
+  "sha256:6a0fc63b555198406523d9fd0b90e7e05f7eff2dac1936dda1f25d8e2759154a" -> "sha256:cf81961096e3184ce92868c60b8b24ff3d69738246f297b27c9f4b82ce93e3f4" [label=""];
+  "sha256:cf81961096e3184ce92868c60b8b24ff3d69738246f297b27c9f4b82ce93e3f4" -> "sha256:4bbb540b18c925044aeb50016066586f5446e26b9f429fa7b34556877359440b" [label=""];
+}
+

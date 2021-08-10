@@ -1,0 +1,21 @@
+[app/sources/297233396.Dockerfile]
+digraph {
+  "sha256:4667316f3a52dc8a4d7fd898240f26a8adfa16866dbc599287d190368906b84e" [label="docker-image://docker.io/library/openjdk:8-jre" shape="ellipse"];
+  "sha256:d9674b14269319b9f3a19b8e644c763b08c0c90c714ade6dca85485b9040da59" [label="/bin/sh -c set -ex;   apt-get update;   apt-get -y install libsnappy1v5;   rm -rf /var/lib/apt/lists/*" shape="box"];
+  "sha256:ead186b4fdc4c440894b54adc5b0d56e4568755afa508bde4bf8734fef07b4d9" [label="/bin/sh -c set -ex;   wget -nv -O /usr/local/bin/gosu \"https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture)\";   wget -nv -O /usr/local/bin/gosu.asc \"https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture).asc\";   export GNUPGHOME=\"$(mktemp -d)\";   for server in ha.pool.sks-keyservers.net $(shuf -e                           hkp://p80.pool.sks-keyservers.net:80                           keyserver.ubuntu.com                           hkp://keyserver.ubuntu.com:80                           pgp.mit.edu) ; do       gpg --batch --keyserver \"$server\" --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4 && break || : ;   done &&   gpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu;   gpgconf --kill all;   rm -rf \"$GNUPGHOME\" /usr/local/bin/gosu.asc;   chmod +x /usr/local/bin/gosu;   gosu nobody true" shape="box"];
+  "sha256:ea86b25569dd61ec9ba8125fa5bc1684118a3501d3b9a90f9151bff7da8c8377" [label="/bin/sh -c groupadd --system --gid=9999 flink &&     useradd --system --home-dir $FLINK_HOME --uid=9999 --gid=flink flink" shape="box"];
+  "sha256:be9e5cbec5fcb70db2144a3f5e5bbd1a72279fc25906be586dc29f7e7691f75c" [label="mkdir{path=/opt/flink}" shape="note"];
+  "sha256:1a7516bf7f266157057a51eb187a1957a32a8be8a6cd116b0ec4927b2fc91b73" [label="/bin/sh -c set -ex;   wget -nv -O flink.tgz \"$FLINK_TGZ_URL\";   wget -nv -O flink.tgz.asc \"$FLINK_ASC_URL\";     export GNUPGHOME=\"$(mktemp -d)\";   for server in ha.pool.sks-keyservers.net $(shuf -e                           hkp://p80.pool.sks-keyservers.net:80                           keyserver.ubuntu.com                           hkp://keyserver.ubuntu.com:80                           pgp.mit.edu) ; do       gpg --batch --keyserver \"$server\" --recv-keys \"$GPG_KEY\" && break || : ;   done &&   gpg --batch --verify flink.tgz.asc flink.tgz;   gpgconf --kill all;   rm -rf \"$GNUPGHOME\" flink.tgz.asc;     tar -xf flink.tgz --strip-components=1;   rm flink.tgz;     chown -R flink:flink .;" shape="box"];
+  "sha256:6d60e8576e01e08a59ff8e42a1efa2ca309b2861f214cd55cc72088ca2982f15" [label="local://context" shape="ellipse"];
+  "sha256:c1449f9c5ff67b6a94dcf0fd48a04c45919e2072e67e949e4c18b1c6c2683d74" [label="copy{src=/docker-entrypoint.sh, dest=/}" shape="note"];
+  "sha256:5c9cc281705d0de5fa54e02f6fc45a1d375cce50a6b1dc257de653af46d55c50" [label="sha256:5c9cc281705d0de5fa54e02f6fc45a1d375cce50a6b1dc257de653af46d55c50" shape="plaintext"];
+  "sha256:4667316f3a52dc8a4d7fd898240f26a8adfa16866dbc599287d190368906b84e" -> "sha256:d9674b14269319b9f3a19b8e644c763b08c0c90c714ade6dca85485b9040da59" [label=""];
+  "sha256:d9674b14269319b9f3a19b8e644c763b08c0c90c714ade6dca85485b9040da59" -> "sha256:ead186b4fdc4c440894b54adc5b0d56e4568755afa508bde4bf8734fef07b4d9" [label=""];
+  "sha256:ead186b4fdc4c440894b54adc5b0d56e4568755afa508bde4bf8734fef07b4d9" -> "sha256:ea86b25569dd61ec9ba8125fa5bc1684118a3501d3b9a90f9151bff7da8c8377" [label=""];
+  "sha256:ea86b25569dd61ec9ba8125fa5bc1684118a3501d3b9a90f9151bff7da8c8377" -> "sha256:be9e5cbec5fcb70db2144a3f5e5bbd1a72279fc25906be586dc29f7e7691f75c" [label=""];
+  "sha256:be9e5cbec5fcb70db2144a3f5e5bbd1a72279fc25906be586dc29f7e7691f75c" -> "sha256:1a7516bf7f266157057a51eb187a1957a32a8be8a6cd116b0ec4927b2fc91b73" [label=""];
+  "sha256:1a7516bf7f266157057a51eb187a1957a32a8be8a6cd116b0ec4927b2fc91b73" -> "sha256:c1449f9c5ff67b6a94dcf0fd48a04c45919e2072e67e949e4c18b1c6c2683d74" [label=""];
+  "sha256:6d60e8576e01e08a59ff8e42a1efa2ca309b2861f214cd55cc72088ca2982f15" -> "sha256:c1449f9c5ff67b6a94dcf0fd48a04c45919e2072e67e949e4c18b1c6c2683d74" [label=""];
+  "sha256:c1449f9c5ff67b6a94dcf0fd48a04c45919e2072e67e949e4c18b1c6c2683d74" -> "sha256:5c9cc281705d0de5fa54e02f6fc45a1d375cce50a6b1dc257de653af46d55c50" [label=""];
+}
+

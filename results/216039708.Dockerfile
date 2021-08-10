@@ -1,0 +1,55 @@
+[app/sources/216039708.Dockerfile]
+digraph {
+  "sha256:c1658a0a5caccf28f131f17ccc936dd31fb95a32c7eb7bc385a4c111d0a55d0e" [label="local://context" shape="ellipse"];
+  "sha256:dbc3d60f8b36cc28d41c2e30b1580c00210521bb7a13115abd9dc93d30a5c228" [label="docker-image://docker.io/library/tomcat:7-jre8-alpine" shape="ellipse"];
+  "sha256:b7d89db76407840b52f216ec43abe09581c2a3b4926f91d7eed0b359d2a8ea03" [label="copy{src=/JavaWebApp.zip, dest=/}" shape="note"];
+  "sha256:93933c2816f1e9e925bd1c122f7f10f0213277461f2ebb5d1451519d5e978f97" [label="/bin/sh -c rm -r -f /usr/local/tomcat/webapps &&     mkdir -p /usr/local/tomcat/webapps/ROOT &&     unzip /JavaWebApp.zip -d /usr/local/tomcat/webapps/ROOT &&     rm /JavaWebApp.zip" shape="box"];
+  "sha256:e68bbba51261e831347a94312f5f03aa679b27ed35300e63a3bd0df3505d6d7d" [label="copy{src=/v5/startup.sh, dest=/}" shape="note"];
+  "sha256:9209d72f4c9473ae0dafa80f7860a49214790ae0c857bdede33186f133f31b7a" [label="copy{src=/DependencyChecker.jar, dest=/usr/local/utils/DependencyChecker.jar}" shape="note"];
+  "sha256:06c02cc8cca8da6003ba655edadb290cbf24a9db13bfbe2eb8672e08fd0565d0" [label="copy{src=/HealthChecker.jar, dest=/usr/local/utils/HealthChecker.jar}" shape="note"];
+  "sha256:665ba8b2cdc0cb0200e2a42a6b3c0f8f684089f4cd1b81494fbb9805879120f7" [label="docker-image://docker.io/library/alpine:latest" shape="ellipse"];
+  "sha256:2e80714916170482a3dd3fca5af0b53b61577e4e03c14327a0bdef49bc900f37" [label="mkdir{path=/exporter}" shape="note"];
+  "sha256:1a22d0e09b8fe9af34cfe5a9580888b07a76099d29aa08f42d75342989e80eba" [label="https://search.maven.org/remotecontent?filepath=io/prometheus/simpleclient/0.4.0/simpleclient-0.4.0.jar" shape="ellipse"];
+  "sha256:9163e387b06ed53c71cb1f4bb6c0542d0fe0b4964a8918b8e15d439e42b845b9" [label="copy{src=/remotecontent, dest=/exporter/simpleclient-0.4.0.jar}" shape="note"];
+  "sha256:e9c1df221072169f3830e358c6218163bbd2200daefe824d0c62de63c404a887" [label="https://search.maven.org/remotecontent?filepath=io/prometheus/simpleclient_common/0.4.0/simpleclient_common-0.4.0.jar" shape="ellipse"];
+  "sha256:07a534d940af320e7967b7dc205cd560890b216c6bd1ec4ab1f91d359f1d0604" [label="copy{src=/remotecontent, dest=/exporter/simpleclient_common-0.4.0.jar}" shape="note"];
+  "sha256:f74fe46a5334259ab1d7bdaa0cf616b35d1e4dab6b9cbf4f6c6d36c003bdcc94" [label="https://search.maven.org/remotecontent?filepath=io/prometheus/simpleclient_servlet/0.4.0/simpleclient_servlet-0.4.0.jar" shape="ellipse"];
+  "sha256:a232bb9741678cbf61020800a0fcd2626743e3f3251b8181463fe7c75b5606d8" [label="copy{src=/remotecontent, dest=/exporter/simpleclient_servlet-0.4.0.jar}" shape="note"];
+  "sha256:5f8baab603ef06536796b2f3e86591ecba926c5f56ed665e23355bcc194bdc69" [label="https://search.maven.org/remotecontent?filepath=io/prometheus/simpleclient_hotspot/0.4.0/simpleclient_hotspot-0.4.0.jar" shape="ellipse"];
+  "sha256:b7c1061711fb88901b757f20140c9654f10e4e1c64e3a27f01dbf0a1704560ed" [label="copy{src=/remotecontent, dest=/exporter/simpleclient_hotspot-0.4.0.jar}" shape="note"];
+  "sha256:a7a901c0d06dec59e06a0af51d4753071cb5da165c336692babc5ce3e6c7c591" [label="https://search.maven.org/remotecontent?filepath=nl/nlighten/tomcat_exporter_client/0.0.6/tomcat_exporter_client-0.0.6.jar" shape="ellipse"];
+  "sha256:e181b732b4cead6d9921f9350622e8d55da3df5960eebac2474cc40ccb3fe2df" [label="copy{src=/remotecontent, dest=/exporter/tomcat_exporter_client-0.0.6.jar}" shape="note"];
+  "sha256:01dd8797e67463d94347dc9cf94451ffe4b94fc02b00266e90e254f71eb3fc95" [label="https://search.maven.org/remotecontent?filepath=nl/nlighten/tomcat_exporter_servlet/0.0.6/tomcat_exporter_servlet-0.0.6.war" shape="ellipse"];
+  "sha256:09d4bf17bb1fa066cc13e1f66531f0b1cb31237ce1e88a93d2cbb52b87f820f5" [label="copy{src=/remotecontent, dest=/exporter/tomcat_exporter_servlet-0.0.6.war}" shape="note"];
+  "sha256:7a0f49428f29efd15364bfcbda3a80537d420f8a572124821a4261fad39d1730" [label="copy{src=/exporter/*.jar, dest=/lib/}" shape="note"];
+  "sha256:e081a9498ec364b53f6caccec84893f03894d6f04d92b90c8fd83ce150efdc92" [label="copy{src=/exporter/tomcat_exporter_servlet-0.0.6.war, dest=/usr/local/tomcat/webapps/metrics.war}" shape="note"];
+  "sha256:be1d4cddece88856e51ce5423a08ebc60e2c7d7998655252c1df2e6e2a0a3dbd" [label="sha256:be1d4cddece88856e51ce5423a08ebc60e2c7d7998655252c1df2e6e2a0a3dbd" shape="plaintext"];
+  "sha256:dbc3d60f8b36cc28d41c2e30b1580c00210521bb7a13115abd9dc93d30a5c228" -> "sha256:b7d89db76407840b52f216ec43abe09581c2a3b4926f91d7eed0b359d2a8ea03" [label=""];
+  "sha256:c1658a0a5caccf28f131f17ccc936dd31fb95a32c7eb7bc385a4c111d0a55d0e" -> "sha256:b7d89db76407840b52f216ec43abe09581c2a3b4926f91d7eed0b359d2a8ea03" [label=""];
+  "sha256:b7d89db76407840b52f216ec43abe09581c2a3b4926f91d7eed0b359d2a8ea03" -> "sha256:93933c2816f1e9e925bd1c122f7f10f0213277461f2ebb5d1451519d5e978f97" [label=""];
+  "sha256:93933c2816f1e9e925bd1c122f7f10f0213277461f2ebb5d1451519d5e978f97" -> "sha256:e68bbba51261e831347a94312f5f03aa679b27ed35300e63a3bd0df3505d6d7d" [label=""];
+  "sha256:c1658a0a5caccf28f131f17ccc936dd31fb95a32c7eb7bc385a4c111d0a55d0e" -> "sha256:e68bbba51261e831347a94312f5f03aa679b27ed35300e63a3bd0df3505d6d7d" [label=""];
+  "sha256:e68bbba51261e831347a94312f5f03aa679b27ed35300e63a3bd0df3505d6d7d" -> "sha256:9209d72f4c9473ae0dafa80f7860a49214790ae0c857bdede33186f133f31b7a" [label=""];
+  "sha256:c1658a0a5caccf28f131f17ccc936dd31fb95a32c7eb7bc385a4c111d0a55d0e" -> "sha256:9209d72f4c9473ae0dafa80f7860a49214790ae0c857bdede33186f133f31b7a" [label=""];
+  "sha256:9209d72f4c9473ae0dafa80f7860a49214790ae0c857bdede33186f133f31b7a" -> "sha256:06c02cc8cca8da6003ba655edadb290cbf24a9db13bfbe2eb8672e08fd0565d0" [label=""];
+  "sha256:c1658a0a5caccf28f131f17ccc936dd31fb95a32c7eb7bc385a4c111d0a55d0e" -> "sha256:06c02cc8cca8da6003ba655edadb290cbf24a9db13bfbe2eb8672e08fd0565d0" [label=""];
+  "sha256:665ba8b2cdc0cb0200e2a42a6b3c0f8f684089f4cd1b81494fbb9805879120f7" -> "sha256:2e80714916170482a3dd3fca5af0b53b61577e4e03c14327a0bdef49bc900f37" [label=""];
+  "sha256:2e80714916170482a3dd3fca5af0b53b61577e4e03c14327a0bdef49bc900f37" -> "sha256:9163e387b06ed53c71cb1f4bb6c0542d0fe0b4964a8918b8e15d439e42b845b9" [label=""];
+  "sha256:1a22d0e09b8fe9af34cfe5a9580888b07a76099d29aa08f42d75342989e80eba" -> "sha256:9163e387b06ed53c71cb1f4bb6c0542d0fe0b4964a8918b8e15d439e42b845b9" [label=""];
+  "sha256:9163e387b06ed53c71cb1f4bb6c0542d0fe0b4964a8918b8e15d439e42b845b9" -> "sha256:07a534d940af320e7967b7dc205cd560890b216c6bd1ec4ab1f91d359f1d0604" [label=""];
+  "sha256:e9c1df221072169f3830e358c6218163bbd2200daefe824d0c62de63c404a887" -> "sha256:07a534d940af320e7967b7dc205cd560890b216c6bd1ec4ab1f91d359f1d0604" [label=""];
+  "sha256:07a534d940af320e7967b7dc205cd560890b216c6bd1ec4ab1f91d359f1d0604" -> "sha256:a232bb9741678cbf61020800a0fcd2626743e3f3251b8181463fe7c75b5606d8" [label=""];
+  "sha256:f74fe46a5334259ab1d7bdaa0cf616b35d1e4dab6b9cbf4f6c6d36c003bdcc94" -> "sha256:a232bb9741678cbf61020800a0fcd2626743e3f3251b8181463fe7c75b5606d8" [label=""];
+  "sha256:a232bb9741678cbf61020800a0fcd2626743e3f3251b8181463fe7c75b5606d8" -> "sha256:b7c1061711fb88901b757f20140c9654f10e4e1c64e3a27f01dbf0a1704560ed" [label=""];
+  "sha256:5f8baab603ef06536796b2f3e86591ecba926c5f56ed665e23355bcc194bdc69" -> "sha256:b7c1061711fb88901b757f20140c9654f10e4e1c64e3a27f01dbf0a1704560ed" [label=""];
+  "sha256:b7c1061711fb88901b757f20140c9654f10e4e1c64e3a27f01dbf0a1704560ed" -> "sha256:e181b732b4cead6d9921f9350622e8d55da3df5960eebac2474cc40ccb3fe2df" [label=""];
+  "sha256:a7a901c0d06dec59e06a0af51d4753071cb5da165c336692babc5ce3e6c7c591" -> "sha256:e181b732b4cead6d9921f9350622e8d55da3df5960eebac2474cc40ccb3fe2df" [label=""];
+  "sha256:e181b732b4cead6d9921f9350622e8d55da3df5960eebac2474cc40ccb3fe2df" -> "sha256:09d4bf17bb1fa066cc13e1f66531f0b1cb31237ce1e88a93d2cbb52b87f820f5" [label=""];
+  "sha256:01dd8797e67463d94347dc9cf94451ffe4b94fc02b00266e90e254f71eb3fc95" -> "sha256:09d4bf17bb1fa066cc13e1f66531f0b1cb31237ce1e88a93d2cbb52b87f820f5" [label=""];
+  "sha256:06c02cc8cca8da6003ba655edadb290cbf24a9db13bfbe2eb8672e08fd0565d0" -> "sha256:7a0f49428f29efd15364bfcbda3a80537d420f8a572124821a4261fad39d1730" [label=""];
+  "sha256:09d4bf17bb1fa066cc13e1f66531f0b1cb31237ce1e88a93d2cbb52b87f820f5" -> "sha256:7a0f49428f29efd15364bfcbda3a80537d420f8a572124821a4261fad39d1730" [label=""];
+  "sha256:7a0f49428f29efd15364bfcbda3a80537d420f8a572124821a4261fad39d1730" -> "sha256:e081a9498ec364b53f6caccec84893f03894d6f04d92b90c8fd83ce150efdc92" [label=""];
+  "sha256:09d4bf17bb1fa066cc13e1f66531f0b1cb31237ce1e88a93d2cbb52b87f820f5" -> "sha256:e081a9498ec364b53f6caccec84893f03894d6f04d92b90c8fd83ce150efdc92" [label=""];
+  "sha256:e081a9498ec364b53f6caccec84893f03894d6f04d92b90c8fd83ce150efdc92" -> "sha256:be1d4cddece88856e51ce5423a08ebc60e2c7d7998655252c1df2e6e2a0a3dbd" [label=""];
+}
+

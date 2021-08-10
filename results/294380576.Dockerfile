@@ -1,0 +1,17 @@
+[app/sources/294380576.Dockerfile]
+digraph {
+  "sha256:d7e6624a6e2171056ddd8a66a999458bbdc79276c8c42b7d4ef30d6242e70185" [label="local://context" shape="ellipse"];
+  "sha256:e5c364e05f3cfb86e4757ecf32563889ff3eddbe95760e0471e7694306724ae9" [label="docker-image://docker.io/library/tomcat:9-jre11-slim" shape="ellipse"];
+  "sha256:7ac49566a4dfe2d6476899bcd4d93f47f68a2975388398f9256f336cbf2a047b" [label="/bin/sh -c apt-get update -y &&     apt-get install -y --no-install-recommends         openjdk-11-jdk-headless ant git patch wget xmlstarlet certbot curl &&     cd /tmp &&     wget https://github.com/jgraph/draw.io/archive/v${VERSION}.zip &&     unzip v${VERSION}.zip &&     cd /tmp/drawio-${VERSION} &&     cd /tmp/drawio-${VERSION}/etc/build &&     ant war &&     cd /tmp/drawio-${VERSION}/build &&     unzip /tmp/drawio-${VERSION}/build/draw.war -d $CATALINA_HOME/webapps/draw &&     apt-get remove -y --purge openjdk-11-jdk-headless ant git patch wget &&     apt-get autoremove -y --purge &&     apt-get clean &&     rm -r /var/lib/apt/lists/* &&     rm -rf         /tmp/v${VERSION}.zip         /tmp/drawio-${VERSION}" shape="box"];
+  "sha256:4988ccb06f55bab19ed9081811fc289ce0129632a44b2c9ac89bc482d2896a38" [label="/bin/sh -c cd $CATALINA_HOME &&     xmlstarlet ed     -P -S -L     -i '/Server/Service/Engine/Host/Valve' -t 'elem' -n 'Context'     -i '/Server/Service/Engine/Host/Context' -t 'attr' -n 'path' -v '/'     -i '/Server/Service/Engine/Host/Context[@path=\"/\"]' -t 'attr' -n 'docBase' -v 'draw'     -s '/Server/Service/Engine/Host/Context[@path=\"/\"]' -t 'elem' -n 'WatchedResource' -v 'WEB-INF/web.xml'     -i '/Server/Service/Engine/Host/Valve' -t 'elem' -n 'Context'     -i '/Server/Service/Engine/Host/Context[not(@path=\"/\")]' -t 'attr' -n 'path' -v '/ROOT'     -s '/Server/Service/Engine/Host/Context[@path=\"/ROOT\"]' -t 'attr' -n 'docBase' -v 'ROOT'     -s '/Server/Service/Engine/Host/Context[@path=\"/ROOT\"]' -t 'elem' -n 'WatchedResource' -v 'WEB-INF/web.xml'     conf/server.xml" shape="box"];
+  "sha256:54cc0ec69d7cfd322148b41fc439b5f6d67a8297d315305b682b55bb2784f077" [label="copy{src=/docker-entrypoint.sh, dest=/}" shape="note"];
+  "sha256:86efd2a71bb47b6f4dd00952a76a56af8f51dca202a7447695d26c27f207a772" [label="/bin/sh -c chmod +x /docker-entrypoint.sh" shape="box"];
+  "sha256:46e1e73429373c3c71c2f7930332d1a3ebac1bc30c006bad273d9210bdd910fd" [label="sha256:46e1e73429373c3c71c2f7930332d1a3ebac1bc30c006bad273d9210bdd910fd" shape="plaintext"];
+  "sha256:e5c364e05f3cfb86e4757ecf32563889ff3eddbe95760e0471e7694306724ae9" -> "sha256:7ac49566a4dfe2d6476899bcd4d93f47f68a2975388398f9256f336cbf2a047b" [label=""];
+  "sha256:7ac49566a4dfe2d6476899bcd4d93f47f68a2975388398f9256f336cbf2a047b" -> "sha256:4988ccb06f55bab19ed9081811fc289ce0129632a44b2c9ac89bc482d2896a38" [label=""];
+  "sha256:4988ccb06f55bab19ed9081811fc289ce0129632a44b2c9ac89bc482d2896a38" -> "sha256:54cc0ec69d7cfd322148b41fc439b5f6d67a8297d315305b682b55bb2784f077" [label=""];
+  "sha256:d7e6624a6e2171056ddd8a66a999458bbdc79276c8c42b7d4ef30d6242e70185" -> "sha256:54cc0ec69d7cfd322148b41fc439b5f6d67a8297d315305b682b55bb2784f077" [label=""];
+  "sha256:54cc0ec69d7cfd322148b41fc439b5f6d67a8297d315305b682b55bb2784f077" -> "sha256:86efd2a71bb47b6f4dd00952a76a56af8f51dca202a7447695d26c27f207a772" [label=""];
+  "sha256:86efd2a71bb47b6f4dd00952a76a56af8f51dca202a7447695d26c27f207a772" -> "sha256:46e1e73429373c3c71c2f7930332d1a3ebac1bc30c006bad273d9210bdd910fd" [label=""];
+}
+

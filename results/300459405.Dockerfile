@@ -1,0 +1,7 @@
+[app/sources/300459405.Dockerfile]
+digraph {
+  "sha256:2233a1fc84cfbca20245b507ae269293196cdc2a645533fe8d644425c8bb6b1e" [label="docker-image://gcr.io/spinnaker-marketplace/orca:2.7.0-20190408162808" shape="ellipse"];
+  "sha256:4771200d6344704a006054337e5f345adc9e95d03ca08125abc833ac17fba047" [label="sha256:4771200d6344704a006054337e5f345adc9e95d03ca08125abc833ac17fba047" shape="plaintext"];
+  "sha256:2233a1fc84cfbca20245b507ae269293196cdc2a645533fe8d644425c8bb6b1e" -> "sha256:4771200d6344704a006054337e5f345adc9e95d03ca08125abc833ac17fba047" [label=""];
+}
+

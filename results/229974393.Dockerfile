@@ -1,0 +1,22 @@
+[app/sources/229974393.Dockerfile]
+digraph {
+  "sha256:09482995d45f0cd6b86fc7537c7c7b9afebcd6140fcfc275df3d2d98e30263c9" [label="local://context" shape="ellipse"];
+  "sha256:78b112054fe539d20d0f79b7ab22f3bd073ba20c3e62098ca1307aac1bc36756" [label="docker-image://docker.io/library/httpd:2.4" shape="ellipse"];
+  "sha256:f5f1c9467b68402a3edcd516573209ec38997a1b474c442992fcddae4207c89b" [label="copy{src=/assets/alfresco-vhost.conf, dest=/usr/local/apache2/conf/extra/alfresco-vhost.conf}" shape="note"];
+  "sha256:b743dd7c6abc7c978e9039970f53ad2b879a54a33132f4f41784b3ee892a6d2c" [label="copy{src=/assets/server.key, dest=/usr/local/apache2/conf/server.key}" shape="note"];
+  "sha256:27993b0d1bcf30de63ea29d1ec136818b27e214425aec6ce3b27c6f432cfcac5" [label="copy{src=/assets/server.crt, dest=/usr/local/apache2/conf/server.crt}" shape="note"];
+  "sha256:c3d04a5a3c543ad9d52332b1c734abb47c9116bfa12c7d1cee94101a8c83f59f" [label="copy{src=/assets/CA.pem, dest=/etc/pki/tls/certs/cacert.pem}" shape="note"];
+  "sha256:08679b55cc89c238db2fbab1bd2200d2aeb83f8ea50d4964d8d59f032c95790b" [label="/bin/sh -c set -x \t&& cd /etc/pki/tls/certs \t&& ln -s cacert.pem 808a7e8e.0 \t&& sed -i 's,#LoadModule ssl_module modules/mod_ssl.so,LoadModule ssl_module modules/mod_ssl.so,g' /usr/local/apache2/conf/httpd.conf \t&& sed -i 's,#LoadModule socache_shmcb_module modules/mod_socache_shmcb.so,LoadModule socache_shmcb_module modules/mod_socache_shmcb.so,g' /usr/local/apache2/conf/httpd.conf \t&& sed -i 's,#LoadModule xml2enc_module modules/mod_xml2enc.so,LoadModule xml2enc_module modules/mod_xml2enc.so,g' /usr/local/apache2/conf/httpd.conf \t&& sed -i 's,#LoadModule rewrite_module modules/mod_rewrite.so,LoadModule rewrite_module modules/mod_rewrite.so,g' /usr/local/apache2/conf/httpd.conf \t&& sed -i 's,#LoadModule proxy_html_module modules/mod_proxy_html.so,LoadModule proxy_html_module modules/mod_proxy_html.so,g' /usr/local/apache2/conf/httpd.conf \t&& sed -i 's,#LoadModule proxy_module modules/mod_proxy.so,LoadModule proxy_module modules/mod_proxy.so,g' /usr/local/apache2/conf/httpd.conf \t&& sed -i 's,#LoadModule proxy_connect_module modules/mod_proxy_connect.so,LoadModule proxy_connect_module modules/mod_proxy_connect.so,g' /usr/local/apache2/conf/httpd.conf \t&& sed -i 's,#LoadModule proxy_ajp_module modules/mod_proxy_ajp.so,LoadModule proxy_ajp_module modules/mod_proxy_ajp.so,g' /usr/local/apache2/conf/httpd.conf \t&& sed -i 's,#LoadModule proxy_http_module modules/mod_proxy_http.so,LoadModule proxy_http_module modules/mod_proxy_http.so,g' /usr/local/apache2/conf/httpd.conf \t&& echo \"Include conf/extra/alfresco-vhost.conf\" >> /usr/local/apache2/conf/httpd.conf" shape="box"];
+  "sha256:2d2bd063e9f2c44d8eba2974df74727670f85f80887ab1539327bb583fb5aacf" [label="sha256:2d2bd063e9f2c44d8eba2974df74727670f85f80887ab1539327bb583fb5aacf" shape="plaintext"];
+  "sha256:78b112054fe539d20d0f79b7ab22f3bd073ba20c3e62098ca1307aac1bc36756" -> "sha256:f5f1c9467b68402a3edcd516573209ec38997a1b474c442992fcddae4207c89b" [label=""];
+  "sha256:09482995d45f0cd6b86fc7537c7c7b9afebcd6140fcfc275df3d2d98e30263c9" -> "sha256:f5f1c9467b68402a3edcd516573209ec38997a1b474c442992fcddae4207c89b" [label=""];
+  "sha256:f5f1c9467b68402a3edcd516573209ec38997a1b474c442992fcddae4207c89b" -> "sha256:b743dd7c6abc7c978e9039970f53ad2b879a54a33132f4f41784b3ee892a6d2c" [label=""];
+  "sha256:09482995d45f0cd6b86fc7537c7c7b9afebcd6140fcfc275df3d2d98e30263c9" -> "sha256:b743dd7c6abc7c978e9039970f53ad2b879a54a33132f4f41784b3ee892a6d2c" [label=""];
+  "sha256:b743dd7c6abc7c978e9039970f53ad2b879a54a33132f4f41784b3ee892a6d2c" -> "sha256:27993b0d1bcf30de63ea29d1ec136818b27e214425aec6ce3b27c6f432cfcac5" [label=""];
+  "sha256:09482995d45f0cd6b86fc7537c7c7b9afebcd6140fcfc275df3d2d98e30263c9" -> "sha256:27993b0d1bcf30de63ea29d1ec136818b27e214425aec6ce3b27c6f432cfcac5" [label=""];
+  "sha256:27993b0d1bcf30de63ea29d1ec136818b27e214425aec6ce3b27c6f432cfcac5" -> "sha256:c3d04a5a3c543ad9d52332b1c734abb47c9116bfa12c7d1cee94101a8c83f59f" [label=""];
+  "sha256:09482995d45f0cd6b86fc7537c7c7b9afebcd6140fcfc275df3d2d98e30263c9" -> "sha256:c3d04a5a3c543ad9d52332b1c734abb47c9116bfa12c7d1cee94101a8c83f59f" [label=""];
+  "sha256:c3d04a5a3c543ad9d52332b1c734abb47c9116bfa12c7d1cee94101a8c83f59f" -> "sha256:08679b55cc89c238db2fbab1bd2200d2aeb83f8ea50d4964d8d59f032c95790b" [label=""];
+  "sha256:08679b55cc89c238db2fbab1bd2200d2aeb83f8ea50d4964d8d59f032c95790b" -> "sha256:2d2bd063e9f2c44d8eba2974df74727670f85f80887ab1539327bb583fb5aacf" [label=""];
+}
+

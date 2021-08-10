@@ -1,0 +1,25 @@
+[app/sources/234862008.Dockerfile]
+digraph {
+  "sha256:b150da432c7a40066a95bb13c63c745492fdd7212cf68b9867ca367c7b6abf96" [label="docker-image://docker.io/library/golang:1.8" shape="ellipse"];
+  "sha256:9364ea4f4c292105fe59d995cdc2bda819eeb8c920080ea0bd06b6a49823e366" [label="/bin/sh -c mkdir -p /var/hyperledger/db         /var/hyperledger/production         /chaincode/input         /chaincode/output         $FABRIC_CFG_PATH" shape="box"];
+  "sha256:3de98737942027e1e168eadd999bafb91315728692cf3d5738d14485fbedc5b1" [label="/bin/sh -c apt-get update         && apt-get install -y libsnappy-dev zlib1g-dev libbz2-dev libltdl-dev         && rm -rf /var/cache/apt" shape="box"];
+  "sha256:e4c542ecf7977594f7672e57c7418fefd0ab9b39914b11fbf1de5cbf314079c2" [label="/bin/sh -c curl -L https://github.com/hyperledger/fabric-chaintool/releases/download/v0.10.3/chaintool > /usr/local/bin/chaintool         && chmod a+x /usr/local/bin/chaintool" shape="box"];
+  "sha256:d62ab99a014a868088de25b6f4d31aea78bfb1118d6389e62ffd3bcae3163d47" [label="/bin/sh -c go get github.com/golang/protobuf/protoc-gen-go         && go get github.com/kardianos/govendor         && go get github.com/golang/lint/golint         && go get golang.org/x/tools/cmd/goimports         && go get github.com/onsi/ginkgo/ginkgo         && go get github.com/axw/gocov/...         && go get github.com/client9/misspell/cmd/misspell         && go get github.com/AlekSi/gocov-xml" shape="box"];
+  "sha256:bcc5d2c975fd98da2ff5269d88e8812b6afa58cfd0aceb7f4524f6f7c4d85cc0" [label="/bin/sh -c mkdir -p $GOPATH/src/github.com/hyperledger         && cd $GOPATH/src/github.com/hyperledger         && git clone --single-branch -b master http://gerrit.hyperledger.org/r/fabric         && cd fabric && git checkout v1.0.0         && cp $FABRIC_ROOT/devenv/limits.conf /etc/security/limits.conf         && cp -r $FABRIC_ROOT/sampleconfig/* $FABRIC_CFG_PATH" shape="box"];
+  "sha256:b90f507be6c45b93476ac0676991d382b7fd659cacb8392bd9827cf2e7076216" [label="/bin/sh -c cd $FABRIC_ROOT/         && CGO_CFLAGS=\" \" go install -tags \"nopkcs11\" -ldflags \"-X github.com/hyperledger/fabric/common/configtx/tool/configtxgen/metadata.Version=${PROJECT_VERSION}\" github.com/hyperledger/fabric/common/configtx/tool/configtxgen         && CGO_CFLAGS=\" \" go install -tags \"\" -ldflags \"-X github.com/hyperledger/fabric/common/tools/cryptogen/metadata.Version=${PROJECT_VERSION}\" github.com/hyperledger/fabric/common/tools/cryptogen         && CGO_CFLAGS=\" \" go install -tags \"\" -ldflags \"-X github.com/hyperledger/fabric/common/tools/configtxlator/metadata.Version=${PROJECT_VERSION}\" github.com/hyperledger/fabric/common/tools/configtxlator" shape="box"];
+  "sha256:4c94f65d3381679f35e26d1a6b77ff4dd3d47d43ff3aed091e7e59ea5d4a2b13" [label="/bin/sh -c cd $FABRIC_ROOT/examples/events/block-listener         && go build         && mv block-listener $GOPATH/bin" shape="box"];
+  "sha256:e68e358c136bd4a9fb8cb70fd31652110737af5dbde08b6213665fd6f95b51c6" [label="/bin/sh -c ln -s $GOPATH /opt/gopath" shape="box"];
+  "sha256:4a54cb318b5ed5543eabeef1ea0a348724b4ac75e4a1311d8ee2caabab88ccba" [label="mkdir{path=/src/github.com/hyperledger/fabric}" shape="note"];
+  "sha256:3cd2142536987ddf68e940e49a6fd024a071c666c45e8d090acf2b7a625eb03b" [label="sha256:3cd2142536987ddf68e940e49a6fd024a071c666c45e8d090acf2b7a625eb03b" shape="plaintext"];
+  "sha256:b150da432c7a40066a95bb13c63c745492fdd7212cf68b9867ca367c7b6abf96" -> "sha256:9364ea4f4c292105fe59d995cdc2bda819eeb8c920080ea0bd06b6a49823e366" [label=""];
+  "sha256:9364ea4f4c292105fe59d995cdc2bda819eeb8c920080ea0bd06b6a49823e366" -> "sha256:3de98737942027e1e168eadd999bafb91315728692cf3d5738d14485fbedc5b1" [label=""];
+  "sha256:3de98737942027e1e168eadd999bafb91315728692cf3d5738d14485fbedc5b1" -> "sha256:e4c542ecf7977594f7672e57c7418fefd0ab9b39914b11fbf1de5cbf314079c2" [label=""];
+  "sha256:e4c542ecf7977594f7672e57c7418fefd0ab9b39914b11fbf1de5cbf314079c2" -> "sha256:d62ab99a014a868088de25b6f4d31aea78bfb1118d6389e62ffd3bcae3163d47" [label=""];
+  "sha256:d62ab99a014a868088de25b6f4d31aea78bfb1118d6389e62ffd3bcae3163d47" -> "sha256:bcc5d2c975fd98da2ff5269d88e8812b6afa58cfd0aceb7f4524f6f7c4d85cc0" [label=""];
+  "sha256:bcc5d2c975fd98da2ff5269d88e8812b6afa58cfd0aceb7f4524f6f7c4d85cc0" -> "sha256:b90f507be6c45b93476ac0676991d382b7fd659cacb8392bd9827cf2e7076216" [label=""];
+  "sha256:b90f507be6c45b93476ac0676991d382b7fd659cacb8392bd9827cf2e7076216" -> "sha256:4c94f65d3381679f35e26d1a6b77ff4dd3d47d43ff3aed091e7e59ea5d4a2b13" [label=""];
+  "sha256:4c94f65d3381679f35e26d1a6b77ff4dd3d47d43ff3aed091e7e59ea5d4a2b13" -> "sha256:e68e358c136bd4a9fb8cb70fd31652110737af5dbde08b6213665fd6f95b51c6" [label=""];
+  "sha256:e68e358c136bd4a9fb8cb70fd31652110737af5dbde08b6213665fd6f95b51c6" -> "sha256:4a54cb318b5ed5543eabeef1ea0a348724b4ac75e4a1311d8ee2caabab88ccba" [label=""];
+  "sha256:4a54cb318b5ed5543eabeef1ea0a348724b4ac75e4a1311d8ee2caabab88ccba" -> "sha256:3cd2142536987ddf68e940e49a6fd024a071c666c45e8d090acf2b7a625eb03b" [label=""];
+}
+

@@ -1,0 +1,51 @@
+[app/sources/321323474.Dockerfile]
+digraph {
+  "sha256:5e691c7ba4998fa4b60d1218bbc4ed9845bfa527d7d91b0c48922bbea45ce425" [label="docker-image://docker.io/library/ubuntu:18.04" shape="ellipse"];
+  "sha256:803449428ddc329c47e9266c05814f2131681cc23f33f2b9324f4e2fe8f75601" [label="/bin/sh -c mkdir /root/artifacts" shape="box"];
+  "sha256:1e877de346dfbcdcf9b083e8fe15d8d0dc610e1cb83e28a610289d07f24e4876" [label="/bin/sh -c mkdir /root/build_folder" shape="box"];
+  "sha256:02ae1aab2dfa55b6501f442ebc4b5107bbcf94a25bc12f7ad88cbecef0c49770" [label="local://context" shape="ellipse"];
+  "sha256:d2c03b31f1d24d276cfc7b19b7daa7b94617c9698a7fddb77e2d07e4415f360e" [label="copy{src=/, dest=/root/build_folder/}" shape="note"];
+  "sha256:ea84b47d3003c355725f35adecdd5eeaab559a69469a538a036c4d0e6541908c" [label="mkdir{path=/root/build_folder}" shape="note"];
+  "sha256:a19ca5734c01b359238982a599b22294da3e6cbefa5b7b799831cf564d0989ec" [label="/bin/sh -c apt-get update" shape="box"];
+  "sha256:47a811e945fbf4123dc7d5e41bd729e9f5b13e0730b3e6dce993a870f65c9d78" [label="/bin/sh -c apt-get install -qqy automake libtool pkg-config libffi6 libgmp3-dev openssl" shape="box"];
+  "sha256:3224acd66dce9182698ab32034b100696b5975fba7bed6061eeb918013dd5932" [label="/bin/sh -c apt-get install -qqy python3-pip" shape="box"];
+  "sha256:707b363d6870b7ba308751229f6d439533d018c78a8adfe56ba11319d3723a35" [label="/bin/sh -c apt-get install -qqy libssl-dev" shape="box"];
+  "sha256:8ca41ddb6ca2ac70929f44d42fcb119c3a1710f1c3f0b89a9d3fb8f41519b2b1" [label="/bin/sh -c pip3 install -r requirements.txt" shape="box"];
+  "sha256:e656528c93c4ba698b83809f5167e4ff930b8d79c834fed063afdd51e3a07f52" [label="/bin/sh -c make sdist" shape="box"];
+  "sha256:bace4d7288a65b4374c4c9375d881524aa48508b8e94b0e282a0a2105e7c7597" [label="copy{src=/root/build_folder/dist, dest=/root/artifacts/}" shape="note"];
+  "sha256:43832b7bbb75f813b847377c37a4aa920b2b19022f36937e93fff302d9c3c5eb" [label="mkdir{path=/root/artifacts}" shape="note"];
+  "sha256:cc04266d9ee67cf7a1d8b921ee6782d581ce9394c17555afd2c73a12305087f7" [label="/bin/sh -c apt-get update && apt-get install -qqy python3-pip libssl-dev && rm -rf /var/lib/apt/lists/*" shape="box"];
+  "sha256:0921243383fc18595a867dc0d332173d3d1711d22e2cb8d8df09e5e62ad73f53" [label="/bin/sh -c pip3 install *.tar.gz" shape="box"];
+  "sha256:037a24efcc2cb4a6e1162471f970618a5ab9fb32a090446435a945b3bacd92ac" [label="mkdir{path=/root}" shape="note"];
+  "sha256:7ba1604bb44c9f3eb6a8adc094ea61ec4521d5b61bc85bbe2bc9d2e9da4d90a8" [label="/bin/sh -c rm -rf /root/artifacts" shape="box"];
+  "sha256:c587c9ff1d54e04d91dd3ced0c36a24bd6effc15258a65f847f8345970cf46d9" [label="/bin/sh -c bash -c '[[ $(which web3-gear) == \"/usr/local/bin/web3-gear\" ]] || exit 1'" shape="box"];
+  "sha256:dc332568bd12f9030a40eac897b00152d5eeb0f754597b737ce5def2f4459f2c" [label="copy{src=/docker-entrypoint.sh, dest=/usr/local/bin/}" shape="note"];
+  "sha256:d4f796d9e8544fbea138d8192c808a7ee6870300d6d97aa802251c8413c0cd8a" [label="/bin/sh -c chmod 777 /usr/local/bin/docker-entrypoint.sh" shape="box"];
+  "sha256:275f6ea633457163fa4e8127811ebbdf11a377a1a064de6c56a4086c429c1909" [label="/bin/sh -c ln -s usr/local/bin/docker-entrypoint.sh /entrypoint.sh" shape="box"];
+  "sha256:13cb266ee3202fb4c01957f77cc59b6682b766113d48715b932d7d2d52205b4a" [label="sha256:13cb266ee3202fb4c01957f77cc59b6682b766113d48715b932d7d2d52205b4a" shape="plaintext"];
+  "sha256:5e691c7ba4998fa4b60d1218bbc4ed9845bfa527d7d91b0c48922bbea45ce425" -> "sha256:803449428ddc329c47e9266c05814f2131681cc23f33f2b9324f4e2fe8f75601" [label=""];
+  "sha256:5e691c7ba4998fa4b60d1218bbc4ed9845bfa527d7d91b0c48922bbea45ce425" -> "sha256:1e877de346dfbcdcf9b083e8fe15d8d0dc610e1cb83e28a610289d07f24e4876" [label=""];
+  "sha256:1e877de346dfbcdcf9b083e8fe15d8d0dc610e1cb83e28a610289d07f24e4876" -> "sha256:d2c03b31f1d24d276cfc7b19b7daa7b94617c9698a7fddb77e2d07e4415f360e" [label=""];
+  "sha256:02ae1aab2dfa55b6501f442ebc4b5107bbcf94a25bc12f7ad88cbecef0c49770" -> "sha256:d2c03b31f1d24d276cfc7b19b7daa7b94617c9698a7fddb77e2d07e4415f360e" [label=""];
+  "sha256:d2c03b31f1d24d276cfc7b19b7daa7b94617c9698a7fddb77e2d07e4415f360e" -> "sha256:ea84b47d3003c355725f35adecdd5eeaab559a69469a538a036c4d0e6541908c" [label=""];
+  "sha256:ea84b47d3003c355725f35adecdd5eeaab559a69469a538a036c4d0e6541908c" -> "sha256:a19ca5734c01b359238982a599b22294da3e6cbefa5b7b799831cf564d0989ec" [label=""];
+  "sha256:a19ca5734c01b359238982a599b22294da3e6cbefa5b7b799831cf564d0989ec" -> "sha256:47a811e945fbf4123dc7d5e41bd729e9f5b13e0730b3e6dce993a870f65c9d78" [label=""];
+  "sha256:47a811e945fbf4123dc7d5e41bd729e9f5b13e0730b3e6dce993a870f65c9d78" -> "sha256:3224acd66dce9182698ab32034b100696b5975fba7bed6061eeb918013dd5932" [label=""];
+  "sha256:3224acd66dce9182698ab32034b100696b5975fba7bed6061eeb918013dd5932" -> "sha256:707b363d6870b7ba308751229f6d439533d018c78a8adfe56ba11319d3723a35" [label=""];
+  "sha256:707b363d6870b7ba308751229f6d439533d018c78a8adfe56ba11319d3723a35" -> "sha256:8ca41ddb6ca2ac70929f44d42fcb119c3a1710f1c3f0b89a9d3fb8f41519b2b1" [label=""];
+  "sha256:8ca41ddb6ca2ac70929f44d42fcb119c3a1710f1c3f0b89a9d3fb8f41519b2b1" -> "sha256:e656528c93c4ba698b83809f5167e4ff930b8d79c834fed063afdd51e3a07f52" [label=""];
+  "sha256:803449428ddc329c47e9266c05814f2131681cc23f33f2b9324f4e2fe8f75601" -> "sha256:bace4d7288a65b4374c4c9375d881524aa48508b8e94b0e282a0a2105e7c7597" [label=""];
+  "sha256:e656528c93c4ba698b83809f5167e4ff930b8d79c834fed063afdd51e3a07f52" -> "sha256:bace4d7288a65b4374c4c9375d881524aa48508b8e94b0e282a0a2105e7c7597" [label=""];
+  "sha256:bace4d7288a65b4374c4c9375d881524aa48508b8e94b0e282a0a2105e7c7597" -> "sha256:43832b7bbb75f813b847377c37a4aa920b2b19022f36937e93fff302d9c3c5eb" [label=""];
+  "sha256:43832b7bbb75f813b847377c37a4aa920b2b19022f36937e93fff302d9c3c5eb" -> "sha256:cc04266d9ee67cf7a1d8b921ee6782d581ce9394c17555afd2c73a12305087f7" [label=""];
+  "sha256:cc04266d9ee67cf7a1d8b921ee6782d581ce9394c17555afd2c73a12305087f7" -> "sha256:0921243383fc18595a867dc0d332173d3d1711d22e2cb8d8df09e5e62ad73f53" [label=""];
+  "sha256:0921243383fc18595a867dc0d332173d3d1711d22e2cb8d8df09e5e62ad73f53" -> "sha256:037a24efcc2cb4a6e1162471f970618a5ab9fb32a090446435a945b3bacd92ac" [label=""];
+  "sha256:037a24efcc2cb4a6e1162471f970618a5ab9fb32a090446435a945b3bacd92ac" -> "sha256:7ba1604bb44c9f3eb6a8adc094ea61ec4521d5b61bc85bbe2bc9d2e9da4d90a8" [label=""];
+  "sha256:7ba1604bb44c9f3eb6a8adc094ea61ec4521d5b61bc85bbe2bc9d2e9da4d90a8" -> "sha256:c587c9ff1d54e04d91dd3ced0c36a24bd6effc15258a65f847f8345970cf46d9" [label=""];
+  "sha256:c587c9ff1d54e04d91dd3ced0c36a24bd6effc15258a65f847f8345970cf46d9" -> "sha256:dc332568bd12f9030a40eac897b00152d5eeb0f754597b737ce5def2f4459f2c" [label=""];
+  "sha256:02ae1aab2dfa55b6501f442ebc4b5107bbcf94a25bc12f7ad88cbecef0c49770" -> "sha256:dc332568bd12f9030a40eac897b00152d5eeb0f754597b737ce5def2f4459f2c" [label=""];
+  "sha256:dc332568bd12f9030a40eac897b00152d5eeb0f754597b737ce5def2f4459f2c" -> "sha256:d4f796d9e8544fbea138d8192c808a7ee6870300d6d97aa802251c8413c0cd8a" [label=""];
+  "sha256:d4f796d9e8544fbea138d8192c808a7ee6870300d6d97aa802251c8413c0cd8a" -> "sha256:275f6ea633457163fa4e8127811ebbdf11a377a1a064de6c56a4086c429c1909" [label=""];
+  "sha256:275f6ea633457163fa4e8127811ebbdf11a377a1a064de6c56a4086c429c1909" -> "sha256:13cb266ee3202fb4c01957f77cc59b6682b766113d48715b932d7d2d52205b4a" [label=""];
+}
+

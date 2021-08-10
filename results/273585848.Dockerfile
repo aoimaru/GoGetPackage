@@ -1,0 +1,53 @@
+[app/sources/273585848.Dockerfile]
+digraph {
+  "sha256:c025c2da0d4d82d45d5f2a98b1f20c0a4531302b79db8d32af1dd6e94eee8fa3" [label="docker-image://docker.io/library/python:3" shape="ellipse"];
+  "sha256:686140f68a8a7b8e547998d47cbd21c3e4d7c570ae0bfe50db70a4a255987f60" [label="/bin/sh -c apt-get update && apt-get -y install apt-transport-https curl" shape="box"];
+  "sha256:eec936853dc4f99aff80efe58fa282973e59ddcc0d5a8a064781f733a84237c5" [label="/bin/sh -c apt-get update && apt-get install -y sudo && rm -rf /var/lib/apt/lists/*" shape="box"];
+  "sha256:18e9fb8fadc134b934eafbf167797bd35916912167ab025bbc27ec7621bce04e" [label="/bin/sh -c sudo su" shape="box"];
+  "sha256:accf485fd52cd2d33f6fdb4cdcee54457da9652d111adcc3bacdba8295593747" [label="/bin/sh -c curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -" shape="box"];
+  "sha256:c562976d3cee54718443de97bd319dca4db89cb4b2a9430c25734423c02d45ae" [label="/bin/sh -c curl https://packages.microsoft.com/config/debian/8/prod.list > /etc/apt/sources.list.d/mssql-release.list" shape="box"];
+  "sha256:8651fd59eb528720425b07ada107bc9c15700b248dd860321eb85460d8c72c8d" [label="/bin/sh -c exit" shape="box"];
+  "sha256:deec31136df651777c3e79a4846ea8f91f4c484fd1f632eeaa3a476e36f12160" [label="/bin/sh -c sudo apt-get install apt-transport-https" shape="box"];
+  "sha256:d75fcf71f283792a676ea2c7ea0c2c5b97a9692085df7e9ae8fe948680a3b2d4" [label="/bin/sh -c sudo apt-get update" shape="box"];
+  "sha256:001d090875ec22c6774bd26ff0b5c425705cd3293e826f833e26bd8b78d7b035" [label="/bin/sh -c sudo ACCEPT_EULA=Y apt-get install -y msodbcsql" shape="box"];
+  "sha256:262a07093f4d1060f8551666d9fdd8db3708d17bfe51b443cb3acd95286e73de" [label="/bin/sh -c apt-get update && apt-get install -y gcc unixodbc-dev" shape="box"];
+  "sha256:d80c6493b46249303ae0bec516fd044858e3bc5037d96ef77be470b30e9c5544" [label="/bin/sh -c pip install nano" shape="box"];
+  "sha256:afbd6e5597ada86219d2f592ad96c093086c7510b22af7d4218a97a1738457bd" [label="/bin/sh -c pip install pystrich" shape="box"];
+  "sha256:a27b8b23890d427c2af614f80a2c3da83f88ee4752ae6dc3288f7209059a404b" [label="/bin/sh -c pip install pandas" shape="box"];
+  "sha256:09a9d6300960108532298e5780d259e7bbc8869c995676f49d97af0c01048bb6" [label="/bin/sh -c pip install numpy" shape="box"];
+  "sha256:1f946514f20d086901922e7aca9bbfda74fa4d3e8bfb2d5313d5f37a4f93896a" [label="/bin/sh -c pip install keras" shape="box"];
+  "sha256:1d68a316d426ab557b732232b822b78d6f7e1600d326f31e038539f4643e2c91" [label="/bin/sh -c pip install pyodbc" shape="box"];
+  "sha256:b14ee92da55159c02948d8971b6d3d263ffd1dddf707ab8708b6013934c2d092" [label="/bin/sh -c pip install tensorflow" shape="box"];
+  "sha256:6f43c17d61b8d9271b4e226d868a478458ef52a6c8f88dcd097c3d02773f4d6b" [label="/bin/sh -c pip install sklearn" shape="box"];
+  "sha256:f1447a8576bfa42718591a3fbce861c7dbe135e64ae4cc0ee9b56a67eea2c503" [label="/bin/sh -c pip install keras_tqdm" shape="box"];
+  "sha256:8cc774ca84966a6f52381b1e25a29e7d8bac1db8babd3fb478ac190a508dd143" [label="/bin/sh -c pip install matplotlib" shape="box"];
+  "sha256:4247f18ac8ecdb1a5f18a4607bb5460e2e7f473df1adcf7a0ffafeab8932563c" [label="/bin/sh -c pip install h5py" shape="box"];
+  "sha256:a18e944e16cb8c72adb49e0a896e6a2a4fc50c6ed94e10358ffdc3aca072e72d" [label="/bin/sh -c apt-get install -y locales" shape="box"];
+  "sha256:2be6c93a719fab812252a7d96643cfbc77bbf9fcee15ee64c660cb76054a9821" [label="/bin/sh -c echo \"Europe/Oslo\" > /etc/timezone &&     dpkg-reconfigure -f noninteractive tzdata &&     sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen &&     sed -i -e 's/# nb_NO.UTF-8 UTF-8/nb_NO.UTF-8 UTF-8/' /etc/locale.gen &&     echo 'LANG=\"en_US.UTF-8\"'>/etc/default/locale &&     dpkg-reconfigure --frontend=noninteractive locales &&     update-locale LANG=en_US.UTF-8" shape="box"];
+  "sha256:fcec45554c8fdb1860e35c897cef7e90b1a0816ff5614b94796aab4f8e500c54" [label="sha256:fcec45554c8fdb1860e35c897cef7e90b1a0816ff5614b94796aab4f8e500c54" shape="plaintext"];
+  "sha256:c025c2da0d4d82d45d5f2a98b1f20c0a4531302b79db8d32af1dd6e94eee8fa3" -> "sha256:686140f68a8a7b8e547998d47cbd21c3e4d7c570ae0bfe50db70a4a255987f60" [label=""];
+  "sha256:686140f68a8a7b8e547998d47cbd21c3e4d7c570ae0bfe50db70a4a255987f60" -> "sha256:eec936853dc4f99aff80efe58fa282973e59ddcc0d5a8a064781f733a84237c5" [label=""];
+  "sha256:eec936853dc4f99aff80efe58fa282973e59ddcc0d5a8a064781f733a84237c5" -> "sha256:18e9fb8fadc134b934eafbf167797bd35916912167ab025bbc27ec7621bce04e" [label=""];
+  "sha256:18e9fb8fadc134b934eafbf167797bd35916912167ab025bbc27ec7621bce04e" -> "sha256:accf485fd52cd2d33f6fdb4cdcee54457da9652d111adcc3bacdba8295593747" [label=""];
+  "sha256:accf485fd52cd2d33f6fdb4cdcee54457da9652d111adcc3bacdba8295593747" -> "sha256:c562976d3cee54718443de97bd319dca4db89cb4b2a9430c25734423c02d45ae" [label=""];
+  "sha256:c562976d3cee54718443de97bd319dca4db89cb4b2a9430c25734423c02d45ae" -> "sha256:8651fd59eb528720425b07ada107bc9c15700b248dd860321eb85460d8c72c8d" [label=""];
+  "sha256:8651fd59eb528720425b07ada107bc9c15700b248dd860321eb85460d8c72c8d" -> "sha256:deec31136df651777c3e79a4846ea8f91f4c484fd1f632eeaa3a476e36f12160" [label=""];
+  "sha256:deec31136df651777c3e79a4846ea8f91f4c484fd1f632eeaa3a476e36f12160" -> "sha256:d75fcf71f283792a676ea2c7ea0c2c5b97a9692085df7e9ae8fe948680a3b2d4" [label=""];
+  "sha256:d75fcf71f283792a676ea2c7ea0c2c5b97a9692085df7e9ae8fe948680a3b2d4" -> "sha256:001d090875ec22c6774bd26ff0b5c425705cd3293e826f833e26bd8b78d7b035" [label=""];
+  "sha256:001d090875ec22c6774bd26ff0b5c425705cd3293e826f833e26bd8b78d7b035" -> "sha256:262a07093f4d1060f8551666d9fdd8db3708d17bfe51b443cb3acd95286e73de" [label=""];
+  "sha256:262a07093f4d1060f8551666d9fdd8db3708d17bfe51b443cb3acd95286e73de" -> "sha256:d80c6493b46249303ae0bec516fd044858e3bc5037d96ef77be470b30e9c5544" [label=""];
+  "sha256:d80c6493b46249303ae0bec516fd044858e3bc5037d96ef77be470b30e9c5544" -> "sha256:afbd6e5597ada86219d2f592ad96c093086c7510b22af7d4218a97a1738457bd" [label=""];
+  "sha256:afbd6e5597ada86219d2f592ad96c093086c7510b22af7d4218a97a1738457bd" -> "sha256:a27b8b23890d427c2af614f80a2c3da83f88ee4752ae6dc3288f7209059a404b" [label=""];
+  "sha256:a27b8b23890d427c2af614f80a2c3da83f88ee4752ae6dc3288f7209059a404b" -> "sha256:09a9d6300960108532298e5780d259e7bbc8869c995676f49d97af0c01048bb6" [label=""];
+  "sha256:09a9d6300960108532298e5780d259e7bbc8869c995676f49d97af0c01048bb6" -> "sha256:1f946514f20d086901922e7aca9bbfda74fa4d3e8bfb2d5313d5f37a4f93896a" [label=""];
+  "sha256:1f946514f20d086901922e7aca9bbfda74fa4d3e8bfb2d5313d5f37a4f93896a" -> "sha256:1d68a316d426ab557b732232b822b78d6f7e1600d326f31e038539f4643e2c91" [label=""];
+  "sha256:1d68a316d426ab557b732232b822b78d6f7e1600d326f31e038539f4643e2c91" -> "sha256:b14ee92da55159c02948d8971b6d3d263ffd1dddf707ab8708b6013934c2d092" [label=""];
+  "sha256:b14ee92da55159c02948d8971b6d3d263ffd1dddf707ab8708b6013934c2d092" -> "sha256:6f43c17d61b8d9271b4e226d868a478458ef52a6c8f88dcd097c3d02773f4d6b" [label=""];
+  "sha256:6f43c17d61b8d9271b4e226d868a478458ef52a6c8f88dcd097c3d02773f4d6b" -> "sha256:f1447a8576bfa42718591a3fbce861c7dbe135e64ae4cc0ee9b56a67eea2c503" [label=""];
+  "sha256:f1447a8576bfa42718591a3fbce861c7dbe135e64ae4cc0ee9b56a67eea2c503" -> "sha256:8cc774ca84966a6f52381b1e25a29e7d8bac1db8babd3fb478ac190a508dd143" [label=""];
+  "sha256:8cc774ca84966a6f52381b1e25a29e7d8bac1db8babd3fb478ac190a508dd143" -> "sha256:4247f18ac8ecdb1a5f18a4607bb5460e2e7f473df1adcf7a0ffafeab8932563c" [label=""];
+  "sha256:4247f18ac8ecdb1a5f18a4607bb5460e2e7f473df1adcf7a0ffafeab8932563c" -> "sha256:a18e944e16cb8c72adb49e0a896e6a2a4fc50c6ed94e10358ffdc3aca072e72d" [label=""];
+  "sha256:a18e944e16cb8c72adb49e0a896e6a2a4fc50c6ed94e10358ffdc3aca072e72d" -> "sha256:2be6c93a719fab812252a7d96643cfbc77bbf9fcee15ee64c660cb76054a9821" [label=""];
+  "sha256:2be6c93a719fab812252a7d96643cfbc77bbf9fcee15ee64c660cb76054a9821" -> "sha256:fcec45554c8fdb1860e35c897cef7e90b1a0816ff5614b94796aab4f8e500c54" [label=""];
+}
+

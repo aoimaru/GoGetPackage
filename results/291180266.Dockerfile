@@ -1,0 +1,35 @@
+[app/sources/291180266.Dockerfile]
+digraph {
+  "sha256:1a94ae919342df86ac40b0ecae5c0bd054341fa540b18e89bd15d37c1448788b" [label="docker-image://docker.io/library/php:7.0.30-cli-jessie@sha256:68dabe60f7e455ab166bb5e8d76476af7a6351f52b5db913a2d17d3d0592f6d9" shape="ellipse"];
+  "sha256:81d8ced94f8d49e3085423648ded3612636c2e30656ad3d726aa9b4f227a7e30" [label="/bin/sh -c echo 'APT::Get::Assume-Yes \"true\";' > /etc/apt/apt.conf.d/90circleci   && echo 'DPkg::Options \"--force-confnew\";' >> /etc/apt/apt.conf.d/90circleci" shape="box"];
+  "sha256:b4b5151f4db2009397ad76ef0647334cb5286b640c9a52ad28b6cd450c26bb20" [label="/bin/sh -c apt-get update   && mkdir -p /usr/share/man/man1   && apt-get install -y     git mercurial xvfb     locales sudo openssh-client ca-certificates tar gzip parallel     net-tools netcat unzip zip bzip2 gnupg curl wget" shape="box"];
+  "sha256:38a85e8e94b9b3e316dbedb9527385e606efb47d721b11872596a78ae35ac389" [label="/bin/sh -c ln -sf /usr/share/zoneinfo/Etc/UTC /etc/localtime" shape="box"];
+  "sha256:ecf36f073ee461c0b812c8a355d44781c85139c0aff9363e1690cd56781d532b" [label="/bin/sh -c locale-gen C.UTF-8 || true" shape="box"];
+  "sha256:afe5adc19348a125c4698bb69f7180206d4163d7619a2b92bfa145ed74e466ae" [label="/bin/sh -c JQ_URL=\"https://circle-downloads.s3.amazonaws.com/circleci-images/cache/linux-amd64/jq-latest\"   && curl --silent --show-error --location --fail --retry 3 --output /usr/bin/jq $JQ_URL   && chmod +x /usr/bin/jq   && jq --version" shape="box"];
+  "sha256:44d5139a0e4477d69593d4a23d3728e8d594b5dd02531f1101059986a903da37" [label="/bin/sh -c set -ex   && export DOCKER_VERSION=$(curl --silent --fail --retry 3 https://download.docker.com/linux/static/stable/x86_64/ | grep -o -e 'docker-[.0-9]*-ce\\.tgz' | sort -r | head -n 1)   && DOCKER_URL=\"https://download.docker.com/linux/static/stable/x86_64/${DOCKER_VERSION}\"   && echo Docker URL: $DOCKER_URL   && curl --silent --show-error --location --fail --retry 3 --output /tmp/docker.tgz \"${DOCKER_URL}\"   && ls -lha /tmp/docker.tgz   && tar -xz -C /tmp -f /tmp/docker.tgz   && mv /tmp/docker/* /usr/bin   && rm -rf /tmp/docker /tmp/docker.tgz   && which docker   && (docker version || true)" shape="box"];
+  "sha256:af45c709deeeab8981a489673358ecc921fc1948a5e286845a18129b3e6735f0" [label="/bin/sh -c COMPOSE_URL=\"https://circle-downloads.s3.amazonaws.com/circleci-images/cache/linux-amd64/docker-compose-latest\"   && curl --silent --show-error --location --fail --retry 3 --output /usr/bin/docker-compose $COMPOSE_URL   && chmod +x /usr/bin/docker-compose   && docker-compose version" shape="box"];
+  "sha256:73b784f07496287e7f724fa6b076bbeb3a63f264d30b007ab3230d8c6619ca47" [label="/bin/sh -c DOCKERIZE_URL=\"https://circle-downloads.s3.amazonaws.com/circleci-images/cache/linux-amd64/dockerize-latest.tar.gz\"   && curl --silent --show-error --location --fail --retry 3 --output /tmp/dockerize-linux-amd64.tar.gz $DOCKERIZE_URL   && tar -C /usr/local/bin -xzvf /tmp/dockerize-linux-amd64.tar.gz   && rm -rf /tmp/dockerize-linux-amd64.tar.gz   && dockerize --version" shape="box"];
+  "sha256:ab3b72720e1e6afb1cd5f9ec7c086fce9b371f0e92a37d64d800c375cc4998e0" [label="/bin/sh -c groupadd --gid 3434 circleci   && useradd --uid 3434 --gid circleci --shell /bin/bash --create-home circleci   && echo 'circleci ALL=NOPASSWD: ALL' >> /etc/sudoers.d/50-circleci   && echo 'Defaults    env_keep += \"DEBIAN_FRONTEND\"' >> /etc/sudoers.d/env_keep" shape="box"];
+  "sha256:f94c7a2c96f5f605c03c95a4df8f4516e24df637b91cadbec21c8bc2e64f31d4" [label="/bin/sh -c php -r \"copy('https://raw.githubusercontent.com/composer/getcomposer.org/master/web/installer', 'composer-setup.php');\" &&     php composer-setup.php &&     php -r \"unlink('composer-setup.php');\" &&     mv composer.phar /usr/local/bin/composer" shape="box"];
+  "sha256:755eb21675b782feca16c285b7bc7f005c07fb205b0b0498ec0a7d86b83972dc" [label="/bin/sh -c (pecl install xdebug || pecl install xdebug-2.5.5) && docker-php-ext-enable xdebug" shape="box"];
+  "sha256:c7bca2668cf42649aa9054114e8865c58fb4863547a231c01890b3300831c377" [label="/bin/sh -c apt install -y libicu-dev zlib1g-dev" shape="box"];
+  "sha256:9cfcee0aa6a33073b426385c0d3ac93a50d4cd9f5fdb90a244fb0a6385f75359" [label="/bin/sh -c docker-php-ext-configure intl && docker-php-ext-install intl" shape="box"];
+  "sha256:1663a21ec6014545c164f6c7e1eff38d74f19b2fd1a23a76dfaee83e0a363c10" [label="/bin/sh -c docker-php-ext-install zip" shape="box"];
+  "sha256:4b130b5c16301215218f2fdd90289ab4a0170d234fad7d5c1c1b4205e2a1b5a5" [label="sha256:4b130b5c16301215218f2fdd90289ab4a0170d234fad7d5c1c1b4205e2a1b5a5" shape="plaintext"];
+  "sha256:1a94ae919342df86ac40b0ecae5c0bd054341fa540b18e89bd15d37c1448788b" -> "sha256:81d8ced94f8d49e3085423648ded3612636c2e30656ad3d726aa9b4f227a7e30" [label=""];
+  "sha256:81d8ced94f8d49e3085423648ded3612636c2e30656ad3d726aa9b4f227a7e30" -> "sha256:b4b5151f4db2009397ad76ef0647334cb5286b640c9a52ad28b6cd450c26bb20" [label=""];
+  "sha256:b4b5151f4db2009397ad76ef0647334cb5286b640c9a52ad28b6cd450c26bb20" -> "sha256:38a85e8e94b9b3e316dbedb9527385e606efb47d721b11872596a78ae35ac389" [label=""];
+  "sha256:38a85e8e94b9b3e316dbedb9527385e606efb47d721b11872596a78ae35ac389" -> "sha256:ecf36f073ee461c0b812c8a355d44781c85139c0aff9363e1690cd56781d532b" [label=""];
+  "sha256:ecf36f073ee461c0b812c8a355d44781c85139c0aff9363e1690cd56781d532b" -> "sha256:afe5adc19348a125c4698bb69f7180206d4163d7619a2b92bfa145ed74e466ae" [label=""];
+  "sha256:afe5adc19348a125c4698bb69f7180206d4163d7619a2b92bfa145ed74e466ae" -> "sha256:44d5139a0e4477d69593d4a23d3728e8d594b5dd02531f1101059986a903da37" [label=""];
+  "sha256:44d5139a0e4477d69593d4a23d3728e8d594b5dd02531f1101059986a903da37" -> "sha256:af45c709deeeab8981a489673358ecc921fc1948a5e286845a18129b3e6735f0" [label=""];
+  "sha256:af45c709deeeab8981a489673358ecc921fc1948a5e286845a18129b3e6735f0" -> "sha256:73b784f07496287e7f724fa6b076bbeb3a63f264d30b007ab3230d8c6619ca47" [label=""];
+  "sha256:73b784f07496287e7f724fa6b076bbeb3a63f264d30b007ab3230d8c6619ca47" -> "sha256:ab3b72720e1e6afb1cd5f9ec7c086fce9b371f0e92a37d64d800c375cc4998e0" [label=""];
+  "sha256:ab3b72720e1e6afb1cd5f9ec7c086fce9b371f0e92a37d64d800c375cc4998e0" -> "sha256:f94c7a2c96f5f605c03c95a4df8f4516e24df637b91cadbec21c8bc2e64f31d4" [label=""];
+  "sha256:f94c7a2c96f5f605c03c95a4df8f4516e24df637b91cadbec21c8bc2e64f31d4" -> "sha256:755eb21675b782feca16c285b7bc7f005c07fb205b0b0498ec0a7d86b83972dc" [label=""];
+  "sha256:755eb21675b782feca16c285b7bc7f005c07fb205b0b0498ec0a7d86b83972dc" -> "sha256:c7bca2668cf42649aa9054114e8865c58fb4863547a231c01890b3300831c377" [label=""];
+  "sha256:c7bca2668cf42649aa9054114e8865c58fb4863547a231c01890b3300831c377" -> "sha256:9cfcee0aa6a33073b426385c0d3ac93a50d4cd9f5fdb90a244fb0a6385f75359" [label=""];
+  "sha256:9cfcee0aa6a33073b426385c0d3ac93a50d4cd9f5fdb90a244fb0a6385f75359" -> "sha256:1663a21ec6014545c164f6c7e1eff38d74f19b2fd1a23a76dfaee83e0a363c10" [label=""];
+  "sha256:1663a21ec6014545c164f6c7e1eff38d74f19b2fd1a23a76dfaee83e0a363c10" -> "sha256:4b130b5c16301215218f2fdd90289ab4a0170d234fad7d5c1c1b4205e2a1b5a5" [label=""];
+}
+

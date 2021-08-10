@@ -1,0 +1,51 @@
+[app/sources/249913366.Dockerfile]
+digraph {
+  "sha256:931a1c72c3e0943f8ae3bad2d6c2c0d04efc9031392f7574cafc331814fa690d" [label="docker-image://docker.io/library/debian:stretch" shape="ellipse"];
+  "sha256:008ba228d6d8b3d14e4a845bf6b728bed1322d8f9414f23f1b477b4e634c874a" [label="/bin/sh -c apt-get update &&     apt-get install -y git" shape="box"];
+  "sha256:c42e37f55c5d3fdc09919ff0e5a5db1d9cf60ccc98fb48e471fc716ce4879cf3" [label="/bin/sh -c git clone https://github.com/arximboldi/immer.git" shape="box"];
+  "sha256:d5074665c4a178c6857d7e21635cbcf46fb512cd730eba5b8f785b1cd8747d70" [label="/bin/sh -c apt-get update &&     apt-get install -y             autoconf             automake             cmake             g++             libboost-dev             libtool             make             pkg-config             --" shape="box"];
+  "sha256:83011af63bfe80f906a9ba12e88ef0cc3a195d365637824f462f87090ed4f14a" [label="/bin/sh -c mkdir /immer/build" shape="box"];
+  "sha256:0ad00d7174ed6516945fbd978810a10468c23ebf8d18aa2fc14a8c5d9deff928" [label="mkdir{path=/immer/build}" shape="note"];
+  "sha256:95b68313c46150b27ce80895aa9043da822c7ec38e18cfaca15b465ead3c0353" [label="/bin/sh -c cmake .. -DCMAKE_BUILD_TYPE=Release -DCHECK_BENCHMARKS=1" shape="box"];
+  "sha256:bfc75fd9e1e22543d85051e10c8a3afb7a648f5a88ee3d12891269611a1d4acd" [label="/bin/sh -c make deps" shape="box"];
+  "sha256:6bc869a12510d46eec0b1a3f293bf66dc68aae0692e59e4cd181134f0ff76a7b" [label="/bin/sh -c make tests examples benchmarks" shape="box"];
+  "sha256:077a0cce86253c760ea53a9950eb664cdb3b9c484a520c437b6e017ac1b98c0b" [label="/bin/sh -c apt-get update &&     apt-get install -y default-jdk curl" shape="box"];
+  "sha256:d1622de5aac5f60d3153582e0e9de10f9e2f6007dc55271c2a969d229e29f98d" [label="/bin/sh -c curl https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein          > /usr/local/bin/lein &&     chmod +x /usr/local/bin/lein" shape="box"];
+  "sha256:e184e6ed41f321c3d5176332c1715676c6c152658e4ca173e227d4413132ea05" [label="mkdir{path=/immer/tools/clojure}" shape="note"];
+  "sha256:f9abc4c17f34969a203e19d32c0499adc1f533fc9f8f402c1de7081765ec28f6" [label="/bin/sh -c lein deps" shape="box"];
+  "sha256:5db3e4f3a780df64a235a829a25c6123d9153d896666210c799c2a3ae78827b5" [label="/bin/sh -c lein compile" shape="box"];
+  "sha256:8996701e95a3adf5769d265270a89c4e4a30989da881080fbc3988b4ed159bbe" [label="/bin/sh -c apt-get update &&     apt-get install -y gnupg2 apt-transport-https" shape="box"];
+  "sha256:74a62d0c75e2ba71f5770e9fda70c61c3395a23909753836aa16d20d96ab0463" [label="/bin/sh -c echo \"deb https://dl.bintray.com/sbt/debian /\"          > /etc/apt/sources.list.d/sbt.list &&     apt-key adv --keyserver hkp://keyserver.ubuntu.com:80                 --recv 2EE0EA64E40A89B84B2DF73499E82A75642AC823 &&     apt-get update &&     apt-get install -y sbt" shape="box"];
+  "sha256:2bcb6cba5cd213d596f5d8c9b35186d60f6de6e2a47035da4152d832e7c992a4" [label="mkdir{path=/immer/tools/scala}" shape="note"];
+  "sha256:2f79aaa551fc4e180f27d3274cde56ab9e8936e3f787ffbfb5628581715ff411" [label="/bin/sh -c sbt compile" shape="box"];
+  "sha256:68369979faff01d515b120d96b358fd646ff9bea2d1a1ea02831d23edb20ac44" [label="/bin/sh -c apt-get update &&     apt-get install -y python-pip" shape="box"];
+  "sha256:c4f47708e8022ae53f1fa0961294c140244a90fc13ebc1e0f219a4165d915c6f" [label="/bin/sh -c pip install         pytest-benchmark         pyrsistent" shape="box"];
+  "sha256:a2f02169c75bf5f81d1c58922d1db368c2b8e73170accbfd15fbd959d898c4d4" [label="/bin/sh -c pip install /immer" shape="box"];
+  "sha256:ed940a8ab2b815decbaf95a47b0af97a3cb86fcc5472763b1cebdf1791126ad0" [label="/bin/sh -c apt-get update &&     apt-get install -y emacs vim nano" shape="box"];
+  "sha256:1a91cdbd5f4c0cbf2d57795fe9db059b976fa7f718d309ac9cb462ff3ea67f67" [label="mkdir{path=/immer}" shape="note"];
+  "sha256:57d9d192164dc5d415347dff4a32146e8def2f0924e3ab1d3a3e43c2d06ef973" [label="sha256:57d9d192164dc5d415347dff4a32146e8def2f0924e3ab1d3a3e43c2d06ef973" shape="plaintext"];
+  "sha256:931a1c72c3e0943f8ae3bad2d6c2c0d04efc9031392f7574cafc331814fa690d" -> "sha256:008ba228d6d8b3d14e4a845bf6b728bed1322d8f9414f23f1b477b4e634c874a" [label=""];
+  "sha256:008ba228d6d8b3d14e4a845bf6b728bed1322d8f9414f23f1b477b4e634c874a" -> "sha256:c42e37f55c5d3fdc09919ff0e5a5db1d9cf60ccc98fb48e471fc716ce4879cf3" [label=""];
+  "sha256:c42e37f55c5d3fdc09919ff0e5a5db1d9cf60ccc98fb48e471fc716ce4879cf3" -> "sha256:d5074665c4a178c6857d7e21635cbcf46fb512cd730eba5b8f785b1cd8747d70" [label=""];
+  "sha256:d5074665c4a178c6857d7e21635cbcf46fb512cd730eba5b8f785b1cd8747d70" -> "sha256:83011af63bfe80f906a9ba12e88ef0cc3a195d365637824f462f87090ed4f14a" [label=""];
+  "sha256:83011af63bfe80f906a9ba12e88ef0cc3a195d365637824f462f87090ed4f14a" -> "sha256:0ad00d7174ed6516945fbd978810a10468c23ebf8d18aa2fc14a8c5d9deff928" [label=""];
+  "sha256:0ad00d7174ed6516945fbd978810a10468c23ebf8d18aa2fc14a8c5d9deff928" -> "sha256:95b68313c46150b27ce80895aa9043da822c7ec38e18cfaca15b465ead3c0353" [label=""];
+  "sha256:95b68313c46150b27ce80895aa9043da822c7ec38e18cfaca15b465ead3c0353" -> "sha256:bfc75fd9e1e22543d85051e10c8a3afb7a648f5a88ee3d12891269611a1d4acd" [label=""];
+  "sha256:bfc75fd9e1e22543d85051e10c8a3afb7a648f5a88ee3d12891269611a1d4acd" -> "sha256:6bc869a12510d46eec0b1a3f293bf66dc68aae0692e59e4cd181134f0ff76a7b" [label=""];
+  "sha256:6bc869a12510d46eec0b1a3f293bf66dc68aae0692e59e4cd181134f0ff76a7b" -> "sha256:077a0cce86253c760ea53a9950eb664cdb3b9c484a520c437b6e017ac1b98c0b" [label=""];
+  "sha256:077a0cce86253c760ea53a9950eb664cdb3b9c484a520c437b6e017ac1b98c0b" -> "sha256:d1622de5aac5f60d3153582e0e9de10f9e2f6007dc55271c2a969d229e29f98d" [label=""];
+  "sha256:d1622de5aac5f60d3153582e0e9de10f9e2f6007dc55271c2a969d229e29f98d" -> "sha256:e184e6ed41f321c3d5176332c1715676c6c152658e4ca173e227d4413132ea05" [label=""];
+  "sha256:e184e6ed41f321c3d5176332c1715676c6c152658e4ca173e227d4413132ea05" -> "sha256:f9abc4c17f34969a203e19d32c0499adc1f533fc9f8f402c1de7081765ec28f6" [label=""];
+  "sha256:f9abc4c17f34969a203e19d32c0499adc1f533fc9f8f402c1de7081765ec28f6" -> "sha256:5db3e4f3a780df64a235a829a25c6123d9153d896666210c799c2a3ae78827b5" [label=""];
+  "sha256:5db3e4f3a780df64a235a829a25c6123d9153d896666210c799c2a3ae78827b5" -> "sha256:8996701e95a3adf5769d265270a89c4e4a30989da881080fbc3988b4ed159bbe" [label=""];
+  "sha256:8996701e95a3adf5769d265270a89c4e4a30989da881080fbc3988b4ed159bbe" -> "sha256:74a62d0c75e2ba71f5770e9fda70c61c3395a23909753836aa16d20d96ab0463" [label=""];
+  "sha256:74a62d0c75e2ba71f5770e9fda70c61c3395a23909753836aa16d20d96ab0463" -> "sha256:2bcb6cba5cd213d596f5d8c9b35186d60f6de6e2a47035da4152d832e7c992a4" [label=""];
+  "sha256:2bcb6cba5cd213d596f5d8c9b35186d60f6de6e2a47035da4152d832e7c992a4" -> "sha256:2f79aaa551fc4e180f27d3274cde56ab9e8936e3f787ffbfb5628581715ff411" [label=""];
+  "sha256:2f79aaa551fc4e180f27d3274cde56ab9e8936e3f787ffbfb5628581715ff411" -> "sha256:68369979faff01d515b120d96b358fd646ff9bea2d1a1ea02831d23edb20ac44" [label=""];
+  "sha256:68369979faff01d515b120d96b358fd646ff9bea2d1a1ea02831d23edb20ac44" -> "sha256:c4f47708e8022ae53f1fa0961294c140244a90fc13ebc1e0f219a4165d915c6f" [label=""];
+  "sha256:c4f47708e8022ae53f1fa0961294c140244a90fc13ebc1e0f219a4165d915c6f" -> "sha256:a2f02169c75bf5f81d1c58922d1db368c2b8e73170accbfd15fbd959d898c4d4" [label=""];
+  "sha256:a2f02169c75bf5f81d1c58922d1db368c2b8e73170accbfd15fbd959d898c4d4" -> "sha256:ed940a8ab2b815decbaf95a47b0af97a3cb86fcc5472763b1cebdf1791126ad0" [label=""];
+  "sha256:ed940a8ab2b815decbaf95a47b0af97a3cb86fcc5472763b1cebdf1791126ad0" -> "sha256:1a91cdbd5f4c0cbf2d57795fe9db059b976fa7f718d309ac9cb462ff3ea67f67" [label=""];
+  "sha256:1a91cdbd5f4c0cbf2d57795fe9db059b976fa7f718d309ac9cb462ff3ea67f67" -> "sha256:57d9d192164dc5d415347dff4a32146e8def2f0924e3ab1d3a3e43c2d06ef973" [label=""];
+}
+

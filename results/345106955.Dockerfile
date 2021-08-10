@@ -1,0 +1,55 @@
+[app/sources/345106955.Dockerfile]
+digraph {
+  "sha256:868fdd9de755bc2b7af9cd6d1b11415d8cbcb83d39905725780923e17d39550c" [label="docker-image://docker.io/library/ubuntu:trusty" shape="ellipse"];
+  "sha256:75553e12ccf92e247bcb45fd062cf684d8fca02d30ea55fd3691872e42eb9734" [label="/bin/sh -c apt-get update -y -qq --fix-missing" shape="box"];
+  "sha256:b5861dbfeda5b26c7a2df29ddab3087611d54e45ec2d59a18e193d892a98bf8c" [label="/bin/sh -c apt-get install -y wget" shape="box"];
+  "sha256:4ccef50425bf8b9ab8bba8ed00eb82dbe958aeafa2326f078ce8f5dd3afb12db" [label="/bin/sh -c echo \"deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main\" >> /etc/apt/sources.list.d/pgdg.list" shape="box"];
+  "sha256:a28824263678b931b909317476d659ecd83d37ffc224e36432d4fcff814d3e8a" [label="/bin/sh -c wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -" shape="box"];
+  "sha256:4d5b3a7d7ab02dcca6ffb5751cf5141b82671e62098a99e5e46f908cda2e732e" [label="/bin/sh -c apt-get update -y -qq --fix-missing" shape="box"];
+  "sha256:023dc7555f8aba3b445aa02baa7cb75dc65c581f391b0f6352fb3a6e517d7729" [label="/bin/sh -c apt-get upgrade -y -qq" shape="box"];
+  "sha256:be486360c44fa1c88b6183dcf3642502815f2731f9405e3796bff86055e14769" [label="/bin/sh -c apt-get install -y python-dev python-pip postgresql-client-common postgresql postgresql-contrib postgresql-9.5 libpq-dev git libmemcached-dev curl openssh-server mercurial gettext vim libjpeg-dev libjpeg8-dev" shape="box"];
+  "sha256:dae6d09bedd81b7d6c6f18a4e60a186f781e5fcc89b0d9ed3f0018d97413bfb8" [label="/bin/sh -c echo \"export LANGUAGE=en_US.UTF-8\" >> /etc/profile" shape="box"];
+  "sha256:03490580e09088597a6f467293dbce1caaf7df4acc482a0c3d3e237e43746a4c" [label="/bin/sh -c echo \"export LANG=en_US.UTF-8\" >> /etc/profile" shape="box"];
+  "sha256:ea47aa9d32ff70fd88aaa37ca1f9e19586a492e7b39f4a30f9fc7cde2f54e6ea" [label="/bin/sh -c echo \"export LC_ALL=en_US.UTF-8\" >> /etc/profile" shape="box"];
+  "sha256:12e51ad1f8cb1fd988d56d59f72e2f3142594cb65e13414dff7ab63389cfdde2" [label="/bin/sh -c echo \"locale-gen en_US.UTF-8\" >> /etc/profile" shape="box"];
+  "sha256:5645a9be5c6496f50883042355a0b498ebf79cd49f080861c564a294fa6d632a" [label="/bin/sh -c echo \"dpkg-reconfigure locales\" >> /etc/profile" shape="box"];
+  "sha256:0d926a73845289c234edae7b765c9ec3ae480d922893d7a04bfd4cd8285178a0" [label="/bin/sh -c echo \"export VISIBLE=now\" >> /etc/profile" shape="box"];
+  "sha256:7cc07a1c82165e8ab8820f7dcaf1c0bc97b1b000078d5343a80b25631816fa68" [label="/bin/sh -c echo \"KexAlgorithms=diffie-hellman-group1-sha1\" >> /etc/ssh/sshd_config" shape="box"];
+  "sha256:1ab7981fef7ba78b10e23b5291be2cd9304d4e01fe393a8594f1b067e090a607" [label="/bin/sh -c echo \"PermitUserEnvironment=yes\" >> /etc/ssh/sshd_config" shape="box"];
+  "sha256:c425a55df94dac90d509743357d6d5aace4d5628401813fe9c0c1c146acd6ba1" [label="/bin/sh -c touch /root/.bash_profile" shape="box"];
+  "sha256:21862a48280a5292155451b0ec374fbe3bcc1b731274bcc406fc38ee713f0348" [label="/bin/sh -c echo \"cd /app\" >> /root/.bash_profile" shape="box"];
+  "sha256:5a98ecc41bc8a8ebe37d8a85137a1d345f937e91770fe84ed2a7c6d2fbb96e10" [label="/bin/sh -c mkdir /root/.ssh/" shape="box"];
+  "sha256:8f334335178f16f126716e6570c57b0d777d2e2eafe4ccefb45ac1908ad892b0" [label="/bin/sh -c touch /root/.ssh/environment" shape="box"];
+  "sha256:f6d20a0a07e2955ebeaebcbc4c1ab481c9fc4252ec38a6614957f465e694e822" [label="local://context" shape="ellipse"];
+  "sha256:5f537202085332b0df8c4268064d7b640068be7d0d96a881703f729e461e5cec" [label="copy{src=/requirements.txt, dest=/app/}" shape="note"];
+  "sha256:9f40331dd399fbdcd7636c0b68efced903eb0968eb77b9d3c627e04df3d38c3a" [label="mkdir{path=/app}" shape="note"];
+  "sha256:a24542c0dc8680feafbd0496a7fb83894b9c0f18ea18c021aa70ef4a6728903d" [label="/bin/sh -c apt-get install zlib1g-dev" shape="box"];
+  "sha256:a7f4f7cc547ac809182f2d2f8cf7745e3d4cfe7990b983173df1acfcbc32ea37" [label="/bin/sh -c pip install -r requirements.txt" shape="box"];
+  "sha256:6108a235d43cb2f75386474c585605aaff3869555ae18a772df228a64bf47f40" [label="sha256:6108a235d43cb2f75386474c585605aaff3869555ae18a772df228a64bf47f40" shape="plaintext"];
+  "sha256:868fdd9de755bc2b7af9cd6d1b11415d8cbcb83d39905725780923e17d39550c" -> "sha256:75553e12ccf92e247bcb45fd062cf684d8fca02d30ea55fd3691872e42eb9734" [label=""];
+  "sha256:75553e12ccf92e247bcb45fd062cf684d8fca02d30ea55fd3691872e42eb9734" -> "sha256:b5861dbfeda5b26c7a2df29ddab3087611d54e45ec2d59a18e193d892a98bf8c" [label=""];
+  "sha256:b5861dbfeda5b26c7a2df29ddab3087611d54e45ec2d59a18e193d892a98bf8c" -> "sha256:4ccef50425bf8b9ab8bba8ed00eb82dbe958aeafa2326f078ce8f5dd3afb12db" [label=""];
+  "sha256:4ccef50425bf8b9ab8bba8ed00eb82dbe958aeafa2326f078ce8f5dd3afb12db" -> "sha256:a28824263678b931b909317476d659ecd83d37ffc224e36432d4fcff814d3e8a" [label=""];
+  "sha256:a28824263678b931b909317476d659ecd83d37ffc224e36432d4fcff814d3e8a" -> "sha256:4d5b3a7d7ab02dcca6ffb5751cf5141b82671e62098a99e5e46f908cda2e732e" [label=""];
+  "sha256:4d5b3a7d7ab02dcca6ffb5751cf5141b82671e62098a99e5e46f908cda2e732e" -> "sha256:023dc7555f8aba3b445aa02baa7cb75dc65c581f391b0f6352fb3a6e517d7729" [label=""];
+  "sha256:023dc7555f8aba3b445aa02baa7cb75dc65c581f391b0f6352fb3a6e517d7729" -> "sha256:be486360c44fa1c88b6183dcf3642502815f2731f9405e3796bff86055e14769" [label=""];
+  "sha256:be486360c44fa1c88b6183dcf3642502815f2731f9405e3796bff86055e14769" -> "sha256:dae6d09bedd81b7d6c6f18a4e60a186f781e5fcc89b0d9ed3f0018d97413bfb8" [label=""];
+  "sha256:dae6d09bedd81b7d6c6f18a4e60a186f781e5fcc89b0d9ed3f0018d97413bfb8" -> "sha256:03490580e09088597a6f467293dbce1caaf7df4acc482a0c3d3e237e43746a4c" [label=""];
+  "sha256:03490580e09088597a6f467293dbce1caaf7df4acc482a0c3d3e237e43746a4c" -> "sha256:ea47aa9d32ff70fd88aaa37ca1f9e19586a492e7b39f4a30f9fc7cde2f54e6ea" [label=""];
+  "sha256:ea47aa9d32ff70fd88aaa37ca1f9e19586a492e7b39f4a30f9fc7cde2f54e6ea" -> "sha256:12e51ad1f8cb1fd988d56d59f72e2f3142594cb65e13414dff7ab63389cfdde2" [label=""];
+  "sha256:12e51ad1f8cb1fd988d56d59f72e2f3142594cb65e13414dff7ab63389cfdde2" -> "sha256:5645a9be5c6496f50883042355a0b498ebf79cd49f080861c564a294fa6d632a" [label=""];
+  "sha256:5645a9be5c6496f50883042355a0b498ebf79cd49f080861c564a294fa6d632a" -> "sha256:0d926a73845289c234edae7b765c9ec3ae480d922893d7a04bfd4cd8285178a0" [label=""];
+  "sha256:0d926a73845289c234edae7b765c9ec3ae480d922893d7a04bfd4cd8285178a0" -> "sha256:7cc07a1c82165e8ab8820f7dcaf1c0bc97b1b000078d5343a80b25631816fa68" [label=""];
+  "sha256:7cc07a1c82165e8ab8820f7dcaf1c0bc97b1b000078d5343a80b25631816fa68" -> "sha256:1ab7981fef7ba78b10e23b5291be2cd9304d4e01fe393a8594f1b067e090a607" [label=""];
+  "sha256:1ab7981fef7ba78b10e23b5291be2cd9304d4e01fe393a8594f1b067e090a607" -> "sha256:c425a55df94dac90d509743357d6d5aace4d5628401813fe9c0c1c146acd6ba1" [label=""];
+  "sha256:c425a55df94dac90d509743357d6d5aace4d5628401813fe9c0c1c146acd6ba1" -> "sha256:21862a48280a5292155451b0ec374fbe3bcc1b731274bcc406fc38ee713f0348" [label=""];
+  "sha256:21862a48280a5292155451b0ec374fbe3bcc1b731274bcc406fc38ee713f0348" -> "sha256:5a98ecc41bc8a8ebe37d8a85137a1d345f937e91770fe84ed2a7c6d2fbb96e10" [label=""];
+  "sha256:5a98ecc41bc8a8ebe37d8a85137a1d345f937e91770fe84ed2a7c6d2fbb96e10" -> "sha256:8f334335178f16f126716e6570c57b0d777d2e2eafe4ccefb45ac1908ad892b0" [label=""];
+  "sha256:8f334335178f16f126716e6570c57b0d777d2e2eafe4ccefb45ac1908ad892b0" -> "sha256:5f537202085332b0df8c4268064d7b640068be7d0d96a881703f729e461e5cec" [label=""];
+  "sha256:f6d20a0a07e2955ebeaebcbc4c1ab481c9fc4252ec38a6614957f465e694e822" -> "sha256:5f537202085332b0df8c4268064d7b640068be7d0d96a881703f729e461e5cec" [label=""];
+  "sha256:5f537202085332b0df8c4268064d7b640068be7d0d96a881703f729e461e5cec" -> "sha256:9f40331dd399fbdcd7636c0b68efced903eb0968eb77b9d3c627e04df3d38c3a" [label=""];
+  "sha256:9f40331dd399fbdcd7636c0b68efced903eb0968eb77b9d3c627e04df3d38c3a" -> "sha256:a24542c0dc8680feafbd0496a7fb83894b9c0f18ea18c021aa70ef4a6728903d" [label=""];
+  "sha256:a24542c0dc8680feafbd0496a7fb83894b9c0f18ea18c021aa70ef4a6728903d" -> "sha256:a7f4f7cc547ac809182f2d2f8cf7745e3d4cfe7990b983173df1acfcbc32ea37" [label=""];
+  "sha256:a7f4f7cc547ac809182f2d2f8cf7745e3d4cfe7990b983173df1acfcbc32ea37" -> "sha256:6108a235d43cb2f75386474c585605aaff3869555ae18a772df228a64bf47f40" [label=""];
+}
+

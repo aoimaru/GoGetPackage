@@ -1,0 +1,46 @@
+[app/sources/315177896.Dockerfile]
+digraph {
+  "sha256:6e9401fc3729e127d503a5b6e9c19c5f84552a416b003d089562558aef823a63" [label="docker-image://docker.io/percona/pmm-server:1.17.1@sha256:6bf9b76415409abce044c4eb8f3ddfe1794ae4707462e7a158a027b434bc47e4" shape="ellipse"];
+  "sha256:90e5809132c85dd8ef0c9422f2af0f7ea38b899ec94b478bdaf4754ad05fe868" [label="docker-image://docker.io/library/golang:1.11.1" shape="ellipse"];
+  "sha256:fcb95cccd7b0dfd049807f345b349d087618935c098c04e57533d0f9761347a2" [label="/bin/sh -c go get github.com/michaloo/go-cron" shape="box"];
+  "sha256:da3849a2e4756aada5769bd1b3340750fb63c4a08e4aa3adf3b72df0233de966" [label="/bin/sh -c mv bin/go-cron /usr/bin/go-cron" shape="box"];
+  "sha256:098a91cc711e66f03f7ddf1690f867320f5a83cae533e4050892292281e8e4cd" [label="copy{src=/usr/bin/go-cron, dest=/usr/bin/go-cron}" shape="note"];
+  "sha256:f8475b69d7ea2e8bea6fc381a686c2d8cf6e3e27f68c10002d1cae5c516f6f69" [label="local://context" shape="ellipse"];
+  "sha256:5ee5df1ac849026dc66ec70097ab610227fdff47c4104ab24d57a28c2b8ba2ff" [label="copy{src=/supervisord.conf-rootless, dest=/etc/supervisord.d/pmm.ini}" shape="note"];
+  "sha256:30a51c9d2eb78224d2157cd8e377634621c85ea48f914f4ca6dddba684f7250d" [label="copy{src=/entrypoint.sh-rootless, dest=/opt/entrypoint.sh}" shape="note"];
+  "sha256:9e4e6c844e534b0a0d79819f1bcba8bbc6cdb15662c6dafc69d438b21e230b01" [label="/bin/sh -c touch     /etc/percona-rds-exporter.yml     /var/log/mysql.log     /var/log/consul.log     /var/log/nginx.log     /var/log/cron1.log     /var/log/cron2.log     /var/log/qan-api.log     /var/log/logrotate.log     /var/log/prometheus.log     /var/log/prometheus1.log     /var/log/createdb.log     /var/log/createdb2.log     /var/log/createdb3.log     /var/log/orchestrator.log     /var/log/entrypoint.sh.log     /var/log/purge-qan-data.log     /var/log/dashboard-upgrade.log     /var/log/node_exporter.log     /var/log/pmm-manage.log     /var/log/pmm-managed.log" shape="box"];
+  "sha256:cd9a27301f5b4500ae079e84e15e8410c0f0596e79df0f7b665b2607caa04180" [label="/bin/sh -c chown -R pmm:pmm     /etc/grafana     /etc/supervisord.d     /etc/prometheus.yml     /etc/prometheus1.yml     /etc/orchestrator.conf.json     /etc/cron.daily/purge-qan-data     /var/log     /var/lib     /opt     /srv     /var/run/mysqld     /var/run/supervisor     /var/lib/mysql     /var/lib/grafana     /var/log/grafana     /usr/share/grafana/public/img     /var/log/supervisor     /usr/local/percona/qan-agent     /etc/percona-rds-exporter.yml     /var/log/mysql.log     /var/log/consul.log     /var/log/nginx.log     /var/log/cron1.log     /var/log/cron2.log     /var/log/qan-api.log     /var/log/logrotate.log     /var/log/prometheus.log     /var/log/prometheus1.log     /var/log/createdb.log     /var/log/createdb2.log     /var/log/createdb3.log     /var/log/orchestrator.log     /var/log/entrypoint.sh.log     /var/log/purge-qan-data.log     /var/log/dashboard-upgrade.log     /var/log/node_exporter.log     /var/log/pmm-manage.log     /var/log/pmm-managed.log" shape="box"];
+  "sha256:e7df7a75ca7f9b5231b29098269db01b32722c952db0ecd107c4b34e5abf9a21" [label="/bin/sh -c chmod -R g+w     /etc/grafana     /etc/supervisord.d     /etc/prometheus.yml     /etc/prometheus1.yml     /etc/orchestrator.conf.json     /etc/cron.daily/purge-qan-data     /var/log     /var/lib     /opt     /srv     /var/run/mysqld     /var/run/supervisor     /var/lib/mysql     /var/lib/grafana     /var/log/grafana     /usr/share/grafana/public/img     /var/log/supervisor     /usr/local/percona/qan-agent     /etc/percona-rds-exporter.yml     /var/log/mysql.log     /var/log/consul.log     /var/log/nginx.log     /var/log/cron1.log     /var/log/cron2.log     /var/log/qan-api.log     /var/log/logrotate.log     /var/log/prometheus.log     /var/log/prometheus1.log     /var/log/createdb.log     /var/log/createdb2.log     /var/log/createdb3.log     /var/log/orchestrator.log     /var/log/entrypoint.sh.log     /var/log/purge-qan-data.log     /var/log/dashboard-upgrade.log     /var/log/node_exporter.log     /var/log/pmm-manage.log     /var/log/pmm-managed.log" shape="box"];
+  "sha256:074c4b4cdb79a72dbcf64f4b1d68ad401652c6c2508253af58a383fefab84dcf" [label="/bin/sh -c chown pmm:pmm /etc/nginx/conf.d/pmm.conf     && chmod g+w /etc/nginx/conf.d/pmm.conf" shape="box"];
+  "sha256:f14a5e69acd2d2a1231b2cbd4e6f87484540549769093a731c644f893016e0ec" [label="/bin/sh -c chmod g+w /etc/passwd" shape="box"];
+  "sha256:a30454b44deef81b1243f9e531fe343a6c4b31cd87b003f7461bb8c19b8a4956" [label="/bin/sh -c chmod -R g+rwx     /var/lib/mysql     /var/lib/grafana" shape="box"];
+  "sha256:780d4894195694f1cf5d544689be1fcc63b8e5b9e91c353d3cab2079515c9c78" [label="/bin/sh -c chmod -R g+rwx     /etc/grafana     /home/pmm" shape="box"];
+  "sha256:bc161897541fac6d92dcb0ae49ef22fc1d4662e3d47fdfbcd029a0ea7974e35a" [label="/bin/sh -c printf \"[client]\\nuser=root\\n\" > /home/pmm/.my.cnf" shape="box"];
+  "sha256:6ff065701e5276be92f715d1e82db5e7182bebba9da3a048f773ea52ae5c224d" [label="/bin/sh -c sed -i -e 's^80^8080^; s^443^8443^' /etc/nginx/conf.d/pmm.conf" shape="box"];
+  "sha256:30d7988c31276c6d96f7978f7dfa8a7f4f1ae101406be2595ec8c888cd01d4b8" [label="/bin/sh -c sed -i -e 's^/run/nginx.pid^/var/run/nginx/nginx.pid^' /etc/nginx/nginx.conf" shape="box"];
+  "sha256:7ef2778860dcb32d2efc74bce34c14e1c2e28fbad6d4fc595cdf04183db55722" [label="/bin/sh -c install -o pmm -g pmm -m 0775 -d     /var/lib/nginx/tmp     /var/lib/nginx     /var/run/nginx     /var/log/nginx" shape="box"];
+  "sha256:18a0f67094170ec1d3d4eaf3b8f2347a32956c12ee7378f2cd5243d8711c14b6" [label="/bin/sh -c rm -rf /var/log/nginx/*.log" shape="box"];
+  "sha256:eecccb3786ec7e18978c1f0ab6a2a9ee8267a1067ae155e2eb99a3268ff4c1e0" [label="sha256:eecccb3786ec7e18978c1f0ab6a2a9ee8267a1067ae155e2eb99a3268ff4c1e0" shape="plaintext"];
+  "sha256:90e5809132c85dd8ef0c9422f2af0f7ea38b899ec94b478bdaf4754ad05fe868" -> "sha256:fcb95cccd7b0dfd049807f345b349d087618935c098c04e57533d0f9761347a2" [label=""];
+  "sha256:fcb95cccd7b0dfd049807f345b349d087618935c098c04e57533d0f9761347a2" -> "sha256:da3849a2e4756aada5769bd1b3340750fb63c4a08e4aa3adf3b72df0233de966" [label=""];
+  "sha256:6e9401fc3729e127d503a5b6e9c19c5f84552a416b003d089562558aef823a63" -> "sha256:098a91cc711e66f03f7ddf1690f867320f5a83cae533e4050892292281e8e4cd" [label=""];
+  "sha256:da3849a2e4756aada5769bd1b3340750fb63c4a08e4aa3adf3b72df0233de966" -> "sha256:098a91cc711e66f03f7ddf1690f867320f5a83cae533e4050892292281e8e4cd" [label=""];
+  "sha256:098a91cc711e66f03f7ddf1690f867320f5a83cae533e4050892292281e8e4cd" -> "sha256:5ee5df1ac849026dc66ec70097ab610227fdff47c4104ab24d57a28c2b8ba2ff" [label=""];
+  "sha256:f8475b69d7ea2e8bea6fc381a686c2d8cf6e3e27f68c10002d1cae5c516f6f69" -> "sha256:5ee5df1ac849026dc66ec70097ab610227fdff47c4104ab24d57a28c2b8ba2ff" [label=""];
+  "sha256:5ee5df1ac849026dc66ec70097ab610227fdff47c4104ab24d57a28c2b8ba2ff" -> "sha256:30a51c9d2eb78224d2157cd8e377634621c85ea48f914f4ca6dddba684f7250d" [label=""];
+  "sha256:f8475b69d7ea2e8bea6fc381a686c2d8cf6e3e27f68c10002d1cae5c516f6f69" -> "sha256:30a51c9d2eb78224d2157cd8e377634621c85ea48f914f4ca6dddba684f7250d" [label=""];
+  "sha256:30a51c9d2eb78224d2157cd8e377634621c85ea48f914f4ca6dddba684f7250d" -> "sha256:9e4e6c844e534b0a0d79819f1bcba8bbc6cdb15662c6dafc69d438b21e230b01" [label=""];
+  "sha256:9e4e6c844e534b0a0d79819f1bcba8bbc6cdb15662c6dafc69d438b21e230b01" -> "sha256:cd9a27301f5b4500ae079e84e15e8410c0f0596e79df0f7b665b2607caa04180" [label=""];
+  "sha256:cd9a27301f5b4500ae079e84e15e8410c0f0596e79df0f7b665b2607caa04180" -> "sha256:e7df7a75ca7f9b5231b29098269db01b32722c952db0ecd107c4b34e5abf9a21" [label=""];
+  "sha256:e7df7a75ca7f9b5231b29098269db01b32722c952db0ecd107c4b34e5abf9a21" -> "sha256:074c4b4cdb79a72dbcf64f4b1d68ad401652c6c2508253af58a383fefab84dcf" [label=""];
+  "sha256:074c4b4cdb79a72dbcf64f4b1d68ad401652c6c2508253af58a383fefab84dcf" -> "sha256:f14a5e69acd2d2a1231b2cbd4e6f87484540549769093a731c644f893016e0ec" [label=""];
+  "sha256:f14a5e69acd2d2a1231b2cbd4e6f87484540549769093a731c644f893016e0ec" -> "sha256:a30454b44deef81b1243f9e531fe343a6c4b31cd87b003f7461bb8c19b8a4956" [label=""];
+  "sha256:a30454b44deef81b1243f9e531fe343a6c4b31cd87b003f7461bb8c19b8a4956" -> "sha256:780d4894195694f1cf5d544689be1fcc63b8e5b9e91c353d3cab2079515c9c78" [label=""];
+  "sha256:780d4894195694f1cf5d544689be1fcc63b8e5b9e91c353d3cab2079515c9c78" -> "sha256:bc161897541fac6d92dcb0ae49ef22fc1d4662e3d47fdfbcd029a0ea7974e35a" [label=""];
+  "sha256:bc161897541fac6d92dcb0ae49ef22fc1d4662e3d47fdfbcd029a0ea7974e35a" -> "sha256:6ff065701e5276be92f715d1e82db5e7182bebba9da3a048f773ea52ae5c224d" [label=""];
+  "sha256:6ff065701e5276be92f715d1e82db5e7182bebba9da3a048f773ea52ae5c224d" -> "sha256:30d7988c31276c6d96f7978f7dfa8a7f4f1ae101406be2595ec8c888cd01d4b8" [label=""];
+  "sha256:30d7988c31276c6d96f7978f7dfa8a7f4f1ae101406be2595ec8c888cd01d4b8" -> "sha256:7ef2778860dcb32d2efc74bce34c14e1c2e28fbad6d4fc595cdf04183db55722" [label=""];
+  "sha256:7ef2778860dcb32d2efc74bce34c14e1c2e28fbad6d4fc595cdf04183db55722" -> "sha256:18a0f67094170ec1d3d4eaf3b8f2347a32956c12ee7378f2cd5243d8711c14b6" [label=""];
+  "sha256:18a0f67094170ec1d3d4eaf3b8f2347a32956c12ee7378f2cd5243d8711c14b6" -> "sha256:eecccb3786ec7e18978c1f0ab6a2a9ee8267a1067ae155e2eb99a3268ff4c1e0" [label=""];
+}
+

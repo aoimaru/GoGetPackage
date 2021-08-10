@@ -1,0 +1,32 @@
+[app/sources/443335325.Dockerfile]
+digraph {
+  "sha256:0a5f349eacf4edfd2fc1577c637ef52a2ed3280d9d5c0ab7f2e4c4052e7d6c9f" [label="docker-image://docker.io/library/ubuntu:latest" shape="ellipse"];
+  "sha256:41ecf0ce2ae0dc13a566c500469bf78d77311ee80a0d53db0a5fca0454f1a3be" [label="/bin/sh -c apt-get update &&     apt-get -y install sudo procps wget unzip mc curl &&     echo \"%sudo ALL=(ALL) NOPASSWD: ALL\" >> /etc/sudoers &&     useradd -u 1000 -G users,sudo -d /home/user --shell /bin/bash -m user &&     echo \"secret\\nsecret\" | passwd user" shape="box"];
+  "sha256:acf40d8aed6b359cb471733f895aabe3d075f4a5672303ebfbbd816d406f1ed9" [label="/bin/sh -c cd /home/user && wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - &&     wget -q http://chromedriver.storage.googleapis.com/2.24/chromedriver_linux64.zip &&     unzip -q chromedriver_linux64.zip && rm chromedriver_linux64.zip" shape="box"];
+  "sha256:9c06defe10863f8ca10a13d405c554529309c95fdef44ea3af06bb611b0d5adc" [label="/bin/sh -c echo \"deb http://dl.google.com/linux/chrome/deb/ stable main\" >> /etc/apt/sources.list.d/google-chrome.list" shape="box"];
+  "sha256:812d0e243187321d7c4dd236eaf76acbb1167f992cde082ea0ba7943894f49b0" [label="/bin/sh -c sudo apt-get update -qqy &&   sudo apt-get -qqy install   google-chrome-stable   supervisor   x11vnc   xvfb   subversion   net-tools   blackbox   rxvt-unicode   xfonts-terminus &&   sudo rm /etc/apt/sources.list.d/google-chrome.list   sudo rm -rf /var/lib/apt/lists/*" shape="box"];
+  "sha256:489cbed67276975ee4e24789bee71fcd0cebaeb39e4a5b33ec1075d4c543e480" [label="/bin/sh -c sudo mkdir -p /opt/noVNC/utils/websockify &&     wget -qO- \"http://github.com/kanaka/noVNC/tarball/master\" | sudo tar -zx --strip-components=1 -C /opt/noVNC &&     wget -qO- \"https://github.com/kanaka/websockify/tarball/master\" | sudo tar -zx --strip-components=1 -C /opt/noVNC/utils/websockify &&     sudo mkdir -p /etc/X11/blackbox &&     echo \"[begin] (Blackbox) \\n [exec] (Terminal)     {urxvt -fn \"xft:Terminus:size=14\"} \\n     [exec] (Chrome)     {/opt/google/chrome/google-chrome} \\n     [end]\" | sudo tee -a /etc/X11/blackbox/blackbox-menu" shape="box"];
+  "sha256:e04f801634bee3543f02beadd863ed969f24a687fb5ff7c501ebb56edeee3ec2" [label="local://context" shape="ellipse"];
+  "sha256:8335092226934caef3bc4f3b05791cae0e1f03056049dd085c902d95da78d041" [label="copy{src=/index.html, dest=/opt/noVNC/}" shape="note"];
+  "sha256:77758dd54043239e48ba395528dcd2a1c0642795f5730d8293b3a5e050cd6688" [label="copy{src=/supervisord.conf, dest=/opt/}" shape="note"];
+  "sha256:ff2e3b1785e603ecd590bbba9b7946ca64517f9c32b1ec85711e41babed80afa" [label="/bin/sh -c mkdir /home/user/cbuild /home/user/tomcat8 /home/user/apache-maven-$MAVEN_VERSION &&   wget   --no-cookies   --no-check-certificate   --header \"Cookie: oraclelicense=accept-securebackup-cookie\"   -qO-   \"http://download.oracle.com/otn-pub/java/jdk/$JAVA_VERSION-b14/jdk-$JAVA_VERSION-linux-x64.tar.gz\" | sudo tar -zx -C /opt/ &&   wget -qO- \"http://apache.ip-connect.vn.ua/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz\" | tar -zx --strip-components=1 -C /home/user/apache-maven-$MAVEN_VERSION/" shape="box"];
+  "sha256:da3abd2c8b26d66e561a19716eb70e169241845ff55aae48772d2e31510fb7a9" [label="/bin/sh -c wget -qO- \"http://archive.apache.org/dist/tomcat/tomcat-8/v8.0.24/bin/apache-tomcat-8.0.24.tar.gz\" | tar -zx --strip-components=1 -C /home/user/tomcat8 &&     rm -rf /home/user/tomcat8/webapps/*" shape="box"];
+  "sha256:018723880451a674a3b455ab2c707ffa2900a98ae0e1e56826061e1e04c8e3c4" [label="/bin/sh -c echo \"export JAVA_HOME=/opt/jdk$JAVA_VERSION_PREFIX\\nexport M2_HOME=/home/user/apache-maven-$MAVEN_VERSION\\nexport TOMCAT_HOME=/home/user/tomcat8\\nexport PATH=$JAVA_HOME/bin:$M2_HOME/bin:$PATH\" >> /home/user/.bashrc &&     sudo locale-gen en_US.UTF-8" shape="box"];
+  "sha256:92a6d9882c6571313e43e81c99335a0f27a7b645ca0eadb76ef1ac2872fd714f" [label="mkdir{path=/projects}" shape="note"];
+  "sha256:72d47a98b714f1e8c8966237e1ee799f2fd1b4569d0a5e0145f03e8277c0f893" [label="sha256:72d47a98b714f1e8c8966237e1ee799f2fd1b4569d0a5e0145f03e8277c0f893" shape="plaintext"];
+  "sha256:0a5f349eacf4edfd2fc1577c637ef52a2ed3280d9d5c0ab7f2e4c4052e7d6c9f" -> "sha256:41ecf0ce2ae0dc13a566c500469bf78d77311ee80a0d53db0a5fca0454f1a3be" [label=""];
+  "sha256:41ecf0ce2ae0dc13a566c500469bf78d77311ee80a0d53db0a5fca0454f1a3be" -> "sha256:acf40d8aed6b359cb471733f895aabe3d075f4a5672303ebfbbd816d406f1ed9" [label=""];
+  "sha256:acf40d8aed6b359cb471733f895aabe3d075f4a5672303ebfbbd816d406f1ed9" -> "sha256:9c06defe10863f8ca10a13d405c554529309c95fdef44ea3af06bb611b0d5adc" [label=""];
+  "sha256:9c06defe10863f8ca10a13d405c554529309c95fdef44ea3af06bb611b0d5adc" -> "sha256:812d0e243187321d7c4dd236eaf76acbb1167f992cde082ea0ba7943894f49b0" [label=""];
+  "sha256:812d0e243187321d7c4dd236eaf76acbb1167f992cde082ea0ba7943894f49b0" -> "sha256:489cbed67276975ee4e24789bee71fcd0cebaeb39e4a5b33ec1075d4c543e480" [label=""];
+  "sha256:489cbed67276975ee4e24789bee71fcd0cebaeb39e4a5b33ec1075d4c543e480" -> "sha256:8335092226934caef3bc4f3b05791cae0e1f03056049dd085c902d95da78d041" [label=""];
+  "sha256:e04f801634bee3543f02beadd863ed969f24a687fb5ff7c501ebb56edeee3ec2" -> "sha256:8335092226934caef3bc4f3b05791cae0e1f03056049dd085c902d95da78d041" [label=""];
+  "sha256:8335092226934caef3bc4f3b05791cae0e1f03056049dd085c902d95da78d041" -> "sha256:77758dd54043239e48ba395528dcd2a1c0642795f5730d8293b3a5e050cd6688" [label=""];
+  "sha256:e04f801634bee3543f02beadd863ed969f24a687fb5ff7c501ebb56edeee3ec2" -> "sha256:77758dd54043239e48ba395528dcd2a1c0642795f5730d8293b3a5e050cd6688" [label=""];
+  "sha256:77758dd54043239e48ba395528dcd2a1c0642795f5730d8293b3a5e050cd6688" -> "sha256:ff2e3b1785e603ecd590bbba9b7946ca64517f9c32b1ec85711e41babed80afa" [label=""];
+  "sha256:ff2e3b1785e603ecd590bbba9b7946ca64517f9c32b1ec85711e41babed80afa" -> "sha256:da3abd2c8b26d66e561a19716eb70e169241845ff55aae48772d2e31510fb7a9" [label=""];
+  "sha256:da3abd2c8b26d66e561a19716eb70e169241845ff55aae48772d2e31510fb7a9" -> "sha256:018723880451a674a3b455ab2c707ffa2900a98ae0e1e56826061e1e04c8e3c4" [label=""];
+  "sha256:018723880451a674a3b455ab2c707ffa2900a98ae0e1e56826061e1e04c8e3c4" -> "sha256:92a6d9882c6571313e43e81c99335a0f27a7b645ca0eadb76ef1ac2872fd714f" [label=""];
+  "sha256:92a6d9882c6571313e43e81c99335a0f27a7b645ca0eadb76ef1ac2872fd714f" -> "sha256:72d47a98b714f1e8c8966237e1ee799f2fd1b4569d0a5e0145f03e8277c0f893" [label=""];
+}
+

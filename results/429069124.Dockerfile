@@ -1,0 +1,23 @@
+[app/sources/429069124.Dockerfile]
+digraph {
+  "sha256:82ef21914ff75d896d3d8ea36e79a4667a59491f6818c7395c1ee7cccff477ae" [label="docker-image://docker.io/nfnty/arch-mini:latest" shape="ellipse"];
+  "sha256:3d319946759e62b2b9e8e531fcfefbee09be7c069a010fc7883ec8ba46b75b72" [label="/bin/sh -c pacman -Sy --noconfirm --noprogressbar archlinux-keyring     && pacman-key --populate     && pacman -Su --noconfirm --noprogressbar pacman     && pacman-db-upgrade     && pacman -Su --noconfirm --noprogressbar ca-certificates     && trust extract-compat     && pacman -Syyu --noconfirm --noprogressbar     && (echo -e \"y\\ny\\n\" | pacman -Scc)" shape="box"];
+  "sha256:cf8525bbbf030d3019e87dec4ed77340e35db7480cbed9710853b42387b90650" [label="/bin/sh -c echo \"[archlinuxfr]\" >> /etc/pacman.conf &&     echo \"SigLevel = Never\" >> /etc/pacman.conf &&     echo \"Server = http://repo.archlinux.fr/x86_64\" >> /etc/pacman.conf &&    pacman -Sy" shape="box"];
+  "sha256:27c03f064b12b25fef13ded98a471e2b3f6d6c3d19e16c3928702e7e8226635e" [label="/bin/sh -c pacman -S --noconfirm --noprogressbar         make         git         sudo         wget         yaourt         awk         sudo         fakeroot         file         patch         ninja     && (echo -e \"y\\ny\\n\" | pacman -Scc)" shape="box"];
+  "sha256:c9950d00da8af03bee6a274a30bb84198a82f8b6d0138c47211394f05fe5d343" [label="/bin/sh -c echo \"[mingw-w64]\" >> /etc/pacman.conf     && echo \"SigLevel = Optional TrustAll\" >> /etc/pacman.conf     && echo \"Server = http://downloads.sourceforge.net/project/mingw-w64-archlinux/\\$arch\" >> /etc/pacman.conf     && pacman -Sy" shape="box"];
+  "sha256:63d9243df61343b4d0fac5e8850a0225db34d3d530ab4d182bf987ba737a474f" [label="/bin/sh -c pacman -S --noconfirm --noprogressbar         mingw-w64-binutils         mingw-w64-boost         mingw-w64-cmake         mingw-w64-crt         mingw-w64-curl         mingw-w64-fontconfig         mingw-w64-freetype2         mingw-w64-gcc         mingw-w64-headers         mingw-w64-libiconv         mingw-w64-libpng         mingw-w64-openssl         mingw-w64-pkg-config         mingw-w64-sdl2         mingw-w64-sdl2_ttf         mingw-w64-tools         mingw-w64-winpthreads         mingw-w64-zlib     && (echo -e \"y\\ny\\n\" | pacman -Scc)" shape="box"];
+  "sha256:8c035f65adbdb6e750125dceb5cf1ac189d26c3341d8cb087649b0a9c8e2e725" [label="/bin/sh -c useradd --create-home --comment \"Arch Build User\" build &&     groupadd sudo &&     echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers;     echo 'Defaults:nobody !requiretty' >> /etc/sudoers;     gpasswd -a build sudo" shape="box"];
+  "sha256:fb108e88cf0666081c61a916277da6695058adc2823f4304f0eb3315eea788e3" [label="mkdir{path=/tmp}" shape="note"];
+  "sha256:41f30e9b476f1024a94d33e7fb89c40498c0e111176794a68486c6faab81f398" [label="/bin/sh -c yaourt -S --noconfirm --noprogressbar         mingw-w64-jansson         aur/mingw-w64-libzip         aur/mingw-w64-speexdsp     && (echo -e \"y\\ny\\n\" | sudo pacman -Scc)" shape="box"];
+  "sha256:5573195ade48de7d4d04299cdc8641b72f08ff1bfe66d412000d4a57d9debf0c" [label="sha256:5573195ade48de7d4d04299cdc8641b72f08ff1bfe66d412000d4a57d9debf0c" shape="plaintext"];
+  "sha256:82ef21914ff75d896d3d8ea36e79a4667a59491f6818c7395c1ee7cccff477ae" -> "sha256:3d319946759e62b2b9e8e531fcfefbee09be7c069a010fc7883ec8ba46b75b72" [label=""];
+  "sha256:3d319946759e62b2b9e8e531fcfefbee09be7c069a010fc7883ec8ba46b75b72" -> "sha256:cf8525bbbf030d3019e87dec4ed77340e35db7480cbed9710853b42387b90650" [label=""];
+  "sha256:cf8525bbbf030d3019e87dec4ed77340e35db7480cbed9710853b42387b90650" -> "sha256:27c03f064b12b25fef13ded98a471e2b3f6d6c3d19e16c3928702e7e8226635e" [label=""];
+  "sha256:27c03f064b12b25fef13ded98a471e2b3f6d6c3d19e16c3928702e7e8226635e" -> "sha256:c9950d00da8af03bee6a274a30bb84198a82f8b6d0138c47211394f05fe5d343" [label=""];
+  "sha256:c9950d00da8af03bee6a274a30bb84198a82f8b6d0138c47211394f05fe5d343" -> "sha256:63d9243df61343b4d0fac5e8850a0225db34d3d530ab4d182bf987ba737a474f" [label=""];
+  "sha256:63d9243df61343b4d0fac5e8850a0225db34d3d530ab4d182bf987ba737a474f" -> "sha256:8c035f65adbdb6e750125dceb5cf1ac189d26c3341d8cb087649b0a9c8e2e725" [label=""];
+  "sha256:8c035f65adbdb6e750125dceb5cf1ac189d26c3341d8cb087649b0a9c8e2e725" -> "sha256:fb108e88cf0666081c61a916277da6695058adc2823f4304f0eb3315eea788e3" [label=""];
+  "sha256:fb108e88cf0666081c61a916277da6695058adc2823f4304f0eb3315eea788e3" -> "sha256:41f30e9b476f1024a94d33e7fb89c40498c0e111176794a68486c6faab81f398" [label=""];
+  "sha256:41f30e9b476f1024a94d33e7fb89c40498c0e111176794a68486c6faab81f398" -> "sha256:5573195ade48de7d4d04299cdc8641b72f08ff1bfe66d412000d4a57d9debf0c" [label=""];
+}
+

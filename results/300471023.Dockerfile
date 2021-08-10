@@ -1,0 +1,7 @@
+[app/sources/300471023.Dockerfile]
+digraph {
+  "sha256:b1e17e8d705564fbf662b12152f0c197de564857d8e84f39fb4543b186adeb6f" [label="docker-image://quay.io/coreos/etcd:v2.0.4@sha256:bca90a0df8224b576d4fcf89dec101105b6704d7c783259cfdc90618f76326f0" shape="ellipse"];
+  "sha256:4e06d9f638a8b40f1f063c4b804b15e60e0a80399acfb59928f5986a488e3d8b" [label="sha256:4e06d9f638a8b40f1f063c4b804b15e60e0a80399acfb59928f5986a488e3d8b" shape="plaintext"];
+  "sha256:b1e17e8d705564fbf662b12152f0c197de564857d8e84f39fb4543b186adeb6f" -> "sha256:4e06d9f638a8b40f1f063c4b804b15e60e0a80399acfb59928f5986a488e3d8b" [label=""];
+}
+

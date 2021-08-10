@@ -1,0 +1,9 @@
+[app/sources/168685766.Dockerfile]
+digraph {
+  "sha256:aa8c6d466deae7796ca5acc9ee07db5f1691ec651f8a5cef6452ac9e82cb2f83" [label="docker-image://docker.io/library/alpine:3.2" shape="ellipse"];
+  "sha256:728cf431ab88cab71e8d1acb7082b84f55bc3d4e17b758e746667db3ccac2e80" [label="/bin/sh -c apk add --update wget ca-certificates &&     cd /tmp &&     wget \"https://circle-artifacts.com/gh/andyshinn/alpine-pkg-glibc/6/artifacts/0/home/ubuntu/alpine-pkg-glibc/packages/x86_64/glibc-2.21-r2.apk\"          \"https://circle-artifacts.com/gh/andyshinn/alpine-pkg-glibc/6/artifacts/0/home/ubuntu/alpine-pkg-glibc/packages/x86_64/glibc-bin-2.21-r2.apk\" &&     apk add --allow-untrusted glibc-2.21-r2.apk glibc-bin-2.21-r2.apk &&     /usr/glibc/usr/bin/ldconfig /lib /usr/glibc/usr/lib &&     echo 'hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4' >> /etc/nsswitch.conf &&     mkdir /opt &&     wget http://www.java.net/download/jdk8u60/archive/b18/binaries/jre-8u60-ea-bin-b18-linux-x64-02_jun_2015.tar.gz -O /tmp/${JRE}.tgz &&     cd /opt && tar zxvf /tmp/${JRE}.tgz &&     ln -s /opt/${JRE} /opt/jre &&     ln -s /opt/jre/bin/java /usr/bin/java &&     apk del wget ca-certificates &&     cd /opt/jre/lib/amd64 && rm libjavafx_* libjfx* libfx* &&     cd /opt/jre/lib/ && rm -rf ext/jfxrt.jar jfxswt.jar javafx.properties font* &&     rm /tmp/* /var/cache/apk/*" shape="box"];
+  "sha256:bd62f9a423750ca872d02fe38a81b60d00fe0e634fcbe2ad6bfe1683c5747069" [label="sha256:bd62f9a423750ca872d02fe38a81b60d00fe0e634fcbe2ad6bfe1683c5747069" shape="plaintext"];
+  "sha256:aa8c6d466deae7796ca5acc9ee07db5f1691ec651f8a5cef6452ac9e82cb2f83" -> "sha256:728cf431ab88cab71e8d1acb7082b84f55bc3d4e17b758e746667db3ccac2e80" [label=""];
+  "sha256:728cf431ab88cab71e8d1acb7082b84f55bc3d4e17b758e746667db3ccac2e80" -> "sha256:bd62f9a423750ca872d02fe38a81b60d00fe0e634fcbe2ad6bfe1683c5747069" [label=""];
+}
+

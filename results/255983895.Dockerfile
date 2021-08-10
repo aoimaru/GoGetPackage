@@ -1,0 +1,15 @@
+[app/sources/255983895.Dockerfile]
+digraph {
+  "sha256:7916570f3bd2677e6fbe94235182a149db9f1955f24594cb90531e0db3a646ca" [label="docker-image://docker.io/library/teamcity-minimal-agent:latest" shape="ellipse"];
+  "sha256:9d25524227dc5e67bbbf195af9148881a761258b90a62ab4c0affad0a8904ac5" [label="/bin/sh -c apt-get update &&     apt-get install -y git mercurial apt-transport-https ca-certificates software-properties-common &&         curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - &&     add-apt-repository \"deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable\" &&         apt-cache policy docker-ce &&     apt-get update &&     apt-get install -y docker-ce=18.06.1~ce~3-0~ubuntu systemd &&     systemctl disable docker &&     curl -SL https://github.com/docker/compose/releases/download/1.23.2/docker-compose-Linux-x86_64 -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose &&         apt-get install -y --no-install-recommends             libc6             libgcc1             libgssapi-krb5-2             libicu60             liblttng-ust0             libssl1.0.0             libstdc++6             zlib1g         && rm -rf /var/lib/apt/lists/* &&         curl -SL https://dotnetcli.blob.core.windows.net/dotnet/Sdk/$DOTNET_SDK_VERSION/dotnet-sdk-$DOTNET_SDK_VERSION-linux-x64.tar.gz --output dotnet.tar.gz         && mkdir -p /usr/share/dotnet         && tar -zxf dotnet.tar.gz -C /usr/share/dotnet         && rm dotnet.tar.gz         && find /usr/share/dotnet -name \"*.lzma\" -type f -delete         && ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet &&         apt-get clean all &&         usermod -aG docker buildagent" shape="box"];
+  "sha256:2aaffae9f5548fe9073d697b21661792abfe0e705853d5a2b019930129706d67" [label="local://context" shape="ellipse"];
+  "sha256:bb1f8e410d7220bce7e270ef330d7ed620c8467a9a0f1a9ddb926e60e2da97bd" [label="copy{src=/run-docker.sh, dest=/services/run-docker.sh}" shape="note"];
+  "sha256:6693dc6f126f5e45c7517b86211a68681e9daa8237dca2cb71a409cc780c7dae" [label="/bin/sh -c dotnet help" shape="box"];
+  "sha256:1b5bf8115a44a298065192062c5174fd9bd0fed2397c74f3feb9d0c6f914d50b" [label="sha256:1b5bf8115a44a298065192062c5174fd9bd0fed2397c74f3feb9d0c6f914d50b" shape="plaintext"];
+  "sha256:7916570f3bd2677e6fbe94235182a149db9f1955f24594cb90531e0db3a646ca" -> "sha256:9d25524227dc5e67bbbf195af9148881a761258b90a62ab4c0affad0a8904ac5" [label=""];
+  "sha256:9d25524227dc5e67bbbf195af9148881a761258b90a62ab4c0affad0a8904ac5" -> "sha256:bb1f8e410d7220bce7e270ef330d7ed620c8467a9a0f1a9ddb926e60e2da97bd" [label=""];
+  "sha256:2aaffae9f5548fe9073d697b21661792abfe0e705853d5a2b019930129706d67" -> "sha256:bb1f8e410d7220bce7e270ef330d7ed620c8467a9a0f1a9ddb926e60e2da97bd" [label=""];
+  "sha256:bb1f8e410d7220bce7e270ef330d7ed620c8467a9a0f1a9ddb926e60e2da97bd" -> "sha256:6693dc6f126f5e45c7517b86211a68681e9daa8237dca2cb71a409cc780c7dae" [label=""];
+  "sha256:6693dc6f126f5e45c7517b86211a68681e9daa8237dca2cb71a409cc780c7dae" -> "sha256:1b5bf8115a44a298065192062c5174fd9bd0fed2397c74f3feb9d0c6f914d50b" [label=""];
+}
+

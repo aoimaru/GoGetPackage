@@ -1,0 +1,7 @@
+[app/sources/252784406.Dockerfile]
+digraph {
+  "sha256:3af25574bb0c7d6b1f0f10805f63619a716f5b79127912a5a500cbdf92e57c40" [label="docker-image://docker.io/heroku/heroku:16@sha256:291ab126e030d99ebad27e6e9c19c9782bbcdaea418170b7c2dab165ef749e0f" shape="ellipse"];
+  "sha256:9390108a7da16bb8ef19c42ec703f31157b50894f52e4cc0f28735c5d0c019cf" [label="sha256:9390108a7da16bb8ef19c42ec703f31157b50894f52e4cc0f28735c5d0c019cf" shape="plaintext"];
+  "sha256:3af25574bb0c7d6b1f0f10805f63619a716f5b79127912a5a500cbdf92e57c40" -> "sha256:9390108a7da16bb8ef19c42ec703f31157b50894f52e4cc0f28735c5d0c019cf" [label=""];
+}
+

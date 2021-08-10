@@ -1,0 +1,23 @@
+[app/sources/155409649.Dockerfile]
+digraph {
+  "sha256:84e0d76a916a2a3cdcd616c815ba83581e08f4f5ed6068d3816af23f45c008d8" [label="docker-image://docker.io/library/golang:1.12" shape="ellipse"];
+  "sha256:e8d10f163f613bfefd33106abc5c2705390546240ba293f1939c0a9cff43bc0b" [label="/bin/sh -c mkdir -p /src" shape="box"];
+  "sha256:9237ac4d4885e7a8b54359fcb0d09edafb8992e637f957bdb2da40cd7e9fa641" [label="mkdir{path=/src}" shape="note"];
+  "sha256:a5cced39e120a1c6c70c338d6943e841b15f9cea4ffac427ca13270f6c12f497" [label="local://context" shape="ellipse"];
+  "sha256:280f5978c88bf6630ab8537e921c51ee8254d6a7b88ccb5f53c668baa8324c59" [label="copy{src=/go.mod, dest=/src/}" shape="note"];
+  "sha256:3a777b5237c24e1752c9ed3412ef335c6bfb912cd5ec052179569c9d3139b736" [label="copy{src=/go.sum, dest=/src/}" shape="note"];
+  "sha256:7c81bbd9358ab13158b5b36d8a071decc959f106118d6b8f08b90dbc83ddade5" [label="/bin/sh -c go mod download" shape="box"];
+  "sha256:ba09b83c518742fd4211d7ec4e511c895e42343ecc34321cf50dd70cbad3c957" [label="copy{src=/, dest=/src/}" shape="note"];
+  "sha256:82458a186fc7a1686a696f7212d191474e305113e2f92ebbcc0461d5e9eb6b50" [label="sha256:82458a186fc7a1686a696f7212d191474e305113e2f92ebbcc0461d5e9eb6b50" shape="plaintext"];
+  "sha256:84e0d76a916a2a3cdcd616c815ba83581e08f4f5ed6068d3816af23f45c008d8" -> "sha256:e8d10f163f613bfefd33106abc5c2705390546240ba293f1939c0a9cff43bc0b" [label=""];
+  "sha256:e8d10f163f613bfefd33106abc5c2705390546240ba293f1939c0a9cff43bc0b" -> "sha256:9237ac4d4885e7a8b54359fcb0d09edafb8992e637f957bdb2da40cd7e9fa641" [label=""];
+  "sha256:9237ac4d4885e7a8b54359fcb0d09edafb8992e637f957bdb2da40cd7e9fa641" -> "sha256:280f5978c88bf6630ab8537e921c51ee8254d6a7b88ccb5f53c668baa8324c59" [label=""];
+  "sha256:a5cced39e120a1c6c70c338d6943e841b15f9cea4ffac427ca13270f6c12f497" -> "sha256:280f5978c88bf6630ab8537e921c51ee8254d6a7b88ccb5f53c668baa8324c59" [label=""];
+  "sha256:280f5978c88bf6630ab8537e921c51ee8254d6a7b88ccb5f53c668baa8324c59" -> "sha256:3a777b5237c24e1752c9ed3412ef335c6bfb912cd5ec052179569c9d3139b736" [label=""];
+  "sha256:a5cced39e120a1c6c70c338d6943e841b15f9cea4ffac427ca13270f6c12f497" -> "sha256:3a777b5237c24e1752c9ed3412ef335c6bfb912cd5ec052179569c9d3139b736" [label=""];
+  "sha256:3a777b5237c24e1752c9ed3412ef335c6bfb912cd5ec052179569c9d3139b736" -> "sha256:7c81bbd9358ab13158b5b36d8a071decc959f106118d6b8f08b90dbc83ddade5" [label=""];
+  "sha256:7c81bbd9358ab13158b5b36d8a071decc959f106118d6b8f08b90dbc83ddade5" -> "sha256:ba09b83c518742fd4211d7ec4e511c895e42343ecc34321cf50dd70cbad3c957" [label=""];
+  "sha256:a5cced39e120a1c6c70c338d6943e841b15f9cea4ffac427ca13270f6c12f497" -> "sha256:ba09b83c518742fd4211d7ec4e511c895e42343ecc34321cf50dd70cbad3c957" [label=""];
+  "sha256:ba09b83c518742fd4211d7ec4e511c895e42343ecc34321cf50dd70cbad3c957" -> "sha256:82458a186fc7a1686a696f7212d191474e305113e2f92ebbcc0461d5e9eb6b50" [label=""];
+}
+

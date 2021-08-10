@@ -1,0 +1,7 @@
+[app/sources/300447538.Dockerfile]
+digraph {
+  "sha256:b0f52ad560e815354b0b8c6b9ceb55e050153bf241fb6dc8d2c6b6bcec7d7cd7" [label="docker-image://gcr.io/istio-release/citadel:release-1.1-20181120-09-15@sha256:56590534ede85707c24bf0c2cfce881d46bafffebb36e1d46bac4d9b038e907b" shape="ellipse"];
+  "sha256:8960d071150990303c8ecbf4f1480a39c1185f426401b2b200314ff965514d3f" [label="sha256:8960d071150990303c8ecbf4f1480a39c1185f426401b2b200314ff965514d3f" shape="plaintext"];
+  "sha256:b0f52ad560e815354b0b8c6b9ceb55e050153bf241fb6dc8d2c6b6bcec7d7cd7" -> "sha256:8960d071150990303c8ecbf4f1480a39c1185f426401b2b200314ff965514d3f" [label=""];
+}
+

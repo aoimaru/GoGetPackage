@@ -1,0 +1,20 @@
+[app/sources/198551916.Dockerfile]
+digraph {
+  "sha256:96855e8c6138f5579f041ec326d9e7e24c77bfceed0c4d87af39763efc3f49bd" [label="docker-image://docker.io/library/postgres:9.6-alpine" shape="ellipse"];
+  "sha256:9e19486b40e0d02bdc76ccceea10f493754393945d69c9190e5d4687f73216d4" [label="/bin/sh -c apk add --no-cache protobuf-c-dev" shape="box"];
+  "sha256:e0222711932eddeaf05c16745250ae4a4f26b916fa40cbb4ec7ec8456fa8312f" [label="/bin/sh -c if [ \"$USE_POSTGIS\" != \"false\" ]; then         apk add --no-cache --virtual .debezium-build-deps autoconf automake curl file gcc g++ git libtool make musl-dev pkgconf tar         && apk add --no-cache json-c libxml2-dev         && apk add --no-cache --repository 'http://dl-cdn.alpinelinux.org/alpine/edge/main'             --repository 'http://dl-cdn.alpinelinux.org/alpine/edge/testing'             gdal-dev geos-dev         && curl -fSL \"http://download.osgeo.org/proj/proj-$PROJ4_VERSION.tar.gz\" >proj4.tar.gz         && mkdir proj4         && tar -xf proj4.tar.gz -C proj4 --strip-components=1         && (cd /proj4 && ./configure && make && make install)         && curl -fSL \"https://github.com/postgis/postgis/archive/${POSTGIS_VERSION}.tar.gz\" >postgis.tar.gz         && mkdir postgis         && tar -xf postgis.tar.gz -C postgis --strip-components=1         && (cd /postgis && ./autogen.sh && ./configure && make && make install)         && rm -rf postgis postgis.tar.gz         && apk del .debezium-build-deps;     fi" shape="box"];
+  "sha256:b24f0661bd09e8478986e024d0176ded91f0accae2dcc0157ad1fd0fb8ee349e" [label="/bin/sh -c apk add --no-cache --virtual .debezium-build-deps gcc git make musl-dev pkgconf     && git clone https://github.com/debezium/postgres-decoderbufs -b $PLUGIN_VERSION --single-branch     && (cd /postgres-decoderbufs && make && make install)     && rm -rf postgres-decoderbufs     && git clone https://github.com/eulerto/wal2json -b master --single-branch     && (cd /wal2json && git checkout $WAL2JSON_COMMIT_ID && make && make install)     && rm -rf wal2json     && apk del .debezium-build-deps" shape="box"];
+  "sha256:83a5c24f98aec9fbea6d0b0abf864283c2472e91d304d03ad6b5812c2f26f8f3" [label="local://context" shape="ellipse"];
+  "sha256:b62a64118b8135ce1175c631dd7435a3b6912991780c1078b9d72c378824d67c" [label="copy{src=/postgresql.conf.sample, dest=/usr/local/share/postgresql/postgresql.conf.sample}" shape="note"];
+  "sha256:6a4e48d1ee6544f2000738c4a3e54ddb4a99237235634bb6d5a3ab8588a4a39f" [label="copy{src=/docker-entrypoint-initdb.d, dest=/docker-entrypoint-initdb.d}" shape="note"];
+  "sha256:ddc0f7a61b175630be4a08b347a9ea1e8d4409785188bec01268003f5ad6dc94" [label="sha256:ddc0f7a61b175630be4a08b347a9ea1e8d4409785188bec01268003f5ad6dc94" shape="plaintext"];
+  "sha256:96855e8c6138f5579f041ec326d9e7e24c77bfceed0c4d87af39763efc3f49bd" -> "sha256:9e19486b40e0d02bdc76ccceea10f493754393945d69c9190e5d4687f73216d4" [label=""];
+  "sha256:9e19486b40e0d02bdc76ccceea10f493754393945d69c9190e5d4687f73216d4" -> "sha256:e0222711932eddeaf05c16745250ae4a4f26b916fa40cbb4ec7ec8456fa8312f" [label=""];
+  "sha256:e0222711932eddeaf05c16745250ae4a4f26b916fa40cbb4ec7ec8456fa8312f" -> "sha256:b24f0661bd09e8478986e024d0176ded91f0accae2dcc0157ad1fd0fb8ee349e" [label=""];
+  "sha256:b24f0661bd09e8478986e024d0176ded91f0accae2dcc0157ad1fd0fb8ee349e" -> "sha256:b62a64118b8135ce1175c631dd7435a3b6912991780c1078b9d72c378824d67c" [label=""];
+  "sha256:83a5c24f98aec9fbea6d0b0abf864283c2472e91d304d03ad6b5812c2f26f8f3" -> "sha256:b62a64118b8135ce1175c631dd7435a3b6912991780c1078b9d72c378824d67c" [label=""];
+  "sha256:b62a64118b8135ce1175c631dd7435a3b6912991780c1078b9d72c378824d67c" -> "sha256:6a4e48d1ee6544f2000738c4a3e54ddb4a99237235634bb6d5a3ab8588a4a39f" [label=""];
+  "sha256:83a5c24f98aec9fbea6d0b0abf864283c2472e91d304d03ad6b5812c2f26f8f3" -> "sha256:6a4e48d1ee6544f2000738c4a3e54ddb4a99237235634bb6d5a3ab8588a4a39f" [label=""];
+  "sha256:6a4e48d1ee6544f2000738c4a3e54ddb4a99237235634bb6d5a3ab8588a4a39f" -> "sha256:ddc0f7a61b175630be4a08b347a9ea1e8d4409785188bec01268003f5ad6dc94" [label=""];
+}
+

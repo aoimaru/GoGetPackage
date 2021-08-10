@@ -1,0 +1,52 @@
+[app/sources/231579904.Dockerfile]
+digraph {
+  "sha256:13b86560ec72be1af3a61870f362939873bbd6966fad043b43d8292343145c19" [label="docker-image://docker.io/library/ruby:2.3" shape="ellipse"];
+  "sha256:19d158cb9a47c6ad65d26cf514729f541064283b215bc34d59f9cbfbc67f9c35" [label="/bin/sh -c apt-get update && apt-get install -y --no-install-recommends -q build-essential ca-certificates git rpm" shape="box"];
+  "sha256:9a8f0cf361df0ae93e38705d40e950410d806249e06c8dcc439eda45a1252067" [label="/bin/sh -c gem install --quiet --no-document fpm" shape="box"];
+  "sha256:356a1fe00b56a516933008e71e524846960bfd5ce15704fee07da74f85ac3bb0" [label="/bin/sh -c gem install --quiet --no-document package_cloud" shape="box"];
+  "sha256:6f0a2e694c343e5180fc5d095e17ace264a98bc4a6ff7444bb1512ffec04c4a8" [label="/bin/sh -c mkdir /build" shape="box"];
+  "sha256:a82e7969e3734b7f652afd0357f947334339d6a5b2cf101852fb69d77ee5bac0" [label="/bin/sh -c mkdir -p /source/www   && mkdir -p /source/usr/local/man/man1" shape="box"];
+  "sha256:407f5d379a92852f20e056009913fcf2a955d195bc8504850031c23329884955" [label="docker-image://docker.io/library/golang:latest" shape="ellipse"];
+  "sha256:928021a8c8faf5bf9c311b05bb66d8a28c73cec832bf12aa944fd28b75f26d55" [label="/bin/sh -c go get -u github.com/golang/dep/cmd/dep" shape="box"];
+  "sha256:9563966f1dfc3fabf79b21fdb3ecf25eeb45ecc5e85667f4cfeada694841c808" [label="mkdir{path=/go/src/github.com/nbari/www}" shape="note"];
+  "sha256:2f32e236861afe99549fabf4ad815860169e4628006bbea1e325b6c7bc4cea93" [label="local://context" shape="ellipse"];
+  "sha256:bb7447750b6fc5c134c21313a2ec1966042b791b3fde809a3ab784fffbc97902" [label="copy{src=/, dest=/go/src/github.com/nbari/www/}" shape="note"];
+  "sha256:b20466e70c068f4daf0f25c1d5b44c1c413e083049fdc546863fe8892704f43c" [label="/bin/sh -c dep ensure --vendor-only" shape="box"];
+  "sha256:6cd09d9f0e0908918c59e7384e44ffbd13d74438f516f2777c65ec32d7007a58" [label="/bin/sh -c go test -race -v" shape="box"];
+  "sha256:5040bef84d2b044575f060063bcc3c605fe8c2eef335118c3c56f2394b9869a5" [label="/bin/sh -c make build-linux" shape="box"];
+  "sha256:40e39b8e6c570b750affdba907fd87330f1694b6ded5e213f3b46bf70c56cacf" [label="/bin/sh -c mv man /" shape="box"];
+  "sha256:5ac25731ac4784171e1ad4d2cd47bff47cd8658a8cfb0e9ac97a2528db462066" [label="/bin/sh -c mv build /" shape="box"];
+  "sha256:37ec9dd385829259257659e07057761e0ba5fe7f4e984b2678d9078c77287ace" [label="copy{src=/build, dest=/build}" shape="note"];
+  "sha256:5573f91d686d6862f7b61459ffc54cac90cf7f17482455909b92972ffbd8726a" [label="copy{src=/man/*, dest=/source/usr/local/man/man1/}" shape="note"];
+  "sha256:9e56de96fe627b2fc7f996ec46b19ef6a19ef2ff14bd8e4bc750340f81dea32c" [label="/bin/sh -c mkdir deb-package" shape="box"];
+  "sha256:e48bfebd2ce11a3c10f86f92b0f8106af16f68cb55559fec78382131f1281ab7" [label="mkdir{path=/deb-package}" shape="note"];
+  "sha256:a2a09e6ae323dbcfbbc55e0bdc29b7f01666752ecc352a906146f08bcb4500be" [label="/bin/sh -c fpm --output-type deb   --input-type dir   --name www   --version ${VERSION}   --description 'static web server'   --url 'https://go-www.com'   --package www_${VERSION}_i386.deb   --architecture i386   --chdir /   /source/=/ /build/386/=/usr/bin; done" shape="box"];
+  "sha256:86b340ee70a7f415f73ddefd0373aa432da0a68d9d383914793f1a57bd4e8e4f" [label="/bin/sh -c for arch in /build/*; do   fpm --output-type deb   --input-type dir   --name www   --version ${VERSION}   --description 'static web server'   --url 'https://go-www.com'   --package www_${VERSION}_${arch##*/}.deb   --architecture ${arch##*/}   --chdir /   /source/=/ /build/${arch##*/}/=/usr/bin; done" shape="box"];
+  "sha256:6ca06e4298d2f55a168a3801467cb3bbc09224b1d16c5608bc2960733ff1d4f2" [label="/bin/sh -c for arch in /build/*; do   fpm --output-type rpm   --input-type dir   --name www   --version ${VERSION}   --url 'https://go-www.com'   --package www_${VERSION}_${arch##*/}.rpm   --architecture ${arch##*/}   --chdir /   /source/=/ /build/${arch##*/}/=/usr/bin; done" shape="box"];
+  "sha256:bfff0437ec776429f1a7a38d7f1c0562bdd9154ca788f5add55385d44a949dc5" [label="sha256:bfff0437ec776429f1a7a38d7f1c0562bdd9154ca788f5add55385d44a949dc5" shape="plaintext"];
+  "sha256:13b86560ec72be1af3a61870f362939873bbd6966fad043b43d8292343145c19" -> "sha256:19d158cb9a47c6ad65d26cf514729f541064283b215bc34d59f9cbfbc67f9c35" [label=""];
+  "sha256:19d158cb9a47c6ad65d26cf514729f541064283b215bc34d59f9cbfbc67f9c35" -> "sha256:9a8f0cf361df0ae93e38705d40e950410d806249e06c8dcc439eda45a1252067" [label=""];
+  "sha256:9a8f0cf361df0ae93e38705d40e950410d806249e06c8dcc439eda45a1252067" -> "sha256:356a1fe00b56a516933008e71e524846960bfd5ce15704fee07da74f85ac3bb0" [label=""];
+  "sha256:356a1fe00b56a516933008e71e524846960bfd5ce15704fee07da74f85ac3bb0" -> "sha256:6f0a2e694c343e5180fc5d095e17ace264a98bc4a6ff7444bb1512ffec04c4a8" [label=""];
+  "sha256:6f0a2e694c343e5180fc5d095e17ace264a98bc4a6ff7444bb1512ffec04c4a8" -> "sha256:a82e7969e3734b7f652afd0357f947334339d6a5b2cf101852fb69d77ee5bac0" [label=""];
+  "sha256:407f5d379a92852f20e056009913fcf2a955d195bc8504850031c23329884955" -> "sha256:928021a8c8faf5bf9c311b05bb66d8a28c73cec832bf12aa944fd28b75f26d55" [label=""];
+  "sha256:928021a8c8faf5bf9c311b05bb66d8a28c73cec832bf12aa944fd28b75f26d55" -> "sha256:9563966f1dfc3fabf79b21fdb3ecf25eeb45ecc5e85667f4cfeada694841c808" [label=""];
+  "sha256:9563966f1dfc3fabf79b21fdb3ecf25eeb45ecc5e85667f4cfeada694841c808" -> "sha256:bb7447750b6fc5c134c21313a2ec1966042b791b3fde809a3ab784fffbc97902" [label=""];
+  "sha256:2f32e236861afe99549fabf4ad815860169e4628006bbea1e325b6c7bc4cea93" -> "sha256:bb7447750b6fc5c134c21313a2ec1966042b791b3fde809a3ab784fffbc97902" [label=""];
+  "sha256:bb7447750b6fc5c134c21313a2ec1966042b791b3fde809a3ab784fffbc97902" -> "sha256:b20466e70c068f4daf0f25c1d5b44c1c413e083049fdc546863fe8892704f43c" [label=""];
+  "sha256:b20466e70c068f4daf0f25c1d5b44c1c413e083049fdc546863fe8892704f43c" -> "sha256:6cd09d9f0e0908918c59e7384e44ffbd13d74438f516f2777c65ec32d7007a58" [label=""];
+  "sha256:6cd09d9f0e0908918c59e7384e44ffbd13d74438f516f2777c65ec32d7007a58" -> "sha256:5040bef84d2b044575f060063bcc3c605fe8c2eef335118c3c56f2394b9869a5" [label=""];
+  "sha256:5040bef84d2b044575f060063bcc3c605fe8c2eef335118c3c56f2394b9869a5" -> "sha256:40e39b8e6c570b750affdba907fd87330f1694b6ded5e213f3b46bf70c56cacf" [label=""];
+  "sha256:40e39b8e6c570b750affdba907fd87330f1694b6ded5e213f3b46bf70c56cacf" -> "sha256:5ac25731ac4784171e1ad4d2cd47bff47cd8658a8cfb0e9ac97a2528db462066" [label=""];
+  "sha256:a82e7969e3734b7f652afd0357f947334339d6a5b2cf101852fb69d77ee5bac0" -> "sha256:37ec9dd385829259257659e07057761e0ba5fe7f4e984b2678d9078c77287ace" [label=""];
+  "sha256:5ac25731ac4784171e1ad4d2cd47bff47cd8658a8cfb0e9ac97a2528db462066" -> "sha256:37ec9dd385829259257659e07057761e0ba5fe7f4e984b2678d9078c77287ace" [label=""];
+  "sha256:37ec9dd385829259257659e07057761e0ba5fe7f4e984b2678d9078c77287ace" -> "sha256:5573f91d686d6862f7b61459ffc54cac90cf7f17482455909b92972ffbd8726a" [label=""];
+  "sha256:5ac25731ac4784171e1ad4d2cd47bff47cd8658a8cfb0e9ac97a2528db462066" -> "sha256:5573f91d686d6862f7b61459ffc54cac90cf7f17482455909b92972ffbd8726a" [label=""];
+  "sha256:5573f91d686d6862f7b61459ffc54cac90cf7f17482455909b92972ffbd8726a" -> "sha256:9e56de96fe627b2fc7f996ec46b19ef6a19ef2ff14bd8e4bc750340f81dea32c" [label=""];
+  "sha256:9e56de96fe627b2fc7f996ec46b19ef6a19ef2ff14bd8e4bc750340f81dea32c" -> "sha256:e48bfebd2ce11a3c10f86f92b0f8106af16f68cb55559fec78382131f1281ab7" [label=""];
+  "sha256:e48bfebd2ce11a3c10f86f92b0f8106af16f68cb55559fec78382131f1281ab7" -> "sha256:a2a09e6ae323dbcfbbc55e0bdc29b7f01666752ecc352a906146f08bcb4500be" [label=""];
+  "sha256:a2a09e6ae323dbcfbbc55e0bdc29b7f01666752ecc352a906146f08bcb4500be" -> "sha256:86b340ee70a7f415f73ddefd0373aa432da0a68d9d383914793f1a57bd4e8e4f" [label=""];
+  "sha256:86b340ee70a7f415f73ddefd0373aa432da0a68d9d383914793f1a57bd4e8e4f" -> "sha256:6ca06e4298d2f55a168a3801467cb3bbc09224b1d16c5608bc2960733ff1d4f2" [label=""];
+  "sha256:6ca06e4298d2f55a168a3801467cb3bbc09224b1d16c5608bc2960733ff1d4f2" -> "sha256:bfff0437ec776429f1a7a38d7f1c0562bdd9154ca788f5add55385d44a949dc5" [label=""];
+}
+

@@ -1,0 +1,56 @@
+[app/sources/406187076.Dockerfile]
+digraph {
+  "sha256:f4c575976d1730dae5f31ca9d1f72dfe1389febe50c5614b773a05ea984723b2" [label="local://context" shape="ellipse"];
+  "sha256:24f5121c880f5dfa7b7fc2cbdef1062880d5c0cc438e25a0775d5dbcf27cf802" [label="docker-image://docker.io/williamyeh/java8:latest" shape="ellipse"];
+  "sha256:36a31be47f482ddf4c7b933510ad7bfc07cab8b1a6224b5aea8dcb64b8dffbf2" [label="/bin/sh -c apt-get update   && apt-get install -y jq curl" shape="box"];
+  "sha256:79d7360cc8dafb8c715d6c2b0f0ba0d41900201109e5f9242c1fa3aa9ba37b42" [label="/bin/sh -c curl -s http://www.apache.org/dist/hadoop/common/hadoop-2.8.0/hadoop-2.8.0.tar.gz | tar -xz -C /usr/local/   && cd /usr/local   && ln -s ./hadoop-2.8.0 hadoop" shape="box"];
+  "sha256:ffaba5db321631dc1d4489a55eeacaf0d063d14aaeda711718dbeb20d9deb28c" [label="mkdir{path=/usr/local/hadoop}" shape="note"];
+  "sha256:a378a4767d90d46614cd81dabe451ee8555a9387f6497a6e1c8d62af71b35c78" [label="/bin/sh -c sed -i '/^export JAVA_HOME/ s:.*:export JAVA_HOME=/usr/lib/jvm/java-8-oracle\\nexport HADOOP_PREFIX=/usr/local/hadoop\\nexport HADOOP_HOME=/usr/local/hadoop\\n:' $HADOOP_PREFIX/etc/hadoop/hadoop-env.sh    && sed -i '/^export HADOOP_CONF_DIR/ s:.*:export HADOOP_CONF_DIR=/usr/local/hadoop/etc/hadoop/:' $HADOOP_PREFIX/etc/hadoop/hadoop-env.sh   && chmod +x /usr/local/hadoop/etc/hadoop/*-env.sh" shape="box"];
+  "sha256:15e506c39ec47b7883a02b5a8e806d915903115bf290ae88a336d0c98e93ff45" [label="/bin/sh -c apt-get update && apt-get install -y python-pip attr" shape="box"];
+  "sha256:41c0810579aca788d88b1a304b7442e8a1cb7fbf60b05a9cde20d9edbd4fecd0" [label="/bin/sh -c pip install pyyaml jinja2 argparse logutils" shape="box"];
+  "sha256:205417b65ad871fbef2c58e26486d0313b4b0ddfee693bf01372e056547c5f3f" [label="/bin/sh -c curl -s http://d3kbcqa49mib13.cloudfront.net/spark-2.1.1-bin-hadoop2.7.tgz | tar -xz -C /usr/local/" shape="box"];
+  "sha256:e9ce0c3216a22d49e19186f586217b43557d102baceefcf4d61ed17483fa35eb" [label="/bin/sh -c cd /usr/local && ln -s spark-2.1.1-bin-hadoop2.7 spark" shape="box"];
+  "sha256:06bf5d2612eeb87106f2b62ad2d9e21aa0b742927eb462286a6ca32cedf315ca" [label="/bin/sh -c mkdir $SPARK_HOME/yarn-remote-client" shape="box"];
+  "sha256:836580ec8ea88368871406148dbc5ff8e8c5a91049da494e8a7b5ce60cc703e0" [label="/bin/sh -c chmod 777 $SPARK_HOME/yarn-remote-client" shape="box"];
+  "sha256:0d6d34dc2bcc3c207fd67ceeef5bb55e780ecff576f4b9cf282dd6caea0317bc" [label="/bin/sh -c apt-get update   && apt-get install -y r-base r-base-dev" shape="box"];
+  "sha256:0543b75cb2d1efb59d01099de55d3f9dfd6ebd0dffec4f5a4566e758542915e9" [label="mkdir{path=/usr/local/hadoop/{{cnf[docker-run][hdfs][workdir]}}}" shape="note"];
+  "sha256:b171ae5fd9888bb94d43002af0fa11cb4cff03fbd46935530634322421503942" [label="copy{src=/core-site.xml, dest=/usr/local/hadoop/etc/hadoop/core-site.xml}" shape="note"];
+  "sha256:687f6df75be86ba6316e3d7c0e0c1bf2207a2cb91f62f8918f565d956ccc73c9" [label="copy{src=/*.in-docker, dest=/usr/local/hadoop/{{cnf[docker-run][hdfs][workdir]}}/{{cnf[docker-run][hdfs][workdir]}}/}" shape="note"];
+  "sha256:fb6e32ebfcddc54efef50b22f92ebdc1309afcd0f0c40f0cb79818fd0e0fcb4c" [label="copy{src=/bootstrap_hdfs.py, dest=/usr/local/hadoop/{{cnf[docker-run][hdfs][workdir]}}/{{cnf[docker-run][hdfs][workdir]}}}" shape="note"];
+  "sha256:54d901c572422b2dcd93893afbd073e9e0e85bf227aeb0d32835514edc9893a8" [label="copy{src=/utils.py, dest=/usr/local/hadoop/{{cnf[docker-run][hdfs][workdir]}}/{{cnf[docker-run][hdfs][workdir]}}}" shape="note"];
+  "sha256:99fb54a7fafc2a44510b7d0874a2b1430274ed639071de6c986b5d6c4e1cb7e3" [label="/bin/sh -c chmod +x {{cnf[\"docker-run\"][\"hdfs\"][\"workdir\"]}}/*.py" shape="box"];
+  "sha256:e2d898d3cfbd2c450c383052afc64d00c54525260cae614c00e819c2a956fa55" [label="copy{src=/config.yaml, dest=/etc/hdfs/config.yaml}" shape="note"];
+  "sha256:6ba9be49dd092a4fe6953803c2ddc57ce0eeb16a4421f03c2f055639a05fc624" [label="copy{src=/bootstrap.sh, dest=/etc/bootstrap.sh}" shape="note"];
+  "sha256:a1770e100cdba6cd898f1d0c925dd6ac538e6cf2c75e19f4ad3a06bd3434d29c" [label="/bin/sh -c chown root.root /etc/bootstrap.sh" shape="box"];
+  "sha256:708aec4a788f9c3ffecfb592d352cadef2bcbdb1ec6ac99a9ff0abbd70d3e833" [label="/bin/sh -c chmod 700 /etc/bootstrap.sh" shape="box"];
+  "sha256:c331ded7e9814a4f9b526ffa3c29ccba6433e3446ec6009e54491a1c994f4bff" [label="sha256:c331ded7e9814a4f9b526ffa3c29ccba6433e3446ec6009e54491a1c994f4bff" shape="plaintext"];
+  "sha256:24f5121c880f5dfa7b7fc2cbdef1062880d5c0cc438e25a0775d5dbcf27cf802" -> "sha256:36a31be47f482ddf4c7b933510ad7bfc07cab8b1a6224b5aea8dcb64b8dffbf2" [label=""];
+  "sha256:36a31be47f482ddf4c7b933510ad7bfc07cab8b1a6224b5aea8dcb64b8dffbf2" -> "sha256:79d7360cc8dafb8c715d6c2b0f0ba0d41900201109e5f9242c1fa3aa9ba37b42" [label=""];
+  "sha256:79d7360cc8dafb8c715d6c2b0f0ba0d41900201109e5f9242c1fa3aa9ba37b42" -> "sha256:ffaba5db321631dc1d4489a55eeacaf0d063d14aaeda711718dbeb20d9deb28c" [label=""];
+  "sha256:ffaba5db321631dc1d4489a55eeacaf0d063d14aaeda711718dbeb20d9deb28c" -> "sha256:a378a4767d90d46614cd81dabe451ee8555a9387f6497a6e1c8d62af71b35c78" [label=""];
+  "sha256:a378a4767d90d46614cd81dabe451ee8555a9387f6497a6e1c8d62af71b35c78" -> "sha256:15e506c39ec47b7883a02b5a8e806d915903115bf290ae88a336d0c98e93ff45" [label=""];
+  "sha256:15e506c39ec47b7883a02b5a8e806d915903115bf290ae88a336d0c98e93ff45" -> "sha256:41c0810579aca788d88b1a304b7442e8a1cb7fbf60b05a9cde20d9edbd4fecd0" [label=""];
+  "sha256:41c0810579aca788d88b1a304b7442e8a1cb7fbf60b05a9cde20d9edbd4fecd0" -> "sha256:205417b65ad871fbef2c58e26486d0313b4b0ddfee693bf01372e056547c5f3f" [label=""];
+  "sha256:205417b65ad871fbef2c58e26486d0313b4b0ddfee693bf01372e056547c5f3f" -> "sha256:e9ce0c3216a22d49e19186f586217b43557d102baceefcf4d61ed17483fa35eb" [label=""];
+  "sha256:e9ce0c3216a22d49e19186f586217b43557d102baceefcf4d61ed17483fa35eb" -> "sha256:06bf5d2612eeb87106f2b62ad2d9e21aa0b742927eb462286a6ca32cedf315ca" [label=""];
+  "sha256:06bf5d2612eeb87106f2b62ad2d9e21aa0b742927eb462286a6ca32cedf315ca" -> "sha256:836580ec8ea88368871406148dbc5ff8e8c5a91049da494e8a7b5ce60cc703e0" [label=""];
+  "sha256:836580ec8ea88368871406148dbc5ff8e8c5a91049da494e8a7b5ce60cc703e0" -> "sha256:0d6d34dc2bcc3c207fd67ceeef5bb55e780ecff576f4b9cf282dd6caea0317bc" [label=""];
+  "sha256:0d6d34dc2bcc3c207fd67ceeef5bb55e780ecff576f4b9cf282dd6caea0317bc" -> "sha256:0543b75cb2d1efb59d01099de55d3f9dfd6ebd0dffec4f5a4566e758542915e9" [label=""];
+  "sha256:0543b75cb2d1efb59d01099de55d3f9dfd6ebd0dffec4f5a4566e758542915e9" -> "sha256:b171ae5fd9888bb94d43002af0fa11cb4cff03fbd46935530634322421503942" [label=""];
+  "sha256:f4c575976d1730dae5f31ca9d1f72dfe1389febe50c5614b773a05ea984723b2" -> "sha256:b171ae5fd9888bb94d43002af0fa11cb4cff03fbd46935530634322421503942" [label=""];
+  "sha256:b171ae5fd9888bb94d43002af0fa11cb4cff03fbd46935530634322421503942" -> "sha256:687f6df75be86ba6316e3d7c0e0c1bf2207a2cb91f62f8918f565d956ccc73c9" [label=""];
+  "sha256:f4c575976d1730dae5f31ca9d1f72dfe1389febe50c5614b773a05ea984723b2" -> "sha256:687f6df75be86ba6316e3d7c0e0c1bf2207a2cb91f62f8918f565d956ccc73c9" [label=""];
+  "sha256:687f6df75be86ba6316e3d7c0e0c1bf2207a2cb91f62f8918f565d956ccc73c9" -> "sha256:fb6e32ebfcddc54efef50b22f92ebdc1309afcd0f0c40f0cb79818fd0e0fcb4c" [label=""];
+  "sha256:f4c575976d1730dae5f31ca9d1f72dfe1389febe50c5614b773a05ea984723b2" -> "sha256:fb6e32ebfcddc54efef50b22f92ebdc1309afcd0f0c40f0cb79818fd0e0fcb4c" [label=""];
+  "sha256:fb6e32ebfcddc54efef50b22f92ebdc1309afcd0f0c40f0cb79818fd0e0fcb4c" -> "sha256:54d901c572422b2dcd93893afbd073e9e0e85bf227aeb0d32835514edc9893a8" [label=""];
+  "sha256:f4c575976d1730dae5f31ca9d1f72dfe1389febe50c5614b773a05ea984723b2" -> "sha256:54d901c572422b2dcd93893afbd073e9e0e85bf227aeb0d32835514edc9893a8" [label=""];
+  "sha256:54d901c572422b2dcd93893afbd073e9e0e85bf227aeb0d32835514edc9893a8" -> "sha256:99fb54a7fafc2a44510b7d0874a2b1430274ed639071de6c986b5d6c4e1cb7e3" [label=""];
+  "sha256:99fb54a7fafc2a44510b7d0874a2b1430274ed639071de6c986b5d6c4e1cb7e3" -> "sha256:e2d898d3cfbd2c450c383052afc64d00c54525260cae614c00e819c2a956fa55" [label=""];
+  "sha256:f4c575976d1730dae5f31ca9d1f72dfe1389febe50c5614b773a05ea984723b2" -> "sha256:e2d898d3cfbd2c450c383052afc64d00c54525260cae614c00e819c2a956fa55" [label=""];
+  "sha256:e2d898d3cfbd2c450c383052afc64d00c54525260cae614c00e819c2a956fa55" -> "sha256:6ba9be49dd092a4fe6953803c2ddc57ce0eeb16a4421f03c2f055639a05fc624" [label=""];
+  "sha256:f4c575976d1730dae5f31ca9d1f72dfe1389febe50c5614b773a05ea984723b2" -> "sha256:6ba9be49dd092a4fe6953803c2ddc57ce0eeb16a4421f03c2f055639a05fc624" [label=""];
+  "sha256:6ba9be49dd092a4fe6953803c2ddc57ce0eeb16a4421f03c2f055639a05fc624" -> "sha256:a1770e100cdba6cd898f1d0c925dd6ac538e6cf2c75e19f4ad3a06bd3434d29c" [label=""];
+  "sha256:a1770e100cdba6cd898f1d0c925dd6ac538e6cf2c75e19f4ad3a06bd3434d29c" -> "sha256:708aec4a788f9c3ffecfb592d352cadef2bcbdb1ec6ac99a9ff0abbd70d3e833" [label=""];
+  "sha256:708aec4a788f9c3ffecfb592d352cadef2bcbdb1ec6ac99a9ff0abbd70d3e833" -> "sha256:c331ded7e9814a4f9b526ffa3c29ccba6433e3446ec6009e54491a1c994f4bff" [label=""];
+}
+

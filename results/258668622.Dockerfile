@@ -1,0 +1,53 @@
+[app/sources/258668622.Dockerfile]
+digraph {
+  "sha256:fa9ccd4f680ac389ef8d8069cc80b7b0b54c943449edae2f88e21f92f1797923" [label="docker-image://docker.io/continuumio/miniconda3:4.5.12" shape="ellipse"];
+  "sha256:7a3fd3b19e42d887f629ce4379da3ed465823048ce48c6f62e323cea59897eab" [label="/bin/sh -c apt-get update && apt-get install -y         gcc         nginx-full         supervisor         unzip         uwsgi-plugin-python3         zlib1g-dev         libcurl4-openssl-dev         g++         vim         build-essential         libssl-dev         libpng-dev         procps         git         fuse     && rm -rf /var/lib/apt/lists/*" shape="box"];
+  "sha256:2d275d994439d70245aa5b5e895c19c630756fe0c829d3dec2938305450d8a3e" [label="/bin/sh -c conda install --yes cython numpy==1.14.0" shape="box"];
+  "sha256:c9ab2aae5483823031653ee8a7b223e503ccb441ae1fad8e7b85f0f911adf7d3" [label="/bin/sh -c conda install --yes --channel bioconda pysam htslib=1.3.2" shape="box"];
+  "sha256:17036ca8e0e6594dcd6d013f08a25fbfbc98072f2ac0cebf559cd55296051a3a" [label="/bin/sh -c conda install --yes -c conda-forge uwsgi" shape="box"];
+  "sha256:f38a663b0fe645bdeaecab43295b7fa4cb2bd66f3b818b29445d61600b5b1a5d" [label="/bin/sh -c pip install simple-httpfs>=0.1.3" shape="box"];
+  "sha256:d44ae179ead87eaae3ec4da1e1850c6ed166d46a1a124b8eabb5f0e280faf6f3" [label="mkdir{path=/higlass-server}" shape="note"];
+  "sha256:a5afa06feda825395e2d63e606b907b2cfac868dd6c84236884940e240011f1a" [label="local://context" shape="ellipse"];
+  "sha256:633ba7890a22f4bc1224c6ea518fcefc12bfa680ad0a53abaf9d98688fd0fdf3" [label="copy{src=/requirements.txt, dest=/higlass-server/}" shape="note"];
+  "sha256:da464419a53fd445d71d30a8f48e503372fccc8069ee92bce8b23f37c18bb9c5" [label="/bin/sh -c pip install -r requirements.txt" shape="box"];
+  "sha256:1892d474f2672988e8fbadf6bb29bb3895d57c92a0ee926d8bb77cc677c3f53b" [label="copy{src=/docker-context/nginx.conf, dest=/etc/nginx/}" shape="note"];
+  "sha256:d2e41ed59c82a51396cdbbac69d8c8d7620488c2906c69dbbb9e7c1f8d201515" [label="copy{src=/docker-context/hgserver_nginx.conf, dest=/etc/nginx/sites-enabled/}" shape="note"];
+  "sha256:ed1992cb99b9306e718f0dc33efbe40e932e6dbc25bc5901b7af3c6c34864451" [label="/bin/sh -c rm /etc/nginx/sites-*/default && grep 'listen' /etc/nginx/sites-*/*" shape="box"];
+  "sha256:6fe50e9666547bf26e86beed076ce4bead3a8ca846b36c74415971ac3ea509ac" [label="copy{src=/docker-context/uwsgi_params, dest=/higlass-server/}" shape="note"];
+  "sha256:2b1fcd202aca7ff6314967023e0fb39346c74683da5cea8910f34c1584adee7d" [label="copy{src=/docker-context/default-viewconf-fixture.xml, dest=/higlass-server/}" shape="note"];
+  "sha256:c1c214f7b51866782e562897a436a178d86880c3804cba7ec5c2ee07fd8cc2cc" [label="copy{src=/docker-context/supervisord.conf, dest=/higlass-server/}" shape="note"];
+  "sha256:6156fd27339e6dfef7ccfe017e1ce122304210f31c0517887a4571782035028b" [label="copy{src=/docker-context/uwsgi.ini, dest=/higlass-server/}" shape="note"];
+  "sha256:5396a0d8a9b25eb80bdbb38ff761c78bfab63b25af8369fcea73cb8936a048a6" [label="copy{src=/docker-context/httpfs.sh, dest=/higlass-server/}" shape="note"];
+  "sha256:7fcd7d0688f93f3d92dd2eade34787c07be093d72045145adb069a1beac08cd9" [label="/bin/sh -c echo \"WORKERS: $WORKERS\"" shape="box"];
+  "sha256:8e55824dc3ddf48b60311c673865185f0a3bfd80bf0fd0e525f2ee47b76e1876" [label="copy{src=/, dest=/higlass-server/}" shape="note"];
+  "sha256:360936101f212a9bde5d414a53ca6fb79f72093e2c34ba99d7b754ead558b90c" [label="sha256:360936101f212a9bde5d414a53ca6fb79f72093e2c34ba99d7b754ead558b90c" shape="plaintext"];
+  "sha256:fa9ccd4f680ac389ef8d8069cc80b7b0b54c943449edae2f88e21f92f1797923" -> "sha256:7a3fd3b19e42d887f629ce4379da3ed465823048ce48c6f62e323cea59897eab" [label=""];
+  "sha256:7a3fd3b19e42d887f629ce4379da3ed465823048ce48c6f62e323cea59897eab" -> "sha256:2d275d994439d70245aa5b5e895c19c630756fe0c829d3dec2938305450d8a3e" [label=""];
+  "sha256:2d275d994439d70245aa5b5e895c19c630756fe0c829d3dec2938305450d8a3e" -> "sha256:c9ab2aae5483823031653ee8a7b223e503ccb441ae1fad8e7b85f0f911adf7d3" [label=""];
+  "sha256:c9ab2aae5483823031653ee8a7b223e503ccb441ae1fad8e7b85f0f911adf7d3" -> "sha256:17036ca8e0e6594dcd6d013f08a25fbfbc98072f2ac0cebf559cd55296051a3a" [label=""];
+  "sha256:17036ca8e0e6594dcd6d013f08a25fbfbc98072f2ac0cebf559cd55296051a3a" -> "sha256:f38a663b0fe645bdeaecab43295b7fa4cb2bd66f3b818b29445d61600b5b1a5d" [label=""];
+  "sha256:f38a663b0fe645bdeaecab43295b7fa4cb2bd66f3b818b29445d61600b5b1a5d" -> "sha256:d44ae179ead87eaae3ec4da1e1850c6ed166d46a1a124b8eabb5f0e280faf6f3" [label=""];
+  "sha256:d44ae179ead87eaae3ec4da1e1850c6ed166d46a1a124b8eabb5f0e280faf6f3" -> "sha256:633ba7890a22f4bc1224c6ea518fcefc12bfa680ad0a53abaf9d98688fd0fdf3" [label=""];
+  "sha256:a5afa06feda825395e2d63e606b907b2cfac868dd6c84236884940e240011f1a" -> "sha256:633ba7890a22f4bc1224c6ea518fcefc12bfa680ad0a53abaf9d98688fd0fdf3" [label=""];
+  "sha256:633ba7890a22f4bc1224c6ea518fcefc12bfa680ad0a53abaf9d98688fd0fdf3" -> "sha256:da464419a53fd445d71d30a8f48e503372fccc8069ee92bce8b23f37c18bb9c5" [label=""];
+  "sha256:da464419a53fd445d71d30a8f48e503372fccc8069ee92bce8b23f37c18bb9c5" -> "sha256:1892d474f2672988e8fbadf6bb29bb3895d57c92a0ee926d8bb77cc677c3f53b" [label=""];
+  "sha256:a5afa06feda825395e2d63e606b907b2cfac868dd6c84236884940e240011f1a" -> "sha256:1892d474f2672988e8fbadf6bb29bb3895d57c92a0ee926d8bb77cc677c3f53b" [label=""];
+  "sha256:1892d474f2672988e8fbadf6bb29bb3895d57c92a0ee926d8bb77cc677c3f53b" -> "sha256:d2e41ed59c82a51396cdbbac69d8c8d7620488c2906c69dbbb9e7c1f8d201515" [label=""];
+  "sha256:a5afa06feda825395e2d63e606b907b2cfac868dd6c84236884940e240011f1a" -> "sha256:d2e41ed59c82a51396cdbbac69d8c8d7620488c2906c69dbbb9e7c1f8d201515" [label=""];
+  "sha256:d2e41ed59c82a51396cdbbac69d8c8d7620488c2906c69dbbb9e7c1f8d201515" -> "sha256:ed1992cb99b9306e718f0dc33efbe40e932e6dbc25bc5901b7af3c6c34864451" [label=""];
+  "sha256:ed1992cb99b9306e718f0dc33efbe40e932e6dbc25bc5901b7af3c6c34864451" -> "sha256:6fe50e9666547bf26e86beed076ce4bead3a8ca846b36c74415971ac3ea509ac" [label=""];
+  "sha256:a5afa06feda825395e2d63e606b907b2cfac868dd6c84236884940e240011f1a" -> "sha256:6fe50e9666547bf26e86beed076ce4bead3a8ca846b36c74415971ac3ea509ac" [label=""];
+  "sha256:6fe50e9666547bf26e86beed076ce4bead3a8ca846b36c74415971ac3ea509ac" -> "sha256:2b1fcd202aca7ff6314967023e0fb39346c74683da5cea8910f34c1584adee7d" [label=""];
+  "sha256:a5afa06feda825395e2d63e606b907b2cfac868dd6c84236884940e240011f1a" -> "sha256:2b1fcd202aca7ff6314967023e0fb39346c74683da5cea8910f34c1584adee7d" [label=""];
+  "sha256:2b1fcd202aca7ff6314967023e0fb39346c74683da5cea8910f34c1584adee7d" -> "sha256:c1c214f7b51866782e562897a436a178d86880c3804cba7ec5c2ee07fd8cc2cc" [label=""];
+  "sha256:a5afa06feda825395e2d63e606b907b2cfac868dd6c84236884940e240011f1a" -> "sha256:c1c214f7b51866782e562897a436a178d86880c3804cba7ec5c2ee07fd8cc2cc" [label=""];
+  "sha256:c1c214f7b51866782e562897a436a178d86880c3804cba7ec5c2ee07fd8cc2cc" -> "sha256:6156fd27339e6dfef7ccfe017e1ce122304210f31c0517887a4571782035028b" [label=""];
+  "sha256:a5afa06feda825395e2d63e606b907b2cfac868dd6c84236884940e240011f1a" -> "sha256:6156fd27339e6dfef7ccfe017e1ce122304210f31c0517887a4571782035028b" [label=""];
+  "sha256:6156fd27339e6dfef7ccfe017e1ce122304210f31c0517887a4571782035028b" -> "sha256:5396a0d8a9b25eb80bdbb38ff761c78bfab63b25af8369fcea73cb8936a048a6" [label=""];
+  "sha256:a5afa06feda825395e2d63e606b907b2cfac868dd6c84236884940e240011f1a" -> "sha256:5396a0d8a9b25eb80bdbb38ff761c78bfab63b25af8369fcea73cb8936a048a6" [label=""];
+  "sha256:5396a0d8a9b25eb80bdbb38ff761c78bfab63b25af8369fcea73cb8936a048a6" -> "sha256:7fcd7d0688f93f3d92dd2eade34787c07be093d72045145adb069a1beac08cd9" [label=""];
+  "sha256:7fcd7d0688f93f3d92dd2eade34787c07be093d72045145adb069a1beac08cd9" -> "sha256:8e55824dc3ddf48b60311c673865185f0a3bfd80bf0fd0e525f2ee47b76e1876" [label=""];
+  "sha256:a5afa06feda825395e2d63e606b907b2cfac868dd6c84236884940e240011f1a" -> "sha256:8e55824dc3ddf48b60311c673865185f0a3bfd80bf0fd0e525f2ee47b76e1876" [label=""];
+  "sha256:8e55824dc3ddf48b60311c673865185f0a3bfd80bf0fd0e525f2ee47b76e1876" -> "sha256:360936101f212a9bde5d414a53ca6fb79f72093e2c34ba99d7b754ead558b90c" [label=""];
+}
+

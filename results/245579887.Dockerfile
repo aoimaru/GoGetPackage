@@ -1,0 +1,50 @@
+[app/sources/245579887.Dockerfile]
+digraph {
+  "sha256:26ab6616ea5d92d7ed6eba8f9ea88f190c40fa71d3552ff25d8f0371e4a4022f" [label="docker-image://docker.io/library/python:3.6-alpine@sha256:ba487a711a0df2d0bcd3769c6b2b435c327ef21f8cafd082af8f0fbdb2584698" shape="ellipse"];
+  "sha256:98c8ee27a3bf3dc1abcb33c43ebcdc5deca52024656bb83460cb7944cb058d6d" [label="/bin/sh -c apk add --no-cache yaml-dev openssl-dev libffi-dev build-base linux-headers go curl" shape="box"];
+  "sha256:03edf4c6a20d7e63ca7ac9779f08548abd6aa06b09ef5f2393f4534d511fed17" [label="/bin/sh -c mkdir -p /root/go/src/github.com/kubeflow/arena" shape="box"];
+  "sha256:a19848989c311bc736d451f3d685735fb2b440347e839d3b17a76e5b7069be24" [label="mkdir{path=/root/go/src/github.com/kubeflow/arena}" shape="note"];
+  "sha256:e4199a174721c9d1405cbd126af4ea837411bf85ef741136a34b2c4e28aef773" [label="local://context" shape="ellipse"];
+  "sha256:cfe302ae133dcbeb5332f513dbd25c1322110fc4abb8d4ebd64fe890c439f620" [label="copy{src=/arena, dest=/root/go/src/github.com/kubeflow/arena/}" shape="note"];
+  "sha256:40b1a49352eedf67539ad563ee8faf52be7c78faabeafff53252aff1aa80e778" [label="/bin/sh -c make" shape="box"];
+  "sha256:f37e6caaf86da6b785e8cc055ad072bdab2e871e6a4e11b383d1796cf51ef486" [label="/bin/sh -c wget https://storage.googleapis.com/kubernetes-helm/helm-v2.11.0-linux-amd64.tar.gz &&     tar -xvf helm-v2.11.0-linux-amd64.tar.gz &&     mv linux-amd64/helm /usr/local/bin/helm &&     chmod u+x /usr/local/bin/helm" shape="box"];
+  "sha256:e06987f742aa64a1ccaecf62c0adda52633625e088766884e4cf17fefaad0e29" [label="/bin/sh -c curl -o /usr/local/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/${K8S_VERSION}/bin/linux/amd64/kubectl && chmod +x /usr/local/bin/kubectl" shape="box"];
+  "sha256:c0cabd7481efc02f6d04a46bce2f7116f2f05800b581b534d0c6509bb60bbb2e" [label="copy{src=/dist, dest=/dist}" shape="note"];
+  "sha256:d1c0624d7b58e35593d2ae870c5ddbc105fed6ffdaed50763d60d3f239badccd" [label="/bin/sh -c pip install --install-option=\"--prefix=/install\" --find-links=/dist wandb[kubeflow]" shape="box"];
+  "sha256:fd9225801823ddd15107368d6b38b77e76e2757cee4e3747086dfc04b3070b8f" [label="copy{src=/root/go/src/github.com/kubeflow/arena/bin/arena, dest=/usr/local/bin/arena}" shape="note"];
+  "sha256:f40b8c77bdda520a1347fd1046c427d65e1cb4a824129bc7754d571e3bab0151" [label="copy{src=/usr/local/bin/helm, dest=/usr/local/bin/helm}" shape="note"];
+  "sha256:437d550792be1abbe6d7c975d191e17861bf1522292012389b71ff2fc940788f" [label="copy{src=/root/go/src/github.com/kubeflow/arena/kubernetes-artifacts, dest=/root/kubernetes-artifacts}" shape="note"];
+  "sha256:f06b480286ddcee88e7160071a8b0af8bf0588ab31cd46f9cf6b1999cc630bb5" [label="copy{src=/usr/local/bin/kubectl, dest=/usr/local/bin/kubectl}" shape="note"];
+  "sha256:59cd57303e2983822862a5c66772dab0aecd60e96ca7d6039453647cdfabaf05" [label="copy{src=/root/go/src/github.com/kubeflow/arena/charts, dest=/charts}" shape="note"];
+  "sha256:d232990c302c2b26ac06d3b513df0a487b3791700b7278b77a796afe17c9bf93" [label="copy{src=/install, dest=/usr/local}" shape="note"];
+  "sha256:fd68c0a7cb4b8bfa281fc73c366602b179fd14a0cd5bd80c769731498344784c" [label="/bin/sh -c apk add --no-cache bash" shape="box"];
+  "sha256:9d75caea6f5ee665ea7bf3f3da8f70032fb3ef19c6752b8065ccee5748c0effd" [label="/bin/sh -c mkdir /ml" shape="box"];
+  "sha256:466cd810886cbb0d54bfd94ddfc0d96655ba822e0688b1c24d9f7ab8da602303" [label="sha256:466cd810886cbb0d54bfd94ddfc0d96655ba822e0688b1c24d9f7ab8da602303" shape="plaintext"];
+  "sha256:26ab6616ea5d92d7ed6eba8f9ea88f190c40fa71d3552ff25d8f0371e4a4022f" -> "sha256:98c8ee27a3bf3dc1abcb33c43ebcdc5deca52024656bb83460cb7944cb058d6d" [label=""];
+  "sha256:98c8ee27a3bf3dc1abcb33c43ebcdc5deca52024656bb83460cb7944cb058d6d" -> "sha256:03edf4c6a20d7e63ca7ac9779f08548abd6aa06b09ef5f2393f4534d511fed17" [label=""];
+  "sha256:03edf4c6a20d7e63ca7ac9779f08548abd6aa06b09ef5f2393f4534d511fed17" -> "sha256:a19848989c311bc736d451f3d685735fb2b440347e839d3b17a76e5b7069be24" [label=""];
+  "sha256:a19848989c311bc736d451f3d685735fb2b440347e839d3b17a76e5b7069be24" -> "sha256:cfe302ae133dcbeb5332f513dbd25c1322110fc4abb8d4ebd64fe890c439f620" [label=""];
+  "sha256:e4199a174721c9d1405cbd126af4ea837411bf85ef741136a34b2c4e28aef773" -> "sha256:cfe302ae133dcbeb5332f513dbd25c1322110fc4abb8d4ebd64fe890c439f620" [label=""];
+  "sha256:cfe302ae133dcbeb5332f513dbd25c1322110fc4abb8d4ebd64fe890c439f620" -> "sha256:40b1a49352eedf67539ad563ee8faf52be7c78faabeafff53252aff1aa80e778" [label=""];
+  "sha256:40b1a49352eedf67539ad563ee8faf52be7c78faabeafff53252aff1aa80e778" -> "sha256:f37e6caaf86da6b785e8cc055ad072bdab2e871e6a4e11b383d1796cf51ef486" [label=""];
+  "sha256:f37e6caaf86da6b785e8cc055ad072bdab2e871e6a4e11b383d1796cf51ef486" -> "sha256:e06987f742aa64a1ccaecf62c0adda52633625e088766884e4cf17fefaad0e29" [label=""];
+  "sha256:e06987f742aa64a1ccaecf62c0adda52633625e088766884e4cf17fefaad0e29" -> "sha256:c0cabd7481efc02f6d04a46bce2f7116f2f05800b581b534d0c6509bb60bbb2e" [label=""];
+  "sha256:e4199a174721c9d1405cbd126af4ea837411bf85ef741136a34b2c4e28aef773" -> "sha256:c0cabd7481efc02f6d04a46bce2f7116f2f05800b581b534d0c6509bb60bbb2e" [label=""];
+  "sha256:c0cabd7481efc02f6d04a46bce2f7116f2f05800b581b534d0c6509bb60bbb2e" -> "sha256:d1c0624d7b58e35593d2ae870c5ddbc105fed6ffdaed50763d60d3f239badccd" [label=""];
+  "sha256:26ab6616ea5d92d7ed6eba8f9ea88f190c40fa71d3552ff25d8f0371e4a4022f" -> "sha256:fd9225801823ddd15107368d6b38b77e76e2757cee4e3747086dfc04b3070b8f" [label=""];
+  "sha256:d1c0624d7b58e35593d2ae870c5ddbc105fed6ffdaed50763d60d3f239badccd" -> "sha256:fd9225801823ddd15107368d6b38b77e76e2757cee4e3747086dfc04b3070b8f" [label=""];
+  "sha256:fd9225801823ddd15107368d6b38b77e76e2757cee4e3747086dfc04b3070b8f" -> "sha256:f40b8c77bdda520a1347fd1046c427d65e1cb4a824129bc7754d571e3bab0151" [label=""];
+  "sha256:d1c0624d7b58e35593d2ae870c5ddbc105fed6ffdaed50763d60d3f239badccd" -> "sha256:f40b8c77bdda520a1347fd1046c427d65e1cb4a824129bc7754d571e3bab0151" [label=""];
+  "sha256:f40b8c77bdda520a1347fd1046c427d65e1cb4a824129bc7754d571e3bab0151" -> "sha256:437d550792be1abbe6d7c975d191e17861bf1522292012389b71ff2fc940788f" [label=""];
+  "sha256:d1c0624d7b58e35593d2ae870c5ddbc105fed6ffdaed50763d60d3f239badccd" -> "sha256:437d550792be1abbe6d7c975d191e17861bf1522292012389b71ff2fc940788f" [label=""];
+  "sha256:437d550792be1abbe6d7c975d191e17861bf1522292012389b71ff2fc940788f" -> "sha256:f06b480286ddcee88e7160071a8b0af8bf0588ab31cd46f9cf6b1999cc630bb5" [label=""];
+  "sha256:d1c0624d7b58e35593d2ae870c5ddbc105fed6ffdaed50763d60d3f239badccd" -> "sha256:f06b480286ddcee88e7160071a8b0af8bf0588ab31cd46f9cf6b1999cc630bb5" [label=""];
+  "sha256:f06b480286ddcee88e7160071a8b0af8bf0588ab31cd46f9cf6b1999cc630bb5" -> "sha256:59cd57303e2983822862a5c66772dab0aecd60e96ca7d6039453647cdfabaf05" [label=""];
+  "sha256:d1c0624d7b58e35593d2ae870c5ddbc105fed6ffdaed50763d60d3f239badccd" -> "sha256:59cd57303e2983822862a5c66772dab0aecd60e96ca7d6039453647cdfabaf05" [label=""];
+  "sha256:59cd57303e2983822862a5c66772dab0aecd60e96ca7d6039453647cdfabaf05" -> "sha256:d232990c302c2b26ac06d3b513df0a487b3791700b7278b77a796afe17c9bf93" [label=""];
+  "sha256:d1c0624d7b58e35593d2ae870c5ddbc105fed6ffdaed50763d60d3f239badccd" -> "sha256:d232990c302c2b26ac06d3b513df0a487b3791700b7278b77a796afe17c9bf93" [label=""];
+  "sha256:d232990c302c2b26ac06d3b513df0a487b3791700b7278b77a796afe17c9bf93" -> "sha256:fd68c0a7cb4b8bfa281fc73c366602b179fd14a0cd5bd80c769731498344784c" [label=""];
+  "sha256:fd68c0a7cb4b8bfa281fc73c366602b179fd14a0cd5bd80c769731498344784c" -> "sha256:9d75caea6f5ee665ea7bf3f3da8f70032fb3ef19c6752b8065ccee5748c0effd" [label=""];
+  "sha256:9d75caea6f5ee665ea7bf3f3da8f70032fb3ef19c6752b8065ccee5748c0effd" -> "sha256:466cd810886cbb0d54bfd94ddfc0d96655ba822e0688b1c24d9f7ab8da602303" [label=""];
+}
+

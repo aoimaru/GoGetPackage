@@ -1,0 +1,7 @@
+[app/sources/291685832.Dockerfile]
+digraph {
+  "sha256:9c358c22c0928a50e3ff34dcce3369ed7fb3686135b522de8e4134f2f94eb0d4" [label="docker-image://docker.io/circleci/postgres:9.4.18-alpine@sha256:50504739f7e24c4245e70509f1fc36e34e58340eab3a11c1df2df51c40df0e71" shape="ellipse"];
+  "sha256:69d1703f326542c4fac67ee09c89ce182daf5606de9ff0c683970889286f1694" [label="sha256:69d1703f326542c4fac67ee09c89ce182daf5606de9ff0c683970889286f1694" shape="plaintext"];
+  "sha256:9c358c22c0928a50e3ff34dcce3369ed7fb3686135b522de8e4134f2f94eb0d4" -> "sha256:69d1703f326542c4fac67ee09c89ce182daf5606de9ff0c683970889286f1694" [label=""];
+}
+

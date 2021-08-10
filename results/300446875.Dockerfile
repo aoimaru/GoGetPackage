@@ -1,0 +1,7 @@
+[app/sources/300446875.Dockerfile]
+digraph {
+  "sha256:d3e2d270043f193c80bc24859a10e40296dd546bc7b4424185e56cb6a01507ff" [label="docker-image://gcr.io/google_containers/kube-apiserver-amd64:v1.3.0-alpha.3@sha256:1cfa40dd84a1872d2304d47a9f99df49935913c422b48d2c17d08bf1dc7df992" shape="ellipse"];
+  "sha256:e00705b1057507b99905f671b230d36eb56fe566535accd79c8aabb579f64459" [label="sha256:e00705b1057507b99905f671b230d36eb56fe566535accd79c8aabb579f64459" shape="plaintext"];
+  "sha256:d3e2d270043f193c80bc24859a10e40296dd546bc7b4424185e56cb6a01507ff" -> "sha256:e00705b1057507b99905f671b230d36eb56fe566535accd79c8aabb579f64459" [label=""];
+}
+

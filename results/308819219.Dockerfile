@@ -1,0 +1,56 @@
+[app/sources/308819219.Dockerfile]
+digraph {
+  "sha256:bbc2678baafaaa88e2c312b7150f1c3c8069a714892e4d2780eeed768637fbe7" [label="docker-image://docker.io/library/amazonlinux:latest" shape="ellipse"];
+  "sha256:6a5b059c2f68ee545992beca71072cbaa7bcb9b4143adc5a21c29245b5723d98" [label="/bin/sh -c rm /bin/sh && ln -s /bin/bash /bin/sh" shape="box"];
+  "sha256:d99fbb900ee31a039fbdffc3fb5c6d6c229e7a8e806403200bda1d0fd4880a90" [label="/bin/sh -c yum install git -y" shape="box"];
+  "sha256:bc58789e4b0217ff6686e547a7d41eeef695c31d330cf8496c221c03541f81c5" [label="/bin/sh -c yum groupinstall \"Development Tools\" -y" shape="box"];
+  "sha256:c8b26d8c3bf718d44228be2021e6157b99d8d1a9e911c16be3bf61788a5212df" [label="/bin/sh -c curl --retry 5 --silent -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.2/install.sh | bash" shape="box"];
+  "sha256:34388ecc855992d492a9330e3183064970e160b47434e77c1dcf364b944d958a" [label="/bin/sh -c source $NVM_DIR/nvm.sh     && nvm install $NODE_VERSION     && nvm alias default $NODE_VERSION     && nvm use default" shape="box"];
+  "sha256:9dd313614790ee983ec65bfdcc5878c65136a4d3a5ad45a1d47ef5c3bf7c96ce" [label="/bin/sh -c source $NVM_DIR/nvm.sh     && nvm install $NODE_VERSION     && nvm alias default $NODE_VERSION     && nvm use default" shape="box"];
+  "sha256:fac5ac45afcf19fb3ee0e96a5aa3bf63f16e025dada0c3b769ba27fa9feeda93" [label="/bin/sh -c node -v" shape="box"];
+  "sha256:da9efc04d048f57861995f1388e977f6176b9f8e3e179821890617f4c3ce1966" [label="/bin/sh -c npm -v" shape="box"];
+  "sha256:405dbd1f4212f001dfa154e22e799c44d9da35e6b08e4e984509c1d37333da64" [label="/bin/sh -c mkdir /app/" shape="box"];
+  "sha256:9b21249b140d9fd379c5d0878e182e78d729acdbccc7e3b45a1cb5f0ee60ce49" [label="local://context" shape="ellipse"];
+  "sha256:13d1b720f757b577991385a1ea83d51f4d59a6ca1c90bd34abdc378a41a805bf" [label="copy{src=/src, dest=/app/auth-manager/}" shape="note"];
+  "sha256:5be6473b202d8e3fa5f2d4571a156b35089236dc00a5e029ab3a385174f3bc02" [label="copy{src=/shared-modules, dest=/app/shared-modules/}" shape="note"];
+  "sha256:5025c9e50b0a2481498198fe1bc6bae5287a8b43ab3f4e92117c11107cc514ef" [label="mkdir{path=/app/shared-modules/dynamodb-helper}" shape="note"];
+  "sha256:0f643561b9f8161b6d327fa5f5c04c2e927a2c49a5d54d5aaecf9e990bdce080" [label="/bin/sh -c cd /app/shared-modules/dynamodb-helper" shape="box"];
+  "sha256:386663a5d58329b6f9cd1f40b391633cbc10db531b2d81ada889ef2273700f2e" [label="/bin/sh -c npm install" shape="box"];
+  "sha256:0dff4af0a0069524a89a3ed537a83f0eafb628363775bc7b648b4bea73eff018" [label="mkdir{path=/app/shared-modules/token-manager}" shape="note"];
+  "sha256:bd4e8259fe4320a338d270fbee7201c65353f19b00a8cd2de15e0c956552df0a" [label="/bin/sh -c cd /app/shared-modules/token-manager" shape="box"];
+  "sha256:b83a6c0ff29912e6f09a35c00e6dad99e28dba2b13889a944628fd2a48f73c7b" [label="/bin/sh -c npm install" shape="box"];
+  "sha256:fec6f6be2917448547b81b0509570f1bc7319567fa753e1d9ce3ea66b0eee6af" [label="mkdir{path=/app/shared-modules/config-helper}" shape="note"];
+  "sha256:8039997bfb04204a386daeeb9d717fc05c4fb26d66d27261d23a5264ba8f4986" [label="/bin/sh -c cd /app/shared-modules/config-helper" shape="box"];
+  "sha256:c9624862c381b9195d6cfa8385e804ce6c67ef8ee7653dd8972d24584d343cbb" [label="/bin/sh -c npm install" shape="box"];
+  "sha256:f6fe56a40fb56176adc441ba15a43852560e4963421956c0d5b8d5370b79fc2c" [label="mkdir{path=/app/auth-manager}" shape="note"];
+  "sha256:bc2c0d47757cc40d8e656074f85cecd0d1765e746232964fdf388d8753cb96cc" [label="/bin/sh -c cd /app/auth-manager/" shape="box"];
+  "sha256:0c254f843d37f17f69cb82f268f9094d6a7649f5bdd110e37824153031fc0a53" [label="/bin/sh -c npm install" shape="box"];
+  "sha256:dfce8a330a97036d2743761b215d191771bf503fd3b05a719265e0ecc41e7358" [label="sha256:dfce8a330a97036d2743761b215d191771bf503fd3b05a719265e0ecc41e7358" shape="plaintext"];
+  "sha256:bbc2678baafaaa88e2c312b7150f1c3c8069a714892e4d2780eeed768637fbe7" -> "sha256:6a5b059c2f68ee545992beca71072cbaa7bcb9b4143adc5a21c29245b5723d98" [label=""];
+  "sha256:6a5b059c2f68ee545992beca71072cbaa7bcb9b4143adc5a21c29245b5723d98" -> "sha256:d99fbb900ee31a039fbdffc3fb5c6d6c229e7a8e806403200bda1d0fd4880a90" [label=""];
+  "sha256:d99fbb900ee31a039fbdffc3fb5c6d6c229e7a8e806403200bda1d0fd4880a90" -> "sha256:bc58789e4b0217ff6686e547a7d41eeef695c31d330cf8496c221c03541f81c5" [label=""];
+  "sha256:bc58789e4b0217ff6686e547a7d41eeef695c31d330cf8496c221c03541f81c5" -> "sha256:c8b26d8c3bf718d44228be2021e6157b99d8d1a9e911c16be3bf61788a5212df" [label=""];
+  "sha256:c8b26d8c3bf718d44228be2021e6157b99d8d1a9e911c16be3bf61788a5212df" -> "sha256:34388ecc855992d492a9330e3183064970e160b47434e77c1dcf364b944d958a" [label=""];
+  "sha256:34388ecc855992d492a9330e3183064970e160b47434e77c1dcf364b944d958a" -> "sha256:9dd313614790ee983ec65bfdcc5878c65136a4d3a5ad45a1d47ef5c3bf7c96ce" [label=""];
+  "sha256:9dd313614790ee983ec65bfdcc5878c65136a4d3a5ad45a1d47ef5c3bf7c96ce" -> "sha256:fac5ac45afcf19fb3ee0e96a5aa3bf63f16e025dada0c3b769ba27fa9feeda93" [label=""];
+  "sha256:fac5ac45afcf19fb3ee0e96a5aa3bf63f16e025dada0c3b769ba27fa9feeda93" -> "sha256:da9efc04d048f57861995f1388e977f6176b9f8e3e179821890617f4c3ce1966" [label=""];
+  "sha256:da9efc04d048f57861995f1388e977f6176b9f8e3e179821890617f4c3ce1966" -> "sha256:405dbd1f4212f001dfa154e22e799c44d9da35e6b08e4e984509c1d37333da64" [label=""];
+  "sha256:405dbd1f4212f001dfa154e22e799c44d9da35e6b08e4e984509c1d37333da64" -> "sha256:13d1b720f757b577991385a1ea83d51f4d59a6ca1c90bd34abdc378a41a805bf" [label=""];
+  "sha256:9b21249b140d9fd379c5d0878e182e78d729acdbccc7e3b45a1cb5f0ee60ce49" -> "sha256:13d1b720f757b577991385a1ea83d51f4d59a6ca1c90bd34abdc378a41a805bf" [label=""];
+  "sha256:13d1b720f757b577991385a1ea83d51f4d59a6ca1c90bd34abdc378a41a805bf" -> "sha256:5be6473b202d8e3fa5f2d4571a156b35089236dc00a5e029ab3a385174f3bc02" [label=""];
+  "sha256:9b21249b140d9fd379c5d0878e182e78d729acdbccc7e3b45a1cb5f0ee60ce49" -> "sha256:5be6473b202d8e3fa5f2d4571a156b35089236dc00a5e029ab3a385174f3bc02" [label=""];
+  "sha256:5be6473b202d8e3fa5f2d4571a156b35089236dc00a5e029ab3a385174f3bc02" -> "sha256:5025c9e50b0a2481498198fe1bc6bae5287a8b43ab3f4e92117c11107cc514ef" [label=""];
+  "sha256:5025c9e50b0a2481498198fe1bc6bae5287a8b43ab3f4e92117c11107cc514ef" -> "sha256:0f643561b9f8161b6d327fa5f5c04c2e927a2c49a5d54d5aaecf9e990bdce080" [label=""];
+  "sha256:0f643561b9f8161b6d327fa5f5c04c2e927a2c49a5d54d5aaecf9e990bdce080" -> "sha256:386663a5d58329b6f9cd1f40b391633cbc10db531b2d81ada889ef2273700f2e" [label=""];
+  "sha256:386663a5d58329b6f9cd1f40b391633cbc10db531b2d81ada889ef2273700f2e" -> "sha256:0dff4af0a0069524a89a3ed537a83f0eafb628363775bc7b648b4bea73eff018" [label=""];
+  "sha256:0dff4af0a0069524a89a3ed537a83f0eafb628363775bc7b648b4bea73eff018" -> "sha256:bd4e8259fe4320a338d270fbee7201c65353f19b00a8cd2de15e0c956552df0a" [label=""];
+  "sha256:bd4e8259fe4320a338d270fbee7201c65353f19b00a8cd2de15e0c956552df0a" -> "sha256:b83a6c0ff29912e6f09a35c00e6dad99e28dba2b13889a944628fd2a48f73c7b" [label=""];
+  "sha256:b83a6c0ff29912e6f09a35c00e6dad99e28dba2b13889a944628fd2a48f73c7b" -> "sha256:fec6f6be2917448547b81b0509570f1bc7319567fa753e1d9ce3ea66b0eee6af" [label=""];
+  "sha256:fec6f6be2917448547b81b0509570f1bc7319567fa753e1d9ce3ea66b0eee6af" -> "sha256:8039997bfb04204a386daeeb9d717fc05c4fb26d66d27261d23a5264ba8f4986" [label=""];
+  "sha256:8039997bfb04204a386daeeb9d717fc05c4fb26d66d27261d23a5264ba8f4986" -> "sha256:c9624862c381b9195d6cfa8385e804ce6c67ef8ee7653dd8972d24584d343cbb" [label=""];
+  "sha256:c9624862c381b9195d6cfa8385e804ce6c67ef8ee7653dd8972d24584d343cbb" -> "sha256:f6fe56a40fb56176adc441ba15a43852560e4963421956c0d5b8d5370b79fc2c" [label=""];
+  "sha256:f6fe56a40fb56176adc441ba15a43852560e4963421956c0d5b8d5370b79fc2c" -> "sha256:bc2c0d47757cc40d8e656074f85cecd0d1765e746232964fdf388d8753cb96cc" [label=""];
+  "sha256:bc2c0d47757cc40d8e656074f85cecd0d1765e746232964fdf388d8753cb96cc" -> "sha256:0c254f843d37f17f69cb82f268f9094d6a7649f5bdd110e37824153031fc0a53" [label=""];
+  "sha256:0c254f843d37f17f69cb82f268f9094d6a7649f5bdd110e37824153031fc0a53" -> "sha256:dfce8a330a97036d2743761b215d191771bf503fd3b05a719265e0ecc41e7358" [label=""];
+}
+

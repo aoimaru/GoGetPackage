@@ -1,0 +1,33 @@
+[app/sources/282275612.Dockerfile]
+digraph {
+  "sha256:cc47af5d092e6703c4baceaab393c283b63709ad6553bc047906458afb4c9b0d" [label="docker-image://docker.io/library/debian:jessie-slim" shape="ellipse"];
+  "sha256:3b44bb0e4200454752b58a134dc6008140d9833a7890cd5278bafc1a282ec54d" [label="/bin/sh -c echo 'deb http://mirrors.aliyun.com/debian jessie-backports main' > /etc/apt/sources.list.d/backports.list     && sed -i 's/deb.debian.org/mirrors.aliyun.com/' /etc/apt/sources.list" shape="box"];
+  "sha256:77bfcdfe89b93f6a3ce66746d2a26053ca4e852352faeafef1625738ffdb2899" [label="/bin/sh -c echo \"${TIMEZONE}\" > /etc/timezone     && echo \"$LANG UTF-8\" > /etc/locale.gen     && apt-get update -q     && DEBIAN_FRONTEND=noninteractive apt-get install -yq apt-utils dialog vim-tiny locales     && ln -sf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime     && update-locale LANG=$LANG     && locale-gen $LANG     && DEBIAN_FRONTEND=noninteractive dpkg-reconfigure locales" shape="box"];
+  "sha256:7ef270b8186010f90eddd58041235fae4a8753c239f10ffe6d38b70c0b8b9c4e" [label="/bin/sh -c apt-get dist-upgrade -y" shape="box"];
+  "sha256:f25f83f4373b1b2933566d4620ff2ed81bfbb5f67bdf7f1353ce85f5d33e0ff5" [label="/bin/sh -c groupadd -r mongodb && useradd -r -g mongodb mongodb" shape="box"];
+  "sha256:968379397c3a98c125c573b1c36a6899b96c95efd57b2a48c63c976566f0cdc9" [label="/bin/sh -c apt-get update \t&& apt-get install -y --no-install-recommends \t\tca-certificates \t\tjq \t\tnumactl \t&& rm -rf /var/lib/apt/lists/*" shape="box"];
+  "sha256:7e2cf582c39a6e46f22baae2679aeffe0d37fbfcac4d8b9e47ecd53f9252d8d7" [label="/bin/sh -c set -ex; \t\tapt-get update; \tapt-get install -y --no-install-recommends \t\twget \t; \trm -rf /var/lib/apt/lists/*; \t\tdpkgArch=\"$(dpkg --print-architecture | awk -F- '{ print $NF }')\"; \twget -O /usr/local/bin/gosu \"https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch\"; \twget -O /usr/local/bin/gosu.asc \"https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch.asc\"; \texport GNUPGHOME=\"$(mktemp -d)\"; \tgpg --keyserver keyserver.ubuntu.com --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4; \tgpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu; \trm -r \"$GNUPGHOME\" /usr/local/bin/gosu.asc; \tchmod +x /usr/local/bin/gosu; \tgosu nobody true; \t\twget -O /js-yaml.js \"https://github.com/nodeca/js-yaml/raw/${JSYAML_VERSION}/dist/js-yaml.js\"; \t\tapt-get purge -y --auto-remove wget" shape="box"];
+  "sha256:d5c586a3bb35cbd248a97dcad027142baa49c46c100d939632a3a3b55bc26973" [label="/bin/sh -c mkdir /docker-entrypoint-initdb.d" shape="box"];
+  "sha256:246d858a066133a1c3c5526702dafea1b2d4bb63197b247c574d15a42b7723f1" [label="/bin/sh -c set -ex; \texport GNUPGHOME=\"$(mktemp -d)\"; \tfor key in $GPG_KEYS; do \t\tgpg --keyserver keyserver.ubuntu.com --recv-keys \"$key\"; \tdone; \tgpg --export $GPG_KEYS > /etc/apt/trusted.gpg.d/mongodb.gpg; \trm -r \"$GNUPGHOME\"; \tapt-key list" shape="box"];
+  "sha256:2aa5c3d0f17759ab608c26f25a7409fbd79a97486d798589c5eb92a7691187bd" [label="/bin/sh -c echo \"deb http://$MONGO_REPO/apt/debian jessie/${MONGO_PACKAGE%-unstable}/$MONGO_MAJOR main\" | tee \"/etc/apt/sources.list.d/${MONGO_PACKAGE%-unstable}.list\"" shape="box"];
+  "sha256:ce9254d447f0d31690480c4357e466ee6c0213e381aeaa62b9b939d35418839d" [label="/bin/sh -c set -x \t&& apt-get update \t&& apt-get install -y \t\t${MONGO_PACKAGE}=$MONGO_VERSION \t\t${MONGO_PACKAGE}-server=$MONGO_VERSION \t\t${MONGO_PACKAGE}-shell=$MONGO_VERSION \t\t${MONGO_PACKAGE}-mongos=$MONGO_VERSION \t\t${MONGO_PACKAGE}-tools=$MONGO_VERSION \t&& rm -rf /var/lib/apt/lists/* \t&& rm -rf /var/lib/mongodb \t&& mv /etc/mongod.conf /etc/mongod.conf.orig" shape="box"];
+  "sha256:dc43ab46e6e3acfa443526ba5b71aeb060493b314ee672f1a8c68804eecd9612" [label="/bin/sh -c mkdir -p /data/db /data/configdb \t&& chown -R mongodb:mongodb /data/db /data/configdb" shape="box"];
+  "sha256:4f070df69341aeca8ef38eb328814dd00022326b9f67e0466a1ed8a1e1f3b509" [label="local://context" shape="ellipse"];
+  "sha256:f1647d52197a55236d6d03009073c5b57db33f97b3261afe0da1aaf1e649a53b" [label="copy{src=/docker-entrypoint.sh, dest=/usr/local/bin/}" shape="note"];
+  "sha256:f20d72c9734b9b0ad7e26480ee7457efd27291572f3eb452e536db1a090ef143" [label="sha256:f20d72c9734b9b0ad7e26480ee7457efd27291572f3eb452e536db1a090ef143" shape="plaintext"];
+  "sha256:cc47af5d092e6703c4baceaab393c283b63709ad6553bc047906458afb4c9b0d" -> "sha256:3b44bb0e4200454752b58a134dc6008140d9833a7890cd5278bafc1a282ec54d" [label=""];
+  "sha256:3b44bb0e4200454752b58a134dc6008140d9833a7890cd5278bafc1a282ec54d" -> "sha256:77bfcdfe89b93f6a3ce66746d2a26053ca4e852352faeafef1625738ffdb2899" [label=""];
+  "sha256:77bfcdfe89b93f6a3ce66746d2a26053ca4e852352faeafef1625738ffdb2899" -> "sha256:7ef270b8186010f90eddd58041235fae4a8753c239f10ffe6d38b70c0b8b9c4e" [label=""];
+  "sha256:7ef270b8186010f90eddd58041235fae4a8753c239f10ffe6d38b70c0b8b9c4e" -> "sha256:f25f83f4373b1b2933566d4620ff2ed81bfbb5f67bdf7f1353ce85f5d33e0ff5" [label=""];
+  "sha256:f25f83f4373b1b2933566d4620ff2ed81bfbb5f67bdf7f1353ce85f5d33e0ff5" -> "sha256:968379397c3a98c125c573b1c36a6899b96c95efd57b2a48c63c976566f0cdc9" [label=""];
+  "sha256:968379397c3a98c125c573b1c36a6899b96c95efd57b2a48c63c976566f0cdc9" -> "sha256:7e2cf582c39a6e46f22baae2679aeffe0d37fbfcac4d8b9e47ecd53f9252d8d7" [label=""];
+  "sha256:7e2cf582c39a6e46f22baae2679aeffe0d37fbfcac4d8b9e47ecd53f9252d8d7" -> "sha256:d5c586a3bb35cbd248a97dcad027142baa49c46c100d939632a3a3b55bc26973" [label=""];
+  "sha256:d5c586a3bb35cbd248a97dcad027142baa49c46c100d939632a3a3b55bc26973" -> "sha256:246d858a066133a1c3c5526702dafea1b2d4bb63197b247c574d15a42b7723f1" [label=""];
+  "sha256:246d858a066133a1c3c5526702dafea1b2d4bb63197b247c574d15a42b7723f1" -> "sha256:2aa5c3d0f17759ab608c26f25a7409fbd79a97486d798589c5eb92a7691187bd" [label=""];
+  "sha256:2aa5c3d0f17759ab608c26f25a7409fbd79a97486d798589c5eb92a7691187bd" -> "sha256:ce9254d447f0d31690480c4357e466ee6c0213e381aeaa62b9b939d35418839d" [label=""];
+  "sha256:ce9254d447f0d31690480c4357e466ee6c0213e381aeaa62b9b939d35418839d" -> "sha256:dc43ab46e6e3acfa443526ba5b71aeb060493b314ee672f1a8c68804eecd9612" [label=""];
+  "sha256:dc43ab46e6e3acfa443526ba5b71aeb060493b314ee672f1a8c68804eecd9612" -> "sha256:f1647d52197a55236d6d03009073c5b57db33f97b3261afe0da1aaf1e649a53b" [label=""];
+  "sha256:4f070df69341aeca8ef38eb328814dd00022326b9f67e0466a1ed8a1e1f3b509" -> "sha256:f1647d52197a55236d6d03009073c5b57db33f97b3261afe0da1aaf1e649a53b" [label=""];
+  "sha256:f1647d52197a55236d6d03009073c5b57db33f97b3261afe0da1aaf1e649a53b" -> "sha256:f20d72c9734b9b0ad7e26480ee7457efd27291572f3eb452e536db1a090ef143" [label=""];
+}
+

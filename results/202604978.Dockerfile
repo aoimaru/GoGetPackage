@@ -1,0 +1,13 @@
+[app/sources/202604978.Dockerfile]
+digraph {
+  "sha256:407f5d379a92852f20e056009913fcf2a955d195bc8504850031c23329884955" [label="docker-image://docker.io/library/golang:latest" shape="ellipse"];
+  "sha256:09d6e4fc815a79ea840370e200480e4a3ea417bd97e1318be2bef2243249cb3f" [label="local://context" shape="ellipse"];
+  "sha256:a33c36b1e9170f29b4fac137228765dd64c8416ae4318a0f64c825f239d6dba5" [label="copy{src=/script.sh, dest=/opt/local/script.sh}" shape="note"];
+  "sha256:f1ac1014540a924d032b0a22a83e137ce6f618871f1c48876ee8c1b244b1bf96" [label="/bin/sh -c chmod 755 /opt/local/script.sh" shape="box"];
+  "sha256:6239c7dd87f6860bb41191f74baab26affd4094720f0cec96890d14792dcc370" [label="sha256:6239c7dd87f6860bb41191f74baab26affd4094720f0cec96890d14792dcc370" shape="plaintext"];
+  "sha256:407f5d379a92852f20e056009913fcf2a955d195bc8504850031c23329884955" -> "sha256:a33c36b1e9170f29b4fac137228765dd64c8416ae4318a0f64c825f239d6dba5" [label=""];
+  "sha256:09d6e4fc815a79ea840370e200480e4a3ea417bd97e1318be2bef2243249cb3f" -> "sha256:a33c36b1e9170f29b4fac137228765dd64c8416ae4318a0f64c825f239d6dba5" [label=""];
+  "sha256:a33c36b1e9170f29b4fac137228765dd64c8416ae4318a0f64c825f239d6dba5" -> "sha256:f1ac1014540a924d032b0a22a83e137ce6f618871f1c48876ee8c1b244b1bf96" [label=""];
+  "sha256:f1ac1014540a924d032b0a22a83e137ce6f618871f1c48876ee8c1b244b1bf96" -> "sha256:6239c7dd87f6860bb41191f74baab26affd4094720f0cec96890d14792dcc370" [label=""];
+}
+

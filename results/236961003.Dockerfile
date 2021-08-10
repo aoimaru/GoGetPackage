@@ -1,0 +1,48 @@
+[app/sources/236961003.Dockerfile]
+digraph {
+  "sha256:48668b9bc3ad3d4a7a2524bc91562fd9606faf2d144a6a5e3737cf704b4bf045" [label="local://context" shape="ellipse"];
+  "sha256:37d50442e3c9d1020c96da434131c4227b2db5a1683e76410ee639129c61af4a" [label="docker-image://docker.io/arm32v7/debian:stretch" shape="ellipse"];
+  "sha256:734023faf85c24f2199ee9c188789bf1f56f6d00a20727c25d3345579bb6a4aa" [label="/bin/sh -c sed -ri \"s/(httpredir|deb).debian.org/$APT_MIRROR/g\" /etc/apt/sources.list" shape="box"];
+  "sha256:097ecc6e2eb996f31da12214dc2f2bd37e42f9054dda8d2a3a618a863a582609" [label="/bin/sh -c apt-get update && apt-get install -y \tapparmor \taufs-tools \tautomake \tbash-completion \tbtrfs-tools \tbuild-essential \tcreaterepo \tcurl \tcmake \tdpkg-sig \tgit \tiptables \tjq \tnet-tools \tlibapparmor-dev \tlibcap-dev \tlibdevmapper-dev \tlibseccomp-dev \tlibsystemd-dev \tlibtool \tlibudev-dev \tmercurial \tpkg-config \tpython-backports.ssl-match-hostname \tpython-dev \tpython-mock \tpython-pip \tpython-requests \tpython-setuptools \tpython-websocket \tpython-wheel \txfsprogs \ttar \tthin-provisioning-tools \tvim-common \t--no-install-recommends \t&& pip install awscli==1.10.15" shape="box"];
+  "sha256:1e58ef638e65f21bf7e1851092dadec31fc6b5a13bdaa828a5cbcfc2cb5137c5" [label="/bin/sh -c curl -fsSL \"https://golang.org/dl/go${GO_VERSION}.linux-armv6l.tar.gz\" \t| tar -xzC /usr/local" shape="box"];
+  "sha256:bb5b64d4f2fcad24bab2f6c2d34aad3201bee65d8c8a068f744c8b5bbf917e6b" [label="/bin/sh -c set -x \t&& export GOPATH=\"$(mktemp -d)\" \t&& git clone https://github.com/docker/distribution.git \"$GOPATH/src/github.com/docker/distribution\" \t&& (cd \"$GOPATH/src/github.com/docker/distribution\" && git checkout -q \"$REGISTRY_COMMIT\") \t&& GOPATH=\"$GOPATH/src/github.com/docker/distribution/Godeps/_workspace:$GOPATH\" \t\tgo build -o /usr/local/bin/registry-v2 github.com/docker/distribution/cmd/registry \t&& (cd \"$GOPATH/src/github.com/docker/distribution\" && git checkout -q \"$REGISTRY_COMMIT_SCHEMA1\") \t&& GOPATH=\"$GOPATH/src/github.com/docker/distribution/Godeps/_workspace:$GOPATH\" \t\tgo build -o /usr/local/bin/registry-v2-schema1 github.com/docker/distribution/cmd/registry \t&& rm -rf \"$GOPATH\"" shape="box"];
+  "sha256:1c510e2f0e3bf097eabd1cd89148d67ffd2d4380e90264fcece57c0392a1bd26" [label="/bin/sh -c set -x \t&& export GOPATH=\"$(mktemp -d)\" \t&& git clone https://github.com/docker/notary.git \"$GOPATH/src/github.com/docker/notary\" \t&& (cd \"$GOPATH/src/github.com/docker/notary\" && git checkout -q \"$NOTARY_VERSION\") \t&& GOPATH=\"$GOPATH/src/github.com/docker/notary/vendor:$GOPATH\" \t\tgo build -o /usr/local/bin/notary-server github.com/docker/notary/cmd/notary-server \t&& GOPATH=\"$GOPATH/src/github.com/docker/notary/vendor:$GOPATH\" \t\tgo build -o /usr/local/bin/notary github.com/docker/notary/cmd/notary \t&& rm -rf \"$GOPATH\"" shape="box"];
+  "sha256:17fee4f22589eb5af6385354f1fc1fcbab91814eeacc232b48abac021e6d9a7d" [label="/bin/sh -c git clone https://github.com/docker/docker-py.git /docker-py \t&& cd /docker-py \t&& git checkout -q $DOCKER_PY_COMMIT \t&& pip install docker-pycreds==0.2.1 \t&& pip install -r test-requirements.txt" shape="box"];
+  "sha256:f45a5698263281f97ab5af5cf01df9db2b417a1a642d1cc5880e7efbb5992593" [label="/bin/sh -c git config --global user.email 'docker-dummy@example.com'" shape="box"];
+  "sha256:cd60b12dda47e61e1bbb21fc44045ba6fc127bc496061c4bbe9f7008472af45c" [label="/bin/sh -c groupadd -r docker" shape="box"];
+  "sha256:abeaf4bcd782e5648a29c0c3ba7fbeb63e9e46424e8754990d7fffbbe749f6d8" [label="/bin/sh -c useradd --create-home --gid docker unprivilegeduser" shape="box"];
+  "sha256:c0111db27f871755f289df87dfe8af2765a6175db60defa5b57d105cccc9c1e4" [label="mkdir{path=/go/src/github.com/docker/docker}" shape="note"];
+  "sha256:ab5b03c6b63833c6e606af451d76e7183bfdbf363427f181169cdc9591e6af12" [label="/bin/sh -c ln -sfv $PWD/.bashrc ~/.bashrc" shape="box"];
+  "sha256:dbd840bfda7edb8f8e12a62741bb2b9c25e28bfeda63987a5f91773702f65f70" [label="/bin/sh -c ln -sv $PWD/contrib/completion/bash/docker /etc/bash_completion.d/docker" shape="box"];
+  "sha256:cdce8047a3a18765ca34bf370f99ef3e5eb9cf2010483de23f71ea433e81de3b" [label="copy{src=/contrib/download-frozen-image-v2.sh, dest=/go/src/github.com/docker/docker/contrib/}" shape="note"];
+  "sha256:628f818aafd763038294c144adc6f7140dc9d47ecc2a03bdd22b7a396ab9fb6c" [label="/bin/sh -c ./contrib/download-frozen-image-v2.sh /docker-frozen-images \tarmhf/buildpack-deps:jessie@sha256:eb2dad77ef53e88d94c3c83862d315c806ea1ca49b6e74f4db362381365ce489 \tarmhf/busybox:latest@sha256:016a1e149d2acc2a3789a160dfa60ce870794eea27ad5e96f7a101970e5e1689 \tarmhf/debian:jessie@sha256:ac59fa18b28d0ef751eabb5ba4c4b5a9063f99398bae2f70495aa8ed6139b577 \tarmhf/hello-world:latest@sha256:9701edc932223a66e49dd6c894a11db8c2cf4eccd1414f1ec105a623bf16b426" shape="box"];
+  "sha256:29f29c0a270753d299843cab168059afedcd3b4c924465dcf6c247106a3de6bc" [label="copy{src=/hack/dockerfile/binaries-commits, dest=/tmp/binaries-commits}" shape="note"];
+  "sha256:9c807540c0ccc2f1636607a7d9e129da84d0099b2725365f740d7a3247833084" [label="copy{src=/hack/dockerfile/install-binaries.sh, dest=/tmp/install-binaries.sh}" shape="note"];
+  "sha256:91157438cb351e3ba15c59e9ea09e35a9105ca764f51b97e1afc74e3f5774bdb" [label="/bin/sh -c /tmp/install-binaries.sh tomlv vndr runc containerd tini proxy dockercli gometalinter" shape="box"];
+  "sha256:d219d74ec3c4a9ef86e4fb2ed354cd0c4f4944ba366c944cd39bc617ffb4bf83" [label="copy{src=/, dest=/go/src/github.com/docker/docker}" shape="note"];
+  "sha256:9e1ba1fd07d9ce8da5f3dd9cda533f190f3ffb822c3fe04f436a56d9661c7a14" [label="sha256:9e1ba1fd07d9ce8da5f3dd9cda533f190f3ffb822c3fe04f436a56d9661c7a14" shape="plaintext"];
+  "sha256:37d50442e3c9d1020c96da434131c4227b2db5a1683e76410ee639129c61af4a" -> "sha256:734023faf85c24f2199ee9c188789bf1f56f6d00a20727c25d3345579bb6a4aa" [label=""];
+  "sha256:734023faf85c24f2199ee9c188789bf1f56f6d00a20727c25d3345579bb6a4aa" -> "sha256:097ecc6e2eb996f31da12214dc2f2bd37e42f9054dda8d2a3a618a863a582609" [label=""];
+  "sha256:097ecc6e2eb996f31da12214dc2f2bd37e42f9054dda8d2a3a618a863a582609" -> "sha256:1e58ef638e65f21bf7e1851092dadec31fc6b5a13bdaa828a5cbcfc2cb5137c5" [label=""];
+  "sha256:1e58ef638e65f21bf7e1851092dadec31fc6b5a13bdaa828a5cbcfc2cb5137c5" -> "sha256:bb5b64d4f2fcad24bab2f6c2d34aad3201bee65d8c8a068f744c8b5bbf917e6b" [label=""];
+  "sha256:bb5b64d4f2fcad24bab2f6c2d34aad3201bee65d8c8a068f744c8b5bbf917e6b" -> "sha256:1c510e2f0e3bf097eabd1cd89148d67ffd2d4380e90264fcece57c0392a1bd26" [label=""];
+  "sha256:1c510e2f0e3bf097eabd1cd89148d67ffd2d4380e90264fcece57c0392a1bd26" -> "sha256:17fee4f22589eb5af6385354f1fc1fcbab91814eeacc232b48abac021e6d9a7d" [label=""];
+  "sha256:17fee4f22589eb5af6385354f1fc1fcbab91814eeacc232b48abac021e6d9a7d" -> "sha256:f45a5698263281f97ab5af5cf01df9db2b417a1a642d1cc5880e7efbb5992593" [label=""];
+  "sha256:f45a5698263281f97ab5af5cf01df9db2b417a1a642d1cc5880e7efbb5992593" -> "sha256:cd60b12dda47e61e1bbb21fc44045ba6fc127bc496061c4bbe9f7008472af45c" [label=""];
+  "sha256:cd60b12dda47e61e1bbb21fc44045ba6fc127bc496061c4bbe9f7008472af45c" -> "sha256:abeaf4bcd782e5648a29c0c3ba7fbeb63e9e46424e8754990d7fffbbe749f6d8" [label=""];
+  "sha256:abeaf4bcd782e5648a29c0c3ba7fbeb63e9e46424e8754990d7fffbbe749f6d8" -> "sha256:c0111db27f871755f289df87dfe8af2765a6175db60defa5b57d105cccc9c1e4" [label=""];
+  "sha256:c0111db27f871755f289df87dfe8af2765a6175db60defa5b57d105cccc9c1e4" -> "sha256:ab5b03c6b63833c6e606af451d76e7183bfdbf363427f181169cdc9591e6af12" [label=""];
+  "sha256:ab5b03c6b63833c6e606af451d76e7183bfdbf363427f181169cdc9591e6af12" -> "sha256:dbd840bfda7edb8f8e12a62741bb2b9c25e28bfeda63987a5f91773702f65f70" [label=""];
+  "sha256:dbd840bfda7edb8f8e12a62741bb2b9c25e28bfeda63987a5f91773702f65f70" -> "sha256:cdce8047a3a18765ca34bf370f99ef3e5eb9cf2010483de23f71ea433e81de3b" [label=""];
+  "sha256:48668b9bc3ad3d4a7a2524bc91562fd9606faf2d144a6a5e3737cf704b4bf045" -> "sha256:cdce8047a3a18765ca34bf370f99ef3e5eb9cf2010483de23f71ea433e81de3b" [label=""];
+  "sha256:cdce8047a3a18765ca34bf370f99ef3e5eb9cf2010483de23f71ea433e81de3b" -> "sha256:628f818aafd763038294c144adc6f7140dc9d47ecc2a03bdd22b7a396ab9fb6c" [label=""];
+  "sha256:628f818aafd763038294c144adc6f7140dc9d47ecc2a03bdd22b7a396ab9fb6c" -> "sha256:29f29c0a270753d299843cab168059afedcd3b4c924465dcf6c247106a3de6bc" [label=""];
+  "sha256:48668b9bc3ad3d4a7a2524bc91562fd9606faf2d144a6a5e3737cf704b4bf045" -> "sha256:29f29c0a270753d299843cab168059afedcd3b4c924465dcf6c247106a3de6bc" [label=""];
+  "sha256:29f29c0a270753d299843cab168059afedcd3b4c924465dcf6c247106a3de6bc" -> "sha256:9c807540c0ccc2f1636607a7d9e129da84d0099b2725365f740d7a3247833084" [label=""];
+  "sha256:48668b9bc3ad3d4a7a2524bc91562fd9606faf2d144a6a5e3737cf704b4bf045" -> "sha256:9c807540c0ccc2f1636607a7d9e129da84d0099b2725365f740d7a3247833084" [label=""];
+  "sha256:9c807540c0ccc2f1636607a7d9e129da84d0099b2725365f740d7a3247833084" -> "sha256:91157438cb351e3ba15c59e9ea09e35a9105ca764f51b97e1afc74e3f5774bdb" [label=""];
+  "sha256:91157438cb351e3ba15c59e9ea09e35a9105ca764f51b97e1afc74e3f5774bdb" -> "sha256:d219d74ec3c4a9ef86e4fb2ed354cd0c4f4944ba366c944cd39bc617ffb4bf83" [label=""];
+  "sha256:48668b9bc3ad3d4a7a2524bc91562fd9606faf2d144a6a5e3737cf704b4bf045" -> "sha256:d219d74ec3c4a9ef86e4fb2ed354cd0c4f4944ba366c944cd39bc617ffb4bf83" [label=""];
+  "sha256:d219d74ec3c4a9ef86e4fb2ed354cd0c4f4944ba366c944cd39bc617ffb4bf83" -> "sha256:9e1ba1fd07d9ce8da5f3dd9cda533f190f3ffb822c3fe04f436a56d9661c7a14" [label=""];
+}
+

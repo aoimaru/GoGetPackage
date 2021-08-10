@@ -1,0 +1,19 @@
+[app/sources/331862213.Dockerfile]
+digraph {
+  "sha256:04187b885604d112762d71717a1346cbc4f17e131fc82857a048019e04951455" [label="docker-image://docker.io/library/ubuntu:16.04" shape="ellipse"];
+  "sha256:fb9700587f6659bbbbb39b4980eff9817a3f59ce989175e7cb56a9620669d391" [label="/bin/sh -c apt-get update     && apt-get install -y --no-install-recommends         build-essential=12.1ubuntu2         cmake=3.5.1-1ubuntu3         git=1:2.7.4-0ubuntu1.4         curl=7.47.0-1ubuntu2.8         nano=2.5.3-2ubuntu2         ca-certificates=20170717~16.04.1         libjpeg-dev=8c-2ubuntu8         libpng-dev         software-properties-common=0.96.20.7     && apt-get -qq -y autoremove     && apt-get autoclean     && rm -rf /var/lib/apt/lists/* /var/log/dpkg.log" shape="box"];
+  "sha256:dd9e5ce569e9296624b49aa98c80167c1fa492f9c25f1329d71fb01a4849a69a" [label="/bin/sh -c curl -sSL https://repo.continuum.io/miniconda/Miniconda3-4.5.4-Linux-x86_64.sh -o /tmp/miniconda.sh     && bash /tmp/miniconda.sh -bfp /usr/local     && rm -rf /tmp/miniconda.sh     && conda install -y python=3.6.5     && conda clean --all --yes" shape="box"];
+  "sha256:68da3d6a76857bfb892c84f9496e2e1f18ac4542b188a36cac81245a98358266" [label="/bin/sh -c apt-get update     && apt-get install -y --no-install-recommends         libgeos-dev=3.5.0-1ubuntu2         libsm6=2:1.2.2-1         libxext6=2:1.3.3-1         libxrender-dev=1:0.9.9-0ubuntu1     && apt-get -qq -y autoremove     && apt-get autoclean     && rm -rf /var/lib/apt/lists/* /var/log/dpkg.log" shape="box"];
+  "sha256:a3b0747bf6a07243f18684063a8fe0efd0985f5684afc99f0266c28dd5ecf37c" [label="/bin/sh -c conda install -y -c menpo         opencv=3.4.1         numpy=1.14.3         zlib=1.2.11         requests=2.18.4     && conda clean --all --yes" shape="box"];
+  "sha256:6305b3ed71f4e36345b5abda16949e848d99466a3f9896b7fa2e576fc3fc561d" [label="/bin/sh -c pip install --no-cache-dir         python-json-logger==0.1.8         pybase64==0.4.0         shapely==1.5.13         imgaug==0.2.5         opencv-python==3.4.1.15         scipy==1.1.0         scikit-image==0.13.0         matplotlib==2.2.2         pillow==5.1.0         networkx==2.1         jsonschema==2.6.0" shape="box"];
+  "sha256:d99b3daedc2eb316f34bc6644b4bbc69cad2a1c6de4df34ee512f085b24aaf02" [label="/bin/sh -c apt-get update     && apt-get install -y --no-install-recommends         default-jre=2:1.8-56ubuntu2         default-jdk=2:1.8-56ubuntu2     && apt-get -qq -y autoremove     && apt-get autoclean     && rm -rf /var/lib/apt/lists/* /var/log/dpkg.log     && ln -s /usr/lib/jvm/java-7-openjdk-amd64 /jre" shape="box"];
+  "sha256:15a11461d8834f0ecfa424d8dd9b2f0034afef4a6dcd8d1aa4c355c349e7334f" [label="sha256:15a11461d8834f0ecfa424d8dd9b2f0034afef4a6dcd8d1aa4c355c349e7334f" shape="plaintext"];
+  "sha256:04187b885604d112762d71717a1346cbc4f17e131fc82857a048019e04951455" -> "sha256:fb9700587f6659bbbbb39b4980eff9817a3f59ce989175e7cb56a9620669d391" [label=""];
+  "sha256:fb9700587f6659bbbbb39b4980eff9817a3f59ce989175e7cb56a9620669d391" -> "sha256:dd9e5ce569e9296624b49aa98c80167c1fa492f9c25f1329d71fb01a4849a69a" [label=""];
+  "sha256:dd9e5ce569e9296624b49aa98c80167c1fa492f9c25f1329d71fb01a4849a69a" -> "sha256:68da3d6a76857bfb892c84f9496e2e1f18ac4542b188a36cac81245a98358266" [label=""];
+  "sha256:68da3d6a76857bfb892c84f9496e2e1f18ac4542b188a36cac81245a98358266" -> "sha256:a3b0747bf6a07243f18684063a8fe0efd0985f5684afc99f0266c28dd5ecf37c" [label=""];
+  "sha256:a3b0747bf6a07243f18684063a8fe0efd0985f5684afc99f0266c28dd5ecf37c" -> "sha256:6305b3ed71f4e36345b5abda16949e848d99466a3f9896b7fa2e576fc3fc561d" [label=""];
+  "sha256:6305b3ed71f4e36345b5abda16949e848d99466a3f9896b7fa2e576fc3fc561d" -> "sha256:d99b3daedc2eb316f34bc6644b4bbc69cad2a1c6de4df34ee512f085b24aaf02" [label=""];
+  "sha256:d99b3daedc2eb316f34bc6644b4bbc69cad2a1c6de4df34ee512f085b24aaf02" -> "sha256:15a11461d8834f0ecfa424d8dd9b2f0034afef4a6dcd8d1aa4c355c349e7334f" [label=""];
+}
+

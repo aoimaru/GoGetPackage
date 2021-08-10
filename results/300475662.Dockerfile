@@ -1,0 +1,7 @@
+[app/sources/300475662.Dockerfile]
+digraph {
+  "sha256:356633ef749ef97879ca9b0e4f686297efb3b47c767a8286cc21b2964730bf45" [label="docker-image://gcr.io/istio-release/sidecar_injector:release-0.8-20180524-09-15@sha256:e29d18d82d7f7f013d55b29c40f9c99511001ae0854dd84feb2d54ebe1d07e7e" shape="ellipse"];
+  "sha256:0e006fc654f40f1e587851bc207e3f10a48e116730197b13a03ff571aa1fb3a3" [label="sha256:0e006fc654f40f1e587851bc207e3f10a48e116730197b13a03ff571aa1fb3a3" shape="plaintext"];
+  "sha256:356633ef749ef97879ca9b0e4f686297efb3b47c767a8286cc21b2964730bf45" -> "sha256:0e006fc654f40f1e587851bc207e3f10a48e116730197b13a03ff571aa1fb3a3" [label=""];
+}
+

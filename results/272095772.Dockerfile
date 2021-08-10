@@ -1,0 +1,55 @@
+[app/sources/272095772.Dockerfile]
+digraph {
+  "sha256:6a992accf2379ea0277bf4c912f91bb7ad8a7faa1d1423537beadfb4cc61b0b4" [label="docker-image://docker.io/library/ubuntu:16.04@sha256:6a3ac136b6ca623d6a6fa20a7622f098b2fae1ac05f0114386ef439d8ca89a4a" shape="ellipse"];
+  "sha256:7c841b0cd8d771d46a351b804b2186716aef6ba1f919753046ef6c1bda910953" [label="/bin/sh -c apt-get update" shape="box"];
+  "sha256:8132ac1d6192d6b1d00bc8c81526df8e9e241b0b0f8c10332469d5cbcdf57484" [label="/bin/sh -c apt-get install -y git git-core wget --force-yes" shape="box"];
+  "sha256:3d1823f10e7a6661196562e5a4c81d82b32abaf31a316a06f818ab3d13f96c7f" [label="/bin/sh -c apt-get install -y build-essential --force-yes" shape="box"];
+  "sha256:942f6dd9500ee1c574c82922fa8beedd6eb3aa35d9a0ca0cecc789a18dd81c23" [label="/bin/sh -c wget http://download.redis.io/redis-stable.tar.gz" shape="box"];
+  "sha256:a2840513a223e9672aee7a2a5ca0b9d9f0eb8483822f01866fc688f35a234bf2" [label="/bin/sh -c tar xvzf redis-stable.tar.gz" shape="box"];
+  "sha256:91daeee894cb47f1ee59aefe97ede88af14847b9bf751fda409dd323ba6d9e3b" [label="mkdir{path=/redis-stable}" shape="note"];
+  "sha256:007cce306d86cc90f160d6cc3950deab77eb4f007371264ea65d4e91541dbeef" [label="/bin/sh -c make" shape="box"];
+  "sha256:425dd0fcca5136b43c048c18179a1af51f476fbf20078ea120254c7d6d340363" [label="/bin/sh -c make install" shape="box"];
+  "sha256:df578871c7b3e84b93e9e67d6a7a82626c5f281af0e73c464d61e9a1346871b8" [label="/bin/sh -c cd .." shape="box"];
+  "sha256:c2d797b43828c9ed40f54f0aa5b4bbef9cc70fc79127c0bd806b85adec0dbdf2" [label="/bin/sh -c wget https://storage.googleapis.com/golang/go1.8.3.linux-amd64.tar.gz" shape="box"];
+  "sha256:e1a22e03eb2cf3d289b767177cee980093678cce9cabb69472faecaa1e73addb" [label="/bin/sh -c tar -C /usr/local -xzf go1.8.3.linux-amd64.tar.gz" shape="box"];
+  "sha256:171e474358c0b4e5987186e8538ce5e961985901b185cedf9dbda8d989cec24d" [label="/bin/sh -c mkdir $HOME/gocode" shape="box"];
+  "sha256:bb0ae112baf3b0225b4232c17eca6413cb12c9faa97e8f6f5c5095c5a2c17f71" [label="/bin/sh -c mkdir $HOME/gocode/src" shape="box"];
+  "sha256:feabcb33ec9498334ab42763a142519738345951d71005f96edd77c006a7c325" [label="/bin/sh -c echo 'export PATH=$PATH:/usr/local/go/bin' >> /root/.bashrc" shape="box"];
+  "sha256:e2bb6c7e031356578f7ffad8c87a13137e7667c1fee2fca3b9c469f61b2a8cb8" [label="/bin/sh -c echo 'export GOPATH=$HOME/gocode' >> /root/.bashrc" shape="box"];
+  "sha256:52fefc3eb7ea673e5368e3d690cdfb01d340e28bc10d69c37b59ba408517d09e" [label="/bin/sh -c echo 'export PATH=$PATH:$HOME/gocode/bin' >> /root/.bashrc" shape="box"];
+  "sha256:bf9777a59b5f2386528699ccddf17628b738e819fb75ef6d3e98e3138a7746be" [label="/bin/sh -c mkdir /root/gocode/src/GoHole" shape="box"];
+  "sha256:46a6f2560ba635dbb610acde0b7f7ad31285ba8b6633fec66bf688a81d798dae" [label="mkdir{path=/root/gocode/src/GoHole}" shape="note"];
+  "sha256:e014894a9da24567ae98b643018a54da723bf0441ae4da25c9a1be0509cf1149" [label="local://context" shape="ellipse"];
+  "sha256:9a2319c5bfdb95a5770f5a50b2daa33a140d92849e9b9b69fdda0bfde0a9776c" [label="copy{src=/, dest=/root/gocode/src/GoHole/}" shape="note"];
+  "sha256:fb4284f1dee15338059a9aba49b92bf6845780587c4ef59b829c66a3a8a61cd6" [label="/bin/sh -c sh install.sh" shape="box"];
+  "sha256:1168682f6f83dc10b4b96f397807e3bc7c333c1cc6498759f3bb4b14b152bf06" [label="/bin/sh -c make install" shape="box"];
+  "sha256:a4869192e70a29f0ade9598f43404304094f6dae225f841d0ea041ff9501be34" [label="/bin/sh -c cp config_example.json /root/gohole_config.json" shape="box"];
+  "sha256:d2e498536e1d51c272a4812ca9a754119841e67b6df56fb29181b61174bd759f" [label="/bin/sh -c chmod +x docker/init.sh" shape="box"];
+  "sha256:e439b6b047b08b8f793904d7e79f4a386728b68d370fb0e9b47d489a8587d9a6" [label="sha256:e439b6b047b08b8f793904d7e79f4a386728b68d370fb0e9b47d489a8587d9a6" shape="plaintext"];
+  "sha256:6a992accf2379ea0277bf4c912f91bb7ad8a7faa1d1423537beadfb4cc61b0b4" -> "sha256:7c841b0cd8d771d46a351b804b2186716aef6ba1f919753046ef6c1bda910953" [label=""];
+  "sha256:7c841b0cd8d771d46a351b804b2186716aef6ba1f919753046ef6c1bda910953" -> "sha256:8132ac1d6192d6b1d00bc8c81526df8e9e241b0b0f8c10332469d5cbcdf57484" [label=""];
+  "sha256:8132ac1d6192d6b1d00bc8c81526df8e9e241b0b0f8c10332469d5cbcdf57484" -> "sha256:3d1823f10e7a6661196562e5a4c81d82b32abaf31a316a06f818ab3d13f96c7f" [label=""];
+  "sha256:3d1823f10e7a6661196562e5a4c81d82b32abaf31a316a06f818ab3d13f96c7f" -> "sha256:942f6dd9500ee1c574c82922fa8beedd6eb3aa35d9a0ca0cecc789a18dd81c23" [label=""];
+  "sha256:942f6dd9500ee1c574c82922fa8beedd6eb3aa35d9a0ca0cecc789a18dd81c23" -> "sha256:a2840513a223e9672aee7a2a5ca0b9d9f0eb8483822f01866fc688f35a234bf2" [label=""];
+  "sha256:a2840513a223e9672aee7a2a5ca0b9d9f0eb8483822f01866fc688f35a234bf2" -> "sha256:91daeee894cb47f1ee59aefe97ede88af14847b9bf751fda409dd323ba6d9e3b" [label=""];
+  "sha256:91daeee894cb47f1ee59aefe97ede88af14847b9bf751fda409dd323ba6d9e3b" -> "sha256:007cce306d86cc90f160d6cc3950deab77eb4f007371264ea65d4e91541dbeef" [label=""];
+  "sha256:007cce306d86cc90f160d6cc3950deab77eb4f007371264ea65d4e91541dbeef" -> "sha256:425dd0fcca5136b43c048c18179a1af51f476fbf20078ea120254c7d6d340363" [label=""];
+  "sha256:425dd0fcca5136b43c048c18179a1af51f476fbf20078ea120254c7d6d340363" -> "sha256:df578871c7b3e84b93e9e67d6a7a82626c5f281af0e73c464d61e9a1346871b8" [label=""];
+  "sha256:df578871c7b3e84b93e9e67d6a7a82626c5f281af0e73c464d61e9a1346871b8" -> "sha256:c2d797b43828c9ed40f54f0aa5b4bbef9cc70fc79127c0bd806b85adec0dbdf2" [label=""];
+  "sha256:c2d797b43828c9ed40f54f0aa5b4bbef9cc70fc79127c0bd806b85adec0dbdf2" -> "sha256:e1a22e03eb2cf3d289b767177cee980093678cce9cabb69472faecaa1e73addb" [label=""];
+  "sha256:e1a22e03eb2cf3d289b767177cee980093678cce9cabb69472faecaa1e73addb" -> "sha256:171e474358c0b4e5987186e8538ce5e961985901b185cedf9dbda8d989cec24d" [label=""];
+  "sha256:171e474358c0b4e5987186e8538ce5e961985901b185cedf9dbda8d989cec24d" -> "sha256:bb0ae112baf3b0225b4232c17eca6413cb12c9faa97e8f6f5c5095c5a2c17f71" [label=""];
+  "sha256:bb0ae112baf3b0225b4232c17eca6413cb12c9faa97e8f6f5c5095c5a2c17f71" -> "sha256:feabcb33ec9498334ab42763a142519738345951d71005f96edd77c006a7c325" [label=""];
+  "sha256:feabcb33ec9498334ab42763a142519738345951d71005f96edd77c006a7c325" -> "sha256:e2bb6c7e031356578f7ffad8c87a13137e7667c1fee2fca3b9c469f61b2a8cb8" [label=""];
+  "sha256:e2bb6c7e031356578f7ffad8c87a13137e7667c1fee2fca3b9c469f61b2a8cb8" -> "sha256:52fefc3eb7ea673e5368e3d690cdfb01d340e28bc10d69c37b59ba408517d09e" [label=""];
+  "sha256:52fefc3eb7ea673e5368e3d690cdfb01d340e28bc10d69c37b59ba408517d09e" -> "sha256:bf9777a59b5f2386528699ccddf17628b738e819fb75ef6d3e98e3138a7746be" [label=""];
+  "sha256:bf9777a59b5f2386528699ccddf17628b738e819fb75ef6d3e98e3138a7746be" -> "sha256:46a6f2560ba635dbb610acde0b7f7ad31285ba8b6633fec66bf688a81d798dae" [label=""];
+  "sha256:46a6f2560ba635dbb610acde0b7f7ad31285ba8b6633fec66bf688a81d798dae" -> "sha256:9a2319c5bfdb95a5770f5a50b2daa33a140d92849e9b9b69fdda0bfde0a9776c" [label=""];
+  "sha256:e014894a9da24567ae98b643018a54da723bf0441ae4da25c9a1be0509cf1149" -> "sha256:9a2319c5bfdb95a5770f5a50b2daa33a140d92849e9b9b69fdda0bfde0a9776c" [label=""];
+  "sha256:9a2319c5bfdb95a5770f5a50b2daa33a140d92849e9b9b69fdda0bfde0a9776c" -> "sha256:fb4284f1dee15338059a9aba49b92bf6845780587c4ef59b829c66a3a8a61cd6" [label=""];
+  "sha256:fb4284f1dee15338059a9aba49b92bf6845780587c4ef59b829c66a3a8a61cd6" -> "sha256:1168682f6f83dc10b4b96f397807e3bc7c333c1cc6498759f3bb4b14b152bf06" [label=""];
+  "sha256:1168682f6f83dc10b4b96f397807e3bc7c333c1cc6498759f3bb4b14b152bf06" -> "sha256:a4869192e70a29f0ade9598f43404304094f6dae225f841d0ea041ff9501be34" [label=""];
+  "sha256:a4869192e70a29f0ade9598f43404304094f6dae225f841d0ea041ff9501be34" -> "sha256:d2e498536e1d51c272a4812ca9a754119841e67b6df56fb29181b61174bd759f" [label=""];
+  "sha256:d2e498536e1d51c272a4812ca9a754119841e67b6df56fb29181b61174bd759f" -> "sha256:e439b6b047b08b8f793904d7e79f4a386728b68d370fb0e9b47d489a8587d9a6" [label=""];
+}
+

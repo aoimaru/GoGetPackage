@@ -1,0 +1,11 @@
+[app/sources/342067350.Dockerfile]
+digraph {
+  "sha256:87e6b8388634501911625ed4653fea3d03640257b178d8d951ab0152bbf08503" [label="docker-image://docker.io/library/python:2.7.13" shape="ellipse"];
+  "sha256:c654dc542ce56625a47987747fe86ba6b0b77b337fa63e2ce3866d63735f9ec3" [label="local://context" shape="ellipse"];
+  "sha256:5f4c4ef97c3987b89d636b4841721f6ea7b3dbf8dbc6109d9a669eec9aa09558" [label="copy{src=/snippet.py, dest=/snippet.py}" shape="note"];
+  "sha256:633d076f475d2990207d414e145e8a64f15fad47bdce9644268710f85c61ab8e" [label="sha256:633d076f475d2990207d414e145e8a64f15fad47bdce9644268710f85c61ab8e" shape="plaintext"];
+  "sha256:87e6b8388634501911625ed4653fea3d03640257b178d8d951ab0152bbf08503" -> "sha256:5f4c4ef97c3987b89d636b4841721f6ea7b3dbf8dbc6109d9a669eec9aa09558" [label=""];
+  "sha256:c654dc542ce56625a47987747fe86ba6b0b77b337fa63e2ce3866d63735f9ec3" -> "sha256:5f4c4ef97c3987b89d636b4841721f6ea7b3dbf8dbc6109d9a669eec9aa09558" [label=""];
+  "sha256:5f4c4ef97c3987b89d636b4841721f6ea7b3dbf8dbc6109d9a669eec9aa09558" -> "sha256:633d076f475d2990207d414e145e8a64f15fad47bdce9644268710f85c61ab8e" [label=""];
+}
+

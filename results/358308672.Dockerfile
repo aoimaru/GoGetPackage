@@ -1,0 +1,53 @@
+[app/sources/358308672.Dockerfile]
+digraph {
+  "sha256:32e0dce8b1ce63d9307e630d0b8806add323f16a8b3a1a42431e409bf31ffde3" [label="docker-image://docker.io/jupyter/base-notebook:ae885c0a6226" shape="ellipse"];
+  "sha256:dfe9f4c090e69f3ecca9318cc04fa3c2f8d9b9a0aaca347bb056165d027b8a99" [label="/bin/sh -c conda install requests-kerberos -y" shape="box"];
+  "sha256:ee07d58237ac92c6022728deaddadf3806588ee292d6fe198718712eabd3cca1" [label="/bin/sh -c pip install --upgrade pip" shape="box"];
+  "sha256:812aa1c023cddb36ad10359754934bb28568f8f76b18fdd6f6d50b66be289f06" [label="/bin/sh -c pip install --upgrade --ignore-installed setuptools" shape="box"];
+  "sha256:fac82017e994e19f173e4b81e413225728bb8881560278f425c5e8bcfcedf42e" [label="local://context" shape="ellipse"];
+  "sha256:43980651295fe5bdc8def7fb7c2ef29943e13350fc6a6df4fd04566f67eb1d9a" [label="copy{src=/examples, dest=/home/jovyan/work}" shape="note"];
+  "sha256:07c46b92413b51a3db71b124dcbd30f260a65cf6124dd55761c5b594cc8f0200" [label="copy{src=/hdijupyterutils, dest=/hdijupyterutils/}" shape="note"];
+  "sha256:c4d4badf5133359eb593e1e31600f6e624b0fe22a90832a02308f8216edd557a" [label="copy{src=/autovizwidget, dest=/autovizwidget/}" shape="note"];
+  "sha256:6db91b01a68c976a051b87a2b4c8bd0176a1cb6d64e9df85b44332b8538c28e2" [label="copy{src=/sparkmagic, dest=/sparkmagic/}" shape="note"];
+  "sha256:089b8b91a4a20ad655e70402e96d07cd22f65ed9ef5ff9e3d319efb7921adaf6" [label="/bin/sh -c chown -R $NB_USER ." shape="box"];
+  "sha256:e4d47bf3355c4279c69dcb632d4eab47ca24f6ce0f62056484c137d8d011b113" [label="/bin/sh -c if [ \"$dev_mode\" = \"true\" ]; then       cd hdijupyterutils && pip install . && cd ../ &&       cd autovizwidget && pip install . && cd ../ &&       cd sparkmagic && pip install . && cd ../ ;     else pip install sparkmagic ; fi" shape="box"];
+  "sha256:65eeb6dfa6905b162e378ca7e6c711eb0d2b418f7b8a014bc5b1bb9e736f31e9" [label="/bin/sh -c mkdir /home/$NB_USER/.sparkmagic" shape="box"];
+  "sha256:c656a04b64a041d408dccaedd3cf7d5e4aacf67c16c04c45083ec99c159c80dc" [label="copy{src=/sparkmagic/example_config.json, dest=/home/.sparkmagic/config.json}" shape="note"];
+  "sha256:8b0b45b5253c48ecbd6e75592e7d99970d122f2974cf51bacf2a639af92d58b0" [label="/bin/sh -c sed -i 's/localhost/spark/g' /home/$NB_USER/.sparkmagic/config.json" shape="box"];
+  "sha256:26775fd51d9e128c785635cc3c99aa759c8d99351b2e6cd1b2ab97ddc09c4063" [label="/bin/sh -c jupyter nbextension enable --py --sys-prefix widgetsnbextension" shape="box"];
+  "sha256:3ee860d61a369fa18493c8223ac8ce7e7b0b9d0666b26feb7cae1edb774b719d" [label="/bin/sh -c jupyter-kernelspec install --user $(pip show sparkmagic | grep Location | cut -d\" \" -f2)/sparkmagic/kernels/sparkkernel" shape="box"];
+  "sha256:a74063c341aba0e4c116edf86b2ef31eeac088fa5b75df2344c3ef8dfcdc023a" [label="/bin/sh -c jupyter-kernelspec install --user $(pip show sparkmagic | grep Location | cut -d\" \" -f2)/sparkmagic/kernels/pysparkkernel" shape="box"];
+  "sha256:f076a1b540b551f9822b7708db5e218525c4f2a346ef3843e9ee193a31f2d2b8" [label="/bin/sh -c jupyter-kernelspec install --user $(pip show sparkmagic | grep Location | cut -d\" \" -f2)/sparkmagic/kernels/pyspark3kernel" shape="box"];
+  "sha256:90437f172b8f2c1d2f4ed9c38a1e01262949b6baf4927b58926b5d4f49afda14" [label="/bin/sh -c jupyter-kernelspec install --user $(pip show sparkmagic | grep Location | cut -d\" \" -f2)/sparkmagic/kernels/sparkrkernel" shape="box"];
+  "sha256:05a31193791b54b88579c8733a7268662f4c229934904defaa6220b5d508c892" [label="/bin/sh -c jupyter serverextension enable --py sparkmagic" shape="box"];
+  "sha256:1bb7c881bb2aac031aae701234992ffbffdc9df059a690aa7f074816d92236a2" [label="/bin/sh -c chown $NB_USER /home/$NB_USER/.sparkmagic/config.json" shape="box"];
+  "sha256:71d8742623789a4756783f6ace3c14d7a054bec4a8bd64c83a03818b7438ed89" [label="/bin/sh -c rm -rf hdijupyterutils/ autovizwidget/ sparkmagic/" shape="box"];
+  "sha256:072b54494cafc928107b2a169127e49f88fe11462d059279100f8cf4bbf86cd4" [label="sha256:072b54494cafc928107b2a169127e49f88fe11462d059279100f8cf4bbf86cd4" shape="plaintext"];
+  "sha256:32e0dce8b1ce63d9307e630d0b8806add323f16a8b3a1a42431e409bf31ffde3" -> "sha256:dfe9f4c090e69f3ecca9318cc04fa3c2f8d9b9a0aaca347bb056165d027b8a99" [label=""];
+  "sha256:dfe9f4c090e69f3ecca9318cc04fa3c2f8d9b9a0aaca347bb056165d027b8a99" -> "sha256:ee07d58237ac92c6022728deaddadf3806588ee292d6fe198718712eabd3cca1" [label=""];
+  "sha256:ee07d58237ac92c6022728deaddadf3806588ee292d6fe198718712eabd3cca1" -> "sha256:812aa1c023cddb36ad10359754934bb28568f8f76b18fdd6f6d50b66be289f06" [label=""];
+  "sha256:812aa1c023cddb36ad10359754934bb28568f8f76b18fdd6f6d50b66be289f06" -> "sha256:43980651295fe5bdc8def7fb7c2ef29943e13350fc6a6df4fd04566f67eb1d9a" [label=""];
+  "sha256:fac82017e994e19f173e4b81e413225728bb8881560278f425c5e8bcfcedf42e" -> "sha256:43980651295fe5bdc8def7fb7c2ef29943e13350fc6a6df4fd04566f67eb1d9a" [label=""];
+  "sha256:43980651295fe5bdc8def7fb7c2ef29943e13350fc6a6df4fd04566f67eb1d9a" -> "sha256:07c46b92413b51a3db71b124dcbd30f260a65cf6124dd55761c5b594cc8f0200" [label=""];
+  "sha256:fac82017e994e19f173e4b81e413225728bb8881560278f425c5e8bcfcedf42e" -> "sha256:07c46b92413b51a3db71b124dcbd30f260a65cf6124dd55761c5b594cc8f0200" [label=""];
+  "sha256:07c46b92413b51a3db71b124dcbd30f260a65cf6124dd55761c5b594cc8f0200" -> "sha256:c4d4badf5133359eb593e1e31600f6e624b0fe22a90832a02308f8216edd557a" [label=""];
+  "sha256:fac82017e994e19f173e4b81e413225728bb8881560278f425c5e8bcfcedf42e" -> "sha256:c4d4badf5133359eb593e1e31600f6e624b0fe22a90832a02308f8216edd557a" [label=""];
+  "sha256:c4d4badf5133359eb593e1e31600f6e624b0fe22a90832a02308f8216edd557a" -> "sha256:6db91b01a68c976a051b87a2b4c8bd0176a1cb6d64e9df85b44332b8538c28e2" [label=""];
+  "sha256:fac82017e994e19f173e4b81e413225728bb8881560278f425c5e8bcfcedf42e" -> "sha256:6db91b01a68c976a051b87a2b4c8bd0176a1cb6d64e9df85b44332b8538c28e2" [label=""];
+  "sha256:6db91b01a68c976a051b87a2b4c8bd0176a1cb6d64e9df85b44332b8538c28e2" -> "sha256:089b8b91a4a20ad655e70402e96d07cd22f65ed9ef5ff9e3d319efb7921adaf6" [label=""];
+  "sha256:089b8b91a4a20ad655e70402e96d07cd22f65ed9ef5ff9e3d319efb7921adaf6" -> "sha256:e4d47bf3355c4279c69dcb632d4eab47ca24f6ce0f62056484c137d8d011b113" [label=""];
+  "sha256:e4d47bf3355c4279c69dcb632d4eab47ca24f6ce0f62056484c137d8d011b113" -> "sha256:65eeb6dfa6905b162e378ca7e6c711eb0d2b418f7b8a014bc5b1bb9e736f31e9" [label=""];
+  "sha256:65eeb6dfa6905b162e378ca7e6c711eb0d2b418f7b8a014bc5b1bb9e736f31e9" -> "sha256:c656a04b64a041d408dccaedd3cf7d5e4aacf67c16c04c45083ec99c159c80dc" [label=""];
+  "sha256:fac82017e994e19f173e4b81e413225728bb8881560278f425c5e8bcfcedf42e" -> "sha256:c656a04b64a041d408dccaedd3cf7d5e4aacf67c16c04c45083ec99c159c80dc" [label=""];
+  "sha256:c656a04b64a041d408dccaedd3cf7d5e4aacf67c16c04c45083ec99c159c80dc" -> "sha256:8b0b45b5253c48ecbd6e75592e7d99970d122f2974cf51bacf2a639af92d58b0" [label=""];
+  "sha256:8b0b45b5253c48ecbd6e75592e7d99970d122f2974cf51bacf2a639af92d58b0" -> "sha256:26775fd51d9e128c785635cc3c99aa759c8d99351b2e6cd1b2ab97ddc09c4063" [label=""];
+  "sha256:26775fd51d9e128c785635cc3c99aa759c8d99351b2e6cd1b2ab97ddc09c4063" -> "sha256:3ee860d61a369fa18493c8223ac8ce7e7b0b9d0666b26feb7cae1edb774b719d" [label=""];
+  "sha256:3ee860d61a369fa18493c8223ac8ce7e7b0b9d0666b26feb7cae1edb774b719d" -> "sha256:a74063c341aba0e4c116edf86b2ef31eeac088fa5b75df2344c3ef8dfcdc023a" [label=""];
+  "sha256:a74063c341aba0e4c116edf86b2ef31eeac088fa5b75df2344c3ef8dfcdc023a" -> "sha256:f076a1b540b551f9822b7708db5e218525c4f2a346ef3843e9ee193a31f2d2b8" [label=""];
+  "sha256:f076a1b540b551f9822b7708db5e218525c4f2a346ef3843e9ee193a31f2d2b8" -> "sha256:90437f172b8f2c1d2f4ed9c38a1e01262949b6baf4927b58926b5d4f49afda14" [label=""];
+  "sha256:90437f172b8f2c1d2f4ed9c38a1e01262949b6baf4927b58926b5d4f49afda14" -> "sha256:05a31193791b54b88579c8733a7268662f4c229934904defaa6220b5d508c892" [label=""];
+  "sha256:05a31193791b54b88579c8733a7268662f4c229934904defaa6220b5d508c892" -> "sha256:1bb7c881bb2aac031aae701234992ffbffdc9df059a690aa7f074816d92236a2" [label=""];
+  "sha256:1bb7c881bb2aac031aae701234992ffbffdc9df059a690aa7f074816d92236a2" -> "sha256:71d8742623789a4756783f6ace3c14d7a054bec4a8bd64c83a03818b7438ed89" [label=""];
+  "sha256:71d8742623789a4756783f6ace3c14d7a054bec4a8bd64c83a03818b7438ed89" -> "sha256:072b54494cafc928107b2a169127e49f88fe11462d059279100f8cf4bbf86cd4" [label=""];
+}
+

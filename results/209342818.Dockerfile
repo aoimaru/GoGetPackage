@@ -1,0 +1,51 @@
+[app/sources/209342818.Dockerfile]
+digraph {
+  "sha256:e5042710d794c9a85b8da270eec4c1cd6c044cc00653401e2f7e83fd82b79efa" [label="docker-image://docker.io/library/debian:9" shape="ellipse"];
+  "sha256:a0f03b109e9121ccb5b918b5d8a280c4140647f782456d2d6cf4bdbbd32f9cec" [label="/bin/sh -c apt-get -qq -y update" shape="box"];
+  "sha256:b01c9945d8444b4d766e43133efcf274011540eeb8b4b6d80aec5d418066dd70" [label="/bin/sh -c apt-get -qq -y install     debhelper devscripts bison flex     automake autoconf libtool git libreadline6-dev     zlib1g-dev libncurses5-dev libssl-dev libpam0g-dev     rake autotools-dev cgroup-tools build-essential     dh-make xz-utils" shape="box"];
+  "sha256:94c6aee2af538a8e3eb7c0fc73803ee003a95fcff80cbb9be7d470077e541892" [label="/bin/sh -c apt-get -qq -y install libprotobuf-dev libprotobuf-c0-dev     protobuf-c-compiler protobuf-compiler python-protobuf     libnl-3-dev libnet-dev libcap-dev pkg-config asciidoc xmlto" shape="box"];
+  "sha256:ceb24744b654a5c81badc5f13fa68312068bee2fdae208ce2c2862ef6477df57" [label="/bin/sh -c ln -s /tmp/criu-build/lib/c /usr/local/include/criu" shape="box"];
+  "sha256:d05a840f4713dba60875398dd10f7fea87b6f22d7971581e8d89fde48c191588" [label="/bin/sh -c mkdir -p /libexec" shape="box"];
+  "sha256:9b6fff5e5aabd30b628b11c77a22480fbe367715722b880be580691ba8d30f90" [label="/bin/sh -c echo '#!/bin/bash'                         >  /libexec/builddeb.sh" shape="box"];
+  "sha256:2ab011ae8d328471c3c3b3fdcb45d9e683bda8b5a189ee4ca46cc422f2f59590" [label="/bin/sh -c echo 'set -xe'                             >> /libexec/builddeb.sh" shape="box"];
+  "sha256:616a6e4371db014106455a776b86c1e16acd0068aca63e63a91f248cf6f4850d" [label="/bin/sh -c echo 'git clone https://github.com/haconiwa/haconiwa.git /root/haconiwa-$VERSION' >> /libexec/builddeb.sh" shape="box"];
+  "sha256:3f55672393656e12e9b63d42f87cfdcad6e1690e1b88fa92a24ce6a3ad63da53" [label="/bin/sh -c echo 'cd /root/haconiwa-$VERSION'          >> /libexec/builddeb.sh" shape="box"];
+  "sha256:f92c6345f836226a2413ebef0f2a28451196dff9826e95e7bf689c3781699101" [label="/bin/sh -c echo 'git checkout $(git rev-parse v$VERSION)' >> /libexec/builddeb.sh" shape="box"];
+  "sha256:3cd98923519db43448cca2154647fa3d93ff13bf79f9bf83e33e9f34a7809840" [label="/bin/sh -c echo 'sed -i.bak \"s;matsumotory/mruby-criu;haconiwa/mruby-criu;\" mrbgem.rake' >> /libexec/builddeb.sh" shape="box"];
+  "sha256:d6f9e785c7f192647c12e8858ebb47821808cb9b4db617d12464dcb1e7f367cc" [label="/bin/sh -c echo 'sed -i.bak \"1iENV[%(CRIU_TMP_DIR)] = %(/tmp/criu-build)\" build_config.rb' >> /libexec/builddeb.sh" shape="box"];
+  "sha256:cfc9be43b16695f496211994dd98fa55515481d39cc9471a3f5f9b85caabf201" [label="/bin/sh -c echo 'sed -i.bak \"5iconf.cc.defines << %(MRB_CRIU_USE_STATIC)\" build_config.rb' >> /libexec/builddeb.sh" shape="box"];
+  "sha256:f63592d754909c28f269e34ba9b64f0aa7b489f9f05156bc5f659f557cf98456" [label="/bin/sh -c echo 'rake mruby'                          >> /libexec/builddeb.sh" shape="box"];
+  "sha256:c157dade2a2499c217933e09c5b0e87c94ae920997dad7bf6e13aa46aff0c68e" [label="/bin/sh -c echo 'dh_make --single --createorig -y'    >> /libexec/builddeb.sh" shape="box"];
+  "sha256:606a07cda7f8191b731b5203b10bc44b8f1087dc2ce36e77a802fa282e502012" [label="/bin/sh -c echo 'cp -v packages/deb/debian/* debian/' >> /libexec/builddeb.sh" shape="box"];
+  "sha256:26c9ad9762291bbb77383dfdca14f24a363cf10c83c225d1e91c0195fa4f6765" [label="/bin/sh -c echo 'cp -f debian/control.9 debian/control' >> /libexec/builddeb.sh" shape="box"];
+  "sha256:5f56521375b1db8a080ee4a92cfa75478546c7d9605d93be78616dc8a49c12f7" [label="/bin/sh -c echo 'rm -rf debian/*.ex debian/*.EX'      >> /libexec/builddeb.sh" shape="box"];
+  "sha256:ee897702f3c35286b624e29c99f6e87326c5c37260b4d88a5c70150dbda66e9e" [label="/bin/sh -c echo 'debuild -uc -us'                     >> /libexec/builddeb.sh" shape="box"];
+  "sha256:e3554b299025292c04fad0af51d75f2c539def1bb49f9e46955a240592b8f498" [label="/bin/sh -c echo 'cd ../'                              >> /libexec/builddeb.sh" shape="box"];
+  "sha256:a6c04c1013e15be4b0e4c3f1e98248ac0dd6089b00d7dc8f895dc9b3384bb0e0" [label="/bin/sh -c echo 'cp $SRC_PKG_NAME /out/pkg/$DST_PKG_NAME' >> /libexec/builddeb.sh" shape="box"];
+  "sha256:b53d1d1db2c7c9d33404e48072b39d439c9bcf06e0e95e013538c46cd91f3452" [label="/bin/sh -c chmod a+x /libexec/builddeb.sh" shape="box"];
+  "sha256:45575bd4fe65f4e4dbd9475ff1d3c86beae863a3a2582888daedd099803bf250" [label="sha256:45575bd4fe65f4e4dbd9475ff1d3c86beae863a3a2582888daedd099803bf250" shape="plaintext"];
+  "sha256:e5042710d794c9a85b8da270eec4c1cd6c044cc00653401e2f7e83fd82b79efa" -> "sha256:a0f03b109e9121ccb5b918b5d8a280c4140647f782456d2d6cf4bdbbd32f9cec" [label=""];
+  "sha256:a0f03b109e9121ccb5b918b5d8a280c4140647f782456d2d6cf4bdbbd32f9cec" -> "sha256:b01c9945d8444b4d766e43133efcf274011540eeb8b4b6d80aec5d418066dd70" [label=""];
+  "sha256:b01c9945d8444b4d766e43133efcf274011540eeb8b4b6d80aec5d418066dd70" -> "sha256:94c6aee2af538a8e3eb7c0fc73803ee003a95fcff80cbb9be7d470077e541892" [label=""];
+  "sha256:94c6aee2af538a8e3eb7c0fc73803ee003a95fcff80cbb9be7d470077e541892" -> "sha256:ceb24744b654a5c81badc5f13fa68312068bee2fdae208ce2c2862ef6477df57" [label=""];
+  "sha256:ceb24744b654a5c81badc5f13fa68312068bee2fdae208ce2c2862ef6477df57" -> "sha256:d05a840f4713dba60875398dd10f7fea87b6f22d7971581e8d89fde48c191588" [label=""];
+  "sha256:d05a840f4713dba60875398dd10f7fea87b6f22d7971581e8d89fde48c191588" -> "sha256:9b6fff5e5aabd30b628b11c77a22480fbe367715722b880be580691ba8d30f90" [label=""];
+  "sha256:9b6fff5e5aabd30b628b11c77a22480fbe367715722b880be580691ba8d30f90" -> "sha256:2ab011ae8d328471c3c3b3fdcb45d9e683bda8b5a189ee4ca46cc422f2f59590" [label=""];
+  "sha256:2ab011ae8d328471c3c3b3fdcb45d9e683bda8b5a189ee4ca46cc422f2f59590" -> "sha256:616a6e4371db014106455a776b86c1e16acd0068aca63e63a91f248cf6f4850d" [label=""];
+  "sha256:616a6e4371db014106455a776b86c1e16acd0068aca63e63a91f248cf6f4850d" -> "sha256:3f55672393656e12e9b63d42f87cfdcad6e1690e1b88fa92a24ce6a3ad63da53" [label=""];
+  "sha256:3f55672393656e12e9b63d42f87cfdcad6e1690e1b88fa92a24ce6a3ad63da53" -> "sha256:f92c6345f836226a2413ebef0f2a28451196dff9826e95e7bf689c3781699101" [label=""];
+  "sha256:f92c6345f836226a2413ebef0f2a28451196dff9826e95e7bf689c3781699101" -> "sha256:3cd98923519db43448cca2154647fa3d93ff13bf79f9bf83e33e9f34a7809840" [label=""];
+  "sha256:3cd98923519db43448cca2154647fa3d93ff13bf79f9bf83e33e9f34a7809840" -> "sha256:d6f9e785c7f192647c12e8858ebb47821808cb9b4db617d12464dcb1e7f367cc" [label=""];
+  "sha256:d6f9e785c7f192647c12e8858ebb47821808cb9b4db617d12464dcb1e7f367cc" -> "sha256:cfc9be43b16695f496211994dd98fa55515481d39cc9471a3f5f9b85caabf201" [label=""];
+  "sha256:cfc9be43b16695f496211994dd98fa55515481d39cc9471a3f5f9b85caabf201" -> "sha256:f63592d754909c28f269e34ba9b64f0aa7b489f9f05156bc5f659f557cf98456" [label=""];
+  "sha256:f63592d754909c28f269e34ba9b64f0aa7b489f9f05156bc5f659f557cf98456" -> "sha256:c157dade2a2499c217933e09c5b0e87c94ae920997dad7bf6e13aa46aff0c68e" [label=""];
+  "sha256:c157dade2a2499c217933e09c5b0e87c94ae920997dad7bf6e13aa46aff0c68e" -> "sha256:606a07cda7f8191b731b5203b10bc44b8f1087dc2ce36e77a802fa282e502012" [label=""];
+  "sha256:606a07cda7f8191b731b5203b10bc44b8f1087dc2ce36e77a802fa282e502012" -> "sha256:26c9ad9762291bbb77383dfdca14f24a363cf10c83c225d1e91c0195fa4f6765" [label=""];
+  "sha256:26c9ad9762291bbb77383dfdca14f24a363cf10c83c225d1e91c0195fa4f6765" -> "sha256:5f56521375b1db8a080ee4a92cfa75478546c7d9605d93be78616dc8a49c12f7" [label=""];
+  "sha256:5f56521375b1db8a080ee4a92cfa75478546c7d9605d93be78616dc8a49c12f7" -> "sha256:ee897702f3c35286b624e29c99f6e87326c5c37260b4d88a5c70150dbda66e9e" [label=""];
+  "sha256:ee897702f3c35286b624e29c99f6e87326c5c37260b4d88a5c70150dbda66e9e" -> "sha256:e3554b299025292c04fad0af51d75f2c539def1bb49f9e46955a240592b8f498" [label=""];
+  "sha256:e3554b299025292c04fad0af51d75f2c539def1bb49f9e46955a240592b8f498" -> "sha256:a6c04c1013e15be4b0e4c3f1e98248ac0dd6089b00d7dc8f895dc9b3384bb0e0" [label=""];
+  "sha256:a6c04c1013e15be4b0e4c3f1e98248ac0dd6089b00d7dc8f895dc9b3384bb0e0" -> "sha256:b53d1d1db2c7c9d33404e48072b39d439c9bcf06e0e95e013538c46cd91f3452" [label=""];
+  "sha256:b53d1d1db2c7c9d33404e48072b39d439c9bcf06e0e95e013538c46cd91f3452" -> "sha256:45575bd4fe65f4e4dbd9475ff1d3c86beae863a3a2582888daedd099803bf250" [label=""];
+}
+

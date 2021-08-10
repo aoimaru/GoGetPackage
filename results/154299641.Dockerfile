@@ -1,0 +1,37 @@
+[app/sources/154299641.Dockerfile]
+digraph {
+  "sha256:5e3ffce172abe029e14398c960f76178160392adccdc24ec33a7ba0bde79cc90" [label="docker-image://docker.io/library/php:5.6-apache" shape="ellipse"];
+  "sha256:98ded02545c1a74ad1b32af48f3e26355a95d58e6018ebafff0c6d8af94edc38" [label="/bin/sh -c a2enmod rewrite expires" shape="box"];
+  "sha256:21e4703f77f68de0418d8fe8d2554f688ecc1a094f9176da5e4abb606878e909" [label="/bin/sh -c apt-get update && apt-get install -y libpng12-dev libjpeg-dev && rm -rf /var/lib/apt/lists/*   && docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr   && docker-php-ext-install gd mysqli opcache" shape="box"];
+  "sha256:0306de9492d2a7ed9f752610bdd5de2e7039bdd894cb138cecc1b7b72679b7b8" [label="/bin/sh -c {     echo 'opcache.memory_consumption=128';     echo 'opcache.interned_strings_buffer=8';     echo 'opcache.max_accelerated_files=4000';     echo 'opcache.revalidate_freq=60';     echo 'opcache.fast_shutdown=1';     echo 'opcache.enable_cli=1';   } > /usr/local/etc/php/conf.d/opcache-recommended.ini" shape="box"];
+  "sha256:a0c2fbe9aeeddd57cc3fddbe2a11257604c4c576a2c2ba514bd7a589b3e92382" [label="/bin/sh -c groupadd -r mysql && useradd -r -g mysql mysql" shape="box"];
+  "sha256:2c800a4d538b4294c7f8c93c8259aa542354e653e2a3453910ab9b585aa19011" [label="/bin/sh -c set -x   && apt-get update && apt-get install -y --no-install-recommends ca-certificates wget && rm -rf /var/lib/apt/lists/*   && wget -O /usr/local/bin/gosu \"https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture)\"   && wget -O /usr/local/bin/gosu.asc \"https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture).asc\"   && export GNUPGHOME=\"$(mktemp -d)\"   && gpg --keyserver ha.pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4   && gpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu   && rm -r \"$GNUPGHOME\" /usr/local/bin/gosu.asc   && chmod +x /usr/local/bin/gosu   && gosu nobody true   && apt-get purge -y --auto-remove ca-certificates wget" shape="box"];
+  "sha256:3d3cc8cadd454aa7375f8d9ec255413928c7ba292c0cdc7e1e44654aaad05d10" [label="/bin/sh -c apt-get update && apt-get install -y perl pwgen --no-install-recommends && rm -rf /var/lib/apt/lists/*" shape="box"];
+  "sha256:52ce246c70778a5b8a51da372838d64e0bb102967e7e057f03166ca70df37230" [label="/bin/sh -c apt-key adv --keyserver ha.pool.sks-keyservers.net --recv-keys A4A9406876FCBD3C456770C88C718D3B5072E1F5" shape="box"];
+  "sha256:52db8148be7da28ca82649f93befd8651eee7e810f54eb6867a3ca95dd246ddb" [label="/bin/sh -c echo \"deb http://repo.mysql.com/apt/debian/ jessie mysql-${MYSQL_MAJOR}\" > /etc/apt/sources.list.d/mysql.list" shape="box"];
+  "sha256:b3f87a6c3c1f52db6b39f119d721a63f2a3d2681032096ebe7a98edf3def6e14" [label="/bin/sh -c {     echo mysql-community-server mysql-community-server/data-dir select '';     echo mysql-community-server mysql-community-server/root-pass password '';     echo mysql-community-server mysql-community-server/re-root-pass password '';     echo mysql-community-server mysql-community-server/remove-test-db select false;   } | debconf-set-selections   && apt-get update && apt-get install -y mysql-server=\"${MYSQL_VERSION}\" && rm -rf /var/lib/apt/lists/*   && rm -rf /var/lib/mysql && mkdir -p /var/lib/mysql /var/run/mysqld   && chown -R mysql:mysql /var/lib/mysql /var/run/mysqld   && chmod 777 /var/run/mysqld" shape="box"];
+  "sha256:4cd1a76684afa5226a2728463ea78d037643f3d45c2e9e1b2a60022e29b83ff8" [label="/bin/sh -c sed -Ei 's/^(bind-address|log)/#&/' /etc/mysql/my.cnf   && echo 'skip-host-cache\\nskip-name-resolve' | awk '{ print } $1 == \"[mysqld]\" && c == 0 { c = 1; system(\"cat\") }' /etc/mysql/my.cnf > /tmp/my.cnf   && mv /tmp/my.cnf /etc/mysql/my.cnf" shape="box"];
+  "sha256:4486872239a81e7bc246ddc65f9c8dca27a6d8786d7ed0b65be7bf1c9ad0a22c" [label="/bin/sh -c mysql_install_db --datadir=/var/lib/mysql --rpm --keep-my-cnf" shape="box"];
+  "sha256:f033533c79e6733837790651d44b3cd8810b1a3e34cf04b4de69755f5c08ac96" [label="/bin/sh -c curl -k -o wordpress.tar.gz -SL https://wordpress.org/wordpress-${WORDPRESS_VERSION}.tar.gz   && tar -xzf wordpress.tar.gz -C /usr/src/   && rm wordpress.tar.gz   && chown -R www-data:www-data /usr/src/wordpress" shape="box"];
+  "sha256:97df3f57b8fc44f29795183c31176a022384a4ecfd1cd859d0a2eef97b1e053b" [label="local://context" shape="ellipse"];
+  "sha256:b9361f7665b7e179c918524f949e171fb2831cf49fbea1d42b8d22724f3d74d7" [label="copy{src=/init.sh, dest=/}" shape="note"];
+  "sha256:5198a38e30a9fbe89849478d712569a49e4b02aec7798ea0eed11330ce3e88c3" [label="/bin/sh -c chmod +x /init.sh" shape="box"];
+  "sha256:4a45a56ac2fcf274eaeba901d180a84da5172ec8f83eaa2039129787d5aea192" [label="sha256:4a45a56ac2fcf274eaeba901d180a84da5172ec8f83eaa2039129787d5aea192" shape="plaintext"];
+  "sha256:5e3ffce172abe029e14398c960f76178160392adccdc24ec33a7ba0bde79cc90" -> "sha256:98ded02545c1a74ad1b32af48f3e26355a95d58e6018ebafff0c6d8af94edc38" [label=""];
+  "sha256:98ded02545c1a74ad1b32af48f3e26355a95d58e6018ebafff0c6d8af94edc38" -> "sha256:21e4703f77f68de0418d8fe8d2554f688ecc1a094f9176da5e4abb606878e909" [label=""];
+  "sha256:21e4703f77f68de0418d8fe8d2554f688ecc1a094f9176da5e4abb606878e909" -> "sha256:0306de9492d2a7ed9f752610bdd5de2e7039bdd894cb138cecc1b7b72679b7b8" [label=""];
+  "sha256:0306de9492d2a7ed9f752610bdd5de2e7039bdd894cb138cecc1b7b72679b7b8" -> "sha256:a0c2fbe9aeeddd57cc3fddbe2a11257604c4c576a2c2ba514bd7a589b3e92382" [label=""];
+  "sha256:a0c2fbe9aeeddd57cc3fddbe2a11257604c4c576a2c2ba514bd7a589b3e92382" -> "sha256:2c800a4d538b4294c7f8c93c8259aa542354e653e2a3453910ab9b585aa19011" [label=""];
+  "sha256:2c800a4d538b4294c7f8c93c8259aa542354e653e2a3453910ab9b585aa19011" -> "sha256:3d3cc8cadd454aa7375f8d9ec255413928c7ba292c0cdc7e1e44654aaad05d10" [label=""];
+  "sha256:3d3cc8cadd454aa7375f8d9ec255413928c7ba292c0cdc7e1e44654aaad05d10" -> "sha256:52ce246c70778a5b8a51da372838d64e0bb102967e7e057f03166ca70df37230" [label=""];
+  "sha256:52ce246c70778a5b8a51da372838d64e0bb102967e7e057f03166ca70df37230" -> "sha256:52db8148be7da28ca82649f93befd8651eee7e810f54eb6867a3ca95dd246ddb" [label=""];
+  "sha256:52db8148be7da28ca82649f93befd8651eee7e810f54eb6867a3ca95dd246ddb" -> "sha256:b3f87a6c3c1f52db6b39f119d721a63f2a3d2681032096ebe7a98edf3def6e14" [label=""];
+  "sha256:b3f87a6c3c1f52db6b39f119d721a63f2a3d2681032096ebe7a98edf3def6e14" -> "sha256:4cd1a76684afa5226a2728463ea78d037643f3d45c2e9e1b2a60022e29b83ff8" [label=""];
+  "sha256:4cd1a76684afa5226a2728463ea78d037643f3d45c2e9e1b2a60022e29b83ff8" -> "sha256:4486872239a81e7bc246ddc65f9c8dca27a6d8786d7ed0b65be7bf1c9ad0a22c" [label=""];
+  "sha256:4486872239a81e7bc246ddc65f9c8dca27a6d8786d7ed0b65be7bf1c9ad0a22c" -> "sha256:f033533c79e6733837790651d44b3cd8810b1a3e34cf04b4de69755f5c08ac96" [label=""];
+  "sha256:f033533c79e6733837790651d44b3cd8810b1a3e34cf04b4de69755f5c08ac96" -> "sha256:b9361f7665b7e179c918524f949e171fb2831cf49fbea1d42b8d22724f3d74d7" [label=""];
+  "sha256:97df3f57b8fc44f29795183c31176a022384a4ecfd1cd859d0a2eef97b1e053b" -> "sha256:b9361f7665b7e179c918524f949e171fb2831cf49fbea1d42b8d22724f3d74d7" [label=""];
+  "sha256:b9361f7665b7e179c918524f949e171fb2831cf49fbea1d42b8d22724f3d74d7" -> "sha256:5198a38e30a9fbe89849478d712569a49e4b02aec7798ea0eed11330ce3e88c3" [label=""];
+  "sha256:5198a38e30a9fbe89849478d712569a49e4b02aec7798ea0eed11330ce3e88c3" -> "sha256:4a45a56ac2fcf274eaeba901d180a84da5172ec8f83eaa2039129787d5aea192" [label=""];
+}
+

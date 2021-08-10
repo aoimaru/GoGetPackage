@@ -1,0 +1,52 @@
+[app/sources/300408765.Dockerfile]
+digraph {
+  "sha256:5e691c7ba4998fa4b60d1218bbc4ed9845bfa527d7d91b0c48922bbea45ce425" [label="docker-image://docker.io/library/ubuntu:18.04" shape="ellipse"];
+  "sha256:cd61932763bfb1e494345578b1654d3f70bb90ab333c11abe24f9e8669e0a677" [label="bash -c echo \"Etc/UTC\" > /etc/localtime && \tapt update && \tapt -y install wget make gcc g++ python && \tcd ~ && \twget https://nodejs.org/download/release/v$NODE_VER/node-v$NODE_VER.tar.gz && \ttar xf node-v$NODE_VER.tar.gz && \tcd node-v$NODE_VER && \t./configure --prefix=/opt/node && \tmake -j$(nproc) > /dev/null && \tmake install" shape="box"];
+  "sha256:03a322c810623fcaae7d5411ccb11324f0239e8270a318a6f81168733695e13b" [label="bash -c apt update && \tapt -y install autoconf && \tcd ~ && \twget https://github.com/jemalloc/jemalloc/archive/$JE_VER.tar.gz && \ttar xf $JE_VER.tar.gz && \tcd jemalloc-$JE_VER && \t./autogen.sh && \t./configure --prefix=/opt/jemalloc && \tmake -j$(nproc) > /dev/null && \tmake install_bin install_include install_lib" shape="box"];
+  "sha256:5aff9adfdc877929ac7f8344969a9e0b47f5efa16db320d85b918dcba93d793a" [label="bash -c apt update && \tapt -y install build-essential \t\tbison libyaml-dev libgdbm-dev libreadline-dev \t\tlibncurses5-dev libffi-dev zlib1g-dev libssl-dev && \tcd ~ && \twget https://cache.ruby-lang.org/pub/ruby/${RUBY_VER%.*}/ruby-$RUBY_VER.tar.gz && \ttar xf ruby-$RUBY_VER.tar.gz && \tcd ruby-$RUBY_VER && \t./configure --prefix=/opt/ruby \t  --with-jemalloc \t  --with-shared \t  --disable-install-doc && \tln -s /opt/jemalloc/lib/* /usr/lib/ && \tmake -j$(nproc) > /dev/null && \tmake install" shape="box"];
+  "sha256:b45294b6ad614a500db641688b9b559548dfbb44c87904e6548cdaee1da615e9" [label="bash -c npm install -g yarn && \tgem install bundler && \tapt update && \tapt -y install git libicu-dev libidn11-dev \tlibpq-dev libprotobuf-dev protobuf-compiler" shape="box"];
+  "sha256:b15e13618acdac7f32e6f013a7060096dd33bf06b4b4322931f5a411bebd743d" [label="local://context" shape="ellipse"];
+  "sha256:66261f2b8a4b0b2a52845ac4554eb318db6af31db9a7c68a4441528f9045800e" [label="copy{src=/Gemfile*, dest=/opt/mastodon/},copy{src=/package.json, dest=/opt/mastodon/},copy{src=/yarn.lock, dest=/opt/mastodon/}" shape="note"];
+  "sha256:423f9c82e2dc1b8da0edeaba74b1d3365fa1fa8754b1969a66b0c3634ee9ce54" [label="bash -c cd /opt/mastodon && \tbundle install -j$(nproc) --deployment --without development test && \tyarn install --pure-lockfile" shape="box"];
+  "sha256:a337fd16a70f14f28505368b1fc734b592bdc15ddcec53beca98fdd8d9f1960b" [label="copy{src=/opt/node, dest=/opt/node}" shape="note"];
+  "sha256:fb61a5c0701fe34ae172c5b29c70ab3cbc514cdcc585c8d8ad9d80581ee50d48" [label="copy{src=/opt/ruby, dest=/opt/ruby}" shape="note"];
+  "sha256:5356370f10ce9540ed5ed8bce4826eeed251102541aab4ae004f10a69c0524df" [label="copy{src=/opt/jemalloc, dest=/opt/jemalloc}" shape="note"];
+  "sha256:236eb6b2802c6692a29b4766e7a71c169c4542eccd9c00d89ee14533021c51bd" [label="/bin/sh -c apt update && \techo \"Etc/UTC\" > /etc/localtime && \tln -s /opt/jemalloc/lib/* /usr/lib/ && \tapt install -y whois wget && \taddgroup --gid $GID mastodon && \tuseradd -m -u $UID -g $GID -d /opt/mastodon mastodon && \techo \"mastodon:`head /dev/urandom | tr -dc A-Za-z0-9 | head -c 24 | mkpasswd -s -m sha-256`\" | chpasswd" shape="box"];
+  "sha256:56278b382a7905f64100416f47668f60cee154f1bd56875a4c0bac4c1e9e52f3" [label="/bin/sh -c apt -y --no-install-recommends install \t  libssl1.1 libpq5 imagemagick ffmpeg \t  libicu60 libprotobuf10 libidn11 libyaml-0-2 \t  file ca-certificates tzdata libreadline7 && \tapt -y install gcc && \tln -s /opt/mastodon /mastodon && \tgem install bundler && \trm -rf /var/cache && \trm -rf /var/lib/apt/lists/*" shape="box"];
+  "sha256:926a1cc4b10247bc9686839aa034030394e419f79bb0d18ee15c18ccd0bb6973" [label="https://github.com/krallin/tini/releases/download/v0.18.0/tini" shape="ellipse"];
+  "sha256:b3b3797f341b0f53cfcdb91cdbf2cc53f83bdb0bf403141f1a3f57310acccb6f" [label="copy{src=/tini, dest=/tini}" shape="note"];
+  "sha256:51183b8ad57a9ab8b88562e5654de2cb92700c104b41401710e2e7fb961c0766" [label="/bin/sh -c echo \"$TINI_SUM tini\" | sha256sum -c -" shape="box"];
+  "sha256:4d1177d6493d663b6bfbb6ec7f52def366e1f34fa7c8fb22519fbfad1670e0b7" [label="/bin/sh -c chmod +x /tini" shape="box"];
+  "sha256:fc854edb4cea529e3e380c36dc1fa296b6d2931e498c052cd0492f2d9921c578" [label="copy{src=/, dest=/opt/mastodon}" shape="note"];
+  "sha256:71f8167d1d542b3179ffe613356465dfb588a14666e4d272d156f50650f614d1" [label="copy{src=/opt/mastodon, dest=/opt/mastodon}" shape="note"];
+  "sha256:061792049007f9092b8b989587c8b725da3414b1f62a7f52e46fc0627f0723bb" [label="/bin/sh -c cd ~ && \tOTP_SECRET=precompile_placeholder SECRET_KEY_BASE=precompile_placeholder rails assets:precompile && \tyarn cache clean" shape="box"];
+  "sha256:777835a7cc884c5c4ebe6e2412458bd7156b3ed0f613bc91859aebf8341bfdfe" [label="mkdir{path=/opt/mastodon}" shape="note"];
+  "sha256:7371dd23a16dc8f7fea14fba63cf5d2ace33c8d50451238544051274e7867389" [label="sha256:7371dd23a16dc8f7fea14fba63cf5d2ace33c8d50451238544051274e7867389" shape="plaintext"];
+  "sha256:5e691c7ba4998fa4b60d1218bbc4ed9845bfa527d7d91b0c48922bbea45ce425" -> "sha256:cd61932763bfb1e494345578b1654d3f70bb90ab333c11abe24f9e8669e0a677" [label=""];
+  "sha256:cd61932763bfb1e494345578b1654d3f70bb90ab333c11abe24f9e8669e0a677" -> "sha256:03a322c810623fcaae7d5411ccb11324f0239e8270a318a6f81168733695e13b" [label=""];
+  "sha256:03a322c810623fcaae7d5411ccb11324f0239e8270a318a6f81168733695e13b" -> "sha256:5aff9adfdc877929ac7f8344969a9e0b47f5efa16db320d85b918dcba93d793a" [label=""];
+  "sha256:5aff9adfdc877929ac7f8344969a9e0b47f5efa16db320d85b918dcba93d793a" -> "sha256:b45294b6ad614a500db641688b9b559548dfbb44c87904e6548cdaee1da615e9" [label=""];
+  "sha256:b45294b6ad614a500db641688b9b559548dfbb44c87904e6548cdaee1da615e9" -> "sha256:66261f2b8a4b0b2a52845ac4554eb318db6af31db9a7c68a4441528f9045800e" [label=""];
+  "sha256:b15e13618acdac7f32e6f013a7060096dd33bf06b4b4322931f5a411bebd743d" -> "sha256:66261f2b8a4b0b2a52845ac4554eb318db6af31db9a7c68a4441528f9045800e" [label=""];
+  "sha256:66261f2b8a4b0b2a52845ac4554eb318db6af31db9a7c68a4441528f9045800e" -> "sha256:423f9c82e2dc1b8da0edeaba74b1d3365fa1fa8754b1969a66b0c3634ee9ce54" [label=""];
+  "sha256:5e691c7ba4998fa4b60d1218bbc4ed9845bfa527d7d91b0c48922bbea45ce425" -> "sha256:a337fd16a70f14f28505368b1fc734b592bdc15ddcec53beca98fdd8d9f1960b" [label=""];
+  "sha256:423f9c82e2dc1b8da0edeaba74b1d3365fa1fa8754b1969a66b0c3634ee9ce54" -> "sha256:a337fd16a70f14f28505368b1fc734b592bdc15ddcec53beca98fdd8d9f1960b" [label=""];
+  "sha256:a337fd16a70f14f28505368b1fc734b592bdc15ddcec53beca98fdd8d9f1960b" -> "sha256:fb61a5c0701fe34ae172c5b29c70ab3cbc514cdcc585c8d8ad9d80581ee50d48" [label=""];
+  "sha256:423f9c82e2dc1b8da0edeaba74b1d3365fa1fa8754b1969a66b0c3634ee9ce54" -> "sha256:fb61a5c0701fe34ae172c5b29c70ab3cbc514cdcc585c8d8ad9d80581ee50d48" [label=""];
+  "sha256:fb61a5c0701fe34ae172c5b29c70ab3cbc514cdcc585c8d8ad9d80581ee50d48" -> "sha256:5356370f10ce9540ed5ed8bce4826eeed251102541aab4ae004f10a69c0524df" [label=""];
+  "sha256:423f9c82e2dc1b8da0edeaba74b1d3365fa1fa8754b1969a66b0c3634ee9ce54" -> "sha256:5356370f10ce9540ed5ed8bce4826eeed251102541aab4ae004f10a69c0524df" [label=""];
+  "sha256:5356370f10ce9540ed5ed8bce4826eeed251102541aab4ae004f10a69c0524df" -> "sha256:236eb6b2802c6692a29b4766e7a71c169c4542eccd9c00d89ee14533021c51bd" [label=""];
+  "sha256:236eb6b2802c6692a29b4766e7a71c169c4542eccd9c00d89ee14533021c51bd" -> "sha256:56278b382a7905f64100416f47668f60cee154f1bd56875a4c0bac4c1e9e52f3" [label=""];
+  "sha256:56278b382a7905f64100416f47668f60cee154f1bd56875a4c0bac4c1e9e52f3" -> "sha256:b3b3797f341b0f53cfcdb91cdbf2cc53f83bdb0bf403141f1a3f57310acccb6f" [label=""];
+  "sha256:926a1cc4b10247bc9686839aa034030394e419f79bb0d18ee15c18ccd0bb6973" -> "sha256:b3b3797f341b0f53cfcdb91cdbf2cc53f83bdb0bf403141f1a3f57310acccb6f" [label=""];
+  "sha256:b3b3797f341b0f53cfcdb91cdbf2cc53f83bdb0bf403141f1a3f57310acccb6f" -> "sha256:51183b8ad57a9ab8b88562e5654de2cb92700c104b41401710e2e7fb961c0766" [label=""];
+  "sha256:51183b8ad57a9ab8b88562e5654de2cb92700c104b41401710e2e7fb961c0766" -> "sha256:4d1177d6493d663b6bfbb6ec7f52def366e1f34fa7c8fb22519fbfad1670e0b7" [label=""];
+  "sha256:4d1177d6493d663b6bfbb6ec7f52def366e1f34fa7c8fb22519fbfad1670e0b7" -> "sha256:fc854edb4cea529e3e380c36dc1fa296b6d2931e498c052cd0492f2d9921c578" [label=""];
+  "sha256:b15e13618acdac7f32e6f013a7060096dd33bf06b4b4322931f5a411bebd743d" -> "sha256:fc854edb4cea529e3e380c36dc1fa296b6d2931e498c052cd0492f2d9921c578" [label=""];
+  "sha256:fc854edb4cea529e3e380c36dc1fa296b6d2931e498c052cd0492f2d9921c578" -> "sha256:71f8167d1d542b3179ffe613356465dfb588a14666e4d272d156f50650f614d1" [label=""];
+  "sha256:423f9c82e2dc1b8da0edeaba74b1d3365fa1fa8754b1969a66b0c3634ee9ce54" -> "sha256:71f8167d1d542b3179ffe613356465dfb588a14666e4d272d156f50650f614d1" [label=""];
+  "sha256:71f8167d1d542b3179ffe613356465dfb588a14666e4d272d156f50650f614d1" -> "sha256:061792049007f9092b8b989587c8b725da3414b1f62a7f52e46fc0627f0723bb" [label=""];
+  "sha256:061792049007f9092b8b989587c8b725da3414b1f62a7f52e46fc0627f0723bb" -> "sha256:777835a7cc884c5c4ebe6e2412458bd7156b3ed0f613bc91859aebf8341bfdfe" [label=""];
+  "sha256:777835a7cc884c5c4ebe6e2412458bd7156b3ed0f613bc91859aebf8341bfdfe" -> "sha256:7371dd23a16dc8f7fea14fba63cf5d2ace33c8d50451238544051274e7867389" [label=""];
+}
+

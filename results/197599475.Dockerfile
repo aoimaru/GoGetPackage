@@ -1,0 +1,16 @@
+[app/sources/197599475.Dockerfile]
+digraph {
+  "sha256:77d02a01877118f8e20005a01391d54ebe6a06a8ada8835374b4ffc55f29ac60" [label="docker-image://docker.io/lsiobase/nginx:3.9" shape="ellipse"];
+  "sha256:a6a50e17d13d431e5b5d069486a4787d8783bf9209867586d56137b65ebe9165" [label="local://context" shape="ellipse"];
+  "sha256:a5f84cc44d5c16b2cd0c4694221564ebea11c2d5f5b076b7bfb4244cc896477a" [label="copy{src=/patches, dest=/defaults/patches/}" shape="note"];
+  "sha256:56682ff1cb2d696deb6bf9b9e850d1589bb57155152f618bc64689ebcf17cf9a" [label="/bin/sh -c echo \"**** install build packages ****\" &&  apk add --no-cache --virtual=build-dependencies \tg++ \tlibffi-dev \topenssl-dev \tpython3-dev &&  echo \"**** install runtime packages ****\" &&  apk add --no-cache --upgrade \tbind-tools \tcurl \tfcgi \tffmpeg \tgeoip \tgzip \tlibffi \tmediainfo \topenssl \tphp7 \tphp7-cgi \tphp7-pear \tphp7-zip \tprocps \tpython3 \trtorrent \tscreen \tsox \tunrar \tzip &&  echo \"**** install pip packages ****\" &&  pip3 install --no-cache-dir -U \tcfscrape \tcloudscraper &&  echo \"**** install rutorrent ****\" &&  if [ -z ${RUTORRENT_RELEASE+x} ]; then \tRUTORRENT_RELEASE=$(curl -sX GET \"https://api.github.com/repos/Novik/ruTorrent/releases/latest\" \t| awk '/tag_name/{print $4;exit}' FS='[\"\"]');  fi &&  curl -o  /tmp/rutorrent.tar.gz -L \t\"https://github.com/Novik/rutorrent/archive/${RUTORRENT_RELEASE}.tar.gz\" &&  mkdir -p \t/app/rutorrent \t/defaults/rutorrent-conf &&  tar xf  /tmp/rutorrent.tar.gz -C \t/app/rutorrent --strip-components=1 &&  mv /app/rutorrent/conf/* \t/defaults/rutorrent-conf/ &&  rm -rf \t/defaults/rutorrent-conf/users &&  echo \"**** patch snoopy.inc for rss fix ****\" &&  cd /app/rutorrent/php &&  patch < /defaults/patches/snoopy.patch &&  echo \"**** cleanup ****\" &&  apk del --purge \tbuild-dependencies &&  rm -rf \t/etc/nginx/conf.d/default.conf \t/root/.cache \t/tmp/*" shape="box"];
+  "sha256:d235f7225f1c0f139ab6ad1e751f72ae9b0b27ded2a71a736e0ed2d5bfb1df19" [label="copy{src=/root, dest=/}" shape="note"];
+  "sha256:1f3633a8561a8ab0723358f8476dd06a45812a5477bc4f44997dd15c1788a419" [label="sha256:1f3633a8561a8ab0723358f8476dd06a45812a5477bc4f44997dd15c1788a419" shape="plaintext"];
+  "sha256:77d02a01877118f8e20005a01391d54ebe6a06a8ada8835374b4ffc55f29ac60" -> "sha256:a5f84cc44d5c16b2cd0c4694221564ebea11c2d5f5b076b7bfb4244cc896477a" [label=""];
+  "sha256:a6a50e17d13d431e5b5d069486a4787d8783bf9209867586d56137b65ebe9165" -> "sha256:a5f84cc44d5c16b2cd0c4694221564ebea11c2d5f5b076b7bfb4244cc896477a" [label=""];
+  "sha256:a5f84cc44d5c16b2cd0c4694221564ebea11c2d5f5b076b7bfb4244cc896477a" -> "sha256:56682ff1cb2d696deb6bf9b9e850d1589bb57155152f618bc64689ebcf17cf9a" [label=""];
+  "sha256:56682ff1cb2d696deb6bf9b9e850d1589bb57155152f618bc64689ebcf17cf9a" -> "sha256:d235f7225f1c0f139ab6ad1e751f72ae9b0b27ded2a71a736e0ed2d5bfb1df19" [label=""];
+  "sha256:a6a50e17d13d431e5b5d069486a4787d8783bf9209867586d56137b65ebe9165" -> "sha256:d235f7225f1c0f139ab6ad1e751f72ae9b0b27ded2a71a736e0ed2d5bfb1df19" [label=""];
+  "sha256:d235f7225f1c0f139ab6ad1e751f72ae9b0b27ded2a71a736e0ed2d5bfb1df19" -> "sha256:1f3633a8561a8ab0723358f8476dd06a45812a5477bc4f44997dd15c1788a419" [label=""];
+}
+

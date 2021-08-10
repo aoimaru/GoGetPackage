@@ -1,0 +1,32 @@
+[app/sources/190017906.Dockerfile]
+digraph {
+  "sha256:31974fbec655c09ccd21303d1cfa5bad77c8b88787c7a197caa82964bc60893e" [label="local://context" shape="ellipse"];
+  "sha256:34846136c19e0f43412f1e6302d4d68569ebad85dd8a989e38ff3083ae715040" [label="docker-image://docker.io/magneticio/java:openjdk-8-jre-alpine" shape="ellipse"];
+  "sha256:ace4083d1defc2a7ee50027bfa945e29bc40d1b81064a1cfe83c85a42446fcc8" [label="/bin/sh -c ALPINE_GLIBC_BASE_URL=\"https://github.com/sgerrand/alpine-pkg-glibc/releases/download\" &&     ALPINE_GLIBC_PACKAGE_VERSION=\"2.23-r3\" &&     ALPINE_GLIBC_BASE_PACKAGE_FILENAME=\"glibc-$ALPINE_GLIBC_PACKAGE_VERSION.apk\" &&     ALPINE_GLIBC_BIN_PACKAGE_FILENAME=\"glibc-bin-$ALPINE_GLIBC_PACKAGE_VERSION.apk\" &&     ALPINE_GLIBC_I18N_PACKAGE_FILENAME=\"glibc-i18n-$ALPINE_GLIBC_PACKAGE_VERSION.apk\" &&     apk add --no-cache --virtual=.build-dependencies wget ca-certificates &&     wget         \"https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.23-r3/sgerrand.rsa.pub\"         -O \"/etc/apk/keys/sgerrand.rsa.pub\" &&     wget         \"$ALPINE_GLIBC_BASE_URL/$ALPINE_GLIBC_PACKAGE_VERSION/$ALPINE_GLIBC_BASE_PACKAGE_FILENAME\"         \"$ALPINE_GLIBC_BASE_URL/$ALPINE_GLIBC_PACKAGE_VERSION/$ALPINE_GLIBC_BIN_PACKAGE_FILENAME\"         \"$ALPINE_GLIBC_BASE_URL/$ALPINE_GLIBC_PACKAGE_VERSION/$ALPINE_GLIBC_I18N_PACKAGE_FILENAME\" &&     apk add --no-cache         \"$ALPINE_GLIBC_BASE_PACKAGE_FILENAME\"         \"$ALPINE_GLIBC_BIN_PACKAGE_FILENAME\"         \"$ALPINE_GLIBC_I18N_PACKAGE_FILENAME\" &&         rm \"/etc/apk/keys/sgerrand.rsa.pub\" &&     /usr/glibc-compat/bin/localedef --force --inputfile POSIX --charmap UTF-8 C.UTF-8 || true &&     echo \"export LANG=C.UTF-8\" > /etc/profile.d/locale.sh &&         apk del glibc-i18n &&         rm \"/root/.wget-hsts\" &&     apk del .build-dependencies &&     rm         \"$ALPINE_GLIBC_BASE_PACKAGE_FILENAME\"         \"$ALPINE_GLIBC_BIN_PACKAGE_FILENAME\"         \"$ALPINE_GLIBC_I18N_PACKAGE_FILENAME\"" shape="box"];
+  "sha256:ac48de4cd184ece605c43e504a2e1896114923c62ef6362c96af71f96332748e" [label="/bin/sh -c set -xe     && apk add --no-cache       bash       curl       runit     && curl --location --silent --show-error $RUNSVINIT_URL --output - | tar zxf - -C /sbin     && chown 0:0 /sbin/runsvinit     && chmod 0775 /sbin/runsvinit     && mkdir -p /usr/local/httpbeat/     && curl --location --silent --show-error $HTTPBEAT_URL --output - | tar zxf - -C /tmp     && mv /tmp/httpbeat-5.2.1-SNAPSHOT-linux-x86_64/httpbeat /usr/local/httpbeat/     && rm -rf /tmp/httpbeat-5.2.1-SNAPSHOT-linux-x86_64" shape="box"];
+  "sha256:d9ad5ba96af00e8a1baf7293b736b73ae3256ac683f50cc8e50ac6494a5bed88" [label="/bin/sh -c mkdir -p /usr/local/vamp/conf" shape="box"];
+  "sha256:85e64e6715495df36848454da51eb266b9cb189f73850e5527bbe8a41f7fd535" [label="copy{src=/vamp-artifacts, dest=/usr/local/vamp/artifacts}" shape="note"];
+  "sha256:95de333f4520fa3597bc9ef7f93bf0a4027443fca44a2edd998b53d4075a5ace" [label="copy{src=/vamp-lifter, dest=/usr/local/vamp/lifter}" shape="note"];
+  "sha256:360a174e651f238f7d5a51acd75bef1daffdb0e6ba2354ee8c87069b27299b35" [label="copy{src=/vamp-lifter-ui, dest=/usr/local/vamp/lifter/ui}" shape="note"];
+  "sha256:20b17103d3f8415190adee92be41618eb5fbd820b4f592c58b4e0e75062a3cf5" [label="copy{src=/vamp-ui, dest=/usr/local/vamp/ui}" shape="note"];
+  "sha256:bfd7f3f6b47de8f4d32c354e391e7ff69c0b5c36aedd5226d14bf7a7c8a97084" [label="copy{src=/vamp, dest=/usr/local/vamp/bin}" shape="note"];
+  "sha256:425ba2629e99f0c0096efde45d90591b7dc8ceba2ec66ca106a5ff8831971c9f" [label="copy{src=/files, dest=/}" shape="note"];
+  "sha256:d5cf051e2a81ca17c3c8eaf1dbcc98f6ff3ae7467d1c2b95b5a42326c7c6c84a" [label="sha256:d5cf051e2a81ca17c3c8eaf1dbcc98f6ff3ae7467d1c2b95b5a42326c7c6c84a" shape="plaintext"];
+  "sha256:34846136c19e0f43412f1e6302d4d68569ebad85dd8a989e38ff3083ae715040" -> "sha256:ace4083d1defc2a7ee50027bfa945e29bc40d1b81064a1cfe83c85a42446fcc8" [label=""];
+  "sha256:ace4083d1defc2a7ee50027bfa945e29bc40d1b81064a1cfe83c85a42446fcc8" -> "sha256:ac48de4cd184ece605c43e504a2e1896114923c62ef6362c96af71f96332748e" [label=""];
+  "sha256:ac48de4cd184ece605c43e504a2e1896114923c62ef6362c96af71f96332748e" -> "sha256:d9ad5ba96af00e8a1baf7293b736b73ae3256ac683f50cc8e50ac6494a5bed88" [label=""];
+  "sha256:d9ad5ba96af00e8a1baf7293b736b73ae3256ac683f50cc8e50ac6494a5bed88" -> "sha256:85e64e6715495df36848454da51eb266b9cb189f73850e5527bbe8a41f7fd535" [label=""];
+  "sha256:31974fbec655c09ccd21303d1cfa5bad77c8b88787c7a197caa82964bc60893e" -> "sha256:85e64e6715495df36848454da51eb266b9cb189f73850e5527bbe8a41f7fd535" [label=""];
+  "sha256:85e64e6715495df36848454da51eb266b9cb189f73850e5527bbe8a41f7fd535" -> "sha256:95de333f4520fa3597bc9ef7f93bf0a4027443fca44a2edd998b53d4075a5ace" [label=""];
+  "sha256:31974fbec655c09ccd21303d1cfa5bad77c8b88787c7a197caa82964bc60893e" -> "sha256:95de333f4520fa3597bc9ef7f93bf0a4027443fca44a2edd998b53d4075a5ace" [label=""];
+  "sha256:95de333f4520fa3597bc9ef7f93bf0a4027443fca44a2edd998b53d4075a5ace" -> "sha256:360a174e651f238f7d5a51acd75bef1daffdb0e6ba2354ee8c87069b27299b35" [label=""];
+  "sha256:31974fbec655c09ccd21303d1cfa5bad77c8b88787c7a197caa82964bc60893e" -> "sha256:360a174e651f238f7d5a51acd75bef1daffdb0e6ba2354ee8c87069b27299b35" [label=""];
+  "sha256:360a174e651f238f7d5a51acd75bef1daffdb0e6ba2354ee8c87069b27299b35" -> "sha256:20b17103d3f8415190adee92be41618eb5fbd820b4f592c58b4e0e75062a3cf5" [label=""];
+  "sha256:31974fbec655c09ccd21303d1cfa5bad77c8b88787c7a197caa82964bc60893e" -> "sha256:20b17103d3f8415190adee92be41618eb5fbd820b4f592c58b4e0e75062a3cf5" [label=""];
+  "sha256:20b17103d3f8415190adee92be41618eb5fbd820b4f592c58b4e0e75062a3cf5" -> "sha256:bfd7f3f6b47de8f4d32c354e391e7ff69c0b5c36aedd5226d14bf7a7c8a97084" [label=""];
+  "sha256:31974fbec655c09ccd21303d1cfa5bad77c8b88787c7a197caa82964bc60893e" -> "sha256:bfd7f3f6b47de8f4d32c354e391e7ff69c0b5c36aedd5226d14bf7a7c8a97084" [label=""];
+  "sha256:bfd7f3f6b47de8f4d32c354e391e7ff69c0b5c36aedd5226d14bf7a7c8a97084" -> "sha256:425ba2629e99f0c0096efde45d90591b7dc8ceba2ec66ca106a5ff8831971c9f" [label=""];
+  "sha256:31974fbec655c09ccd21303d1cfa5bad77c8b88787c7a197caa82964bc60893e" -> "sha256:425ba2629e99f0c0096efde45d90591b7dc8ceba2ec66ca106a5ff8831971c9f" [label=""];
+  "sha256:425ba2629e99f0c0096efde45d90591b7dc8ceba2ec66ca106a5ff8831971c9f" -> "sha256:d5cf051e2a81ca17c3c8eaf1dbcc98f6ff3ae7467d1c2b95b5a42326c7c6c84a" [label=""];
+}
+

@@ -1,0 +1,7 @@
+[app/sources/300459544.Dockerfile]
+digraph {
+  "sha256:c195a3ce9674ce13f36f809826110ce93f402bdc9dd2b964fbd34ba40301a619" [label="docker-image://quay.io/calico/cni:installcni-kpmods-amd64@sha256:edcebb6a4a213e214dc831932299577f7b333a5c43fd3cab4301b0754d7d604d" shape="ellipse"];
+  "sha256:7812a4bd222f14e112721ba280976f9f04dc40611c6c272de43456c7f587ce96" [label="sha256:7812a4bd222f14e112721ba280976f9f04dc40611c6c272de43456c7f587ce96" shape="plaintext"];
+  "sha256:c195a3ce9674ce13f36f809826110ce93f402bdc9dd2b964fbd34ba40301a619" -> "sha256:7812a4bd222f14e112721ba280976f9f04dc40611c6c272de43456c7f587ce96" [label=""];
+}
+

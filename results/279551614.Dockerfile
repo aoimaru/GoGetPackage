@@ -1,0 +1,31 @@
+[app/sources/279551614.Dockerfile]
+digraph {
+  "sha256:ad793168a7076f70e6165cec44e57118cdf5e074f3aa91e9930dcd757634de50" [label="local://context" shape="ellipse"];
+  "sha256:1aeb22e2333a2be5f0c3a49fac4b3bdb4652abfddf019b6bb683681070778a19" [label="docker-image://docker.io/prestodb/centos6-oj8:unlabelled" shape="ellipse"];
+  "sha256:b8835ae07ef7d144d92bc7bf6c072bc6f11b7951652e0c7bab876470e5253070" [label="/bin/sh -c yum -y install openldap openldap-clients openldap-servers     && yum -y clean all && rm -rf /tmp/* /var/tmp/*" shape="box"];
+  "sha256:3f85628e6deff8eba6e2a26c491239b25decc606a8a1535902078611e6689e13" [label="copy{src=/files, dest=/}" shape="note"];
+  "sha256:ce6a023635f6f1873e22d377e2c196ac77a7f43508503d8392be3ae73585bf32" [label="/bin/sh -c service slapd start &&     ldapmodify -Y EXTERNAL -H ldapi:/// -f /etc/openldap/setup/modify_server.ldif &&     ldapmodify -Y EXTERNAL -H ldapi:/// -f /etc/openldap/setup/ldap_disable_bind_anon.ldif &&     ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/setup/memberof.ldif &&     ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/setup/refint.ldif &&     ldapadd -f /etc/openldap/setup/createOU.ldif -D cn=admin,dc=presto,dc=testldap,dc=com -w admin" shape="box"];
+  "sha256:510e9a85d47c76d5f7f45123ba68345d781e5a2a2f68d6d1225cbaa10df0a9d0" [label="/bin/sh -c keytool -import -alias presto -storepass changeit -keystore $JAVA_HOME/jre/lib/security/cacerts     -noprompt -trustcacerts -file /etc/openldap/certs/active-directory-certificate.crt" shape="box"];
+  "sha256:81bd4e16176cb282805fa9da83f0cc880bfa7ff9b7df29679817a7f50dbfae43" [label="/bin/sh -c keytool -import -alias prestowithopenldap -storepass changeit -keystore $JAVA_HOME/jre/lib/security/cacerts     -noprompt -trustcacerts -file /etc/openldap/certs/openldap-certificate.pem" shape="box"];
+  "sha256:ea08be6bce86338e5c1c6068a9681a4ca8362be97e77988233fdf45657dfe19d" [label="/bin/sh -c keytool -genkey -alias coordinator -storepass testldap -keystore /etc/openldap/certs/coordinator.jks     -keypass testldap -keyalg RSA -sigalg SHA1withRSA -dname \"CN=presto-master, OU=, O=, L=, S=, C=\" -validity 100000" shape="box"];
+  "sha256:a12f657a4ee64f3908bee88efc54c58ec4c848588ae99e0594d77363e1e42fdd" [label="/bin/sh -c keytool -export -alias coordinator -storepass testldap -keystore /etc/openldap/certs/coordinator.jks     -file /etc/openldap/certs/coordinator.cer &&     keytool -certreq -alias coordinator -storepass testldap -keystore /etc/openldap/certs/coordinator.jks     -file /etc/openldap/certs/coordinator.csr" shape="box"];
+  "sha256:9e8189fda21dc696d7c8e7a2199efa3ea79253eae2f274be8dabbe4a4e93ff66" [label="/bin/sh -c openssl req -new -keyout /etc/openldap/certs/cakey.pem -out /etc/openldap/certs/careq.pem -nodes     -subj \"/C=US/ST=Massachusetts/L=Boston/O=Teradata/OU=Finance/CN=teradata\" &&     openssl x509 -req -in /etc/openldap/certs/careq.pem -out /etc/openldap/certs/caroot.cer -days 100000     -signkey /etc/openldap/certs/cakey.pem" shape="box"];
+  "sha256:5a582ff1e4be4f120bc11f2a3cdf4388053d500ea5403b6ed2e0b5cbd1f2fd7b" [label="/bin/sh -c openssl x509 -req -in /etc/openldap/certs/coordinator.csr -out /etc/openldap/certs/TestCA.cer -days 100000     -CA /etc/openldap/certs/caroot.cer -CAkey /etc/openldap/certs/cakey.pem -CAserial /etc/openldap/certs/serial.txt" shape="box"];
+  "sha256:36b3264b2e2e4392102efaa39ad3f06633b8b3ef4fd414907ebf6ee2ffc23b68" [label="/bin/sh -c keytool -import -alias TestCA -storepass testldap -keystore /etc/openldap/certs/coordinator.jks     -noprompt -file /etc/openldap/certs/caroot.cer &&     keytool -import -alias coordinator -storepass testldap -keystore /etc/openldap/certs/coordinator.jks     -file /etc/openldap/certs/TestCA.cer" shape="box"];
+  "sha256:d2a75732f783e5c48f8247a34ffba20a6255410742223406a55e2962bc15ca6f" [label="/bin/sh -c keytool -import -alias caroot -storepass testldap -keystore /etc/openldap/certs/cacerts.jks -noprompt     -file /etc/openldap/certs/caroot.cer" shape="box"];
+  "sha256:9a7b86f3a239ae448162caef65d294c2cd39c7c953e78ae7cf49d0513e641a8e" [label="sha256:9a7b86f3a239ae448162caef65d294c2cd39c7c953e78ae7cf49d0513e641a8e" shape="plaintext"];
+  "sha256:1aeb22e2333a2be5f0c3a49fac4b3bdb4652abfddf019b6bb683681070778a19" -> "sha256:b8835ae07ef7d144d92bc7bf6c072bc6f11b7951652e0c7bab876470e5253070" [label=""];
+  "sha256:b8835ae07ef7d144d92bc7bf6c072bc6f11b7951652e0c7bab876470e5253070" -> "sha256:3f85628e6deff8eba6e2a26c491239b25decc606a8a1535902078611e6689e13" [label=""];
+  "sha256:ad793168a7076f70e6165cec44e57118cdf5e074f3aa91e9930dcd757634de50" -> "sha256:3f85628e6deff8eba6e2a26c491239b25decc606a8a1535902078611e6689e13" [label=""];
+  "sha256:3f85628e6deff8eba6e2a26c491239b25decc606a8a1535902078611e6689e13" -> "sha256:ce6a023635f6f1873e22d377e2c196ac77a7f43508503d8392be3ae73585bf32" [label=""];
+  "sha256:ce6a023635f6f1873e22d377e2c196ac77a7f43508503d8392be3ae73585bf32" -> "sha256:510e9a85d47c76d5f7f45123ba68345d781e5a2a2f68d6d1225cbaa10df0a9d0" [label=""];
+  "sha256:510e9a85d47c76d5f7f45123ba68345d781e5a2a2f68d6d1225cbaa10df0a9d0" -> "sha256:81bd4e16176cb282805fa9da83f0cc880bfa7ff9b7df29679817a7f50dbfae43" [label=""];
+  "sha256:81bd4e16176cb282805fa9da83f0cc880bfa7ff9b7df29679817a7f50dbfae43" -> "sha256:ea08be6bce86338e5c1c6068a9681a4ca8362be97e77988233fdf45657dfe19d" [label=""];
+  "sha256:ea08be6bce86338e5c1c6068a9681a4ca8362be97e77988233fdf45657dfe19d" -> "sha256:a12f657a4ee64f3908bee88efc54c58ec4c848588ae99e0594d77363e1e42fdd" [label=""];
+  "sha256:a12f657a4ee64f3908bee88efc54c58ec4c848588ae99e0594d77363e1e42fdd" -> "sha256:9e8189fda21dc696d7c8e7a2199efa3ea79253eae2f274be8dabbe4a4e93ff66" [label=""];
+  "sha256:9e8189fda21dc696d7c8e7a2199efa3ea79253eae2f274be8dabbe4a4e93ff66" -> "sha256:5a582ff1e4be4f120bc11f2a3cdf4388053d500ea5403b6ed2e0b5cbd1f2fd7b" [label=""];
+  "sha256:5a582ff1e4be4f120bc11f2a3cdf4388053d500ea5403b6ed2e0b5cbd1f2fd7b" -> "sha256:36b3264b2e2e4392102efaa39ad3f06633b8b3ef4fd414907ebf6ee2ffc23b68" [label=""];
+  "sha256:36b3264b2e2e4392102efaa39ad3f06633b8b3ef4fd414907ebf6ee2ffc23b68" -> "sha256:d2a75732f783e5c48f8247a34ffba20a6255410742223406a55e2962bc15ca6f" [label=""];
+  "sha256:d2a75732f783e5c48f8247a34ffba20a6255410742223406a55e2962bc15ca6f" -> "sha256:9a7b86f3a239ae448162caef65d294c2cd39c7c953e78ae7cf49d0513e641a8e" [label=""];
+}
+

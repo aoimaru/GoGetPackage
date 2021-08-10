@@ -1,0 +1,53 @@
+[app/sources/311763737.Dockerfile]
+digraph {
+  "sha256:3912907517100b31987a684b54ee283bc2bef9aaebc269a81fa6d818fa040204" [label="docker-image://docker.io/microsoft/dotnet:2.1.6-aspnetcore-runtime" shape="ellipse"];
+  "sha256:69fc6887e70d85f9f3ab2f9c0099e81a60ea5c1379abb132b914ce6dc779cf47" [label="mkdir{path=/app}" shape="note"];
+  "sha256:c83278065d9ea06d43ba2097982fd9b1b6be1f32556fd263f2d388cea2d78697" [label="mkdir{path=/app}" shape="note"];
+  "sha256:95ebc7aa89060a0bb064bbb970f2f510902bc639411306b2b0183c35e2dbd348" [label="docker-image://docker.io/microsoft/dotnet:2.1-sdk" shape="ellipse"];
+  "sha256:a5cc6763884011434764fbcb8829dd30df40f5b3a51e415f562e8ced7304ed1e" [label="mkdir{path=/src}" shape="note"];
+  "sha256:c3d11e87572adf33fa0824beacf1db80890860869808b375ef43b5cae9977993" [label="local://context" shape="ellipse"];
+  "sha256:949991da855f04fc0cfaf3096cf518f6e4d8a3796f7083f8498272b6c7de606c" [label="copy{src=/Catalog.Service/Catalog.Service.csproj, dest=/src/Catalog.Service/}" shape="note"];
+  "sha256:959f1430cb66f88acef3eee17750c9d87a2f2a703ac80822e55af73e49bd9819" [label="copy{src=/Common.Api/Common.Api.csproj, dest=/src/Common.Api/}" shape="note"];
+  "sha256:2994afd3d428a19911da2a03a49367f570ceff4a937339a295e0d583b225a73c" [label="copy{src=/Common.Domain/Common.Domain.csproj, dest=/src/Common.Domain/}" shape="note"];
+  "sha256:c7f5475257a3af0e899305667e4260d96907bedffee9ae920e36c22ec5052ede" [label="copy{src=/Common.Infrastructure/Common.Infrastructure.csproj, dest=/src/Common.Infrastructure/}" shape="note"];
+  "sha256:4bb0cb2aee5074ad681bb71604c8fbd86077269d117335fccb0d0f7666b4d9a6" [label="copy{src=/Catalog.Integration/Catalog.Integration.csproj, dest=/src/Catalog.Integration/}" shape="note"];
+  "sha256:4f73b4cb055b88bcd3f99f2a9f2b855bdc98cf9b41a4641a175dbf823b294119" [label="copy{src=/Catalog.Infrastructure/Catalog.Infrastructure.csproj, dest=/src/Catalog.Infrastructure/}" shape="note"];
+  "sha256:b510a5e24737f14dc87ff187db7fa0c104f13e25bd5d337f84b6d2859aa3be97" [label="copy{src=/Catalog.Domain/Catalog.Domain.csproj, dest=/src/Catalog.Domain/}" shape="note"];
+  "sha256:3089627b5220160e2a2e9d3ff762bca225c1c975d4399079d9352a146e3d66aa" [label="copy{src=/Common.Data/Common.Data.csproj, dest=/src/Common.Data/}" shape="note"];
+  "sha256:71553ff8cb00ce7075635315c40beed9ece0f0187159b23bcc9cad8d1a79aa2d" [label="/bin/sh -c dotnet restore \"Catalog.Service/Catalog.Service.csproj\"" shape="box"];
+  "sha256:54534012c077dcf0299b014a311f117c2825568b1a594219831ec5b0d6cbd570" [label="copy{src=/, dest=/src/}" shape="note"];
+  "sha256:a19b8c7e12281b7e95cd705024d0549695da83cd57532d19fac634d5ea746ae7" [label="mkdir{path=/src/Catalog.Service}" shape="note"];
+  "sha256:4d38861b82bfa73a090e2e292487807a426fdbd05999a307c8323d20ed0337f3" [label="/bin/sh -c dotnet build \"Catalog.Service.csproj\" -c Release -o /app" shape="box"];
+  "sha256:4dcb5ec1f97462991f34efad91af28fd97b3b7a0d9ba5d97d1cef113f5be0385" [label="/bin/sh -c dotnet publish \"Catalog.Service.csproj\" -c Release -o /app" shape="box"];
+  "sha256:9df998c7a4384525a814a9855c9221e6d52d424087d63da9c201be89dec1d95f" [label="copy{src=/app, dest=/app/}" shape="note"];
+  "sha256:bbc65d27b71ce942a3e7c541e5568e1ad6e9714412d13de43f68b6d52b178134" [label="sha256:bbc65d27b71ce942a3e7c541e5568e1ad6e9714412d13de43f68b6d52b178134" shape="plaintext"];
+  "sha256:3912907517100b31987a684b54ee283bc2bef9aaebc269a81fa6d818fa040204" -> "sha256:69fc6887e70d85f9f3ab2f9c0099e81a60ea5c1379abb132b914ce6dc779cf47" [label=""];
+  "sha256:69fc6887e70d85f9f3ab2f9c0099e81a60ea5c1379abb132b914ce6dc779cf47" -> "sha256:c83278065d9ea06d43ba2097982fd9b1b6be1f32556fd263f2d388cea2d78697" [label=""];
+  "sha256:95ebc7aa89060a0bb064bbb970f2f510902bc639411306b2b0183c35e2dbd348" -> "sha256:a5cc6763884011434764fbcb8829dd30df40f5b3a51e415f562e8ced7304ed1e" [label=""];
+  "sha256:a5cc6763884011434764fbcb8829dd30df40f5b3a51e415f562e8ced7304ed1e" -> "sha256:949991da855f04fc0cfaf3096cf518f6e4d8a3796f7083f8498272b6c7de606c" [label=""];
+  "sha256:c3d11e87572adf33fa0824beacf1db80890860869808b375ef43b5cae9977993" -> "sha256:949991da855f04fc0cfaf3096cf518f6e4d8a3796f7083f8498272b6c7de606c" [label=""];
+  "sha256:949991da855f04fc0cfaf3096cf518f6e4d8a3796f7083f8498272b6c7de606c" -> "sha256:959f1430cb66f88acef3eee17750c9d87a2f2a703ac80822e55af73e49bd9819" [label=""];
+  "sha256:c3d11e87572adf33fa0824beacf1db80890860869808b375ef43b5cae9977993" -> "sha256:959f1430cb66f88acef3eee17750c9d87a2f2a703ac80822e55af73e49bd9819" [label=""];
+  "sha256:959f1430cb66f88acef3eee17750c9d87a2f2a703ac80822e55af73e49bd9819" -> "sha256:2994afd3d428a19911da2a03a49367f570ceff4a937339a295e0d583b225a73c" [label=""];
+  "sha256:c3d11e87572adf33fa0824beacf1db80890860869808b375ef43b5cae9977993" -> "sha256:2994afd3d428a19911da2a03a49367f570ceff4a937339a295e0d583b225a73c" [label=""];
+  "sha256:2994afd3d428a19911da2a03a49367f570ceff4a937339a295e0d583b225a73c" -> "sha256:c7f5475257a3af0e899305667e4260d96907bedffee9ae920e36c22ec5052ede" [label=""];
+  "sha256:c3d11e87572adf33fa0824beacf1db80890860869808b375ef43b5cae9977993" -> "sha256:c7f5475257a3af0e899305667e4260d96907bedffee9ae920e36c22ec5052ede" [label=""];
+  "sha256:c7f5475257a3af0e899305667e4260d96907bedffee9ae920e36c22ec5052ede" -> "sha256:4bb0cb2aee5074ad681bb71604c8fbd86077269d117335fccb0d0f7666b4d9a6" [label=""];
+  "sha256:c3d11e87572adf33fa0824beacf1db80890860869808b375ef43b5cae9977993" -> "sha256:4bb0cb2aee5074ad681bb71604c8fbd86077269d117335fccb0d0f7666b4d9a6" [label=""];
+  "sha256:4bb0cb2aee5074ad681bb71604c8fbd86077269d117335fccb0d0f7666b4d9a6" -> "sha256:4f73b4cb055b88bcd3f99f2a9f2b855bdc98cf9b41a4641a175dbf823b294119" [label=""];
+  "sha256:c3d11e87572adf33fa0824beacf1db80890860869808b375ef43b5cae9977993" -> "sha256:4f73b4cb055b88bcd3f99f2a9f2b855bdc98cf9b41a4641a175dbf823b294119" [label=""];
+  "sha256:4f73b4cb055b88bcd3f99f2a9f2b855bdc98cf9b41a4641a175dbf823b294119" -> "sha256:b510a5e24737f14dc87ff187db7fa0c104f13e25bd5d337f84b6d2859aa3be97" [label=""];
+  "sha256:c3d11e87572adf33fa0824beacf1db80890860869808b375ef43b5cae9977993" -> "sha256:b510a5e24737f14dc87ff187db7fa0c104f13e25bd5d337f84b6d2859aa3be97" [label=""];
+  "sha256:b510a5e24737f14dc87ff187db7fa0c104f13e25bd5d337f84b6d2859aa3be97" -> "sha256:3089627b5220160e2a2e9d3ff762bca225c1c975d4399079d9352a146e3d66aa" [label=""];
+  "sha256:c3d11e87572adf33fa0824beacf1db80890860869808b375ef43b5cae9977993" -> "sha256:3089627b5220160e2a2e9d3ff762bca225c1c975d4399079d9352a146e3d66aa" [label=""];
+  "sha256:3089627b5220160e2a2e9d3ff762bca225c1c975d4399079d9352a146e3d66aa" -> "sha256:71553ff8cb00ce7075635315c40beed9ece0f0187159b23bcc9cad8d1a79aa2d" [label=""];
+  "sha256:71553ff8cb00ce7075635315c40beed9ece0f0187159b23bcc9cad8d1a79aa2d" -> "sha256:54534012c077dcf0299b014a311f117c2825568b1a594219831ec5b0d6cbd570" [label=""];
+  "sha256:c3d11e87572adf33fa0824beacf1db80890860869808b375ef43b5cae9977993" -> "sha256:54534012c077dcf0299b014a311f117c2825568b1a594219831ec5b0d6cbd570" [label=""];
+  "sha256:54534012c077dcf0299b014a311f117c2825568b1a594219831ec5b0d6cbd570" -> "sha256:a19b8c7e12281b7e95cd705024d0549695da83cd57532d19fac634d5ea746ae7" [label=""];
+  "sha256:a19b8c7e12281b7e95cd705024d0549695da83cd57532d19fac634d5ea746ae7" -> "sha256:4d38861b82bfa73a090e2e292487807a426fdbd05999a307c8323d20ed0337f3" [label=""];
+  "sha256:4d38861b82bfa73a090e2e292487807a426fdbd05999a307c8323d20ed0337f3" -> "sha256:4dcb5ec1f97462991f34efad91af28fd97b3b7a0d9ba5d97d1cef113f5be0385" [label=""];
+  "sha256:c83278065d9ea06d43ba2097982fd9b1b6be1f32556fd263f2d388cea2d78697" -> "sha256:9df998c7a4384525a814a9855c9221e6d52d424087d63da9c201be89dec1d95f" [label=""];
+  "sha256:4dcb5ec1f97462991f34efad91af28fd97b3b7a0d9ba5d97d1cef113f5be0385" -> "sha256:9df998c7a4384525a814a9855c9221e6d52d424087d63da9c201be89dec1d95f" [label=""];
+  "sha256:9df998c7a4384525a814a9855c9221e6d52d424087d63da9c201be89dec1d95f" -> "sha256:bbc65d27b71ce942a3e7c541e5568e1ad6e9714412d13de43f68b6d52b178134" [label=""];
+}
+

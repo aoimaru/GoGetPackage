@@ -1,0 +1,17 @@
+[app/sources/326246728.Dockerfile]
+digraph {
+  "sha256:e72f6319c5e46f98b2311e6e24cf96db1338d06f03fb7b01ed1948473c988cf2" [label="docker-image://docker.io/library/ubuntu:xenial-20181113" shape="ellipse"];
+  "sha256:9eb5bc3c870063181089f49f88c39c76fe550ec579c693f5871899da90e4a6e4" [label="/bin/sh -c set -e -x ;    apt-get -y update ;    apt-get -y upgrade ;    apt-get -y install         build-essential autoconf cmake clang bison wget flex gperf         libreadline-dev gawk tcl-dev libffi-dev graphviz xdot python3-dev         libboost-all-dev qt5-default git libftdi-dev pkg-config libeigen3-dev" shape="box"];
+  "sha256:3e4eb0ed88232b5cef9f9c95613c60514733fcceed879c12b6b2256cac5acde4" [label="/bin/sh -c set -e -x ;    mkdir -p /usr/local/src ;    cd /usr/local/src ;    git clone --recursive https://github.com/steveicarus/iverilog.git ;    cd iverilog ;    git reset --hard 172d7eb0a3665f89b91d601b5912c33acedc81e5 ;    sh autoconf.sh ;    ./configure ;    make -j $(nproc) ;    make install ;    rm -rf /usr/local/src/iverilog" shape="box"];
+  "sha256:0ab2966e570580890aa31acbe0159dc81208c726aafedf5aa55bf020ee3bc6e4" [label="/bin/sh -c set -e -x ;    mkdir -p /usr/local/src ;    cd /usr/local/src ;    git clone --recursive https://github.com/cliffordwolf/icestorm.git ;    cd icestorm ;    git reset --hard 3a2bfee5cbc0558641668114260d3f644d6b7c83 ;    make -j $(nproc) ;    make install" shape="box"];
+  "sha256:5c3654aaed95e096d4726a24074bc27268ad3bf023beab299c188fae6d54cd9a" [label="/bin/sh -c set -e -x ;    mkdir -p /usr/local/src ;    cd /usr/local/src ;    git clone --recursive https://github.com/YosysHQ/yosys.git ;    cd yosys ;    git reset --hard ea8ac0aaad3a1f89ead8eb44b2fef5927f29a099 ;    make -j $(nproc) ;    make install ;    rm -rf /usr/local/src/yosys" shape="box"];
+  "sha256:f8559480fc202ae7ab868fc851135f74ac96f8109db14cc52671d158bcb866ab" [label="/bin/sh -c set -e -x ;    mkdir -p /usr/local/src ;    cd /usr/local/src ;    git clone --recursive https://github.com/SymbiFlow/prjtrellis.git ;    cd prjtrellis ;    git reset --hard 46e95314be7f8850db80ad1ef6b3359b091fad93 ;    cd libtrellis ;    cmake -DCMAKE_INSTALL_PREFIX=/usr . ;    make -j $(nproc) ;    make install" shape="box"];
+  "sha256:928ce95c02728c7a4e8b100c3fb34f9e1bef46cdcf6b709f72362fcda6de88bc" [label="sha256:928ce95c02728c7a4e8b100c3fb34f9e1bef46cdcf6b709f72362fcda6de88bc" shape="plaintext"];
+  "sha256:e72f6319c5e46f98b2311e6e24cf96db1338d06f03fb7b01ed1948473c988cf2" -> "sha256:9eb5bc3c870063181089f49f88c39c76fe550ec579c693f5871899da90e4a6e4" [label=""];
+  "sha256:9eb5bc3c870063181089f49f88c39c76fe550ec579c693f5871899da90e4a6e4" -> "sha256:3e4eb0ed88232b5cef9f9c95613c60514733fcceed879c12b6b2256cac5acde4" [label=""];
+  "sha256:3e4eb0ed88232b5cef9f9c95613c60514733fcceed879c12b6b2256cac5acde4" -> "sha256:0ab2966e570580890aa31acbe0159dc81208c726aafedf5aa55bf020ee3bc6e4" [label=""];
+  "sha256:0ab2966e570580890aa31acbe0159dc81208c726aafedf5aa55bf020ee3bc6e4" -> "sha256:5c3654aaed95e096d4726a24074bc27268ad3bf023beab299c188fae6d54cd9a" [label=""];
+  "sha256:5c3654aaed95e096d4726a24074bc27268ad3bf023beab299c188fae6d54cd9a" -> "sha256:f8559480fc202ae7ab868fc851135f74ac96f8109db14cc52671d158bcb866ab" [label=""];
+  "sha256:f8559480fc202ae7ab868fc851135f74ac96f8109db14cc52671d158bcb866ab" -> "sha256:928ce95c02728c7a4e8b100c3fb34f9e1bef46cdcf6b709f72362fcda6de88bc" [label=""];
+}
+

@@ -1,0 +1,54 @@
+[app/sources/301607160.Dockerfile]
+digraph {
+  "sha256:8d4a1137190f61a15d78381bb7d986091361abf8bf2753d56432ff9e1657cd4e" [label="local://context" shape="ellipse"];
+  "sha256:d4425d448d7ad21f91400459e0d90c8b1928530ce6a6accbf3fb393616b24a34" [label="docker-image://docker.io/library/debian:8.7" shape="ellipse"];
+  "sha256:4ef556466ac0fd95c3a9eb01cde50901af5300cef7e75fc5462112d0ead40d7a" [label="/bin/sh -c apt-get update && apt-get install -y     unzip     vim     curl     php5-curl     php5-gd     php5-imap     libphp-pclzip     php5-ldap     php5     php5-dev     apache2     php5-mcrypt     build-essential     php5-redis     php5-mysql     php5-xdebug     php5-xhprof     graphviz     --no-install-recommends && rm -rf /var/lib/apt/lists/*" shape="box"];
+  "sha256:1acb34e08bc0912b52be3f0474322d6dd200fa4e28120b7556d363404c2e6191" [label="copy{src=/config/apache2/mods-available/deflate.conf, dest=/etc/apache2/mods-available/deflate.conf}" shape="note"];
+  "sha256:f1377181ff4ae36afbb69739b9d6a06b8a43f7e79d2443f34140af2225d4b30a" [label="/bin/sh -c a2enmod headers expires deflate rewrite" shape="box"];
+  "sha256:d16dff74414f6a1cd22b78334de5c61ff2ab367eb50217c4e63890cef2b39002" [label="/bin/sh -c adduser sugar --disabled-password --disabled-login --gecos \"\"" shape="box"];
+  "sha256:8b3e4d4e10f66c73fc00a8b68b4238fcc84243693cbd6a69180aafc06f38116b" [label="/bin/sh -c sed -i \"s#APACHE_RUN_USER=.*#APACHE_RUN_USER=sugar#\" /etc/apache2/envvars     && sed -i \"s#APACHE_RUN_GROUP=.*#APACHE_RUN_GROUP=sugar#\" /etc/apache2/envvars" shape="box"];
+  "sha256:a178013007a343cee012540eb781d08dd512a91b57e7f8730886b4e73e5e09f8" [label="/bin/sh -c set -ex     && . \"/etc/apache2/envvars\"     && ln -sfT /dev/stderr \"$APACHE_LOG_DIR/error.log\"     && ln -sfT /dev/stdout \"$APACHE_LOG_DIR/access.log\"     && ln -sfT /dev/stdout \"$APACHE_LOG_DIR/other_vhosts_access.log\"" shape="box"];
+  "sha256:7e465b4d90a4242df8540758364b3f06c05e8b904ff144bf93418edda6b4d65d" [label="/bin/sh -c a2dissite 000-default" shape="box"];
+  "sha256:25878eaef2045d64b6512deb842c5bea5eb0bc533b652b85647c31230c73e035" [label="copy{src=/config/apache2/sites-available/sugar.conf, dest=/etc/apache2/sites-available/sugar.conf}" shape="note"];
+  "sha256:ca2de106b1db394cc123e1a9b888386b31c8765ab439d33257689c5a67b12041" [label="/bin/sh -c a2ensite sugar" shape="box"];
+  "sha256:dc391de563c4157b2feaa31e920c74aafb4e6cb2054ffed543e2d739ef1cc032" [label="/bin/sh -c sed -i \"s#Timeout .*#Timeout 600#\" /etc/apache2/apache2.conf     && sed -i \"s#memory_limit = .*#memory_limit = 512M#\" /etc/php5/apache2/php.ini     && sed -i \"s#.*date.timezone =.*#date.timezone = Australia/Sydney#\" /etc/php5/apache2/php.ini     && sed -i \"s#post_max_size = .*#post_max_size = 100M#\" /etc/php5/apache2/php.ini     && sed -i \"s#upload_max_filesize = .*#upload_max_filesize = 100M#\" /etc/php5/apache2/php.ini     && sed -i \"s#max_execution_time = .*#max_execution_time = 600#\" /etc/php5/apache2/php.ini     && sed -i \"s#max_input_time = .*#max_input_time = 600#\" /etc/php5/apache2/php.ini     && sed -i \"s#error_reporting = .*#error_reporting = E_ALL \\& ~E_NOTICE \\& ~E_STRICT \\& ~E_DEPRECATED#\" /etc/php5/apache2/php.ini     && sed -i \"s#;error_log = syslog#error_log = /var/log/apache2/error.log#\" /etc/php5/apache2/php.ini     && sed -i \"s#;realpath_cache_size = .*#realpath_cache_size = 512k#\" /etc/php5/apache2/php.ini     && sed -i \"s#;realpath_cache_ttl = .*#realpath_cache_ttl = 600#\" /etc/php5/apache2/php.ini     && sed -i \"s#session.save_handler = .*#session.save_handler = redis#\" /etc/php5/apache2/php.ini     && sed -i 's#;session.save_path = .*#session.save_path = \"tcp://sugar-redis:6379\"#' /etc/php5/apache2/php.ini     && sed -i \"s#.*date.timezone =.*#date.timezone = Australia/Sydney#\" /etc/php5/cli/php.ini     && sed -i \"s#error_reporting = .*#error_reporting = E_ALL \\& ~E_NOTICE \\& ~E_STRICT \\& ~E_DEPRECATED#\" /etc/php5/cli/php.ini     && sed -i \"s#;error_log = syslog#error_log = /proc/1/fd/1#\" /etc/php5/cli/php.ini     && sed -i \"s#display_errors = Off#display_errors = On#\" /etc/php5/cli/php.ini     && sed -i \"s#;realpath_cache_size = .*#realpath_cache_size = 512k#\" /etc/php5/cli/php.ini     && sed -i \"s#;realpath_cache_ttl = .*#realpath_cache_ttl = 600#\" /etc/php5/cli/php.ini" shape="box"];
+  "sha256:b4b86703ec46aa7f14cc8575349f489e23c2fe19ea07e94bea87ec4b51d6070b" [label="copy{src=/config/php/mods-available/xdebug.ini, dest=/etc/php5/mods-available/xdebug.ini}" shape="note"];
+  "sha256:55780b3061f2d935b076131d7eb985bac9f5e7cadf3865ecb8ca543013c0cc4b" [label="copy{src=/config/php/mods-available/xhprof.ini, dest=/etc/php5/mods-available/xhprof.ini}" shape="note"];
+  "sha256:1f1aa8a2d5efb542837ea6fd813eaf6db13429d31c49c4b7695578b3b11db2b6" [label="/bin/sh -c php5enmod xhprof" shape="box"];
+  "sha256:74ba93402aacdc02dd709128a114bee4e5821ad64feed6df86a8a18ae5996cb0" [label="copy{src=/config/php/mods-available/opcache.ini, dest=/etc/php5/mods-available/opcache.ini}" shape="note"];
+  "sha256:45fc14216eff9486e5ceeb3e5ed584b257cbad734b186d4d271f4bd4aa81a90a" [label="copy{src=/config/php/opcache-blacklist, dest=/etc/php5/opcache-blacklist}" shape="note"];
+  "sha256:c6150d3152b1d371dc061cdfe55503e09a281ba44499075de9f1da19074f609d" [label="/bin/sh -c php5enmod opcache" shape="box"];
+  "sha256:35b8c5712e78ad1895a7b04d7bae11b6250f456668a571e5f504260758de145c" [label="/bin/sh -c curl -sS http://getcomposer.org/installer | php" shape="box"];
+  "sha256:4b8164a95b0fce754299e5b31448ac9fd40afd0aa872115385f6cc3d535ae346" [label="/bin/sh -c mv composer.phar /usr/local/bin/composer" shape="box"];
+  "sha256:aaceb55163e8ec2090ee7b9e8fd7e45ed352ec8e7a8c45ca91d3092f1fac8937" [label="/bin/sh -c apt-get clean && apt-get -y autoremove" shape="box"];
+  "sha256:f69ea602d2161b481464ab49a79edf092e5acd9997c15d3d2b16a815b841815f" [label="mkdir{path=/var/www/html/sugar}" shape="note"];
+  "sha256:ac3f085a346ad23b8cadbec28edf88835be2ab56b43a32bd8ff48538708eb4da" [label="sha256:ac3f085a346ad23b8cadbec28edf88835be2ab56b43a32bd8ff48538708eb4da" shape="plaintext"];
+  "sha256:d4425d448d7ad21f91400459e0d90c8b1928530ce6a6accbf3fb393616b24a34" -> "sha256:4ef556466ac0fd95c3a9eb01cde50901af5300cef7e75fc5462112d0ead40d7a" [label=""];
+  "sha256:4ef556466ac0fd95c3a9eb01cde50901af5300cef7e75fc5462112d0ead40d7a" -> "sha256:1acb34e08bc0912b52be3f0474322d6dd200fa4e28120b7556d363404c2e6191" [label=""];
+  "sha256:8d4a1137190f61a15d78381bb7d986091361abf8bf2753d56432ff9e1657cd4e" -> "sha256:1acb34e08bc0912b52be3f0474322d6dd200fa4e28120b7556d363404c2e6191" [label=""];
+  "sha256:1acb34e08bc0912b52be3f0474322d6dd200fa4e28120b7556d363404c2e6191" -> "sha256:f1377181ff4ae36afbb69739b9d6a06b8a43f7e79d2443f34140af2225d4b30a" [label=""];
+  "sha256:f1377181ff4ae36afbb69739b9d6a06b8a43f7e79d2443f34140af2225d4b30a" -> "sha256:d16dff74414f6a1cd22b78334de5c61ff2ab367eb50217c4e63890cef2b39002" [label=""];
+  "sha256:d16dff74414f6a1cd22b78334de5c61ff2ab367eb50217c4e63890cef2b39002" -> "sha256:8b3e4d4e10f66c73fc00a8b68b4238fcc84243693cbd6a69180aafc06f38116b" [label=""];
+  "sha256:8b3e4d4e10f66c73fc00a8b68b4238fcc84243693cbd6a69180aafc06f38116b" -> "sha256:a178013007a343cee012540eb781d08dd512a91b57e7f8730886b4e73e5e09f8" [label=""];
+  "sha256:a178013007a343cee012540eb781d08dd512a91b57e7f8730886b4e73e5e09f8" -> "sha256:7e465b4d90a4242df8540758364b3f06c05e8b904ff144bf93418edda6b4d65d" [label=""];
+  "sha256:7e465b4d90a4242df8540758364b3f06c05e8b904ff144bf93418edda6b4d65d" -> "sha256:25878eaef2045d64b6512deb842c5bea5eb0bc533b652b85647c31230c73e035" [label=""];
+  "sha256:8d4a1137190f61a15d78381bb7d986091361abf8bf2753d56432ff9e1657cd4e" -> "sha256:25878eaef2045d64b6512deb842c5bea5eb0bc533b652b85647c31230c73e035" [label=""];
+  "sha256:25878eaef2045d64b6512deb842c5bea5eb0bc533b652b85647c31230c73e035" -> "sha256:ca2de106b1db394cc123e1a9b888386b31c8765ab439d33257689c5a67b12041" [label=""];
+  "sha256:ca2de106b1db394cc123e1a9b888386b31c8765ab439d33257689c5a67b12041" -> "sha256:dc391de563c4157b2feaa31e920c74aafb4e6cb2054ffed543e2d739ef1cc032" [label=""];
+  "sha256:dc391de563c4157b2feaa31e920c74aafb4e6cb2054ffed543e2d739ef1cc032" -> "sha256:b4b86703ec46aa7f14cc8575349f489e23c2fe19ea07e94bea87ec4b51d6070b" [label=""];
+  "sha256:8d4a1137190f61a15d78381bb7d986091361abf8bf2753d56432ff9e1657cd4e" -> "sha256:b4b86703ec46aa7f14cc8575349f489e23c2fe19ea07e94bea87ec4b51d6070b" [label=""];
+  "sha256:b4b86703ec46aa7f14cc8575349f489e23c2fe19ea07e94bea87ec4b51d6070b" -> "sha256:55780b3061f2d935b076131d7eb985bac9f5e7cadf3865ecb8ca543013c0cc4b" [label=""];
+  "sha256:8d4a1137190f61a15d78381bb7d986091361abf8bf2753d56432ff9e1657cd4e" -> "sha256:55780b3061f2d935b076131d7eb985bac9f5e7cadf3865ecb8ca543013c0cc4b" [label=""];
+  "sha256:55780b3061f2d935b076131d7eb985bac9f5e7cadf3865ecb8ca543013c0cc4b" -> "sha256:1f1aa8a2d5efb542837ea6fd813eaf6db13429d31c49c4b7695578b3b11db2b6" [label=""];
+  "sha256:1f1aa8a2d5efb542837ea6fd813eaf6db13429d31c49c4b7695578b3b11db2b6" -> "sha256:74ba93402aacdc02dd709128a114bee4e5821ad64feed6df86a8a18ae5996cb0" [label=""];
+  "sha256:8d4a1137190f61a15d78381bb7d986091361abf8bf2753d56432ff9e1657cd4e" -> "sha256:74ba93402aacdc02dd709128a114bee4e5821ad64feed6df86a8a18ae5996cb0" [label=""];
+  "sha256:74ba93402aacdc02dd709128a114bee4e5821ad64feed6df86a8a18ae5996cb0" -> "sha256:45fc14216eff9486e5ceeb3e5ed584b257cbad734b186d4d271f4bd4aa81a90a" [label=""];
+  "sha256:8d4a1137190f61a15d78381bb7d986091361abf8bf2753d56432ff9e1657cd4e" -> "sha256:45fc14216eff9486e5ceeb3e5ed584b257cbad734b186d4d271f4bd4aa81a90a" [label=""];
+  "sha256:45fc14216eff9486e5ceeb3e5ed584b257cbad734b186d4d271f4bd4aa81a90a" -> "sha256:c6150d3152b1d371dc061cdfe55503e09a281ba44499075de9f1da19074f609d" [label=""];
+  "sha256:c6150d3152b1d371dc061cdfe55503e09a281ba44499075de9f1da19074f609d" -> "sha256:35b8c5712e78ad1895a7b04d7bae11b6250f456668a571e5f504260758de145c" [label=""];
+  "sha256:35b8c5712e78ad1895a7b04d7bae11b6250f456668a571e5f504260758de145c" -> "sha256:4b8164a95b0fce754299e5b31448ac9fd40afd0aa872115385f6cc3d535ae346" [label=""];
+  "sha256:4b8164a95b0fce754299e5b31448ac9fd40afd0aa872115385f6cc3d535ae346" -> "sha256:aaceb55163e8ec2090ee7b9e8fd7e45ed352ec8e7a8c45ca91d3092f1fac8937" [label=""];
+  "sha256:aaceb55163e8ec2090ee7b9e8fd7e45ed352ec8e7a8c45ca91d3092f1fac8937" -> "sha256:f69ea602d2161b481464ab49a79edf092e5acd9997c15d3d2b16a815b841815f" [label=""];
+  "sha256:f69ea602d2161b481464ab49a79edf092e5acd9997c15d3d2b16a815b841815f" -> "sha256:ac3f085a346ad23b8cadbec28edf88835be2ab56b43a32bd8ff48538708eb4da" [label=""];
+}
+

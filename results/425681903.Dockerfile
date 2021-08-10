@@ -1,0 +1,51 @@
+[app/sources/425681903.Dockerfile]
+digraph {
+  "sha256:5c99e85dfa6438dace503c3a619301c0983a940b7b88a98b413236882d391eaa" [label="local://context" shape="ellipse"];
+  "sha256:a9ab970ef4810de5fde05a4caa66b977b639ff067a8b0241cb81432a2f533c04" [label="docker-image://docker.io/library/ubuntu:14.04" shape="ellipse"];
+  "sha256:68b89600e5420e76732702cfc84e26623be2254687a6f5742f47f2af2ecc5f94" [label="/bin/sh -c apt-get update && apt-get upgrade -y && apt-get clean" shape="box"];
+  "sha256:5ab57e0635a198cccfcade49939bd922a12b3f5af5f122b065b3f7c8584c0e2f" [label="/bin/sh -c apt-get -qqy install asterisk" shape="box"];
+  "sha256:5aad6131dfea73b2c1ab9acf530f6936924c5c5f8b46d6ff014f4fbfd1f63835" [label="/bin/sh -c apt-get update && apt-get -qqy install gcc" shape="box"];
+  "sha256:a580fcbcde6c008269ea2ab8af82ca0b5f3181c7f23be28a685819e3f4288345" [label="/bin/sh -c apt-get -qqy install make" shape="box"];
+  "sha256:c321ee568432c3ef6d66869c73c673637e89e1d1620618e2d32184573ed12838" [label="copy{src=/restund/re-0.4.2.tar.gz, dest=/tmp/}" shape="note"];
+  "sha256:3fb440f770d796b115bccb37d2077f01877eee3d78065e887af62f8568916a28" [label="copy{src=/restund/restund-0.4.2.tar.gz, dest=/tmp/}" shape="note"];
+  "sha256:879f4507c01112805f8132cb5f6eab5295d2a9da4987761c60aab2f7b79c7dbf" [label="copy{src=/restund/restund_installer.sh, dest=/tmp/}" shape="note"];
+  "sha256:eac07f0e1729f41af62a9f0309ee02b621e0e21a240536139240462d8385fb3c" [label="copy{src=/restund/restund.conf, dest=/etc/}" shape="note"];
+  "sha256:48ac704c32b540154d47873ed4aff4f09eddf3afa5d9cb2b89cfbc9aaf59eb57" [label="/bin/sh -c chmod +x /tmp/restund_installer.sh" shape="box"];
+  "sha256:af3ecfd7a544ce962a36e90d0fe81dc556717322dbfad38b7f56b467bda2cce3" [label="/bin/sh -c /tmp/restund_installer.sh" shape="box"];
+  "sha256:c8a66a61facda809aee49e0dbb0b3f13fb616d0dec5dca9842b24553ad216702" [label="copy{src=/asterisk/sip.conf, dest=/etc/asterisk/}" shape="note"];
+  "sha256:c57c8c5f8803bacfa230294ea7204532d3230842bda403dd041abb20f5c196e1" [label="copy{src=/asterisk/extensions.conf, dest=/etc/asterisk/}" shape="note"];
+  "sha256:daa9c592b840c969737c321f085bf3722ff270bde9b3cda4f2e07375a4a2ce43" [label="copy{src=/asterisk/rtp.conf, dest=/etc/asterisk/}" shape="note"];
+  "sha256:bbafed74dc252799c0201b8c95928fc06636fc3ffe4daaad7ead3f511dae961a" [label="copy{src=/asterisk/modules.conf, dest=/etc/asterisk/}" shape="note"];
+  "sha256:90012dadbdcde42df3b7c8d9ed07ab2ab2d65b7f990942547666676f0d28cf29" [label="/bin/sh -c chmod 755 /etc/asterisk/*" shape="box"];
+  "sha256:df1c5c63239f118b2162b48fffe47bf3f60d1cfd099d1dc357681464f69386ff" [label="copy{src=/asterisk/asterisk_service_runner.sh, dest=/usr/local/bin/}" shape="note"];
+  "sha256:6754ce1e16a862cd789305481dee8b6dd48272373f8b2232e7b625abdbbcf92f" [label="/bin/sh -c chmod +x /usr/local/bin/asterisk_service_runner.sh" shape="box"];
+  "sha256:79733d922eeaf4935798bc0818d9893f1e23b30edb8b75cc8cc965b49baaf1c6" [label="sha256:79733d922eeaf4935798bc0818d9893f1e23b30edb8b75cc8cc965b49baaf1c6" shape="plaintext"];
+  "sha256:a9ab970ef4810de5fde05a4caa66b977b639ff067a8b0241cb81432a2f533c04" -> "sha256:68b89600e5420e76732702cfc84e26623be2254687a6f5742f47f2af2ecc5f94" [label=""];
+  "sha256:68b89600e5420e76732702cfc84e26623be2254687a6f5742f47f2af2ecc5f94" -> "sha256:5ab57e0635a198cccfcade49939bd922a12b3f5af5f122b065b3f7c8584c0e2f" [label=""];
+  "sha256:5ab57e0635a198cccfcade49939bd922a12b3f5af5f122b065b3f7c8584c0e2f" -> "sha256:5aad6131dfea73b2c1ab9acf530f6936924c5c5f8b46d6ff014f4fbfd1f63835" [label=""];
+  "sha256:5aad6131dfea73b2c1ab9acf530f6936924c5c5f8b46d6ff014f4fbfd1f63835" -> "sha256:a580fcbcde6c008269ea2ab8af82ca0b5f3181c7f23be28a685819e3f4288345" [label=""];
+  "sha256:a580fcbcde6c008269ea2ab8af82ca0b5f3181c7f23be28a685819e3f4288345" -> "sha256:c321ee568432c3ef6d66869c73c673637e89e1d1620618e2d32184573ed12838" [label=""];
+  "sha256:5c99e85dfa6438dace503c3a619301c0983a940b7b88a98b413236882d391eaa" -> "sha256:c321ee568432c3ef6d66869c73c673637e89e1d1620618e2d32184573ed12838" [label=""];
+  "sha256:c321ee568432c3ef6d66869c73c673637e89e1d1620618e2d32184573ed12838" -> "sha256:3fb440f770d796b115bccb37d2077f01877eee3d78065e887af62f8568916a28" [label=""];
+  "sha256:5c99e85dfa6438dace503c3a619301c0983a940b7b88a98b413236882d391eaa" -> "sha256:3fb440f770d796b115bccb37d2077f01877eee3d78065e887af62f8568916a28" [label=""];
+  "sha256:3fb440f770d796b115bccb37d2077f01877eee3d78065e887af62f8568916a28" -> "sha256:879f4507c01112805f8132cb5f6eab5295d2a9da4987761c60aab2f7b79c7dbf" [label=""];
+  "sha256:5c99e85dfa6438dace503c3a619301c0983a940b7b88a98b413236882d391eaa" -> "sha256:879f4507c01112805f8132cb5f6eab5295d2a9da4987761c60aab2f7b79c7dbf" [label=""];
+  "sha256:879f4507c01112805f8132cb5f6eab5295d2a9da4987761c60aab2f7b79c7dbf" -> "sha256:eac07f0e1729f41af62a9f0309ee02b621e0e21a240536139240462d8385fb3c" [label=""];
+  "sha256:5c99e85dfa6438dace503c3a619301c0983a940b7b88a98b413236882d391eaa" -> "sha256:eac07f0e1729f41af62a9f0309ee02b621e0e21a240536139240462d8385fb3c" [label=""];
+  "sha256:eac07f0e1729f41af62a9f0309ee02b621e0e21a240536139240462d8385fb3c" -> "sha256:48ac704c32b540154d47873ed4aff4f09eddf3afa5d9cb2b89cfbc9aaf59eb57" [label=""];
+  "sha256:48ac704c32b540154d47873ed4aff4f09eddf3afa5d9cb2b89cfbc9aaf59eb57" -> "sha256:af3ecfd7a544ce962a36e90d0fe81dc556717322dbfad38b7f56b467bda2cce3" [label=""];
+  "sha256:af3ecfd7a544ce962a36e90d0fe81dc556717322dbfad38b7f56b467bda2cce3" -> "sha256:c8a66a61facda809aee49e0dbb0b3f13fb616d0dec5dca9842b24553ad216702" [label=""];
+  "sha256:5c99e85dfa6438dace503c3a619301c0983a940b7b88a98b413236882d391eaa" -> "sha256:c8a66a61facda809aee49e0dbb0b3f13fb616d0dec5dca9842b24553ad216702" [label=""];
+  "sha256:c8a66a61facda809aee49e0dbb0b3f13fb616d0dec5dca9842b24553ad216702" -> "sha256:c57c8c5f8803bacfa230294ea7204532d3230842bda403dd041abb20f5c196e1" [label=""];
+  "sha256:5c99e85dfa6438dace503c3a619301c0983a940b7b88a98b413236882d391eaa" -> "sha256:c57c8c5f8803bacfa230294ea7204532d3230842bda403dd041abb20f5c196e1" [label=""];
+  "sha256:c57c8c5f8803bacfa230294ea7204532d3230842bda403dd041abb20f5c196e1" -> "sha256:daa9c592b840c969737c321f085bf3722ff270bde9b3cda4f2e07375a4a2ce43" [label=""];
+  "sha256:5c99e85dfa6438dace503c3a619301c0983a940b7b88a98b413236882d391eaa" -> "sha256:daa9c592b840c969737c321f085bf3722ff270bde9b3cda4f2e07375a4a2ce43" [label=""];
+  "sha256:daa9c592b840c969737c321f085bf3722ff270bde9b3cda4f2e07375a4a2ce43" -> "sha256:bbafed74dc252799c0201b8c95928fc06636fc3ffe4daaad7ead3f511dae961a" [label=""];
+  "sha256:5c99e85dfa6438dace503c3a619301c0983a940b7b88a98b413236882d391eaa" -> "sha256:bbafed74dc252799c0201b8c95928fc06636fc3ffe4daaad7ead3f511dae961a" [label=""];
+  "sha256:bbafed74dc252799c0201b8c95928fc06636fc3ffe4daaad7ead3f511dae961a" -> "sha256:90012dadbdcde42df3b7c8d9ed07ab2ab2d65b7f990942547666676f0d28cf29" [label=""];
+  "sha256:90012dadbdcde42df3b7c8d9ed07ab2ab2d65b7f990942547666676f0d28cf29" -> "sha256:df1c5c63239f118b2162b48fffe47bf3f60d1cfd099d1dc357681464f69386ff" [label=""];
+  "sha256:5c99e85dfa6438dace503c3a619301c0983a940b7b88a98b413236882d391eaa" -> "sha256:df1c5c63239f118b2162b48fffe47bf3f60d1cfd099d1dc357681464f69386ff" [label=""];
+  "sha256:df1c5c63239f118b2162b48fffe47bf3f60d1cfd099d1dc357681464f69386ff" -> "sha256:6754ce1e16a862cd789305481dee8b6dd48272373f8b2232e7b625abdbbcf92f" [label=""];
+  "sha256:6754ce1e16a862cd789305481dee8b6dd48272373f8b2232e7b625abdbbcf92f" -> "sha256:79733d922eeaf4935798bc0818d9893f1e23b30edb8b75cc8cc965b49baaf1c6" [label=""];
+}
+

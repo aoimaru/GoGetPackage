@@ -1,0 +1,57 @@
+[app/sources/281128402.Dockerfile]
+digraph {
+  "sha256:88c481deaa9d8fb741be43d24094fd031e4f021f545c8b2188c2ad7298bc2516" [label="docker-image://docker.io/microsoft/dotnet:2.2-aspnetcore-runtime-alpine" shape="ellipse"];
+  "sha256:67b3a99494b4451b3c69b4e11ab89559b00741d5b1b69a21d680ce3e223e2cc3" [label="mkdir{path=/app}" shape="note"];
+  "sha256:bef04210e22fb9fc602122f0280f8b77e7d59bfbf4c44088222b8dc3c385fd3e" [label="docker-image://docker.io/microsoft/dotnet:2.2-sdk-alpine" shape="ellipse"];
+  "sha256:4d025eb0b5e1e6b69a1eb4a302540d2ac05451e62d36ad47ce398b15690dd842" [label="mkdir{path=/source}" shape="note"];
+  "sha256:e40b5a9426a552a5ae65bf115502332b4cf0b220f9c9523d5c76ab8f1b931350" [label="local://context" shape="ellipse"];
+  "sha256:c1d2b58d727ad0a486c7b61472a9b3c372847d55834e940680f0d4e5d7598d49" [label="copy{src=/source/Application/DotNetCoreArchitecture.Application.csproj, dest=/source/Application/}" shape="note"];
+  "sha256:cc084100d98f54fdc9c81bc08427a57648c00b84b87cd41d1f0abe670b9ff2bf" [label="copy{src=/source/CrossCutting/DotNetCoreArchitecture.CrossCutting.csproj, dest=/source/CrossCutting/}" shape="note"];
+  "sha256:a37aaaa1f52c2ac8b2996dce4c9bb82db05f442f073a831af0c40e0acc0ab04f" [label="copy{src=/source/Database/DotNetCoreArchitecture.Database.csproj, dest=/source/Database/}" shape="note"];
+  "sha256:23bda29f62bd73a7fd578254f4672ec4beea356109dc8fe0a7f29a469dc5a16f" [label="copy{src=/source/Domain/DotNetCoreArchitecture.Domain.csproj, dest=/source/Domain/}" shape="note"];
+  "sha256:d25d5eb4c57ab2749791fa4278757855c4781b006f786f68d0e93d986dbafad7" [label="copy{src=/source/Model/DotNetCoreArchitecture.Model.csproj, dest=/source/Model/}" shape="note"];
+  "sha256:698924f1ae3b872b6f373c34e223385190d1fc1b3f7d79f77a885b0be2c45efa" [label="copy{src=/source/Web/DotNetCoreArchitecture.Web.csproj, dest=/source/Web/}" shape="note"];
+  "sha256:5297f1741e6e46a7c9277d76e6b20ee613ce2790c07d1ced07ca791cee02204d" [label="/bin/sh -c dotnet restore ./Web/DotNetCoreArchitecture.Web.csproj" shape="box"];
+  "sha256:0d78f2c30d2849a4b1eb8fa5c657b9f6a360e8917ecec40c403ad7ad7a301a7e" [label="copy{src=/source, dest=/source/}" shape="note"];
+  "sha256:2164c7d246c842590ff7c69b21019b883e94a039637fb23d191e36fdc030a70a" [label="/bin/sh -c dotnet publish ./Web/DotNetCoreArchitecture.Web.csproj -c Release -o /publish" shape="box"];
+  "sha256:d6c101716ad930e9c382cb87f92e495f5b3729e44762ccec81eb61ced15706ae" [label="copy{src=/publish, dest=/app/}" shape="note"];
+  "sha256:796181f2aef9b20bdf50d21b9e173f17c75a6d8d2bc82f57324980ef250516f1" [label="docker-image://docker.io/library/node:12.2.0-alpine" shape="ellipse"];
+  "sha256:1355ac17e388f3f59ebeefaaeca1f1a719f2b69db0e91f586f4bd8d5a7e0978d" [label="mkdir{path=/frontend}" shape="note"];
+  "sha256:5f6e62f0a3a7f4279ed53dda274475b614b97c064904b2ff6475de81275a49a9" [label="copy{src=/source/Web/Frontend/package.json, dest=/frontend/}" shape="note"];
+  "sha256:70b0daaf4cfa2a9be5b95adb56e8bf7f578c071e4eba01e4df84b5f48537d5f3" [label="/bin/sh -c npm run restore" shape="box"];
+  "sha256:6a16f10d82ef812095b5e5ac34cc683b44dd681480f7cb58ecfb3febce2c1b67" [label="copy{src=/source/Web/Frontend, dest=/frontend/}" shape="note"];
+  "sha256:a9f5786e5afdf52a28075444a421bb702167a1333d2d33adbd6c130a8a0ed676" [label="/bin/sh -c npm run $ANGULAR_ENVIRONMENT" shape="box"];
+  "sha256:ecf22dfca5e395c235f3da31fbf82d5cf3c5fa0c7c3c63d0f16cb91be65ca233" [label="copy{src=/frontend/dist, dest=/app/Frontend/dist}" shape="note"];
+  "sha256:88d0ab06e44ac06f97d6987112cd8a190628a455c90116070d2622e03552c10b" [label="sha256:88d0ab06e44ac06f97d6987112cd8a190628a455c90116070d2622e03552c10b" shape="plaintext"];
+  "sha256:88c481deaa9d8fb741be43d24094fd031e4f021f545c8b2188c2ad7298bc2516" -> "sha256:67b3a99494b4451b3c69b4e11ab89559b00741d5b1b69a21d680ce3e223e2cc3" [label=""];
+  "sha256:bef04210e22fb9fc602122f0280f8b77e7d59bfbf4c44088222b8dc3c385fd3e" -> "sha256:4d025eb0b5e1e6b69a1eb4a302540d2ac05451e62d36ad47ce398b15690dd842" [label=""];
+  "sha256:4d025eb0b5e1e6b69a1eb4a302540d2ac05451e62d36ad47ce398b15690dd842" -> "sha256:c1d2b58d727ad0a486c7b61472a9b3c372847d55834e940680f0d4e5d7598d49" [label=""];
+  "sha256:e40b5a9426a552a5ae65bf115502332b4cf0b220f9c9523d5c76ab8f1b931350" -> "sha256:c1d2b58d727ad0a486c7b61472a9b3c372847d55834e940680f0d4e5d7598d49" [label=""];
+  "sha256:c1d2b58d727ad0a486c7b61472a9b3c372847d55834e940680f0d4e5d7598d49" -> "sha256:cc084100d98f54fdc9c81bc08427a57648c00b84b87cd41d1f0abe670b9ff2bf" [label=""];
+  "sha256:e40b5a9426a552a5ae65bf115502332b4cf0b220f9c9523d5c76ab8f1b931350" -> "sha256:cc084100d98f54fdc9c81bc08427a57648c00b84b87cd41d1f0abe670b9ff2bf" [label=""];
+  "sha256:cc084100d98f54fdc9c81bc08427a57648c00b84b87cd41d1f0abe670b9ff2bf" -> "sha256:a37aaaa1f52c2ac8b2996dce4c9bb82db05f442f073a831af0c40e0acc0ab04f" [label=""];
+  "sha256:e40b5a9426a552a5ae65bf115502332b4cf0b220f9c9523d5c76ab8f1b931350" -> "sha256:a37aaaa1f52c2ac8b2996dce4c9bb82db05f442f073a831af0c40e0acc0ab04f" [label=""];
+  "sha256:a37aaaa1f52c2ac8b2996dce4c9bb82db05f442f073a831af0c40e0acc0ab04f" -> "sha256:23bda29f62bd73a7fd578254f4672ec4beea356109dc8fe0a7f29a469dc5a16f" [label=""];
+  "sha256:e40b5a9426a552a5ae65bf115502332b4cf0b220f9c9523d5c76ab8f1b931350" -> "sha256:23bda29f62bd73a7fd578254f4672ec4beea356109dc8fe0a7f29a469dc5a16f" [label=""];
+  "sha256:23bda29f62bd73a7fd578254f4672ec4beea356109dc8fe0a7f29a469dc5a16f" -> "sha256:d25d5eb4c57ab2749791fa4278757855c4781b006f786f68d0e93d986dbafad7" [label=""];
+  "sha256:e40b5a9426a552a5ae65bf115502332b4cf0b220f9c9523d5c76ab8f1b931350" -> "sha256:d25d5eb4c57ab2749791fa4278757855c4781b006f786f68d0e93d986dbafad7" [label=""];
+  "sha256:d25d5eb4c57ab2749791fa4278757855c4781b006f786f68d0e93d986dbafad7" -> "sha256:698924f1ae3b872b6f373c34e223385190d1fc1b3f7d79f77a885b0be2c45efa" [label=""];
+  "sha256:e40b5a9426a552a5ae65bf115502332b4cf0b220f9c9523d5c76ab8f1b931350" -> "sha256:698924f1ae3b872b6f373c34e223385190d1fc1b3f7d79f77a885b0be2c45efa" [label=""];
+  "sha256:698924f1ae3b872b6f373c34e223385190d1fc1b3f7d79f77a885b0be2c45efa" -> "sha256:5297f1741e6e46a7c9277d76e6b20ee613ce2790c07d1ced07ca791cee02204d" [label=""];
+  "sha256:5297f1741e6e46a7c9277d76e6b20ee613ce2790c07d1ced07ca791cee02204d" -> "sha256:0d78f2c30d2849a4b1eb8fa5c657b9f6a360e8917ecec40c403ad7ad7a301a7e" [label=""];
+  "sha256:e40b5a9426a552a5ae65bf115502332b4cf0b220f9c9523d5c76ab8f1b931350" -> "sha256:0d78f2c30d2849a4b1eb8fa5c657b9f6a360e8917ecec40c403ad7ad7a301a7e" [label=""];
+  "sha256:0d78f2c30d2849a4b1eb8fa5c657b9f6a360e8917ecec40c403ad7ad7a301a7e" -> "sha256:2164c7d246c842590ff7c69b21019b883e94a039637fb23d191e36fdc030a70a" [label=""];
+  "sha256:67b3a99494b4451b3c69b4e11ab89559b00741d5b1b69a21d680ce3e223e2cc3" -> "sha256:d6c101716ad930e9c382cb87f92e495f5b3729e44762ccec81eb61ced15706ae" [label=""];
+  "sha256:2164c7d246c842590ff7c69b21019b883e94a039637fb23d191e36fdc030a70a" -> "sha256:d6c101716ad930e9c382cb87f92e495f5b3729e44762ccec81eb61ced15706ae" [label=""];
+  "sha256:796181f2aef9b20bdf50d21b9e173f17c75a6d8d2bc82f57324980ef250516f1" -> "sha256:1355ac17e388f3f59ebeefaaeca1f1a719f2b69db0e91f586f4bd8d5a7e0978d" [label=""];
+  "sha256:1355ac17e388f3f59ebeefaaeca1f1a719f2b69db0e91f586f4bd8d5a7e0978d" -> "sha256:5f6e62f0a3a7f4279ed53dda274475b614b97c064904b2ff6475de81275a49a9" [label=""];
+  "sha256:e40b5a9426a552a5ae65bf115502332b4cf0b220f9c9523d5c76ab8f1b931350" -> "sha256:5f6e62f0a3a7f4279ed53dda274475b614b97c064904b2ff6475de81275a49a9" [label=""];
+  "sha256:5f6e62f0a3a7f4279ed53dda274475b614b97c064904b2ff6475de81275a49a9" -> "sha256:70b0daaf4cfa2a9be5b95adb56e8bf7f578c071e4eba01e4df84b5f48537d5f3" [label=""];
+  "sha256:70b0daaf4cfa2a9be5b95adb56e8bf7f578c071e4eba01e4df84b5f48537d5f3" -> "sha256:6a16f10d82ef812095b5e5ac34cc683b44dd681480f7cb58ecfb3febce2c1b67" [label=""];
+  "sha256:e40b5a9426a552a5ae65bf115502332b4cf0b220f9c9523d5c76ab8f1b931350" -> "sha256:6a16f10d82ef812095b5e5ac34cc683b44dd681480f7cb58ecfb3febce2c1b67" [label=""];
+  "sha256:6a16f10d82ef812095b5e5ac34cc683b44dd681480f7cb58ecfb3febce2c1b67" -> "sha256:a9f5786e5afdf52a28075444a421bb702167a1333d2d33adbd6c130a8a0ed676" [label=""];
+  "sha256:d6c101716ad930e9c382cb87f92e495f5b3729e44762ccec81eb61ced15706ae" -> "sha256:ecf22dfca5e395c235f3da31fbf82d5cf3c5fa0c7c3c63d0f16cb91be65ca233" [label=""];
+  "sha256:a9f5786e5afdf52a28075444a421bb702167a1333d2d33adbd6c130a8a0ed676" -> "sha256:ecf22dfca5e395c235f3da31fbf82d5cf3c5fa0c7c3c63d0f16cb91be65ca233" [label=""];
+  "sha256:ecf22dfca5e395c235f3da31fbf82d5cf3c5fa0c7c3c63d0f16cb91be65ca233" -> "sha256:88d0ab06e44ac06f97d6987112cd8a190628a455c90116070d2622e03552c10b" [label=""];
+}
+

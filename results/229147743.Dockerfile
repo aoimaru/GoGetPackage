@@ -1,0 +1,13 @@
+[app/sources/229147743.Dockerfile]
+digraph {
+  "sha256:d19c7a2526c827a483205339d8b062061318fd191a1d8b386b0168f95979cdcb" [label="docker-image://docker.io/floydhub/dl-base:3.2.1-gpu-py3.42" shape="ellipse"];
+  "sha256:887a5d335b6216824ddaeae99d737ea2fe89acc0fa9f91aec4d8609452d32c99" [label="/bin/sh -c pip --no-cache-dir install         funcsigs         pbr         mock         wheel         keras_applications         keras_preprocessing         --no-deps     && rm -rf /pip_pkg     && rm -rf /tmp/*     && rm -rf /root/.cache" shape="box"];
+  "sha256:f5a8bb6e2ead288c14d9ab47585912afb6fb2b41ca69613edaa05e3746d41c67" [label="/bin/sh -c git clone https://github.com/tensorflow/tensorflow.git         --branch ${TENSORFLOW_VERSION}         --single-branch     && cd tensorflow     && ln -s /usr/local/cuda/lib64/stubs/libcuda.so /usr/local/cuda/lib64/stubs/libcuda.so.1 && LD_LIBRARY_PATH=/usr/local/cuda/lib64/stubs:${LD_LIBRARY_PATH} tensorflow/tools/ci_build/builds/configured GPU         bazel build -c opt --copt=-msse3 --copt=-msse4.1 --copt=-msse4.2             --copt=-mavx --copt=-mavx2             --copt=-mfma             --cxxopt=\"-D_GLIBCXX_USE_CXX11_ABI=0\"             --config=cuda --action_env=LD_LIBRARY_PATH=/usr/local/cuda/lib64/stubs:${LD_LIBRARY_PATH}             --verbose_failures             tensorflow/tools/pip_package:build_pip_package     && bazel-bin/tensorflow/tools/pip_package/build_pip_package /tmp/pip     && pip --no-cache-dir install --upgrade /tmp/pip/tensorflow-*.whl     && rm -rf /pip_pkg     && rm -rf /tmp/*     && rm -rf /root/.cache     && cd .. && rm -rf tensorflow" shape="box"];
+  "sha256:46013a5f6cc63200c34ecd6070ccac79a9246bfd898581610f823b4d2ae40900" [label="/bin/sh -c pip --no-cache-dir install         git+git://github.com/fchollet/keras.git@${KERAS_VERSION}         tflearn==0.3.2     && rm -rf /pip_pkg     && rm -rf /tmp/*     && rm -rf /root/.cache" shape="box"];
+  "sha256:fd12f2499bf5b50922795ebd563d9797558d3abdf816e0147b6344b5988aa929" [label="sha256:fd12f2499bf5b50922795ebd563d9797558d3abdf816e0147b6344b5988aa929" shape="plaintext"];
+  "sha256:d19c7a2526c827a483205339d8b062061318fd191a1d8b386b0168f95979cdcb" -> "sha256:887a5d335b6216824ddaeae99d737ea2fe89acc0fa9f91aec4d8609452d32c99" [label=""];
+  "sha256:887a5d335b6216824ddaeae99d737ea2fe89acc0fa9f91aec4d8609452d32c99" -> "sha256:f5a8bb6e2ead288c14d9ab47585912afb6fb2b41ca69613edaa05e3746d41c67" [label=""];
+  "sha256:f5a8bb6e2ead288c14d9ab47585912afb6fb2b41ca69613edaa05e3746d41c67" -> "sha256:46013a5f6cc63200c34ecd6070ccac79a9246bfd898581610f823b4d2ae40900" [label=""];
+  "sha256:46013a5f6cc63200c34ecd6070ccac79a9246bfd898581610f823b4d2ae40900" -> "sha256:fd12f2499bf5b50922795ebd563d9797558d3abdf816e0147b6344b5988aa929" [label=""];
+}
+

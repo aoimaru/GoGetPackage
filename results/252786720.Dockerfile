@@ -1,0 +1,17 @@
+[app/sources/252786720.Dockerfile]
+digraph {
+  "sha256:24e40db032085063d62db82b88e5bdc9babba4354c6a00e632da2e19cb10ed4c" [label="docker-image://docker.io/library/alpine:edge" shape="ellipse"];
+  "sha256:a7f724a30999b235dffaa0ef0583a90a17160ab7e9ac928932898d5a4902b782" [label="/bin/sh -c apk --no-cache add py3-psycopg2 py3-docopt" shape="box"];
+  "sha256:11d535e232897d8301e452302c6218a6f4c6ec950c173c1b9fe719209ea81dd3" [label="mkdir{path=/usr/src/app}" shape="note"];
+  "sha256:3cd40e62b1fadaf133c4f15f66e7a8780eacc739a10986e2967f815ed62b141a" [label="local://context" shape="ellipse"];
+  "sha256:8550f94d70e53135016040d739d9af5b032fd889d4e50a1f066da23c46f9942a" [label="copy{src=/, dest=/usr/src/app/}" shape="note"];
+  "sha256:5dd0b1f4807740c94ead3b794d2983e1c13ec4d139f16f998445646f10fc8ab2" [label="/bin/sh -c pip3 install -e ." shape="box"];
+  "sha256:aa6294ca750576f8b189278b41d3dd1f18337ebf8c3d0047c5dc5eef0634887b" [label="sha256:aa6294ca750576f8b189278b41d3dd1f18337ebf8c3d0047c5dc5eef0634887b" shape="plaintext"];
+  "sha256:24e40db032085063d62db82b88e5bdc9babba4354c6a00e632da2e19cb10ed4c" -> "sha256:a7f724a30999b235dffaa0ef0583a90a17160ab7e9ac928932898d5a4902b782" [label=""];
+  "sha256:a7f724a30999b235dffaa0ef0583a90a17160ab7e9ac928932898d5a4902b782" -> "sha256:11d535e232897d8301e452302c6218a6f4c6ec950c173c1b9fe719209ea81dd3" [label=""];
+  "sha256:11d535e232897d8301e452302c6218a6f4c6ec950c173c1b9fe719209ea81dd3" -> "sha256:8550f94d70e53135016040d739d9af5b032fd889d4e50a1f066da23c46f9942a" [label=""];
+  "sha256:3cd40e62b1fadaf133c4f15f66e7a8780eacc739a10986e2967f815ed62b141a" -> "sha256:8550f94d70e53135016040d739d9af5b032fd889d4e50a1f066da23c46f9942a" [label=""];
+  "sha256:8550f94d70e53135016040d739d9af5b032fd889d4e50a1f066da23c46f9942a" -> "sha256:5dd0b1f4807740c94ead3b794d2983e1c13ec4d139f16f998445646f10fc8ab2" [label=""];
+  "sha256:5dd0b1f4807740c94ead3b794d2983e1c13ec4d139f16f998445646f10fc8ab2" -> "sha256:aa6294ca750576f8b189278b41d3dd1f18337ebf8c3d0047c5dc5eef0634887b" [label=""];
+}
+

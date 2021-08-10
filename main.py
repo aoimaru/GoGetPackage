@@ -3,6 +3,7 @@
 import subprocess
 from subprocess import PIPE
 import glob
+import os
 
 
 
@@ -12,17 +13,18 @@ def main():
     for fileName in fileNames:
         print(fileName)
 
-    proc = subprocess.run(
-        "docker-compose exec app ./main app/sources/128489309.Dockerfile", 
-        shell=True, 
-        stdout=PIPE, 
-        stderr=PIPE, 
-        text=True
-    )
-    date = proc.stdout
-    print('STDOUT: {}'.format(date))
+        baseName = os.path.basename(fileName)
+        outPlace = "results/{}".format(baseName)
 
-
+        proc = subprocess.run(
+            "docker-compose exec app ./main {} >> {}".format(fileName, outPlace), 
+            shell=True, 
+            stdout=PIPE, 
+            stderr=PIPE, 
+            text=True
+        )
+        date = proc.stdout
+        print('STDOUT: {}'.format(date))
 
 
 

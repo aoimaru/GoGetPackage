@@ -1,0 +1,53 @@
+[app/sources/238917668.Dockerfile]
+digraph {
+  "sha256:04187b885604d112762d71717a1346cbc4f17e131fc82857a048019e04951455" [label="docker-image://docker.io/library/ubuntu:16.04" shape="ellipse"];
+  "sha256:6e8b5a3bb16338737a1002231afc8a6c83a823b48754a77d4c601a70ebf42a80" [label="/bin/sh -c apt-get update && apt-get install -y software-properties-common" shape="box"];
+  "sha256:0fb36dbed617ef9417d048b7e16c4a16918827dc46d3989a598f3473384bdbe0" [label="/bin/sh -c add-apt-repository ppa:ubuntugis/ubuntugis-unstable" shape="box"];
+  "sha256:e1e88d2ee1cb1543a1449c58cfd752e0f3f87d781f06468c3892f5da199ef307" [label="/bin/sh -c echo \"deb http://cran.rstudio.com/bin/linux/ubuntu xenial/  \" >> /etc/apt/sources.list" shape="box"];
+  "sha256:5b53ee3331ec43ce18b446ddbea96c74165e4759c66f9262bc05733d40913ade" [label="/bin/sh -c apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9" shape="box"];
+  "sha256:e9fe76cbc7383f03f1effe30b5fa25abfafb11a66476b5d1324ba46a74c347ef" [label="/bin/sh -c apt-get update" shape="box"];
+  "sha256:054811f844c4b23b56901ae515ac16effc50a04d11f59d3f65c6a05f4d51d1ba" [label="/bin/sh -c apt-get upgrade -y" shape="box"];
+  "sha256:2583ab9458db12af5f94929b13dd241dc17ab82175e73837faba935e7fe8577e" [label="/bin/sh -c export DEBIAN_FRONTEND=noninteractive; apt-get -y update   && apt-get install -y \tlibcurl4-openssl-dev \tqpdf \tpandoc \tmake \twget \tgit \tlibudunits2-dev \tlibgdal-dev \tlibgeos-dev \tlibproj-dev \tr-base-dev \tgdb \tvalgrind \tvim" shape="box"];
+  "sha256:ce01d02aca65e1348a3bd95a0c3749f8a5477c46075b31b04fe90c6b6ba8fed2" [label="/bin/sh -c apt-get install -y texinfo        texlive-base        texlive-extra-utils        texlive-fonts-extra        texlive-fonts-recommended        texlive-generic-recommended        texlive-latex-base        texlive-latex-extra        texlive-latex-recommended" shape="box"];
+  "sha256:7fd1a9f8b1b3324a503ed963a2d54d984a4339029b2002dd9365e30933c5d824" [label="/bin/sh -c apt-get install -y libv8-3.14-dev libprotobuf-dev protobuf-compiler libcairo2-dev pandoc pandoc-citeproc" shape="box"];
+  "sha256:f8f92ba586cd2252af6a972183bc71419f7db4b976cbde2e7c89e63d9261434e" [label="/bin/sh -c add-apt-repository -y ppa:opencpu/jq" shape="box"];
+  "sha256:ae4a817d0635bd4a73f825e1be0fd9812ae42f81615f2aa43cd0317169bc4a88" [label="/bin/sh -c apt-get update" shape="box"];
+  "sha256:dce36d551fb04bd93bf71da902a101489fb8bd8428b1d2025de0a91b173ed506" [label="/bin/sh -c apt-get install -y libjq-dev" shape="box"];
+  "sha256:b0e1a5f7825dd2c42b4c61397686381beb8b619091eb4c4f05fee5c5bf617e79" [label="/bin/sh -c apt-get install -y subversion" shape="box"];
+  "sha256:afd5af79c0ce4e83986417b3bcc51d79e021683a0aa464b0b8ce50cd3bcde1c8" [label="/bin/sh -c cd /tmp && svn co https://svn.r-project.org/R/trunk R-devel" shape="box"];
+  "sha256:e5f4b7ba87dcd6fe82477a5a3e31ef5a0e37ff339561ef9fea1ca8abda657443" [label="/bin/sh -c /tmp/R-devel/tools/rsync-recommended" shape="box"];
+  "sha256:458243bfa6724f5bf0d0d6c90abb38f05278fd32022aab87117f89161d5ad8c5" [label="/bin/sh -c apt-get install -y libreadline-dev libbz2-dev" shape="box"];
+  "sha256:f780d7aee6f61635acfd1eb94e8e3d36e33bb809e51a4c2cbab1e2b69b83d6b5" [label="/bin/sh -c cd /tmp/R-devel \t&& R_PAPERSIZE=letter \t\tR_BATCHSAVE=\"--no-save --no-restore\" \t\tR_BROWSER=xdg-open \t\tPAGER=/usr/bin/pager \t\tPERL=/usr/bin/perl \t\tR_UNZIPCMD=/usr/bin/unzip \t\tR_ZIPCMD=/usr/bin/zip \t\tR_PRINTCMD=/usr/bin/lpr \t\tLIBnn=lib \t\tAWK=/usr/bin/awk \t\tCFLAGS=$(R CMD config CFLAGS) \t\tCXXFLAGS=$(R CMD config CXXFLAGS) \t./configure --enable-R-shlib                --without-blas                --without-lapack                --with-readline                --with-recommended-packages                --program-suffix=dev \t\t\t   --with-x=no \t&& make \t&& make install \t&& rm -rf /tmp/R-devel" shape="box"];
+  "sha256:cf362aa49b2edb9d8c5d0a400c8504fd534abd2a27a3e799cdd198bc965e76d1" [label="/bin/sh -c echo 'options(repos = c(CRAN = \"https://cran.rstudio.com/\"), download.file.method = \"libcurl\")' >> /usr/local/lib/R/etc/Rprofile.site" shape="box"];
+  "sha256:0f2b0efb4385c7356686c2a68c6cb10d9606c124ecca240d1f1866b5a662134d" [label="/bin/sh -c Rscript -e 'install.packages(c(\"sf\", \"lwgeom\", \"covr\", \"raster\", \"rgdal\", \"Rcpp\", \"magrittr\", \"abind\", \"units\", \"ggplot2\", \"ggthemes\", \"viridis\", \"testthat\", \"knitr\", \"covr\", \"rmarkdown\", \"PCICt\", \"ggforce\", \"gstat\", \"pbapply\", \"plm\", \"spacetime\", \"xts\"), dependencies = TRUE, repos = \"https://cloud.r-project.org\")'" shape="box"];
+  "sha256:3b20962859faa5e126a3528074519a60269dd5ee996cf39196b15e721a324c90" [label="/bin/sh -c Rscript -e 'install.packages(\"starsdata\", repos = \"http://pebesma.staff.ifgi.de/\")'" shape="box"];
+  "sha256:bcdcb8c67d9fdb9c20ccdbc2cf540e6704b3de2fb9496ea6d31fe3e950c307f3" [label="/bin/sh -c git clone https://github.com/r-spatial/stars.git" shape="box"];
+  "sha256:20c40d1cbe55585da5274682542dc5d17d470ad0bf4c442797d129476bd2d8ea" [label="/bin/sh -c R CMD build --no-manual stars" shape="box"];
+  "sha256:c58b71bf2049ba874a30a482c4c1888bd8fe84076fcbfeaf6cc1630b065579bf" [label="/bin/sh -c R CMD check --no-manual stars_*tar.gz" shape="box"];
+  "sha256:91e0111f2af5db6429b387bf1e794d8e5111cdcb4c142aa83bf17bdbd13aaae1" [label="sha256:91e0111f2af5db6429b387bf1e794d8e5111cdcb4c142aa83bf17bdbd13aaae1" shape="plaintext"];
+  "sha256:04187b885604d112762d71717a1346cbc4f17e131fc82857a048019e04951455" -> "sha256:6e8b5a3bb16338737a1002231afc8a6c83a823b48754a77d4c601a70ebf42a80" [label=""];
+  "sha256:6e8b5a3bb16338737a1002231afc8a6c83a823b48754a77d4c601a70ebf42a80" -> "sha256:0fb36dbed617ef9417d048b7e16c4a16918827dc46d3989a598f3473384bdbe0" [label=""];
+  "sha256:0fb36dbed617ef9417d048b7e16c4a16918827dc46d3989a598f3473384bdbe0" -> "sha256:e1e88d2ee1cb1543a1449c58cfd752e0f3f87d781f06468c3892f5da199ef307" [label=""];
+  "sha256:e1e88d2ee1cb1543a1449c58cfd752e0f3f87d781f06468c3892f5da199ef307" -> "sha256:5b53ee3331ec43ce18b446ddbea96c74165e4759c66f9262bc05733d40913ade" [label=""];
+  "sha256:5b53ee3331ec43ce18b446ddbea96c74165e4759c66f9262bc05733d40913ade" -> "sha256:e9fe76cbc7383f03f1effe30b5fa25abfafb11a66476b5d1324ba46a74c347ef" [label=""];
+  "sha256:e9fe76cbc7383f03f1effe30b5fa25abfafb11a66476b5d1324ba46a74c347ef" -> "sha256:054811f844c4b23b56901ae515ac16effc50a04d11f59d3f65c6a05f4d51d1ba" [label=""];
+  "sha256:054811f844c4b23b56901ae515ac16effc50a04d11f59d3f65c6a05f4d51d1ba" -> "sha256:2583ab9458db12af5f94929b13dd241dc17ab82175e73837faba935e7fe8577e" [label=""];
+  "sha256:2583ab9458db12af5f94929b13dd241dc17ab82175e73837faba935e7fe8577e" -> "sha256:ce01d02aca65e1348a3bd95a0c3749f8a5477c46075b31b04fe90c6b6ba8fed2" [label=""];
+  "sha256:ce01d02aca65e1348a3bd95a0c3749f8a5477c46075b31b04fe90c6b6ba8fed2" -> "sha256:7fd1a9f8b1b3324a503ed963a2d54d984a4339029b2002dd9365e30933c5d824" [label=""];
+  "sha256:7fd1a9f8b1b3324a503ed963a2d54d984a4339029b2002dd9365e30933c5d824" -> "sha256:f8f92ba586cd2252af6a972183bc71419f7db4b976cbde2e7c89e63d9261434e" [label=""];
+  "sha256:f8f92ba586cd2252af6a972183bc71419f7db4b976cbde2e7c89e63d9261434e" -> "sha256:ae4a817d0635bd4a73f825e1be0fd9812ae42f81615f2aa43cd0317169bc4a88" [label=""];
+  "sha256:ae4a817d0635bd4a73f825e1be0fd9812ae42f81615f2aa43cd0317169bc4a88" -> "sha256:dce36d551fb04bd93bf71da902a101489fb8bd8428b1d2025de0a91b173ed506" [label=""];
+  "sha256:dce36d551fb04bd93bf71da902a101489fb8bd8428b1d2025de0a91b173ed506" -> "sha256:b0e1a5f7825dd2c42b4c61397686381beb8b619091eb4c4f05fee5c5bf617e79" [label=""];
+  "sha256:b0e1a5f7825dd2c42b4c61397686381beb8b619091eb4c4f05fee5c5bf617e79" -> "sha256:afd5af79c0ce4e83986417b3bcc51d79e021683a0aa464b0b8ce50cd3bcde1c8" [label=""];
+  "sha256:afd5af79c0ce4e83986417b3bcc51d79e021683a0aa464b0b8ce50cd3bcde1c8" -> "sha256:e5f4b7ba87dcd6fe82477a5a3e31ef5a0e37ff339561ef9fea1ca8abda657443" [label=""];
+  "sha256:e5f4b7ba87dcd6fe82477a5a3e31ef5a0e37ff339561ef9fea1ca8abda657443" -> "sha256:458243bfa6724f5bf0d0d6c90abb38f05278fd32022aab87117f89161d5ad8c5" [label=""];
+  "sha256:458243bfa6724f5bf0d0d6c90abb38f05278fd32022aab87117f89161d5ad8c5" -> "sha256:f780d7aee6f61635acfd1eb94e8e3d36e33bb809e51a4c2cbab1e2b69b83d6b5" [label=""];
+  "sha256:f780d7aee6f61635acfd1eb94e8e3d36e33bb809e51a4c2cbab1e2b69b83d6b5" -> "sha256:cf362aa49b2edb9d8c5d0a400c8504fd534abd2a27a3e799cdd198bc965e76d1" [label=""];
+  "sha256:cf362aa49b2edb9d8c5d0a400c8504fd534abd2a27a3e799cdd198bc965e76d1" -> "sha256:0f2b0efb4385c7356686c2a68c6cb10d9606c124ecca240d1f1866b5a662134d" [label=""];
+  "sha256:0f2b0efb4385c7356686c2a68c6cb10d9606c124ecca240d1f1866b5a662134d" -> "sha256:3b20962859faa5e126a3528074519a60269dd5ee996cf39196b15e721a324c90" [label=""];
+  "sha256:3b20962859faa5e126a3528074519a60269dd5ee996cf39196b15e721a324c90" -> "sha256:bcdcb8c67d9fdb9c20ccdbc2cf540e6704b3de2fb9496ea6d31fe3e950c307f3" [label=""];
+  "sha256:bcdcb8c67d9fdb9c20ccdbc2cf540e6704b3de2fb9496ea6d31fe3e950c307f3" -> "sha256:20c40d1cbe55585da5274682542dc5d17d470ad0bf4c442797d129476bd2d8ea" [label=""];
+  "sha256:20c40d1cbe55585da5274682542dc5d17d470ad0bf4c442797d129476bd2d8ea" -> "sha256:c58b71bf2049ba874a30a482c4c1888bd8fe84076fcbfeaf6cc1630b065579bf" [label=""];
+  "sha256:c58b71bf2049ba874a30a482c4c1888bd8fe84076fcbfeaf6cc1630b065579bf" -> "sha256:91e0111f2af5db6429b387bf1e794d8e5111cdcb4c142aa83bf17bdbd13aaae1" [label=""];
+}
+

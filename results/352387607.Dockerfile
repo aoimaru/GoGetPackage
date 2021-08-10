@@ -1,0 +1,11 @@
+[app/sources/352387607.Dockerfile]
+digraph {
+  "sha256:3f503d6190f7f15aefdf8663ed80f92bbdc553db0a5cb98cfa44e1abdd0e1520" [label="docker-image://docker.io/s390x/ubuntu:16.04" shape="ellipse"];
+  "sha256:67fbcbd25ea9fe12599b72dd439cef88beb29641d599b018bcf5cf291b0460dc" [label="mkdir{path=/tmp/source}" shape="note"];
+  "sha256:a7d3bda86cd2806ddfd9dd19e23b41ef26f126485ea51a475b9c50667367a45f" [label="/bin/sh -c apt-get update && apt-get install -y     git \tgolang-1.10 \tlibseccomp-dev \tcurl  && go get github.com/tools/godep  && mkdir -p $GOPATH/src/github.com/google && cd $GOPATH/src/github.com/google  && git clone https://github.com/google/cadvisor.git -b v$CADVISIOR_VER  && cd cadvisor  && cd $GOPATH/src/github.com/google/cadvisor  && echo \" func updateCastagnoli(crc uint32, p []byte) uint32 { \\n // only use slicing-by-8 when input is >= 16 Bytes \\n if len(p) >= 16 { \\n return updateSlicingBy8(crc, castagnoliTable8, p) \\n }  \\n return update(crc, castagnoliTable, p) \\n } \\n \"  >> vendor/github.com/klauspost/crc32/crc32.go  && echo \"func updateIEEE(crc uint32, p []byte) uint32 { \\n // only use slicing-by-8 when input is >= 16 Bytes \\n  if len(p) >= 16 { \\n  iEEETable8Once.Do(func() { \\n iEEETable8 = makeTable8(IEEE) \\n }) \\n return updateSlicingBy8(crc, iEEETable8, p) \\n  } \\n  return update(crc, IEEETable, p) \\n  } \\n \" >> vendor/github.com/klauspost/crc32/crc32.go  && cd $GOPATH/src/github.com/google/cadvisor  && godep go build .  && cp $GOPATH/src/github.com/google/cadvisor/cadvisor /usr/bin  && cd && rm -rf $SOURCE_DIR  && apt-get remove -y git && apt-get autoremove -y && apt-get clean  && rm -rf /var/lib/apt/lists/*" shape="box"];
+  "sha256:27f7b1c70654313a1fc85bb690591703c80b1e43fe3543015bea4a1c8497cd64" [label="sha256:27f7b1c70654313a1fc85bb690591703c80b1e43fe3543015bea4a1c8497cd64" shape="plaintext"];
+  "sha256:3f503d6190f7f15aefdf8663ed80f92bbdc553db0a5cb98cfa44e1abdd0e1520" -> "sha256:67fbcbd25ea9fe12599b72dd439cef88beb29641d599b018bcf5cf291b0460dc" [label=""];
+  "sha256:67fbcbd25ea9fe12599b72dd439cef88beb29641d599b018bcf5cf291b0460dc" -> "sha256:a7d3bda86cd2806ddfd9dd19e23b41ef26f126485ea51a475b9c50667367a45f" [label=""];
+  "sha256:a7d3bda86cd2806ddfd9dd19e23b41ef26f126485ea51a475b9c50667367a45f" -> "sha256:27f7b1c70654313a1fc85bb690591703c80b1e43fe3543015bea4a1c8497cd64" [label=""];
+}
+

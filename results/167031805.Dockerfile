@@ -1,0 +1,36 @@
+[app/sources/167031805.Dockerfile]
+digraph {
+  "sha256:04187b885604d112762d71717a1346cbc4f17e131fc82857a048019e04951455" [label="docker-image://docker.io/library/ubuntu:16.04" shape="ellipse"];
+  "sha256:d33fb6f385975a471b8313f8efc0c406b06a8551e51ca96e96bf238fb04926f6" [label="/bin/sh -c apt-get update &&     apt-get --no-install-recommends --yes install ca-certificates &&     apt-get clean &&     rm -rf /var/lib/apt" shape="box"];
+  "sha256:e084ba0e0aefa1dd472c159b2640e90be54500f1519c991210d3f7f9bd659ae6" [label="/bin/sh -c apt-get update &&     apt-get --no-install-recommends --yes install         ca-certificates         cmake         g++         make         pkg-config         graphviz         doxygen         git         curl         libtool-bin         autoconf         automake" shape="box"];
+  "sha256:74f1a4198773032512527720582550bda95db173091bab510dc6552ed403bbf1" [label="mkdir{path=/usr/local}" shape="note"];
+  "sha256:f470cf1d0111ec175ba36efa1e0ab31aa25c0b764adbf332284d6d3c3a18fba2" [label="/bin/sh -c curl -s -L -o  boost_${BOOST_VERSION}.tar.bz2 https://dl.bintray.com/boostorg/release/${BOOST_VERSION_DOT}/source/boost_${BOOST_VERSION}.tar.bz2     && echo \"${BOOST_HASH} boost_${BOOST_VERSION}.tar.bz2\" | sha256sum -c     && tar -xvf boost_${BOOST_VERSION}.tar.bz2     && cd boost_${BOOST_VERSION}     && ./bootstrap.sh     && ./b2 --build-type=minimal link=static runtime-link=static --with-chrono --with-date_time --with-filesystem --with-program_options --with-regex --with-serialization --with-system --with-thread --with-locale threading=multi threadapi=pthread cflags=\"-fPIC\" cxxflags=\"-fPIC\" stage" shape="box"];
+  "sha256:3ef73774b66a45d0c26ad249d7321517883e01a6acc317cb9af2692021ca52c3" [label="/bin/sh -c curl -s -O https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz     && echo \"${OPENSSL_HASH} openssl-${OPENSSL_VERSION}.tar.gz\" | sha256sum -c     && tar -xzf openssl-${OPENSSL_VERSION}.tar.gz     && cd openssl-${OPENSSL_VERSION}     && ./Configure linux-x86_64 no-shared --static -fPIC     && make build_crypto build_ssl     && make install" shape="box"];
+  "sha256:5c1a1b55d0ad424f09803e3242c21513112542a363f93c4dd102dfdea64f3138" [label="/bin/sh -c git clone https://github.com/zeromq/libzmq.git -b ${ZMQ_VERSION}     && cd libzmq     && test `git rev-parse HEAD` = ${ZMQ_HASH} || exit 1     && ./autogen.sh     && CFLAGS=\"-fPIC\" CXXFLAGS=\"-fPIC\" ./configure --enable-static --disable-shared     && make     && make install     && ldconfig" shape="box"];
+  "sha256:f85b0ca79a1b92a96ee5e1aba6534720d5f0e1181ac8a06b1af222dc21a94cf4" [label="/bin/sh -c git clone https://github.com/zeromq/cppzmq.git -b ${ZMQ_VERSION}     && cd cppzmq     && test `git rev-parse HEAD` = ${CPPZMQ_HASH} || exit 1     && mv *.hpp /usr/local/include" shape="box"];
+  "sha256:cab0af691f96925e783cb17a8996675ae243be5d2e724cb170fd5526d885157b" [label="/bin/sh -c curl -s -O https://ftp.gnu.org/gnu/readline/readline-${READLINE_VERSION}.tar.gz     && echo \"${READLINE_HASH} readline-${READLINE_VERSION}.tar.gz\" | sha256sum -c     && tar -xzf readline-${READLINE_VERSION}.tar.gz     && cd readline-${READLINE_VERSION}     && CFLAGS=\"-fPIC\" CXXFLAGS=\"-fPIC\" ./configure     && make     && make install" shape="box"];
+  "sha256:b5f20a49bb3e71e9aec12ec2e0317038e9f627a08facba9b8ea5275074c16909" [label="/bin/sh -c git clone https://github.com/jedisct1/libsodium.git -b ${SODIUM_VERSION}     && cd libsodium     && test `git rev-parse HEAD` = ${SODIUM_HASH} || exit 1     && ./autogen.sh     && CFLAGS=\"-fPIC\" CXXFLAGS=\"-fPIC\" ./configure     && make     && make check     && make install" shape="box"];
+  "sha256:737bf9a2b86a954cc90ee35a0f267fca1e11ebabad4fe33a2e41d556b5f8adca" [label="mkdir{path=/src}" shape="note"];
+  "sha256:afddeaa96b646ffdcc9fb4ea057082901a299863659003b91091d5a8dcd7f229" [label="local://context" shape="ellipse"];
+  "sha256:4c390bd003a7f6abd92310e06782009e8d20de203b2189d908024e8e6e768fe3" [label="copy{src=/, dest=/src/}" shape="note"];
+  "sha256:692414d5c3001c2246bddb07d0b111c97274b30165a040baadf4f6b4ef3d6074" [label="/bin/sh -c rm -rf build &&     if [ -z \"$NPROC\" ];then make -j$(nproc) release-static;else make -j$NPROC release-static;fi" shape="box"];
+  "sha256:7aac6258ed21d9c8edf9e7dfe368471c4836ba573d37339dff65a75f752a291e" [label="copy{src=/src/build/release/bin/*, dest=/usr/local/bin/}" shape="note"];
+  "sha256:cb1e85ad97c7d52c0abd868d87423435efe50f4369d02ac89a2c1cefaeca37dc" [label="sha256:cb1e85ad97c7d52c0abd868d87423435efe50f4369d02ac89a2c1cefaeca37dc" shape="plaintext"];
+  "sha256:04187b885604d112762d71717a1346cbc4f17e131fc82857a048019e04951455" -> "sha256:d33fb6f385975a471b8313f8efc0c406b06a8551e51ca96e96bf238fb04926f6" [label=""];
+  "sha256:04187b885604d112762d71717a1346cbc4f17e131fc82857a048019e04951455" -> "sha256:e084ba0e0aefa1dd472c159b2640e90be54500f1519c991210d3f7f9bd659ae6" [label=""];
+  "sha256:e084ba0e0aefa1dd472c159b2640e90be54500f1519c991210d3f7f9bd659ae6" -> "sha256:74f1a4198773032512527720582550bda95db173091bab510dc6552ed403bbf1" [label=""];
+  "sha256:74f1a4198773032512527720582550bda95db173091bab510dc6552ed403bbf1" -> "sha256:f470cf1d0111ec175ba36efa1e0ab31aa25c0b764adbf332284d6d3c3a18fba2" [label=""];
+  "sha256:f470cf1d0111ec175ba36efa1e0ab31aa25c0b764adbf332284d6d3c3a18fba2" -> "sha256:3ef73774b66a45d0c26ad249d7321517883e01a6acc317cb9af2692021ca52c3" [label=""];
+  "sha256:3ef73774b66a45d0c26ad249d7321517883e01a6acc317cb9af2692021ca52c3" -> "sha256:5c1a1b55d0ad424f09803e3242c21513112542a363f93c4dd102dfdea64f3138" [label=""];
+  "sha256:5c1a1b55d0ad424f09803e3242c21513112542a363f93c4dd102dfdea64f3138" -> "sha256:f85b0ca79a1b92a96ee5e1aba6534720d5f0e1181ac8a06b1af222dc21a94cf4" [label=""];
+  "sha256:f85b0ca79a1b92a96ee5e1aba6534720d5f0e1181ac8a06b1af222dc21a94cf4" -> "sha256:cab0af691f96925e783cb17a8996675ae243be5d2e724cb170fd5526d885157b" [label=""];
+  "sha256:cab0af691f96925e783cb17a8996675ae243be5d2e724cb170fd5526d885157b" -> "sha256:b5f20a49bb3e71e9aec12ec2e0317038e9f627a08facba9b8ea5275074c16909" [label=""];
+  "sha256:b5f20a49bb3e71e9aec12ec2e0317038e9f627a08facba9b8ea5275074c16909" -> "sha256:737bf9a2b86a954cc90ee35a0f267fca1e11ebabad4fe33a2e41d556b5f8adca" [label=""];
+  "sha256:737bf9a2b86a954cc90ee35a0f267fca1e11ebabad4fe33a2e41d556b5f8adca" -> "sha256:4c390bd003a7f6abd92310e06782009e8d20de203b2189d908024e8e6e768fe3" [label=""];
+  "sha256:afddeaa96b646ffdcc9fb4ea057082901a299863659003b91091d5a8dcd7f229" -> "sha256:4c390bd003a7f6abd92310e06782009e8d20de203b2189d908024e8e6e768fe3" [label=""];
+  "sha256:4c390bd003a7f6abd92310e06782009e8d20de203b2189d908024e8e6e768fe3" -> "sha256:692414d5c3001c2246bddb07d0b111c97274b30165a040baadf4f6b4ef3d6074" [label=""];
+  "sha256:d33fb6f385975a471b8313f8efc0c406b06a8551e51ca96e96bf238fb04926f6" -> "sha256:7aac6258ed21d9c8edf9e7dfe368471c4836ba573d37339dff65a75f752a291e" [label=""];
+  "sha256:692414d5c3001c2246bddb07d0b111c97274b30165a040baadf4f6b4ef3d6074" -> "sha256:7aac6258ed21d9c8edf9e7dfe368471c4836ba573d37339dff65a75f752a291e" [label=""];
+  "sha256:7aac6258ed21d9c8edf9e7dfe368471c4836ba573d37339dff65a75f752a291e" -> "sha256:cb1e85ad97c7d52c0abd868d87423435efe50f4369d02ac89a2c1cefaeca37dc" [label=""];
+}
+

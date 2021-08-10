@@ -1,0 +1,53 @@
+[app/sources/176079784.Dockerfile]
+digraph {
+  "sha256:931a1c72c3e0943f8ae3bad2d6c2c0d04efc9031392f7574cafc331814fa690d" [label="docker-image://docker.io/library/debian:stretch" shape="ellipse"];
+  "sha256:bd1f8e71c69c6131b127cb8b8d7df13cc8a4de532ccdaa947a9f4d0a99ae4c1a" [label="/bin/sh -c apt-get update && apt-get install -y   autoconf   autotools-dev   build-essential   bzip2   ccache   curl   dnsutils   gcc   gcc-multilib   git   golang   gyp   lcov   libc6   libc6-dbg   libc6-dev   libgtest-dev   libtool   make   perl   strace   python-dev   python-setuptools   python-yaml   telnet   unzip   wget   zip && apt-get clean" shape="box"];
+  "sha256:2aedeb70ac384bdfb4de2318a09fa9e197f944c39d4f1f6919e1c252ec59985a" [label="/bin/sh -c apt-get update && apt-get install -y time && apt-get clean" shape="box"];
+  "sha256:73aa8a8b4b0b5c20519cbb6a886b8559dd03d925a2d30124091fcd9b66de1bf2" [label="/bin/sh -c apt-get update && apt-get install -y python-pip && apt-get clean" shape="box"];
+  "sha256:23f27719b687e3c105b7f3132b0291553416ebc1431399c1f57a66693a98f7ca" [label="/bin/sh -c pip install --upgrade google-api-python-client oauth2client" shape="box"];
+  "sha256:69fc101c69b565801ec2c81b0ced1310d885792d125d1c2e2d41a2e80b9d6e52" [label="/bin/sh -c apt-get update && apt-get install -y python2.7 python-all-dev" shape="box"];
+  "sha256:aa65ff4867108bf1131f7f1dec6a0e212fb2ff8124bf57e482203b3bf4ac62b8" [label="/bin/sh -c curl https://bootstrap.pypa.io/get-pip.py | python2.7" shape="box"];
+  "sha256:be21ce62ec8de1ac5a060b42a4a0fe09c79687cfd589c2f92c03ac11ef6e11a9" [label="/bin/sh -c echo 'deb http://ftp.de.debian.org/debian testing main' >> /etc/apt/sources.list" shape="box"];
+  "sha256:58ea690fb12c2b13fbb1800964065ea4acf08f217e12d39648bf1032e08323d9" [label="/bin/sh -c echo 'APT::Default-Release \"stable\";' | tee -a /etc/apt/apt.conf.d/00local" shape="box"];
+  "sha256:84b261924844543d4bc6aa533cab5d41a8948e921138ab8fa110cb92a7a025ff" [label="/bin/sh -c mkdir /var/local/jenkins" shape="box"];
+  "sha256:fd33e35fb73bea8d1f80959916e7b4e141f63c91594f05b7dfe4b77652c83588" [label="/bin/sh -c apt-get update && apt-get -y install libgflags-dev libgtest-dev libc++-dev clang && apt-get clean" shape="box"];
+  "sha256:bc74f8ecf5071496fb18a306931f39e9b1601f7b23a093e7e6e12fffdaee80df" [label="/bin/sh -c apt-get update && apt-get -t testing install -y python3.7 python3-all-dev" shape="box"];
+  "sha256:7261353aebe01110a2e4a91c1256322e1271435f5df373e6beecc463a22045eb" [label="/bin/sh -c curl https://bootstrap.pypa.io/get-pip.py | python3.7" shape="box"];
+  "sha256:461d77a412f4996ec350d5c5143e81f7ab846b192e2899892139d027e4586858" [label="/bin/sh -c update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.7 1" shape="box"];
+  "sha256:b95d96e836c59eee754a8121317b5700f7aba2f2f0a41d08a1089c2cbee49b80" [label="/bin/sh -c apt-get update && apt-get install -y       autoconf       automake       libtool       curl       shellcheck" shape="box"];
+  "sha256:261db4f37a4d618784cc68cef0783959e856a72a99b7c0ee85d16dc47bd97a9c" [label="/bin/sh -c python2 -m pip install simplejson mako virtualenv lxml" shape="box"];
+  "sha256:6047cabc65d36a46b91020f709babe4c7296c5f70ba09f4aca26a59e7c3dd928" [label="/bin/sh -c python3 -m pip install simplejson mako virtualenv lxml" shape="box"];
+  "sha256:d37f84c98c5078093336ad44f0ad9d13aa5dd255b4a581f4992631fac13cf6a8" [label="/bin/sh -c apt-get update && apt-get -y install wget xz-utils" shape="box"];
+  "sha256:9059805b3a31814f770a381ad8c612a7798f1a9606d99e84dd5c5e996f02f47f" [label="/bin/sh -c wget http://releases.llvm.org/5.0.0/clang+llvm-5.0.0-linux-x86_64-ubuntu14.04.tar.xz" shape="box"];
+  "sha256:329e7bf6c0d5ca0c2c3095c91436e5a2dc6e941665d2e1f4d5392f403a8bec4f" [label="/bin/sh -c tar xf clang+llvm-5.0.0-linux-x86_64-ubuntu14.04.tar.xz" shape="box"];
+  "sha256:0ea3fde73c213105a50ac041f66ef036ce348be847b6838cbd2315e214ae2473" [label="/bin/sh -c ln -s /clang+llvm-5.0.0-linux-x86_64-ubuntu14.04/bin/clang-format /usr/local/bin/clang-format" shape="box"];
+  "sha256:12624165906b6cb1229a69d508c0e1a57f6e95ef1c4f19a594538dd2d45f8278" [label="/bin/sh -c ln -s /clang+llvm-5.0.0-linux-x86_64-ubuntu14.04/bin/clang-tidy /usr/local/bin/clang-tidy" shape="box"];
+  "sha256:911a7962851b9e980922d39c98b095546e2923421e4043acad65e7a208e0b0c5" [label="/bin/sh -c apt-get update && apt-get install -y wget && apt-get clean" shape="box"];
+  "sha256:1750c8db9054f12eecafb56933418d3f6d9397199ee6ffdf84738c324d2dc19a" [label="/bin/sh -c wget \"https://github.com/bazelbuild/bazel/releases/download/$BAZEL_VERSION/bazel-$BAZEL_VERSION-installer-linux-x86_64.sh\" &&   bash ./bazel-$BAZEL_VERSION-installer-linux-x86_64.sh &&   rm bazel-$BAZEL_VERSION-installer-linux-x86_64.sh" shape="box"];
+  "sha256:785c71cab1e2f4cc08024c71a7cd1e09cd5046884145104c89842ff854712b16" [label="sha256:785c71cab1e2f4cc08024c71a7cd1e09cd5046884145104c89842ff854712b16" shape="plaintext"];
+  "sha256:931a1c72c3e0943f8ae3bad2d6c2c0d04efc9031392f7574cafc331814fa690d" -> "sha256:bd1f8e71c69c6131b127cb8b8d7df13cc8a4de532ccdaa947a9f4d0a99ae4c1a" [label=""];
+  "sha256:bd1f8e71c69c6131b127cb8b8d7df13cc8a4de532ccdaa947a9f4d0a99ae4c1a" -> "sha256:2aedeb70ac384bdfb4de2318a09fa9e197f944c39d4f1f6919e1c252ec59985a" [label=""];
+  "sha256:2aedeb70ac384bdfb4de2318a09fa9e197f944c39d4f1f6919e1c252ec59985a" -> "sha256:73aa8a8b4b0b5c20519cbb6a886b8559dd03d925a2d30124091fcd9b66de1bf2" [label=""];
+  "sha256:73aa8a8b4b0b5c20519cbb6a886b8559dd03d925a2d30124091fcd9b66de1bf2" -> "sha256:23f27719b687e3c105b7f3132b0291553416ebc1431399c1f57a66693a98f7ca" [label=""];
+  "sha256:23f27719b687e3c105b7f3132b0291553416ebc1431399c1f57a66693a98f7ca" -> "sha256:69fc101c69b565801ec2c81b0ced1310d885792d125d1c2e2d41a2e80b9d6e52" [label=""];
+  "sha256:69fc101c69b565801ec2c81b0ced1310d885792d125d1c2e2d41a2e80b9d6e52" -> "sha256:aa65ff4867108bf1131f7f1dec6a0e212fb2ff8124bf57e482203b3bf4ac62b8" [label=""];
+  "sha256:aa65ff4867108bf1131f7f1dec6a0e212fb2ff8124bf57e482203b3bf4ac62b8" -> "sha256:be21ce62ec8de1ac5a060b42a4a0fe09c79687cfd589c2f92c03ac11ef6e11a9" [label=""];
+  "sha256:be21ce62ec8de1ac5a060b42a4a0fe09c79687cfd589c2f92c03ac11ef6e11a9" -> "sha256:58ea690fb12c2b13fbb1800964065ea4acf08f217e12d39648bf1032e08323d9" [label=""];
+  "sha256:58ea690fb12c2b13fbb1800964065ea4acf08f217e12d39648bf1032e08323d9" -> "sha256:84b261924844543d4bc6aa533cab5d41a8948e921138ab8fa110cb92a7a025ff" [label=""];
+  "sha256:84b261924844543d4bc6aa533cab5d41a8948e921138ab8fa110cb92a7a025ff" -> "sha256:fd33e35fb73bea8d1f80959916e7b4e141f63c91594f05b7dfe4b77652c83588" [label=""];
+  "sha256:fd33e35fb73bea8d1f80959916e7b4e141f63c91594f05b7dfe4b77652c83588" -> "sha256:bc74f8ecf5071496fb18a306931f39e9b1601f7b23a093e7e6e12fffdaee80df" [label=""];
+  "sha256:bc74f8ecf5071496fb18a306931f39e9b1601f7b23a093e7e6e12fffdaee80df" -> "sha256:7261353aebe01110a2e4a91c1256322e1271435f5df373e6beecc463a22045eb" [label=""];
+  "sha256:7261353aebe01110a2e4a91c1256322e1271435f5df373e6beecc463a22045eb" -> "sha256:461d77a412f4996ec350d5c5143e81f7ab846b192e2899892139d027e4586858" [label=""];
+  "sha256:461d77a412f4996ec350d5c5143e81f7ab846b192e2899892139d027e4586858" -> "sha256:b95d96e836c59eee754a8121317b5700f7aba2f2f0a41d08a1089c2cbee49b80" [label=""];
+  "sha256:b95d96e836c59eee754a8121317b5700f7aba2f2f0a41d08a1089c2cbee49b80" -> "sha256:261db4f37a4d618784cc68cef0783959e856a72a99b7c0ee85d16dc47bd97a9c" [label=""];
+  "sha256:261db4f37a4d618784cc68cef0783959e856a72a99b7c0ee85d16dc47bd97a9c" -> "sha256:6047cabc65d36a46b91020f709babe4c7296c5f70ba09f4aca26a59e7c3dd928" [label=""];
+  "sha256:6047cabc65d36a46b91020f709babe4c7296c5f70ba09f4aca26a59e7c3dd928" -> "sha256:d37f84c98c5078093336ad44f0ad9d13aa5dd255b4a581f4992631fac13cf6a8" [label=""];
+  "sha256:d37f84c98c5078093336ad44f0ad9d13aa5dd255b4a581f4992631fac13cf6a8" -> "sha256:9059805b3a31814f770a381ad8c612a7798f1a9606d99e84dd5c5e996f02f47f" [label=""];
+  "sha256:9059805b3a31814f770a381ad8c612a7798f1a9606d99e84dd5c5e996f02f47f" -> "sha256:329e7bf6c0d5ca0c2c3095c91436e5a2dc6e941665d2e1f4d5392f403a8bec4f" [label=""];
+  "sha256:329e7bf6c0d5ca0c2c3095c91436e5a2dc6e941665d2e1f4d5392f403a8bec4f" -> "sha256:0ea3fde73c213105a50ac041f66ef036ce348be847b6838cbd2315e214ae2473" [label=""];
+  "sha256:0ea3fde73c213105a50ac041f66ef036ce348be847b6838cbd2315e214ae2473" -> "sha256:12624165906b6cb1229a69d508c0e1a57f6e95ef1c4f19a594538dd2d45f8278" [label=""];
+  "sha256:12624165906b6cb1229a69d508c0e1a57f6e95ef1c4f19a594538dd2d45f8278" -> "sha256:911a7962851b9e980922d39c98b095546e2923421e4043acad65e7a208e0b0c5" [label=""];
+  "sha256:911a7962851b9e980922d39c98b095546e2923421e4043acad65e7a208e0b0c5" -> "sha256:1750c8db9054f12eecafb56933418d3f6d9397199ee6ffdf84738c324d2dc19a" [label=""];
+  "sha256:1750c8db9054f12eecafb56933418d3f6d9397199ee6ffdf84738c324d2dc19a" -> "sha256:785c71cab1e2f4cc08024c71a7cd1e09cd5046884145104c89842ff854712b16" [label=""];
+}
+

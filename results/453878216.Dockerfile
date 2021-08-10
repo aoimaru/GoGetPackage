@@ -1,0 +1,15 @@
+[app/sources/453878216.Dockerfile]
+digraph {
+  "sha256:91152af21c3f3856132a5d635288457a6de3d9f86533d99e8444e231ed34034a" [label="docker-image://docker.io/pathtrk/docker-cmake-opencv-boost:latest" shape="ellipse"];
+  "sha256:c1be0ad3e7687421b25e22a0335db0d505eee40898560f91bd6b2962e1f0270b" [label="local://context" shape="ellipse"];
+  "sha256:79cd227c199d340bd670773b6cb3199db40dee851529ab43dd98ed4ecf44151b" [label="copy{src=/, dest=/code}" shape="note"];
+  "sha256:dc9de746f0802bd5a17dd4a53a3476a1bbc9ceda4a32309121ba04bbba936145" [label="mkdir{path=/code}" shape="note"];
+  "sha256:2554c90f02a9607a6997d3a3be6123bad6c1e0bf85be979742972587d0266260" [label="/bin/sh -c cmake ." shape="box"];
+  "sha256:e4e97af8fabc7915627ce824736bab5325e9239305fa163e81d7e7dce1881613" [label="sha256:e4e97af8fabc7915627ce824736bab5325e9239305fa163e81d7e7dce1881613" shape="plaintext"];
+  "sha256:91152af21c3f3856132a5d635288457a6de3d9f86533d99e8444e231ed34034a" -> "sha256:79cd227c199d340bd670773b6cb3199db40dee851529ab43dd98ed4ecf44151b" [label=""];
+  "sha256:c1be0ad3e7687421b25e22a0335db0d505eee40898560f91bd6b2962e1f0270b" -> "sha256:79cd227c199d340bd670773b6cb3199db40dee851529ab43dd98ed4ecf44151b" [label=""];
+  "sha256:79cd227c199d340bd670773b6cb3199db40dee851529ab43dd98ed4ecf44151b" -> "sha256:dc9de746f0802bd5a17dd4a53a3476a1bbc9ceda4a32309121ba04bbba936145" [label=""];
+  "sha256:dc9de746f0802bd5a17dd4a53a3476a1bbc9ceda4a32309121ba04bbba936145" -> "sha256:2554c90f02a9607a6997d3a3be6123bad6c1e0bf85be979742972587d0266260" [label=""];
+  "sha256:2554c90f02a9607a6997d3a3be6123bad6c1e0bf85be979742972587d0266260" -> "sha256:e4e97af8fabc7915627ce824736bab5325e9239305fa163e81d7e7dce1881613" [label=""];
+}
+

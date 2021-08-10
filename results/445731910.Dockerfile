@@ -1,0 +1,50 @@
+[app/sources/445731910.Dockerfile]
+digraph {
+  "sha256:5ea5bde794c351fa2da4dc7afc93b29ba1c7e491fb36ef04d18e66d46b4441be" [label="docker-image://docker.io/dockerfile/java:latest" shape="ellipse"];
+  "sha256:6e366c93939565fe25445ed80d86d93a3bedba01c51d32955393bf8fdeaf68e4" [label="/bin/sh -c apt-get update" shape="box"];
+  "sha256:bc415cf79e50b09bfe3fb1d0e6e91fa91c6e29a5f68129e79600b5a092b8f573" [label="/bin/sh -c apt-get install -y nginx-full python python-pip python-dev" shape="box"];
+  "sha256:93aeb3eaa6c54b82ebe110913cd5a591c88a2f712e1e7e7718b6249dcc13102a" [label="/bin/sh -c apt-get install -y bash" shape="box"];
+  "sha256:0de34c12a22bb96cd7fd328c07cae2acecef8d82b075994e6d26f0b364880731" [label="/bin/sh -c wget -O - http://packages.elasticsearch.org/GPG-KEY-elasticsearch | apt-key add -" shape="box"];
+  "sha256:9631d224523a01eb74e27404f36c6d925187659b4a9a8725fc7623a770008ab6" [label="/bin/sh -c echo \"deb http://packages.elasticsearch.org/elasticsearch/1.0/debian stable main\" >> /etc/apt/sources.list" shape="box"];
+  "sha256:25e6cd815e9069266473d59b0a29e755f1fc34173c28e4ebd51a3e47753f5cdc" [label="/bin/sh -c apt-get update" shape="box"];
+  "sha256:075b5139cbbd21220cd8fad8141fa6c81d23aa8027f4320b0590c5f16d7b1fde" [label="/bin/sh -c apt-get install -y elasticsearch" shape="box"];
+  "sha256:18094ed0e31dcae3e3135e02b03097662ab1ca374b5ed1cdc902b82f26c1723b" [label="local://context" shape="ellipse"];
+  "sha256:59edfc013395ee234a746907e55c39d9fac73c1bca456f0fdb2b24c62c351819" [label="copy{src=/data_processor/requirements-pip, dest=/tmp/requirements-pip}" shape="note"];
+  "sha256:35277c6ec3d9fd0b4bbffd5dfdcc5f8b3e8b92f3a17592360577638c37d347e5" [label="/bin/sh -c pip install -r /tmp/requirements-pip" shape="box"];
+  "sha256:6e8746a24f5a607f78b33e2ea893117b38f35e3adac59fb44ed07d13a078ffd9" [label="/bin/sh -c sed -i 's/MAX_OPEN_FILES=/# MAX_OPEN_FILES=/g' /etc/init.d/elasticsearch" shape="box"];
+  "sha256:2094cb4e4142c117a268167e0ea4f24ed4d3d98da82ee3ad0f5ae8c00ae9fe7a" [label="/bin/sh -c /usr/share/elasticsearch/bin/plugin -i com.ubervu/elasticsearch-river-github/1.6.3" shape="box"];
+  "sha256:7528cafa896f26a4d0226d31745ac2a6a30414d2eca71c5b01f5882c218f74cc" [label="copy{src=/docker_configs/dashboard, dest=/etc/nginx/sites-available/dashboard}" shape="note"];
+  "sha256:cddae2f9aa3aedc0188ba7a8112d19d99b427815c033caa854c90e5021dc020e" [label="/bin/sh -c ln -s /etc/nginx/sites-available/dashboard /etc/nginx/sites-enabled/dashboard" shape="box"];
+  "sha256:137d94c03ce0ef4535cfcea406f577c124c323dfb101cc19890435b9a235ebd0" [label="/bin/sh -c rm /etc/nginx/sites-enabled/default" shape="box"];
+  "sha256:07ede04b88702281b1ae45ee380125c31a705a11a27e6d428c73264e77f02ac2" [label="/bin/sh -c /usr/sbin/useradd --create-home --shell /bin/bash elasticboard" shape="box"];
+  "sha256:f6f9c28e9d18a9efb3d75ca5de7993821f2a43090e6d98419281e676c76b3d5d" [label="copy{src=/docker_configs/sudoers, dest=/etc/sudoers}" shape="note"];
+  "sha256:696b310e0516bd543570bf47172465559983c74ac8730ec99abfc44f1aec3b54" [label="/bin/sh -c chmod 440 /etc/sudoers" shape="box"];
+  "sha256:9b80552f0e4994611c761070d4627695f3507d91c68f2f6f35a1f07cb507920b" [label="/bin/sh -c chown root:root /etc/sudoers" shape="box"];
+  "sha256:7cf714534dcdc2a196b4cb9f36ecc95a8fbffaadd8e258c17f7c460ac0718e21" [label="copy{src=/docker_configs/start.sh, dest=/bin/start.sh}" shape="note"];
+  "sha256:9815fedf33fd4117cd1580c53cb91d3892225d98eb20f44e6fec9a11bdbbad6b" [label="sha256:9815fedf33fd4117cd1580c53cb91d3892225d98eb20f44e6fec9a11bdbbad6b" shape="plaintext"];
+  "sha256:5ea5bde794c351fa2da4dc7afc93b29ba1c7e491fb36ef04d18e66d46b4441be" -> "sha256:6e366c93939565fe25445ed80d86d93a3bedba01c51d32955393bf8fdeaf68e4" [label=""];
+  "sha256:6e366c93939565fe25445ed80d86d93a3bedba01c51d32955393bf8fdeaf68e4" -> "sha256:bc415cf79e50b09bfe3fb1d0e6e91fa91c6e29a5f68129e79600b5a092b8f573" [label=""];
+  "sha256:bc415cf79e50b09bfe3fb1d0e6e91fa91c6e29a5f68129e79600b5a092b8f573" -> "sha256:93aeb3eaa6c54b82ebe110913cd5a591c88a2f712e1e7e7718b6249dcc13102a" [label=""];
+  "sha256:93aeb3eaa6c54b82ebe110913cd5a591c88a2f712e1e7e7718b6249dcc13102a" -> "sha256:0de34c12a22bb96cd7fd328c07cae2acecef8d82b075994e6d26f0b364880731" [label=""];
+  "sha256:0de34c12a22bb96cd7fd328c07cae2acecef8d82b075994e6d26f0b364880731" -> "sha256:9631d224523a01eb74e27404f36c6d925187659b4a9a8725fc7623a770008ab6" [label=""];
+  "sha256:9631d224523a01eb74e27404f36c6d925187659b4a9a8725fc7623a770008ab6" -> "sha256:25e6cd815e9069266473d59b0a29e755f1fc34173c28e4ebd51a3e47753f5cdc" [label=""];
+  "sha256:25e6cd815e9069266473d59b0a29e755f1fc34173c28e4ebd51a3e47753f5cdc" -> "sha256:075b5139cbbd21220cd8fad8141fa6c81d23aa8027f4320b0590c5f16d7b1fde" [label=""];
+  "sha256:075b5139cbbd21220cd8fad8141fa6c81d23aa8027f4320b0590c5f16d7b1fde" -> "sha256:59edfc013395ee234a746907e55c39d9fac73c1bca456f0fdb2b24c62c351819" [label=""];
+  "sha256:18094ed0e31dcae3e3135e02b03097662ab1ca374b5ed1cdc902b82f26c1723b" -> "sha256:59edfc013395ee234a746907e55c39d9fac73c1bca456f0fdb2b24c62c351819" [label=""];
+  "sha256:59edfc013395ee234a746907e55c39d9fac73c1bca456f0fdb2b24c62c351819" -> "sha256:35277c6ec3d9fd0b4bbffd5dfdcc5f8b3e8b92f3a17592360577638c37d347e5" [label=""];
+  "sha256:35277c6ec3d9fd0b4bbffd5dfdcc5f8b3e8b92f3a17592360577638c37d347e5" -> "sha256:6e8746a24f5a607f78b33e2ea893117b38f35e3adac59fb44ed07d13a078ffd9" [label=""];
+  "sha256:6e8746a24f5a607f78b33e2ea893117b38f35e3adac59fb44ed07d13a078ffd9" -> "sha256:2094cb4e4142c117a268167e0ea4f24ed4d3d98da82ee3ad0f5ae8c00ae9fe7a" [label=""];
+  "sha256:2094cb4e4142c117a268167e0ea4f24ed4d3d98da82ee3ad0f5ae8c00ae9fe7a" -> "sha256:7528cafa896f26a4d0226d31745ac2a6a30414d2eca71c5b01f5882c218f74cc" [label=""];
+  "sha256:18094ed0e31dcae3e3135e02b03097662ab1ca374b5ed1cdc902b82f26c1723b" -> "sha256:7528cafa896f26a4d0226d31745ac2a6a30414d2eca71c5b01f5882c218f74cc" [label=""];
+  "sha256:7528cafa896f26a4d0226d31745ac2a6a30414d2eca71c5b01f5882c218f74cc" -> "sha256:cddae2f9aa3aedc0188ba7a8112d19d99b427815c033caa854c90e5021dc020e" [label=""];
+  "sha256:cddae2f9aa3aedc0188ba7a8112d19d99b427815c033caa854c90e5021dc020e" -> "sha256:137d94c03ce0ef4535cfcea406f577c124c323dfb101cc19890435b9a235ebd0" [label=""];
+  "sha256:137d94c03ce0ef4535cfcea406f577c124c323dfb101cc19890435b9a235ebd0" -> "sha256:07ede04b88702281b1ae45ee380125c31a705a11a27e6d428c73264e77f02ac2" [label=""];
+  "sha256:07ede04b88702281b1ae45ee380125c31a705a11a27e6d428c73264e77f02ac2" -> "sha256:f6f9c28e9d18a9efb3d75ca5de7993821f2a43090e6d98419281e676c76b3d5d" [label=""];
+  "sha256:18094ed0e31dcae3e3135e02b03097662ab1ca374b5ed1cdc902b82f26c1723b" -> "sha256:f6f9c28e9d18a9efb3d75ca5de7993821f2a43090e6d98419281e676c76b3d5d" [label=""];
+  "sha256:f6f9c28e9d18a9efb3d75ca5de7993821f2a43090e6d98419281e676c76b3d5d" -> "sha256:696b310e0516bd543570bf47172465559983c74ac8730ec99abfc44f1aec3b54" [label=""];
+  "sha256:696b310e0516bd543570bf47172465559983c74ac8730ec99abfc44f1aec3b54" -> "sha256:9b80552f0e4994611c761070d4627695f3507d91c68f2f6f35a1f07cb507920b" [label=""];
+  "sha256:9b80552f0e4994611c761070d4627695f3507d91c68f2f6f35a1f07cb507920b" -> "sha256:7cf714534dcdc2a196b4cb9f36ecc95a8fbffaadd8e258c17f7c460ac0718e21" [label=""];
+  "sha256:18094ed0e31dcae3e3135e02b03097662ab1ca374b5ed1cdc902b82f26c1723b" -> "sha256:7cf714534dcdc2a196b4cb9f36ecc95a8fbffaadd8e258c17f7c460ac0718e21" [label=""];
+  "sha256:7cf714534dcdc2a196b4cb9f36ecc95a8fbffaadd8e258c17f7c460ac0718e21" -> "sha256:9815fedf33fd4117cd1580c53cb91d3892225d98eb20f44e6fec9a11bdbbad6b" [label=""];
+}
+

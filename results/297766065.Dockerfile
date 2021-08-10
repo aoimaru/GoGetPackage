@@ -1,0 +1,15 @@
+[app/sources/297766065.Dockerfile]
+digraph {
+  "sha256:02ba435f7dd72cd6787d94994f01327ed97d2dfddadf79bcf6039b4e89b0ecb3" [label="local://context" shape="ellipse"];
+  "sha256:32712d4f4311e44dcb92c07790d732cac3e536c80153ba09e344f90e847a8f15" [label="docker-image://docker.io/library/php:7.1-apache" shape="ellipse"];
+  "sha256:7a241163b760a1d085ee3b946aa3555d336a10afb450ae106f98ee6ed1f65016" [label="/bin/sh -c ln -snf /usr/share/zoneinfo/${TZ} /etc/localtime && echo ${TZ} > /etc/timezone     && sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf     && sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf     && mv /etc/apt/sources.list /etc/apt/sources.list.bak     && echo \"deb http://mirrors.aliyun.com/debian/ stretch main non-free contrib\" >/etc/apt/sources.list     && echo \"deb http://mirrors.aliyun.com/debian-security stretch/updates main\" >>/etc/apt/sources.list     && echo \"deb http://mirrors.aliyun.com/debian/ stretch-updates main non-free contrib\" >>/etc/apt/sources.list     && echo \"deb http://mirrors.aliyun.com/debian/ stretch-backports main non-free contrib\" >>/etc/apt/sources.list     && apt-get update && apt-get install -y               libfreetype6-dev               libjpeg62-turbo-dev               libpng-dev     && docker-php-ext-install pdo_mysql     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/     && docker-php-ext-install -j$(nproc) gd     && apt-get clean     && apt-get autoclean     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*" shape="box"];
+  "sha256:7064c356e14830456008a5548a5bafa3437667496bf53f4f8ddf834f751ac5fc" [label="copy{src=/, dest=/var/www/html}" shape="note"];
+  "sha256:778d281ffe95e9e83a2173857af4e1aa377a11fb7a64c9a4a392bd0c8a2dcbc4" [label="/bin/sh -c a2enmod rewrite     && chmod -R 0755 /var/www/html     && chown -R www-data:www-data /var/www/html" shape="box"];
+  "sha256:15514e4c348eff934f2b576ef3e485d9aebac8fc115577285ec3833224eae98c" [label="sha256:15514e4c348eff934f2b576ef3e485d9aebac8fc115577285ec3833224eae98c" shape="plaintext"];
+  "sha256:32712d4f4311e44dcb92c07790d732cac3e536c80153ba09e344f90e847a8f15" -> "sha256:7a241163b760a1d085ee3b946aa3555d336a10afb450ae106f98ee6ed1f65016" [label=""];
+  "sha256:7a241163b760a1d085ee3b946aa3555d336a10afb450ae106f98ee6ed1f65016" -> "sha256:7064c356e14830456008a5548a5bafa3437667496bf53f4f8ddf834f751ac5fc" [label=""];
+  "sha256:02ba435f7dd72cd6787d94994f01327ed97d2dfddadf79bcf6039b4e89b0ecb3" -> "sha256:7064c356e14830456008a5548a5bafa3437667496bf53f4f8ddf834f751ac5fc" [label=""];
+  "sha256:7064c356e14830456008a5548a5bafa3437667496bf53f4f8ddf834f751ac5fc" -> "sha256:778d281ffe95e9e83a2173857af4e1aa377a11fb7a64c9a4a392bd0c8a2dcbc4" [label=""];
+  "sha256:778d281ffe95e9e83a2173857af4e1aa377a11fb7a64c9a4a392bd0c8a2dcbc4" -> "sha256:15514e4c348eff934f2b576ef3e485d9aebac8fc115577285ec3833224eae98c" [label=""];
+}
+

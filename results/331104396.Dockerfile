@@ -1,0 +1,54 @@
+[app/sources/331104396.Dockerfile]
+digraph {
+  "sha256:04187b885604d112762d71717a1346cbc4f17e131fc82857a048019e04951455" [label="docker-image://docker.io/library/ubuntu:16.04" shape="ellipse"];
+  "sha256:3d011e1580f4ea4f7b402805840b3de2b743bfdc3b965f9e56a632ae9aabc477" [label="/bin/sh -c sed -i 's/archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list" shape="box"];
+  "sha256:4c3ea024b5464ff8e11ce593c2fe5c39e9a585bd89b3303175859420701b9578" [label="/bin/sh -c ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone" shape="box"];
+  "sha256:65982605388bba508e3cb017ed8b100e995f63d802308295de5663f911b9fa7a" [label="/bin/sh -c apt-get update -y" shape="box"];
+  "sha256:2735fa5d4cb8c93a77060d66ad6ea720e4008b36b591ef109dc12b2df0fe43ff" [label="/bin/sh -c apt-get install -y curl wget" shape="box"];
+  "sha256:406f0bbd57d6dd8ab6c7ecadb730627a02b3338699a918588f8673cdcaea421b" [label="/bin/sh -c apt-get install -y nginx     php7.0-fpm" shape="box"];
+  "sha256:a9eb2b38fc73e91f9007b1a8806ffc05b887fcaebda64fd8cd1c5487ef62a36d" [label="/bin/sh -c apt-get install -y cron" shape="box"];
+  "sha256:cc4e2ba3b7c7c57750acf76fb7047817021bacd220cc165d6bf24001663f10d5" [label="/bin/sh -c echo '0 4 * * * root rm -rf /www/sandbox/*' >> /etc/crontab" shape="box"];
+  "sha256:af6ff9691e290a82f2b5de0c372665304221a677907b6cdd358bcd2a46b3429d" [label="local://context" shape="ellipse"];
+  "sha256:12704ee1107140cdbba08fcd29fac3e5c74fd7d4d98f464ebfe7ec4ee2bab3f4" [label="copy{src=/default, dest=/etc/nginx/sites-available/default}" shape="note"];
+  "sha256:477f4d2eb710fca91794f36ef016e78253d090bf5b33c1d8e29e927655ce9657" [label="copy{src=/src/index.php, dest=/var/www/html/index.php}" shape="note"];
+  "sha256:14d6de1d2b079a7a05150d515cab11aa724a0d6170b5691a3464b7cf1f8cfd5d" [label="copy{src=/db.sql, dest=/tmp/db.sql}" shape="note"];
+  "sha256:20440a1542bf78fcb5adc373a0512245fdb1d72a2b24d7b35a7a622c0277ae26" [label="copy{src=/start.sh, dest=/start.sh}" shape="note"];
+  "sha256:c0e898282a4245668ef8e90797da15b5dead14d2c0ab89f5890b475c06e94599" [label="/bin/sh -c rm /var/www/html/*.html" shape="box"];
+  "sha256:f341461007973a51b7a2a831f07c249ff8eb508d5df327b767f06e735f49768f" [label="/bin/sh -c chown -R www-data:www-data /var/www/html     && ln -s /var/www/html /html" shape="box"];
+  "sha256:604b7153a8be84bde11caa483d60bbda5471d44434174e5b057f41a020c51b46" [label="/bin/sh -c chmod a+x /start.sh" shape="box"];
+  "sha256:4b4f3ce9995156d92a4a4e9864e75fd30b0fec4b70e20b8d6e8a7a4a3c211307" [label="/bin/sh -c mkdir /www" shape="box"];
+  "sha256:5af32b397bcd139ddea92ab6549c5e23ecfed2899a9cc3d472ad8e9fd99be240" [label="/bin/sh -c mkdir /www/sandbox" shape="box"];
+  "sha256:4c9b1022b28ee0dbac5cd9814ad8171dbfc0b011faa7ee24dc99ac78ce91fb0f" [label="/bin/sh -c chown -R www-data /www/sandbox" shape="box"];
+  "sha256:644be5d269624e413642dfcc9a6e22a796189d53f2a425982bcfabb6d713752d" [label="/bin/sh -c chmod -R 775 /www/sandbox" shape="box"];
+  "sha256:45d202cad1952d7b4d96b7ced90c824bdb38c3839e0437952f4f15e138232658" [label="/bin/sh -c echo 'Flag is in the MySQL database\\nfl4444g / SugZXUtgeJ52_Bvr' > /README.txt" shape="box"];
+  "sha256:8345e1e347bf8ae3ab2b1ae16bbfb01c4e5b383767f8b6c50be4b3b3567dd929" [label="/bin/sh -c apt-get install -y php-mysql     mysql-client     mysql-server     && service mysql start     && mysqladmin -uroot password HuQ3stwHJ     && mysql -e \"source /tmp/db.sql;\"  -uroot -pHuQ3stwHJ     && rm /tmp/db.sql" shape="box"];
+  "sha256:31b9abdfef6031aaef7279a23780ed6f925b0c508ed2380aa996bca8fe1de412" [label="/bin/sh -c apt-get clean     && rm -rf /var/lib/apt/lists/*" shape="box"];
+  "sha256:ff3395d7158be5a9243b122ab86eb232e0042d69b786c6577b48baaf5c01b1be" [label="sha256:ff3395d7158be5a9243b122ab86eb232e0042d69b786c6577b48baaf5c01b1be" shape="plaintext"];
+  "sha256:04187b885604d112762d71717a1346cbc4f17e131fc82857a048019e04951455" -> "sha256:3d011e1580f4ea4f7b402805840b3de2b743bfdc3b965f9e56a632ae9aabc477" [label=""];
+  "sha256:3d011e1580f4ea4f7b402805840b3de2b743bfdc3b965f9e56a632ae9aabc477" -> "sha256:4c3ea024b5464ff8e11ce593c2fe5c39e9a585bd89b3303175859420701b9578" [label=""];
+  "sha256:4c3ea024b5464ff8e11ce593c2fe5c39e9a585bd89b3303175859420701b9578" -> "sha256:65982605388bba508e3cb017ed8b100e995f63d802308295de5663f911b9fa7a" [label=""];
+  "sha256:65982605388bba508e3cb017ed8b100e995f63d802308295de5663f911b9fa7a" -> "sha256:2735fa5d4cb8c93a77060d66ad6ea720e4008b36b591ef109dc12b2df0fe43ff" [label=""];
+  "sha256:2735fa5d4cb8c93a77060d66ad6ea720e4008b36b591ef109dc12b2df0fe43ff" -> "sha256:406f0bbd57d6dd8ab6c7ecadb730627a02b3338699a918588f8673cdcaea421b" [label=""];
+  "sha256:406f0bbd57d6dd8ab6c7ecadb730627a02b3338699a918588f8673cdcaea421b" -> "sha256:a9eb2b38fc73e91f9007b1a8806ffc05b887fcaebda64fd8cd1c5487ef62a36d" [label=""];
+  "sha256:a9eb2b38fc73e91f9007b1a8806ffc05b887fcaebda64fd8cd1c5487ef62a36d" -> "sha256:cc4e2ba3b7c7c57750acf76fb7047817021bacd220cc165d6bf24001663f10d5" [label=""];
+  "sha256:cc4e2ba3b7c7c57750acf76fb7047817021bacd220cc165d6bf24001663f10d5" -> "sha256:12704ee1107140cdbba08fcd29fac3e5c74fd7d4d98f464ebfe7ec4ee2bab3f4" [label=""];
+  "sha256:af6ff9691e290a82f2b5de0c372665304221a677907b6cdd358bcd2a46b3429d" -> "sha256:12704ee1107140cdbba08fcd29fac3e5c74fd7d4d98f464ebfe7ec4ee2bab3f4" [label=""];
+  "sha256:12704ee1107140cdbba08fcd29fac3e5c74fd7d4d98f464ebfe7ec4ee2bab3f4" -> "sha256:477f4d2eb710fca91794f36ef016e78253d090bf5b33c1d8e29e927655ce9657" [label=""];
+  "sha256:af6ff9691e290a82f2b5de0c372665304221a677907b6cdd358bcd2a46b3429d" -> "sha256:477f4d2eb710fca91794f36ef016e78253d090bf5b33c1d8e29e927655ce9657" [label=""];
+  "sha256:477f4d2eb710fca91794f36ef016e78253d090bf5b33c1d8e29e927655ce9657" -> "sha256:14d6de1d2b079a7a05150d515cab11aa724a0d6170b5691a3464b7cf1f8cfd5d" [label=""];
+  "sha256:af6ff9691e290a82f2b5de0c372665304221a677907b6cdd358bcd2a46b3429d" -> "sha256:14d6de1d2b079a7a05150d515cab11aa724a0d6170b5691a3464b7cf1f8cfd5d" [label=""];
+  "sha256:14d6de1d2b079a7a05150d515cab11aa724a0d6170b5691a3464b7cf1f8cfd5d" -> "sha256:20440a1542bf78fcb5adc373a0512245fdb1d72a2b24d7b35a7a622c0277ae26" [label=""];
+  "sha256:af6ff9691e290a82f2b5de0c372665304221a677907b6cdd358bcd2a46b3429d" -> "sha256:20440a1542bf78fcb5adc373a0512245fdb1d72a2b24d7b35a7a622c0277ae26" [label=""];
+  "sha256:20440a1542bf78fcb5adc373a0512245fdb1d72a2b24d7b35a7a622c0277ae26" -> "sha256:c0e898282a4245668ef8e90797da15b5dead14d2c0ab89f5890b475c06e94599" [label=""];
+  "sha256:c0e898282a4245668ef8e90797da15b5dead14d2c0ab89f5890b475c06e94599" -> "sha256:f341461007973a51b7a2a831f07c249ff8eb508d5df327b767f06e735f49768f" [label=""];
+  "sha256:f341461007973a51b7a2a831f07c249ff8eb508d5df327b767f06e735f49768f" -> "sha256:604b7153a8be84bde11caa483d60bbda5471d44434174e5b057f41a020c51b46" [label=""];
+  "sha256:604b7153a8be84bde11caa483d60bbda5471d44434174e5b057f41a020c51b46" -> "sha256:4b4f3ce9995156d92a4a4e9864e75fd30b0fec4b70e20b8d6e8a7a4a3c211307" [label=""];
+  "sha256:4b4f3ce9995156d92a4a4e9864e75fd30b0fec4b70e20b8d6e8a7a4a3c211307" -> "sha256:5af32b397bcd139ddea92ab6549c5e23ecfed2899a9cc3d472ad8e9fd99be240" [label=""];
+  "sha256:5af32b397bcd139ddea92ab6549c5e23ecfed2899a9cc3d472ad8e9fd99be240" -> "sha256:4c9b1022b28ee0dbac5cd9814ad8171dbfc0b011faa7ee24dc99ac78ce91fb0f" [label=""];
+  "sha256:4c9b1022b28ee0dbac5cd9814ad8171dbfc0b011faa7ee24dc99ac78ce91fb0f" -> "sha256:644be5d269624e413642dfcc9a6e22a796189d53f2a425982bcfabb6d713752d" [label=""];
+  "sha256:644be5d269624e413642dfcc9a6e22a796189d53f2a425982bcfabb6d713752d" -> "sha256:45d202cad1952d7b4d96b7ced90c824bdb38c3839e0437952f4f15e138232658" [label=""];
+  "sha256:45d202cad1952d7b4d96b7ced90c824bdb38c3839e0437952f4f15e138232658" -> "sha256:8345e1e347bf8ae3ab2b1ae16bbfb01c4e5b383767f8b6c50be4b3b3567dd929" [label=""];
+  "sha256:8345e1e347bf8ae3ab2b1ae16bbfb01c4e5b383767f8b6c50be4b3b3567dd929" -> "sha256:31b9abdfef6031aaef7279a23780ed6f925b0c508ed2380aa996bca8fe1de412" [label=""];
+  "sha256:31b9abdfef6031aaef7279a23780ed6f925b0c508ed2380aa996bca8fe1de412" -> "sha256:ff3395d7158be5a9243b122ab86eb232e0042d69b786c6577b48baaf5c01b1be" [label=""];
+}
+

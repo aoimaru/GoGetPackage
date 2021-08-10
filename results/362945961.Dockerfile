@@ -1,0 +1,50 @@
+[app/sources/362945961.Dockerfile]
+digraph {
+  "sha256:7ebacd8b2fb5d7428b857e78f2328189e7c02d9173608ef35cc7f4dd455c85d3" [label="local://context" shape="ellipse"];
+  "sha256:2f464d883466ee383abe1ea7fa364dcf93314f09d942d7115756be3197ed382d" [label="docker-image://docker.io/library/arch-devel:latest" shape="ellipse"];
+  "sha256:ddd14bbce8a83fbe646099f1aab5fdadf1328793257911cb98a36d292f3585bf" [label="/bin/sh -c svn co https://svn.code.sf.net/p/oorexx/code-0/main/trunk oorexx-code-0" shape="box"];
+  "sha256:69ac781e64ebe97d7b3d6c08135c28412a888eee8335cd9a1c615cc449690c35" [label="mkdir{path=/oorexx-code-0}" shape="note"];
+  "sha256:9c62d264b62f403fc64ccb19a465b813281600ec8c0b6521671de3110e5df5fb" [label="/bin/sh -c cmake ." shape="box"];
+  "sha256:2bccf22fda81c679862c4500077a1cf05941b836ad4dfc78172b6d91c9c0a0cc" [label="/bin/sh -c make install" shape="box"];
+  "sha256:61c456b3d05096b01a3d65c123b8a9b96b37662ecc7230098ea0651b0d486581" [label="/bin/sh -c git clone https://github.com/daniel64/lspf.git" shape="box"];
+  "sha256:2526fba3a9bdefc57a1fdef3d0b18c47af833946df35ce06bfb3524470d2c93d" [label="copy{src=/mkdirs.sh, dest=/lspf}" shape="note"];
+  "sha256:b4ab8d7fca08e96f514d38c394f48fc1d1ebd3ca27687623c58e63fb766353f5" [label="mkdir{path=/lspf}" shape="note"];
+  "sha256:b645ca06d87ac5cbdcb76df427a36a841b5d4f5bcb689b7df515fa620862d32d" [label="/bin/sh -c chmod +x mkdirs.sh" shape="box"];
+  "sha256:4a78b93b05f3fd49264ef01af0674fa19127fd63f74cb485d32c3fbc9d935004" [label="/bin/sh -c /lspf/mkdirs.sh" shape="box"];
+  "sha256:70de759192a08f7294841b6d20b13069f0fdc3ddc4cebd17cb3799093d621a05" [label="mkdir{path=/lspf/src}" shape="note"];
+  "sha256:a3d004d0eb539c32d28fa5b27d34294491868afacef86cb2487cc6bf3ac28eb0" [label="copy{src=/copypaths.sh, dest=/lspf}" shape="note"];
+  "sha256:138a4e03ce4c6f0d1629104b3b913886e8fd84662e9493df8d2a7a0239f74389" [label="/bin/sh -c sed -i 's/#define ZSYSPATH        \"\\/home\\/daniel\\/lspf\"/#define ZSYSPATH        \"\\/root\\/.lspf\"/g' lspf.h" shape="box"];
+  "sha256:12d0f90619f85c0c6b50ed04f4e85c61adfc27c260dddc42f68b0b85f817ae40" [label="/bin/sh -c ./compsetup" shape="box"];
+  "sha256:3bd9753d1ffe362548c2773be0b5cdc59480552506067c9cfec593133cf90757" [label="/bin/sh -c ./setup" shape="box"];
+  "sha256:2e4133d04d611e29218d49838f803702d3b75b92eb22197bc6c2abffb225f0d2" [label="/bin/sh -c ./comp1" shape="box"];
+  "sha256:0e72a54c81bb75f376a3a4f4b25a38e176ec12b876f6e234fc4e4989081975db" [label="mkdir{path=/lspf/src/Apps}" shape="note"];
+  "sha256:c8a8b07f2d375b617e6a7563091d4a31d6f9c6ab3298403b3268d43d17c93d09" [label="/bin/sh -c ./compapps" shape="box"];
+  "sha256:873378c03c432ac62474529ae86e0acad0b69263658b3832898832d58fa3dc7f" [label="mkdir{path=/lspf}" shape="note"];
+  "sha256:803036cf8ee53521d64455f7d0524ad930643051df9ca22d0d1d4bd68fefaf81" [label="/bin/sh -c chmod +x copypaths.sh" shape="box"];
+  "sha256:8b8023af6ce37884c06aa9b30dd5c6b058a06051c7f669001170cdc46602c3aa" [label="/bin/sh -c ./copypaths.sh" shape="box"];
+  "sha256:a33afeae35c95671c2f75176bbe2afaa7b1e4f821890aae2e5c3af56449bf00b" [label="sha256:a33afeae35c95671c2f75176bbe2afaa7b1e4f821890aae2e5c3af56449bf00b" shape="plaintext"];
+  "sha256:2f464d883466ee383abe1ea7fa364dcf93314f09d942d7115756be3197ed382d" -> "sha256:ddd14bbce8a83fbe646099f1aab5fdadf1328793257911cb98a36d292f3585bf" [label=""];
+  "sha256:ddd14bbce8a83fbe646099f1aab5fdadf1328793257911cb98a36d292f3585bf" -> "sha256:69ac781e64ebe97d7b3d6c08135c28412a888eee8335cd9a1c615cc449690c35" [label=""];
+  "sha256:69ac781e64ebe97d7b3d6c08135c28412a888eee8335cd9a1c615cc449690c35" -> "sha256:9c62d264b62f403fc64ccb19a465b813281600ec8c0b6521671de3110e5df5fb" [label=""];
+  "sha256:9c62d264b62f403fc64ccb19a465b813281600ec8c0b6521671de3110e5df5fb" -> "sha256:2bccf22fda81c679862c4500077a1cf05941b836ad4dfc78172b6d91c9c0a0cc" [label=""];
+  "sha256:2bccf22fda81c679862c4500077a1cf05941b836ad4dfc78172b6d91c9c0a0cc" -> "sha256:61c456b3d05096b01a3d65c123b8a9b96b37662ecc7230098ea0651b0d486581" [label=""];
+  "sha256:61c456b3d05096b01a3d65c123b8a9b96b37662ecc7230098ea0651b0d486581" -> "sha256:2526fba3a9bdefc57a1fdef3d0b18c47af833946df35ce06bfb3524470d2c93d" [label=""];
+  "sha256:7ebacd8b2fb5d7428b857e78f2328189e7c02d9173608ef35cc7f4dd455c85d3" -> "sha256:2526fba3a9bdefc57a1fdef3d0b18c47af833946df35ce06bfb3524470d2c93d" [label=""];
+  "sha256:2526fba3a9bdefc57a1fdef3d0b18c47af833946df35ce06bfb3524470d2c93d" -> "sha256:b4ab8d7fca08e96f514d38c394f48fc1d1ebd3ca27687623c58e63fb766353f5" [label=""];
+  "sha256:b4ab8d7fca08e96f514d38c394f48fc1d1ebd3ca27687623c58e63fb766353f5" -> "sha256:b645ca06d87ac5cbdcb76df427a36a841b5d4f5bcb689b7df515fa620862d32d" [label=""];
+  "sha256:b645ca06d87ac5cbdcb76df427a36a841b5d4f5bcb689b7df515fa620862d32d" -> "sha256:4a78b93b05f3fd49264ef01af0674fa19127fd63f74cb485d32c3fbc9d935004" [label=""];
+  "sha256:4a78b93b05f3fd49264ef01af0674fa19127fd63f74cb485d32c3fbc9d935004" -> "sha256:70de759192a08f7294841b6d20b13069f0fdc3ddc4cebd17cb3799093d621a05" [label=""];
+  "sha256:70de759192a08f7294841b6d20b13069f0fdc3ddc4cebd17cb3799093d621a05" -> "sha256:a3d004d0eb539c32d28fa5b27d34294491868afacef86cb2487cc6bf3ac28eb0" [label=""];
+  "sha256:7ebacd8b2fb5d7428b857e78f2328189e7c02d9173608ef35cc7f4dd455c85d3" -> "sha256:a3d004d0eb539c32d28fa5b27d34294491868afacef86cb2487cc6bf3ac28eb0" [label=""];
+  "sha256:a3d004d0eb539c32d28fa5b27d34294491868afacef86cb2487cc6bf3ac28eb0" -> "sha256:138a4e03ce4c6f0d1629104b3b913886e8fd84662e9493df8d2a7a0239f74389" [label=""];
+  "sha256:138a4e03ce4c6f0d1629104b3b913886e8fd84662e9493df8d2a7a0239f74389" -> "sha256:12d0f90619f85c0c6b50ed04f4e85c61adfc27c260dddc42f68b0b85f817ae40" [label=""];
+  "sha256:12d0f90619f85c0c6b50ed04f4e85c61adfc27c260dddc42f68b0b85f817ae40" -> "sha256:3bd9753d1ffe362548c2773be0b5cdc59480552506067c9cfec593133cf90757" [label=""];
+  "sha256:3bd9753d1ffe362548c2773be0b5cdc59480552506067c9cfec593133cf90757" -> "sha256:2e4133d04d611e29218d49838f803702d3b75b92eb22197bc6c2abffb225f0d2" [label=""];
+  "sha256:2e4133d04d611e29218d49838f803702d3b75b92eb22197bc6c2abffb225f0d2" -> "sha256:0e72a54c81bb75f376a3a4f4b25a38e176ec12b876f6e234fc4e4989081975db" [label=""];
+  "sha256:0e72a54c81bb75f376a3a4f4b25a38e176ec12b876f6e234fc4e4989081975db" -> "sha256:c8a8b07f2d375b617e6a7563091d4a31d6f9c6ab3298403b3268d43d17c93d09" [label=""];
+  "sha256:c8a8b07f2d375b617e6a7563091d4a31d6f9c6ab3298403b3268d43d17c93d09" -> "sha256:873378c03c432ac62474529ae86e0acad0b69263658b3832898832d58fa3dc7f" [label=""];
+  "sha256:873378c03c432ac62474529ae86e0acad0b69263658b3832898832d58fa3dc7f" -> "sha256:803036cf8ee53521d64455f7d0524ad930643051df9ca22d0d1d4bd68fefaf81" [label=""];
+  "sha256:803036cf8ee53521d64455f7d0524ad930643051df9ca22d0d1d4bd68fefaf81" -> "sha256:8b8023af6ce37884c06aa9b30dd5c6b058a06051c7f669001170cdc46602c3aa" [label=""];
+  "sha256:8b8023af6ce37884c06aa9b30dd5c6b058a06051c7f669001170cdc46602c3aa" -> "sha256:a33afeae35c95671c2f75176bbe2afaa7b1e4f821890aae2e5c3af56449bf00b" [label=""];
+}
+

@@ -1,0 +1,19 @@
+[app/sources/311154951.Dockerfile]
+digraph {
+  "sha256:fb0b5f3e3df60ee7340bd6c35ef35660fd30484802060fe6deefaf441391f4c0" [label="docker-image://docker.io/library/alpine:3.8" shape="ellipse"];
+  "sha256:1b1776dd000432e6226f83b939227a20a74d3cf3aba2dbd09f5dc9a7365dc159" [label="/bin/sh -c echo \"@testing http://nl.alpinelinux.org/alpine/edge/testing\" >> /etc/apk/repositories     && apk --update add     bash     curl     ca-certificates     libstdc++     glib     git     tini@testing     && curl \"https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub\" -o /etc/apk/keys/sgerrand.rsa.pub     && curl -L \"https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.23-r3/glibc-2.23-r3.apk\" -o glibc.apk     && apk add glibc.apk     && curl -L \"https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.23-r3/glibc-bin-2.23-r3.apk\" -o glibc-bin.apk     && apk add glibc-bin.apk     && curl -L \"https://github.com/andyshinn/alpine-pkg-glibc/releases/download/2.25-r0/glibc-i18n-2.25-r0.apk\" -o glibc-i18n.apk     && apk add --allow-untrusted glibc-i18n.apk     && /usr/glibc-compat/bin/localedef -i en_US -f UTF-8 en_US.UTF-8     && /usr/glibc-compat/sbin/ldconfig /lib /usr/glibc/usr/lib     && rm -rf glibc*apk /var/cache/apk/*" shape="box"];
+  "sha256:ddf1b052a181b1b8b7623a82bf2cc015a064ecbe8cc787ba6b234c6f5db330f7" [label="local://context" shape="ellipse"];
+  "sha256:3eebc28ce953307964f4341c2c3dbe68a395c227d65d6973164659cd4bd30e06" [label="copy{src=/, dest=/home/pyiron}" shape="note"];
+  "sha256:2f7d59dc5c1b84ba6c46aac6a3ce6f2e63030c48f3ff6d662ce682c09518dda5" [label="/bin/sh -c adduser -s ${SHELL} --disabled-password --gecos \"Default user\" -u ${PYIRON_UID} -D ${PYIRON_USER}     && mkdir -p ${CONDA_DIR}     && chown ${PYIRON_USER} ${CONDA_DIR}     && chown -R ${PYIRON_USER} ${HOME}" shape="box"];
+  "sha256:2c1d4ded2c6423caca12d57c012d12fcd7a3f07e731e1c8e57ca40199865d52a" [label="/bin/sh -c cd /tmp     && mkdir -p ${CONDA_DIR}     && curl -L ${MINICONDA_URL}  -o miniconda.sh     && echo \"${MINICONDA_MD5_SUM}  miniconda.sh\" | md5sum -c -     && ${SHELL} miniconda.sh -f -b -p ${CONDA_DIR}     && rm miniconda.sh     && ${CONDA_DIR}/bin/conda install --yes conda==${MINICONDA_VER}     && conda env update -n root -f \"${HOME}/binder/environment.yml\"     && ${SHELL} ${HOME}/binder/postBuild     && conda clean --all -y     && rm ${HOME}/Dockerfile ${HOME}/deploy.sh" shape="box"];
+  "sha256:19a49691ba39626ca2b8f5c1503d5c7b6712b16e21525b586ec7d3a42ae415e5" [label="mkdir{path=/home/pyiron}" shape="note"];
+  "sha256:71da2cba80b85db550a9e31c7e0970fefef0613889df1f15275c5c55a0eccd12" [label="sha256:71da2cba80b85db550a9e31c7e0970fefef0613889df1f15275c5c55a0eccd12" shape="plaintext"];
+  "sha256:fb0b5f3e3df60ee7340bd6c35ef35660fd30484802060fe6deefaf441391f4c0" -> "sha256:1b1776dd000432e6226f83b939227a20a74d3cf3aba2dbd09f5dc9a7365dc159" [label=""];
+  "sha256:1b1776dd000432e6226f83b939227a20a74d3cf3aba2dbd09f5dc9a7365dc159" -> "sha256:3eebc28ce953307964f4341c2c3dbe68a395c227d65d6973164659cd4bd30e06" [label=""];
+  "sha256:ddf1b052a181b1b8b7623a82bf2cc015a064ecbe8cc787ba6b234c6f5db330f7" -> "sha256:3eebc28ce953307964f4341c2c3dbe68a395c227d65d6973164659cd4bd30e06" [label=""];
+  "sha256:3eebc28ce953307964f4341c2c3dbe68a395c227d65d6973164659cd4bd30e06" -> "sha256:2f7d59dc5c1b84ba6c46aac6a3ce6f2e63030c48f3ff6d662ce682c09518dda5" [label=""];
+  "sha256:2f7d59dc5c1b84ba6c46aac6a3ce6f2e63030c48f3ff6d662ce682c09518dda5" -> "sha256:2c1d4ded2c6423caca12d57c012d12fcd7a3f07e731e1c8e57ca40199865d52a" [label=""];
+  "sha256:2c1d4ded2c6423caca12d57c012d12fcd7a3f07e731e1c8e57ca40199865d52a" -> "sha256:19a49691ba39626ca2b8f5c1503d5c7b6712b16e21525b586ec7d3a42ae415e5" [label=""];
+  "sha256:19a49691ba39626ca2b8f5c1503d5c7b6712b16e21525b586ec7d3a42ae415e5" -> "sha256:71da2cba80b85db550a9e31c7e0970fefef0613889df1f15275c5c55a0eccd12" [label=""];
+}
+

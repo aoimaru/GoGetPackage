@@ -1,0 +1,19 @@
+[app/sources/443335339.Dockerfile]
+digraph {
+  "sha256:0a5f349eacf4edfd2fc1577c637ef52a2ed3280d9d5c0ab7f2e4c4052e7d6c9f" [label="docker-image://docker.io/library/ubuntu:latest" shape="ellipse"];
+  "sha256:fd1f7551bac8d40dad91baf6d02767403e4000108c8f26d5391a3d52118ce220" [label="/bin/sh -c apt-get update &&     apt-get -y install sudo openssh-server procps wget unzip mc curl subversion nmap software-properties-common python-software-properties &&     mkdir /var/run/sshd &&     sed 's@session\\s*required\\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd &&     echo \"%sudo ALL=(ALL) NOPASSWD: ALL\" >> /etc/sudoers &&     useradd -u 1000 -G users,sudo -d /home/user --shell /bin/bash -m user &&     echo \"secret\\nsecret\" | passwd user &&     add-apt-repository ppa:git-core/ppa &&     apt-get update &&     sudo apt-get install git -y &&     apt-get clean &&     apt-get -y autoremove &&     rm -rf /var/lib/apt/lists/*" shape="box"];
+  "sha256:af4f0765717051ccda72ab5b164bf9b086079bfb09365badff99924d95a66750" [label="/bin/sh -c mkdir /home/user/apache-maven-$MAVEN_VERSION &&   wget   --no-cookies   --no-check-certificate   --header \"Cookie: oraclelicense=accept-securebackup-cookie\"   -qO-   \"http://download.oracle.com/otn-pub/java/jdk/$JAVA_VERSION-b14/jdk-$JAVA_VERSION-linux-x64.tar.gz\" | sudo tar -zx -C /opt/ &&   wget -qO- \"http://apache.ip-connect.vn.ua/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz\" | tar -zx --strip-components=1 -C /home/user/apache-maven-$MAVEN_VERSION/" shape="box"];
+  "sha256:1c1dd863be50fb7f2b428f81972bee262e42bebf953b5f561c42e129b1d7c080" [label="/bin/sh -c cd /home/user     && curl -O https://download.jboss.org/wildfly/$WILDFLY_VERSION/wildfly-$WILDFLY_VERSION.tar.gz &&     tar xf wildfly-$WILDFLY_VERSION.tar.gz     && rm wildfly-$WILDFLY_VERSION.tar.gz &&     sed -i 's/127.0.0.1/0.0.0.0/g' /home/user/wildfly-$WILDFLY_VERSION/standalone/configuration/standalone.xml" shape="box"];
+  "sha256:2714b3dc8e7978175bdeca8e32257f4e4e8cfa171a448eaa93a0edf23033cbe0" [label="/bin/sh -c sudo locale-gen en_US.UTF-8" shape="box"];
+  "sha256:5eb91df7694dad85b95f4525318a1479c40838d4a6450940114253ff91941144" [label="/bin/sh -c echo \"export JAVA_HOME=/opt/jdk$JAVA_VERSION_PREFIX\\nexport M2_HOME=/home/user/apache-maven-$MAVEN_VERSION\\nexport PATH=$JAVA_HOME/bin:$M2_HOME/bin:$PATH\" >> /home/user/.bashrc" shape="box"];
+  "sha256:16924a8bb08a528bd2ffaf31d22c7c553acecd9dab10d1bb44cfb863fde13952" [label="mkdir{path=/projects}" shape="note"];
+  "sha256:dd4dba9e5f9662346a1a72ecaddda4bb1814b81cb2dfc8bac0c5c09ce309f546" [label="sha256:dd4dba9e5f9662346a1a72ecaddda4bb1814b81cb2dfc8bac0c5c09ce309f546" shape="plaintext"];
+  "sha256:0a5f349eacf4edfd2fc1577c637ef52a2ed3280d9d5c0ab7f2e4c4052e7d6c9f" -> "sha256:fd1f7551bac8d40dad91baf6d02767403e4000108c8f26d5391a3d52118ce220" [label=""];
+  "sha256:fd1f7551bac8d40dad91baf6d02767403e4000108c8f26d5391a3d52118ce220" -> "sha256:af4f0765717051ccda72ab5b164bf9b086079bfb09365badff99924d95a66750" [label=""];
+  "sha256:af4f0765717051ccda72ab5b164bf9b086079bfb09365badff99924d95a66750" -> "sha256:1c1dd863be50fb7f2b428f81972bee262e42bebf953b5f561c42e129b1d7c080" [label=""];
+  "sha256:1c1dd863be50fb7f2b428f81972bee262e42bebf953b5f561c42e129b1d7c080" -> "sha256:2714b3dc8e7978175bdeca8e32257f4e4e8cfa171a448eaa93a0edf23033cbe0" [label=""];
+  "sha256:2714b3dc8e7978175bdeca8e32257f4e4e8cfa171a448eaa93a0edf23033cbe0" -> "sha256:5eb91df7694dad85b95f4525318a1479c40838d4a6450940114253ff91941144" [label=""];
+  "sha256:5eb91df7694dad85b95f4525318a1479c40838d4a6450940114253ff91941144" -> "sha256:16924a8bb08a528bd2ffaf31d22c7c553acecd9dab10d1bb44cfb863fde13952" [label=""];
+  "sha256:16924a8bb08a528bd2ffaf31d22c7c553acecd9dab10d1bb44cfb863fde13952" -> "sha256:dd4dba9e5f9662346a1a72ecaddda4bb1814b81cb2dfc8bac0c5c09ce309f546" [label=""];
+}
+

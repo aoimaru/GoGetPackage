@@ -1,0 +1,51 @@
+[app/sources/236689730.Dockerfile]
+digraph {
+  "sha256:9d98f57d4d21069746fee6d8fe1ba79b9ca0925044a7df6c3936a3f4c309432c" [label="local://context" shape="ellipse"];
+  "sha256:eccdc23ae33ff032265281cdcd61b6bcb08837a6e55df3e7dcb5aef332534337" [label="docker-image://docker.io/library/centos:7" shape="ellipse"];
+  "sha256:be435a32f32ab82b99ab42aae0425346fcf222286949e15ab0a788a68774e7cb" [label="/bin/sh -c set -e &&     if [ $USE_NCWMS = \"true\" ];then echo \"NCWMS: ENABLED\"; else echo \"NCWMS: DISABLED\"; fi" shape="box"];
+  "sha256:c75ecfdcfb01f43b4ef25eebfacdd1ac6fff3c7269b9002314dcec3afb8beb76" [label="/bin/sh -c set -e &&     if [ $DEVELOPER_MODE = \"true\" ];then echo \"DEVELOPER_MODE: ENABLED\"; else echo \"DEVELOPER_MODE: DISABLED\"; fi" shape="box"];
+  "sha256:a79d9999a4e5c4ac6a696db581d9e7c23dce95bfcee00acf1ff859f8b041c962" [label="/bin/sh -c set -e     && yum -y install        tomcat        unzip         which     && yum -y update     && yum clean all" shape="box"];
+  "sha256:b38c3a35050b4169e66c6a047d597ae78dcafc28b301bdb05646d6e5f097f0e3" [label="/bin/sh -c echo \"CATALINA_HOME: $CATALINA_HOME\"" shape="box"];
+  "sha256:fcea6d1e019b4a2a3c110cbc9e8043d96fb28a5fc71d6eade8da805a930f5f00" [label="/bin/sh -c echo \"Adding OPeNDAP Public Security Key\"" shape="box"];
+  "sha256:cc6bbc249e793e1b6f5cb4f9bda0153d82890d6dae348a22b47834a0f01d4c56" [label="/bin/sh -c set -e     && curl -s $OPENDAP_PUBLIC_KEY_URL > $OPENDAP_PUBLIC_KEY_FILE     && gpg --import $OPENDAP_PUBLIC_KEY_FILE" shape="box"];
+  "sha256:6126dca7d98be493d4aa6ed009d06dd57d4edd9d251b13bcdd80b635a1df1d89" [label="/bin/sh -c set -e     && echo \"Retrieving, verifying, and installing libdap. rpm: $LIBDAP_RPM\"     && curl -s $LIBDAP_RPM > ./libdap.rpm     && curl -s $LIBDAP_RPM.sig > ./libdap.rpm.sig     && gpg -v --verify ./libdap.rpm.sig ./libdap.rpm     && ls -l ./libdap*     && yum -y install ./libdap.rpm     && rm -f libdap.*" shape="box"];
+  "sha256:d3655bd7037bc3dcc9c9d9dff7b075ac2a8411026667e5f584a775cfcd112051" [label="/bin/sh -c set -e     && echo \"Retrieving, verifying, and installing besd. rpm: $BES_RPM\"     && curl -s ${BES_RPM} > ./bes.rpm     && curl -s ${BES_RPM}.sig > ./bes.rpm.sig     && gpg -v --verify ./bes.rpm.sig ./bes.rpm     && ls -l ./bes*     && yum -y install ./bes.rpm     && rm -f bes.*" shape="box"];
+  "sha256:12a1ebac5f4ae5b2626e8a7b618d89d02701d9358e6b2a36189487116d6d1ea6" [label="/bin/sh -c echo \"besdaemon is here: \"`which besdaemon`" shape="box"];
+  "sha256:f9c98d2cec4e0951fe3f91b1b0a69c19397819528eee121452334b251b48f66c" [label="/bin/sh -c set -e     && echo \"Retrieving And Installing OLFS-${OLFS_VERSION}\"     && curl -sfSL ${OLFS_WAR_URL} > olfs-${OLFS_VERSION}.tgz     && curl -sfSL ${OLFS_WAR_URL}.sig > olfs-${OLFS_VERSION}.tgz.sig     && echo \"Verifying tarball...\"     && gpg --verify olfs-${OLFS_VERSION}.tgz.sig olfs-${OLFS_VERSION}.tgz     && echo \"Unpacking tarball...\"     && tar -C /dev/shm -xzf olfs-${OLFS_VERSION}.tgz     && echo \"Unpacking warfile...\"     && unzip -o /dev/shm/olfs-${OLFS_VERSION}-webapp/opendap.war -d ${CATALINA_HOME}/webapps/opendap/     && echo \"Cleaning up.\"     && rm -rf /dev/shm/* olfs-${OLFS_VERSION}.tgz*" shape="box"];
+  "sha256:651934b84cdf4c4c50136b2dd4eb80e9ea2d3aa360a6285b9bd11d75ae9bc10d" [label="/bin/sh -c set -e     && mkdir -p ${CATALINA_HOME}/webapps/opendap/WEB-INF/conf/logs     && chown -R tomcat:tomcat ${CATALINA_HOME}/webapps/opendap/WEB-INF/conf/logs     && chmod 700 ${CATALINA_HOME}/webapps/opendap/WEB-INF/conf/logs" shape="box"];
+  "sha256:abb375375d78c2bae26521dd38e581af4858ad47ac15eaba1ea21554b25beff2" [label="/bin/sh -c set -e     && if [ $USE_NCWMS = \"true\" ]; then         echo \"Installing ncWMS...\";         curl -sfSL ${NCWMS_WAR_URL} -o /dev/shm/ncWMS.war;         unzip -o /dev/shm/ncWMS.war -d ${CATALINA_HOME}/webapps/ncWMS2/;         rm -rf /dev/shm/*;     else         echo \"ncWMS will NOT be installed.\";     fi" shape="box"];
+  "sha256:0089b12a060709fec625c7861d5f5d50426c89809f3dc5feb0478650d6f970a2" [label="/bin/sh -c set -e     && if [ ${DEVELOPER_MODE} = \"true\" ] && [ $USE_NCWMS = \"true\" ]; then         echo \"DEVELOPER MODE: Adding ncWMS admin credentials\";         sed -i 'sX</tomcat-users>X<role rolename=\"ncWMS-admin\"/> <user username=\"admin\" password=\"admin\" roles=\"ncWMS-admin\"/> </tomcat-users>X' ${CATALINA_HOME}/conf/tomcat-users.xml;     else         echo \"No ncWMS admin credentials installed.\";     fi" shape="box"];
+  "sha256:ec858e650cb0f9f1912463cba4d6afca5161f5c484900992b134eec7bc874b33" [label="copy{src=/ncWMS_config.xml, dest=/root/.ncWMS2/config.xml}" shape="note"];
+  "sha256:4e415b070c5fd6c568ae7bf574ae9d5369b9658aae7cfac6c939605aef01431a" [label="/bin/sh -c chmod +r /root/.ncWMS2/config.xml" shape="box"];
+  "sha256:42163170bfba201936a744ce8f62ca9e8e567246a7a7041b6da98e0b01bbcf13" [label="copy{src=/olfs_viewers.xml, dest=/tmp/olfs_viewers.xml}" shape="note"];
+  "sha256:fa37522836a8a17cd8d0087ab0d234ca91471b8b9341b7bc153ca72bf7e5d400" [label="/bin/sh -c set -e     && if [ $USE_NCWMS = \"true\" ]; then         mv /tmp/olfs_viewers.xml ${CATALINA_HOME}/webapps/opendap/WEB-INF/conf/viewers.xml;     else         echo \"Skipping OLFS/ncWMS confguration installation.\";     fi" shape="box"];
+  "sha256:88372ae2e2f87938f07057e9d97c635dd16192e314d43885164ce6107c4c7b14" [label="copy{src=/entrypoint.sh, dest=/}" shape="note"];
+  "sha256:568efc64ddf677d3bfb0ad6fe8ea69aa5f4710afaa2600f477371582986a22a5" [label="/bin/sh -c set -e && chmod +x /entrypoint.sh" shape="box"];
+  "sha256:71e361aa33bdd770d5a66fc019af6d8360c0bd0f2cc7aa3d48091733ba7f263f" [label="/bin/sh -c set -e && chown -R bes /etc/bes" shape="box"];
+  "sha256:4c55be08c1dd37a92e9047b4af691584470547ea1f3c32bf54908f3cdbd5ec75" [label="sha256:4c55be08c1dd37a92e9047b4af691584470547ea1f3c32bf54908f3cdbd5ec75" shape="plaintext"];
+  "sha256:eccdc23ae33ff032265281cdcd61b6bcb08837a6e55df3e7dcb5aef332534337" -> "sha256:be435a32f32ab82b99ab42aae0425346fcf222286949e15ab0a788a68774e7cb" [label=""];
+  "sha256:be435a32f32ab82b99ab42aae0425346fcf222286949e15ab0a788a68774e7cb" -> "sha256:c75ecfdcfb01f43b4ef25eebfacdd1ac6fff3c7269b9002314dcec3afb8beb76" [label=""];
+  "sha256:c75ecfdcfb01f43b4ef25eebfacdd1ac6fff3c7269b9002314dcec3afb8beb76" -> "sha256:a79d9999a4e5c4ac6a696db581d9e7c23dce95bfcee00acf1ff859f8b041c962" [label=""];
+  "sha256:a79d9999a4e5c4ac6a696db581d9e7c23dce95bfcee00acf1ff859f8b041c962" -> "sha256:b38c3a35050b4169e66c6a047d597ae78dcafc28b301bdb05646d6e5f097f0e3" [label=""];
+  "sha256:b38c3a35050b4169e66c6a047d597ae78dcafc28b301bdb05646d6e5f097f0e3" -> "sha256:fcea6d1e019b4a2a3c110cbc9e8043d96fb28a5fc71d6eade8da805a930f5f00" [label=""];
+  "sha256:fcea6d1e019b4a2a3c110cbc9e8043d96fb28a5fc71d6eade8da805a930f5f00" -> "sha256:cc6bbc249e793e1b6f5cb4f9bda0153d82890d6dae348a22b47834a0f01d4c56" [label=""];
+  "sha256:cc6bbc249e793e1b6f5cb4f9bda0153d82890d6dae348a22b47834a0f01d4c56" -> "sha256:6126dca7d98be493d4aa6ed009d06dd57d4edd9d251b13bcdd80b635a1df1d89" [label=""];
+  "sha256:6126dca7d98be493d4aa6ed009d06dd57d4edd9d251b13bcdd80b635a1df1d89" -> "sha256:d3655bd7037bc3dcc9c9d9dff7b075ac2a8411026667e5f584a775cfcd112051" [label=""];
+  "sha256:d3655bd7037bc3dcc9c9d9dff7b075ac2a8411026667e5f584a775cfcd112051" -> "sha256:12a1ebac5f4ae5b2626e8a7b618d89d02701d9358e6b2a36189487116d6d1ea6" [label=""];
+  "sha256:12a1ebac5f4ae5b2626e8a7b618d89d02701d9358e6b2a36189487116d6d1ea6" -> "sha256:f9c98d2cec4e0951fe3f91b1b0a69c19397819528eee121452334b251b48f66c" [label=""];
+  "sha256:f9c98d2cec4e0951fe3f91b1b0a69c19397819528eee121452334b251b48f66c" -> "sha256:651934b84cdf4c4c50136b2dd4eb80e9ea2d3aa360a6285b9bd11d75ae9bc10d" [label=""];
+  "sha256:651934b84cdf4c4c50136b2dd4eb80e9ea2d3aa360a6285b9bd11d75ae9bc10d" -> "sha256:abb375375d78c2bae26521dd38e581af4858ad47ac15eaba1ea21554b25beff2" [label=""];
+  "sha256:abb375375d78c2bae26521dd38e581af4858ad47ac15eaba1ea21554b25beff2" -> "sha256:0089b12a060709fec625c7861d5f5d50426c89809f3dc5feb0478650d6f970a2" [label=""];
+  "sha256:0089b12a060709fec625c7861d5f5d50426c89809f3dc5feb0478650d6f970a2" -> "sha256:ec858e650cb0f9f1912463cba4d6afca5161f5c484900992b134eec7bc874b33" [label=""];
+  "sha256:9d98f57d4d21069746fee6d8fe1ba79b9ca0925044a7df6c3936a3f4c309432c" -> "sha256:ec858e650cb0f9f1912463cba4d6afca5161f5c484900992b134eec7bc874b33" [label=""];
+  "sha256:ec858e650cb0f9f1912463cba4d6afca5161f5c484900992b134eec7bc874b33" -> "sha256:4e415b070c5fd6c568ae7bf574ae9d5369b9658aae7cfac6c939605aef01431a" [label=""];
+  "sha256:4e415b070c5fd6c568ae7bf574ae9d5369b9658aae7cfac6c939605aef01431a" -> "sha256:42163170bfba201936a744ce8f62ca9e8e567246a7a7041b6da98e0b01bbcf13" [label=""];
+  "sha256:9d98f57d4d21069746fee6d8fe1ba79b9ca0925044a7df6c3936a3f4c309432c" -> "sha256:42163170bfba201936a744ce8f62ca9e8e567246a7a7041b6da98e0b01bbcf13" [label=""];
+  "sha256:42163170bfba201936a744ce8f62ca9e8e567246a7a7041b6da98e0b01bbcf13" -> "sha256:fa37522836a8a17cd8d0087ab0d234ca91471b8b9341b7bc153ca72bf7e5d400" [label=""];
+  "sha256:fa37522836a8a17cd8d0087ab0d234ca91471b8b9341b7bc153ca72bf7e5d400" -> "sha256:88372ae2e2f87938f07057e9d97c635dd16192e314d43885164ce6107c4c7b14" [label=""];
+  "sha256:9d98f57d4d21069746fee6d8fe1ba79b9ca0925044a7df6c3936a3f4c309432c" -> "sha256:88372ae2e2f87938f07057e9d97c635dd16192e314d43885164ce6107c4c7b14" [label=""];
+  "sha256:88372ae2e2f87938f07057e9d97c635dd16192e314d43885164ce6107c4c7b14" -> "sha256:568efc64ddf677d3bfb0ad6fe8ea69aa5f4710afaa2600f477371582986a22a5" [label=""];
+  "sha256:568efc64ddf677d3bfb0ad6fe8ea69aa5f4710afaa2600f477371582986a22a5" -> "sha256:71e361aa33bdd770d5a66fc019af6d8360c0bd0f2cc7aa3d48091733ba7f263f" [label=""];
+  "sha256:71e361aa33bdd770d5a66fc019af6d8360c0bd0f2cc7aa3d48091733ba7f263f" -> "sha256:4c55be08c1dd37a92e9047b4af691584470547ea1f3c32bf54908f3cdbd5ec75" [label=""];
+}
+

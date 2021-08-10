@@ -1,0 +1,55 @@
+[app/sources/282957821.Dockerfile]
+digraph {
+  "sha256:05938f429b7dfb1122bf71fe6972856ff703cf624c7793cc56001db80b798bc3" [label="local://context" shape="ellipse"];
+  "sha256:af5238a484554daa2565f0f27221b8400e3d0a1d12b968300826b6525fd0173a" [label="docker-image://docker.io/johnshine/crossover-vnc:latest" shape="ellipse"];
+  "sha256:39538e4afa2a7d7fd596b460da7fbed72d659d1cae436b1d5fc76f404d874af2" [label="/bin/sh -c yum check-update -y ;     yum install -y --setopt=tsflags=nodocs libv4l.i686 fontconfig.i686 libXcomposite.i686 libXinerama.i686 libgphoto2.i686 libxml2.i686 libxslt.i686 openldap.i686 sane-backends-libs.i686 mesa-dri-drivers.i686 isdn4k-utils.i686 gsm.i686 gstreamer-plugins-base.i686 lcms2.i686 mesa-libOSMesa.i686 libtiff.i686 gnutls.i686 glibc.i686 zlib.i686 freetype.i686 libgcc.i686 libXext.i686 alsa-lib.i686 cups-libs.i686 libXcursor.i686 libXi.i686 libXrandr.i686 libXrender.i686 libXxf86vm.i686 openssl.i686 libpng.i686 libX11.i686 mesa-libGL.i686 freetype.x86_64 glibc.x86_64 libICE.i686 libICE.x86_64 libSM.i686 libSM.x86_64 libX11.x86_64 libXext.x86_64 libgcc.x86_64 libpng.x86_64 nss-mdns.i686 nss-mdns.x86_64 pygtk2 zlib.x86_64 wqy-microhei-fonts &&     yum clean all && rm -rf /var/cache/yum/*" shape="box"];
+  "sha256:417e1a66fae64975ee3df764929dcfe2f170eb69f713f8a5e2410ea98bc3aab0" [label="/bin/sh -c ln -s /usr/lib/libtiff.so.5.2.0 /usr/lib/libtiff.so.4 &&     ln -s /usr/lib/libOSMesa.so.8.0.0 /usr/lib/libOSMesa.so.6" shape="box"];
+  "sha256:51c9a1c3c6324693068f9287bbde6476afebce36c38d9ea183b65181142ff9f0" [label="/bin/sh -c wget https://raw.githubusercontent.com/john-shine/Docker-CodeWeavers_CrossOver-VNC/master/BaiduNetdisk/installers/rpm/mpg123-libs-1.23.6-2.sdl7.i686.rpm -O /tmp/mpg123-libs-1.23.6-2.sdl7.i686.rpm && yum localinstall -y --nogpgcheck /tmp/mpg123-libs-1.23.6-2.sdl7.i686.rpm && rm -f /tmp/mpg123-libs-1.23.6-2.sdl7.i686.rpm ;     wget https://raw.githubusercontent.com/john-shine/Docker-CodeWeavers_CrossOver-VNC/master/BaiduNetdisk/installers/rpm/openal-soft-1.16.0-2.sdl7.i686.rpm -O /tmp/openal-soft-1.16.0-2.sdl7.i686.rpm && yum localinstall -y --nogpgcheck /tmp/openal-soft-1.16.0-2.sdl7.i686.rpm && rm -f /tmp/openal-soft-1.16.0-2.sdl7.i686.rpm" shape="box"];
+  "sha256:6963133c115e7d58ff3513cea377620630a7898c08c58d8768fb2b3ca44a3802" [label="copy{src=/entrypoint.sh, dest=/entrypoint.sh}" shape="note"];
+  "sha256:0dafc3c80a82caf78653a56e2278930245045361a32f6526fc9bfb085aaa2cb3" [label="/bin/sh -c chmod +x /entrypoint.sh" shape="box"];
+  "sha256:0c84e0f98fdb77b76045b086ee149c077e4b422708227a368fffa518e4de253c" [label="/bin/sh -c yum install -y --setopt=tsflags=nodocs kde-l10n-Chinese telnet &&     yum reinstall -y glibc-common &&     localedef -c -f UTF-8 -i zh_CN zh_CN.utf8" shape="box"];
+  "sha256:1d53ab885233cf80f05bdf26e823cba5048008b87e10124811df3b13548138d2" [label="copy{src=/xstartup, dest=/.vnc/}" shape="note"];
+  "sha256:95fc7049932368076f8fd324263f49c3af5ec98439a9294278082f849097571a" [label="/bin/sh -c sudo chown ${UID}:${GID} ${HOME}/.vnc/xstartup && chmod +x ${HOME}/.vnc/xstartup" shape="box"];
+  "sha256:16bb2fab585510ac2314cdf78dd2fec6ddf420b01111a7e445c1adb91520cfd5" [label="copy{src=/Init.sh, dest=/.cxoffice/Init.sh}" shape="note"];
+  "sha256:50fc4b8becc9b9c2500b6e1fae47c1329a9272cfc75e071fb1368c5167e03bf3" [label="copy{src=/fonts, dest=/tmp/fonts/}" shape="note"];
+  "sha256:d1223b6c42aee8152fc6183c947a05f40c0003b70991bad23653adb7629c1b0d" [label="copy{src=/installers, dest=/tmp/installers}" shape="note"];
+  "sha256:32d744164f34f642f4c690b2cd39e653399952000f95d8ff08dc6a14dbbb43a3" [label="/bin/sh -c /bin/echo -e \"export DISPLAY=${DISPLAY}\"  >> ${HOME}/.vnc/xstartup" shape="box"];
+  "sha256:3d0d2c8955cba0b1e5124c2d06e4ba7c5e32ec3de5f887e8cd0e055133c3c4a3" [label="/bin/sh -c /bin/echo -e \"[ -r ${HOME}/.Xresources ] && xrdb ${HOME}/.Xresources\\nxsetroot -solid grey\"  >> ${HOME}/.vnc/xstartup" shape="box"];
+  "sha256:11b49ece0a13cd6f9d74ad528bb7be1706a00cf6957b3f335f0a839687253c63" [label="/bin/sh -c cp ${HOME}/.vnc/xstartup ${HOME}/.vnc/xstartup_after" shape="box"];
+  "sha256:aa57b2a863f9f29440359071e4ffb2c3d265dcf95cb89614939fc1d051fbb636" [label="/bin/sh -c /bin/echo -e \"xterm -maximized -font -*-*-medium-r-*-*-18-*-*-*-*-*-iso8859-* -e ${HOME}/.cxoffice/Init.sh\" >> ${HOME}/.vnc/xstartup" shape="box"];
+  "sha256:d9f91fa6185d23baabd69c6ef4783efe2afd73ec1ee889ed912fe254a808c0a9" [label="/bin/sh -c /bin/echo -e \"sudo mkdir -p /mnt/drive_d/BaiduNetdiskDownload\" >> ${HOME}/.vnc/xstartup_after" shape="box"];
+  "sha256:c345bec1eaab004616f60d315ecb5fd30634f99f26e5ca67345a037687687141" [label="/bin/sh -c /bin/echo -e \"sudo chown -R ${UID}:${GID} /mnt/drive_d; sudo chmod -R 755 /mnt/drive_d\" >> ${HOME}/.vnc/xstartup_after" shape="box"];
+  "sha256:00aa4db226a8ab10544e3ed3e343ff0c0fd00334448cc21eb53144d0da8311d0" [label="/bin/sh -c /bin/echo -e \"ln -snf /mnt/drive_d/BaiduNetdiskDownload ${HOME}/BaiduNetdiskDownload\" >> ${HOME}/.vnc/xstartup_after" shape="box"];
+  "sha256:677e4000eb2fe863f6e2e689d4f68fa39da33aa11e7112985493fe5291605219" [label="/bin/sh -c /bin/echo -e \"ln -snf /mnt/drive_d/BaiduNetdiskDownload ${HOME}/.cxoffice/${BOTTLE}/drive_c/BaiduNetdiskDownload\" >> ${HOME}/.vnc/xstartup_after" shape="box"];
+  "sha256:5fa81e88d2b7706ac8197fae96ff2847d2b6091d39d7a47844718a1978821593" [label="/bin/sh -c /bin/echo -e \"wine --bottle ${BOTTLE} \\\"c:\\\\\\\\\\\\\\\\Program Files\\\\\\\\\\\\\\\\BaiduNetdisk\\\\\\\\\\\\\\\\baidunetdisk.exe\\\"\" >> ${HOME}/.vnc/xstartup_after" shape="box"];
+  "sha256:753673df9f6415e20d177553e5adf27586098611d81e5e8b16d22cca63b97134" [label="/bin/sh -c /bin/echo -e \"tail -f /dev/null\" >> ${HOME}/.vnc/xstartup_after" shape="box"];
+  "sha256:b3189f52d0f8f11560a43b3429340fc1f9cffbbe3806fffee5f2b8046f8b676e" [label="sha256:b3189f52d0f8f11560a43b3429340fc1f9cffbbe3806fffee5f2b8046f8b676e" shape="plaintext"];
+  "sha256:af5238a484554daa2565f0f27221b8400e3d0a1d12b968300826b6525fd0173a" -> "sha256:39538e4afa2a7d7fd596b460da7fbed72d659d1cae436b1d5fc76f404d874af2" [label=""];
+  "sha256:39538e4afa2a7d7fd596b460da7fbed72d659d1cae436b1d5fc76f404d874af2" -> "sha256:417e1a66fae64975ee3df764929dcfe2f170eb69f713f8a5e2410ea98bc3aab0" [label=""];
+  "sha256:417e1a66fae64975ee3df764929dcfe2f170eb69f713f8a5e2410ea98bc3aab0" -> "sha256:51c9a1c3c6324693068f9287bbde6476afebce36c38d9ea183b65181142ff9f0" [label=""];
+  "sha256:51c9a1c3c6324693068f9287bbde6476afebce36c38d9ea183b65181142ff9f0" -> "sha256:6963133c115e7d58ff3513cea377620630a7898c08c58d8768fb2b3ca44a3802" [label=""];
+  "sha256:05938f429b7dfb1122bf71fe6972856ff703cf624c7793cc56001db80b798bc3" -> "sha256:6963133c115e7d58ff3513cea377620630a7898c08c58d8768fb2b3ca44a3802" [label=""];
+  "sha256:6963133c115e7d58ff3513cea377620630a7898c08c58d8768fb2b3ca44a3802" -> "sha256:0dafc3c80a82caf78653a56e2278930245045361a32f6526fc9bfb085aaa2cb3" [label=""];
+  "sha256:0dafc3c80a82caf78653a56e2278930245045361a32f6526fc9bfb085aaa2cb3" -> "sha256:0c84e0f98fdb77b76045b086ee149c077e4b422708227a368fffa518e4de253c" [label=""];
+  "sha256:0c84e0f98fdb77b76045b086ee149c077e4b422708227a368fffa518e4de253c" -> "sha256:1d53ab885233cf80f05bdf26e823cba5048008b87e10124811df3b13548138d2" [label=""];
+  "sha256:05938f429b7dfb1122bf71fe6972856ff703cf624c7793cc56001db80b798bc3" -> "sha256:1d53ab885233cf80f05bdf26e823cba5048008b87e10124811df3b13548138d2" [label=""];
+  "sha256:1d53ab885233cf80f05bdf26e823cba5048008b87e10124811df3b13548138d2" -> "sha256:95fc7049932368076f8fd324263f49c3af5ec98439a9294278082f849097571a" [label=""];
+  "sha256:95fc7049932368076f8fd324263f49c3af5ec98439a9294278082f849097571a" -> "sha256:16bb2fab585510ac2314cdf78dd2fec6ddf420b01111a7e445c1adb91520cfd5" [label=""];
+  "sha256:05938f429b7dfb1122bf71fe6972856ff703cf624c7793cc56001db80b798bc3" -> "sha256:16bb2fab585510ac2314cdf78dd2fec6ddf420b01111a7e445c1adb91520cfd5" [label=""];
+  "sha256:16bb2fab585510ac2314cdf78dd2fec6ddf420b01111a7e445c1adb91520cfd5" -> "sha256:50fc4b8becc9b9c2500b6e1fae47c1329a9272cfc75e071fb1368c5167e03bf3" [label=""];
+  "sha256:05938f429b7dfb1122bf71fe6972856ff703cf624c7793cc56001db80b798bc3" -> "sha256:50fc4b8becc9b9c2500b6e1fae47c1329a9272cfc75e071fb1368c5167e03bf3" [label=""];
+  "sha256:50fc4b8becc9b9c2500b6e1fae47c1329a9272cfc75e071fb1368c5167e03bf3" -> "sha256:d1223b6c42aee8152fc6183c947a05f40c0003b70991bad23653adb7629c1b0d" [label=""];
+  "sha256:05938f429b7dfb1122bf71fe6972856ff703cf624c7793cc56001db80b798bc3" -> "sha256:d1223b6c42aee8152fc6183c947a05f40c0003b70991bad23653adb7629c1b0d" [label=""];
+  "sha256:d1223b6c42aee8152fc6183c947a05f40c0003b70991bad23653adb7629c1b0d" -> "sha256:32d744164f34f642f4c690b2cd39e653399952000f95d8ff08dc6a14dbbb43a3" [label=""];
+  "sha256:32d744164f34f642f4c690b2cd39e653399952000f95d8ff08dc6a14dbbb43a3" -> "sha256:3d0d2c8955cba0b1e5124c2d06e4ba7c5e32ec3de5f887e8cd0e055133c3c4a3" [label=""];
+  "sha256:3d0d2c8955cba0b1e5124c2d06e4ba7c5e32ec3de5f887e8cd0e055133c3c4a3" -> "sha256:11b49ece0a13cd6f9d74ad528bb7be1706a00cf6957b3f335f0a839687253c63" [label=""];
+  "sha256:11b49ece0a13cd6f9d74ad528bb7be1706a00cf6957b3f335f0a839687253c63" -> "sha256:aa57b2a863f9f29440359071e4ffb2c3d265dcf95cb89614939fc1d051fbb636" [label=""];
+  "sha256:aa57b2a863f9f29440359071e4ffb2c3d265dcf95cb89614939fc1d051fbb636" -> "sha256:d9f91fa6185d23baabd69c6ef4783efe2afd73ec1ee889ed912fe254a808c0a9" [label=""];
+  "sha256:d9f91fa6185d23baabd69c6ef4783efe2afd73ec1ee889ed912fe254a808c0a9" -> "sha256:c345bec1eaab004616f60d315ecb5fd30634f99f26e5ca67345a037687687141" [label=""];
+  "sha256:c345bec1eaab004616f60d315ecb5fd30634f99f26e5ca67345a037687687141" -> "sha256:00aa4db226a8ab10544e3ed3e343ff0c0fd00334448cc21eb53144d0da8311d0" [label=""];
+  "sha256:00aa4db226a8ab10544e3ed3e343ff0c0fd00334448cc21eb53144d0da8311d0" -> "sha256:677e4000eb2fe863f6e2e689d4f68fa39da33aa11e7112985493fe5291605219" [label=""];
+  "sha256:677e4000eb2fe863f6e2e689d4f68fa39da33aa11e7112985493fe5291605219" -> "sha256:5fa81e88d2b7706ac8197fae96ff2847d2b6091d39d7a47844718a1978821593" [label=""];
+  "sha256:5fa81e88d2b7706ac8197fae96ff2847d2b6091d39d7a47844718a1978821593" -> "sha256:753673df9f6415e20d177553e5adf27586098611d81e5e8b16d22cca63b97134" [label=""];
+  "sha256:753673df9f6415e20d177553e5adf27586098611d81e5e8b16d22cca63b97134" -> "sha256:b3189f52d0f8f11560a43b3429340fc1f9cffbbe3806fffee5f2b8046f8b676e" [label=""];
+}
+

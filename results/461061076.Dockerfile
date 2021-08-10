@@ -1,0 +1,15 @@
+[app/sources/461061076.Dockerfile]
+digraph {
+  "sha256:5e691c7ba4998fa4b60d1218bbc4ed9845bfa527d7d91b0c48922bbea45ce425" [label="docker-image://docker.io/library/ubuntu:18.04" shape="ellipse"];
+  "sha256:2a6ff1a266f698a0ccbe898e59dbaae136c6a907e7e764fb3284766b27c20e20" [label="/bin/sh -c apt-get update &&     apt-get install -y build-essential ocaml ocamlbuild automake autoconf libtool wget python libssl-dev libcurl4-openssl-dev protobuf-compiler libprotobuf-dev sudo kmod vim curl git-core libprotobuf-c0-dev libboost-thread-dev libboost-system-dev liblog4cpp5-dev libjsoncpp-dev alien uuid-dev libxml2-dev cmake pkg-config expect systemd-sysv gdb &&     rm -rf /var/lib/apt/lists/* &&     rm -rf /var/cache/apt/archives/*" shape="box"];
+  "sha256:7b321311a133a08c2a2f40216361e5f85ab62a4d59a9d8c23af30641fb12c109" [label="/bin/sh -c mkdir /root/sgx &&     mkdir /etc/init &&     wget -O /root/sgx/psw.deb ${psw_deb} &&     wget -O /root/sgx/psw_dev.deb ${psw_dev_deb} &&     wget -O /root/sgx/psw_dbgsym.deb ${psw_dbgsym_deb} &&     wget -O /root/sgx/sdk.bin ${sdk_bin} &&     cd /root/sgx &&     dpkg -i /root/sgx/psw.deb &&     dpkg -i /root/sgx/psw_dev.deb &&     dpkg -i /root/sgx/psw_dbgsym.deb &&     chmod +x /root/sgx/sdk.bin &&     echo -e 'no\\n/opt' | /root/sgx/sdk.bin &&     echo 'source /opt/sgxsdk/environment' >> /root/.bashrc &&     rm -rf /root/sgx/*" shape="box"];
+  "sha256:4adcada213657a66fc34ccf87640d14fbc5a2c11356b608b06a196fdf4a6b655" [label="/bin/sh -c wget 'https://static.rust-lang.org/rustup/dist/x86_64-unknown-linux-gnu/rustup-init' -O /root/rustup-init &&     chmod +x /root/rustup-init &&     echo '1' | /root/rustup-init --default-toolchain ${rust_toolchain} &&     echo 'source /root/.cargo/env' >> /root/.bashrc &&     /root/.cargo/bin/rustup component add rust-src rls rust-analysis clippy rustfmt &&     /root/.cargo/bin/cargo install xargo &&     rm -rf /root/.cargo/registry && rm -rf /root/.cargo/git" shape="box"];
+  "sha256:a7c4564db8e3ce74f99b4b7a7c4fefea0428d988b0c9cc401c9eea369861de19" [label="mkdir{path=/root}" shape="note"];
+  "sha256:4f3b5b173cf3470d046ac7a80c20f03355965a089ed9f58e2af0bc836c068c50" [label="sha256:4f3b5b173cf3470d046ac7a80c20f03355965a089ed9f58e2af0bc836c068c50" shape="plaintext"];
+  "sha256:5e691c7ba4998fa4b60d1218bbc4ed9845bfa527d7d91b0c48922bbea45ce425" -> "sha256:2a6ff1a266f698a0ccbe898e59dbaae136c6a907e7e764fb3284766b27c20e20" [label=""];
+  "sha256:2a6ff1a266f698a0ccbe898e59dbaae136c6a907e7e764fb3284766b27c20e20" -> "sha256:7b321311a133a08c2a2f40216361e5f85ab62a4d59a9d8c23af30641fb12c109" [label=""];
+  "sha256:7b321311a133a08c2a2f40216361e5f85ab62a4d59a9d8c23af30641fb12c109" -> "sha256:4adcada213657a66fc34ccf87640d14fbc5a2c11356b608b06a196fdf4a6b655" [label=""];
+  "sha256:4adcada213657a66fc34ccf87640d14fbc5a2c11356b608b06a196fdf4a6b655" -> "sha256:a7c4564db8e3ce74f99b4b7a7c4fefea0428d988b0c9cc401c9eea369861de19" [label=""];
+  "sha256:a7c4564db8e3ce74f99b4b7a7c4fefea0428d988b0c9cc401c9eea369861de19" -> "sha256:4f3b5b173cf3470d046ac7a80c20f03355965a089ed9f58e2af0bc836c068c50" [label=""];
+}
+

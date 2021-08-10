@@ -1,0 +1,9 @@
+[app/sources/243131844.Dockerfile]
+digraph {
+  "sha256:5e691c7ba4998fa4b60d1218bbc4ed9845bfa527d7d91b0c48922bbea45ce425" [label="docker-image://docker.io/library/ubuntu:18.04" shape="ellipse"];
+  "sha256:2f908bc357ecc626f2d26784808794109d4d6799544a858c9d38ac599908e129" [label="/bin/sh -c apt-get update &&     apt-get install -y --no-install-recommends libopenmpi-dev apt-utils \t\tpkg-config libhdf5-dev libpetsc3.4.2-dev petsc-dev libsqlite3-0 liblapack-pic pv \t        liblapack-dev libfontconfig1 libfreetype6-dev libssl1.0.0 \t\tlibpng12-0 libjpeg62 libx11-6 libxext6 gcc gfortran \t\tpython-dev python-pip python-setuptools &&     pip install --upgrade pip --upgrade setuptools &&     pip install ez_setup numpy scipy==0.17.1 six nose h5py==2.6.0 pytest petsc petsc4py mpi4py functools32 \t            subprocess32 pytz cycler tornado pyparsing ez_setup &&     cd $HOME/ && git clone https://github.com/clawpack/clawpack.git &&     cd $HOME/clawpack/ && export CLAW=${PWD} && python setup.py git-dev && pip install -e . && nosetests -sv --1st-pkg-wins --exclude=pyclaw &&     cd $HOME/ && rm -rf clawpack && apt-get purge -y pkg-config libsqlite3-0 libhdf5-dev libpetsc3.4.2-dev petsc-dev libopenmpi-dev liblapack-pic pv \t               liblapack-dev libfontconfig1 libfreetype6-dev libssl1.0.0 libpng12-0 libjpeg62 libx11-6 libxext6 gcc gfortran && apt-get -y autoremove" shape="box"];
+  "sha256:d649655c2d7d37427f904628c2e76d1babc875431d50c8ca56a97a29472ffec2" [label="sha256:d649655c2d7d37427f904628c2e76d1babc875431d50c8ca56a97a29472ffec2" shape="plaintext"];
+  "sha256:5e691c7ba4998fa4b60d1218bbc4ed9845bfa527d7d91b0c48922bbea45ce425" -> "sha256:2f908bc357ecc626f2d26784808794109d4d6799544a858c9d38ac599908e129" [label=""];
+  "sha256:2f908bc357ecc626f2d26784808794109d4d6799544a858c9d38ac599908e129" -> "sha256:d649655c2d7d37427f904628c2e76d1babc875431d50c8ca56a97a29472ffec2" [label=""];
+}
+
