@@ -7,26 +7,24 @@ import os
 
 
 
+
+def execute(filePath):
+    outPath = os.path.basename(filePath)
+    print(outPath)
+    _ = subprocess.run(
+        "docker-compose exec app ./main {} >> results/{}".format(filePath, outPath), 
+        shell=True, 
+        stdout=PIPE, 
+        stderr=PIPE, 
+        text=True
+    )
+    
 def main():
 
-    fileNames = glob.glob("app/sources/*.Dockerfile")
-    for fileName in fileNames:
-        print(fileName)
-
-        baseName = os.path.basename(fileName)
-        outPlace = "results/{}".format(baseName)
-
-        proc = subprocess.run(
-            "docker-compose exec app ./main {} >> {}".format(fileName, outPlace), 
-            shell=True, 
-            stdout=PIPE, 
-            stderr=PIPE, 
-            text=True
-        )
-        date = proc.stdout
-        print('STDOUT: {}'.format(date))
-
-
+    filePaths = glob.glob("app/sources/*.Dockerfile")
+    for cnt, filePath in enumerate(filePaths):
+        print(cnt, filePath)
+        execute(filePath)
 
 
 if __name__ == "__main__":
